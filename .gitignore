@@ -1,0 +1,5 @@
+.directory
+.vscode
+bin/obj
+bin/PaintLike
+bin/PaintLike.exe
