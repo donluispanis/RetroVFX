@@ -1,7 +1,7 @@
 #Makefile for X-Kating Project
 
 # Name of the executable created (.exe will be added automatically if necessary)
-TARGET := PaintLike
+TARGET := Demo
 
 # Path for the executable
 BIN_PATH := bin/
@@ -17,7 +17,28 @@ endif
 # Instruction to create directories
 MKDIR_P = mkdir -p
 
-#default target is Window
+################################################################################
+# FIRE
+################################################################################
+fire: create_dir make_src make_fire compile_fire
+
+fire_lin: create_dir make_src make_fire compile_fire_lin
+
+make_fire: 
+	$(MAKE) -C src/Fire
+
+compile_fire: TARGET := Fire
+
+compile_fire: all_windows
+
+compile_fire_lin: TARGET := Fire
+
+compile_fire_lin: all_linux
+
+################################################################################
+# GENERAL
+################################################################################
+
 all: create_dir make_src all_windows
 	$(warning Linking done!)
 
@@ -34,7 +55,6 @@ make_obj_dir:
 	$(warning Creating obj directory... (if it doesn't exist))
 	$(MKDIR_P) $(BIN_PATH)$(OBJ_PATH)
 
-#Makes to execute
 make_src:
 	$(MAKE) -C src
 

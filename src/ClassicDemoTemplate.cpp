@@ -57,23 +57,27 @@ bool ClassicDemoTemplate::Construct(const char* name, const int width, const int
 
     //===============================================================================
     //Execute Init function defined by the user
-    if(!Init())
+    if (!Init())
+    {
+        std::cerr << "Failed to execute user defined Init function.\n";
         return false;
+    }
     //===============================================================================
 
     return true;
 }
 
 //Engine basic update
-void ClassicDemoTemplate::Run(float framerate, float duration);
+bool ClassicDemoTemplate::Run(float framerate, float duration)
 {
+    std::cout << "I enter here" << std::endl;
     while (glfwWindowShouldClose(window) == 0)
     {
-        // Clear the screen
+        //Clear the screen
         glClear(GL_COLOR_BUFFER_BIT);
 
         //Update engine time
-        UpdateTime();
+        //UpdateTime();
         /*
         //Update engine delta time count
 void ClassicDemoTemplate::UpdateTime()
@@ -95,16 +99,20 @@ void ClassicDemoTemplate::UpdateTime()
         */
 
         //===============================================================================
-        bool ret = Update(fDeltaTime);  //Update function defined by the user
+        if(!Update(fDeltaTime))
+            return false;  //Update function defined by the user
         //===============================================================================
             
 
         // Draw
-        glDrawPixels(width, height, GL_RGB, GL_UNSIGNED_BYTE, screenData);
+        //glDrawPixels(width, height, GL_RGB, GL_UNSIGNED_BYTE, screenData);
 
         // Swap buffers
         glfwSwapBuffers(window);
+
     }
+
+    return true;
 }
 
 //Window and variables deletion

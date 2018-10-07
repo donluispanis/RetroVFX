@@ -1,14 +1,14 @@
-#Makefile for ClassicDemo Project
+#Makefile for FireEffect Project
 
 # Our .cpp and where to store them
 SOURCES:= $(wildcard *.cpp)
 _OBJECTS := $(subst .cpp,.o,$(SOURCES))
-BIN_DIR := ../bin/
+BIN_DIR := ../../bin/
 OBJ_DIR := obj/
 OBJECTS := $(patsubst %,$(BIN_DIR)$(OBJ_DIR)%,$(_OBJECTS))
 
 # general compiler settings (might need to be set when compiling the lib, too)
-CPPFLAGS += -I./../ -I./../include
+CPPFLAGS += -I./../../ -I./../../include
 
 ifndef NDEBUG
 CXXFLAGS += -g -Wall -std=c++14
