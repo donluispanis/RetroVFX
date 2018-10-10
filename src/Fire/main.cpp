@@ -21,7 +21,7 @@ int main()
     if (!f.Construct("Fire", 1280, 720, false))
         return -1;
 
-    f.Run(0, 0);
+    f.Run(10);
 
     return 0;
 }

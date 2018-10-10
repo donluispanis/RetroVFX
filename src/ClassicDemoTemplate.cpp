@@ -1,6 +1,5 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include <string>
 
 #include "ClassicDemoTemplate.h"
 
@@ -8,14 +7,14 @@
 bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen)
 {
     if (!glfwInit())
-       return ShowError("Failed to initialize GLFW");
+        return ShowError("Failed to initialize GLFW");
 
     SetOpenGLVersion();
     SetWindowName(name);
 
     if (fullscreen)
         CreateFullscrenWindow();
-    else 
+    else
         CreateWindow(width, height);
 
     if (window == NULL)
@@ -30,13 +29,13 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     return true;
 }
 
-void ClassicDemoTemplate::SetOpenGLVersion() 
+void ClassicDemoTemplate::SetOpenGLVersion()
 {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 }
 
-void ClassicDemoTemplate::SetWindowName(const char* name)
+void ClassicDemoTemplate::SetWindowName(const char *name)
 {
     this->name = name;
 }
@@ -70,9 +69,12 @@ bool ClassicDemoTemplate::InitEngineData()
     clockOld = std::chrono::system_clock::now();
     clockNow = clockOld;
     fDeltaTime = 0.f;
+ 
+    glGenTextures(1, &screenTexture);
+    glBindTexture(GL_TEXTURE_2D, screenTexture);
 }
 
-bool ClassicDemoTemplate::ShowError(const char* message)
+bool ClassicDemoTemplate::ShowError(const char *message)
 {
     std::cerr << message << std::endl;
     glfwTerminate();
@@ -80,9 +82,9 @@ bool ClassicDemoTemplate::ShowError(const char* message)
 }
 
 //Engine basic update
-void ClassicDemoTemplate::Run(float framerate, float duration)
+void ClassicDemoTemplate::Run(float duration)
 {
-    while (glfwWindowShouldClose(window) == 0)
+    while (glfwWindowShouldClose(window) == 0 && duration > 0)
     {
         SetScreenBlack();
         UpdateInput();
@@ -92,6 +94,8 @@ void ClassicDemoTemplate::Run(float framerate, float duration)
             return; //Update function defined by the user
 
         DrawToScreen();
+
+        duration -= fDeltaTime;
     }
 }
 
@@ -119,6 +123,8 @@ void ClassicDemoTemplate::UpdateTime()
 
 void ClassicDemoTemplate::DrawToScreen()
 {
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, screenData);
+    
     glfwSwapBuffers(window);
 }
 
