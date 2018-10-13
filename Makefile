@@ -17,6 +17,11 @@ endif
 # Instruction to create directories
 MKDIR_P = mkdir -p
 
+#Colors
+GREEN  := \033[1;32m
+YELLOW := \033[1;33m
+BLUE   := \033[0;36m
+
 ################################################################################
 # FIRE
 ################################################################################
@@ -25,7 +30,7 @@ fire: create_dir make_src make_fire compile_fire
 fire_lin: create_dir make_src make_fire compile_fire_lin
 
 make_fire: 
-	$(MAKE) -C src/Fire
+	@$(MAKE) --no-print-directory -s -C src/Fire
 
 compile_fire: TARGET := Fire
 
@@ -40,23 +45,20 @@ compile_fire_lin: all_linux
 ################################################################################
 
 all: create_dir make_src all_windows
-	$(warning Linking done!)
 
 linux: create_dir make_src all_linux
-	$(warning Linking done!)
 
 create_dir: make_bin_dir make_obj_dir
 
 make_bin_dir:
-	$(warning Creating bin directory... (if it doesn't exist))
-	$(MKDIR_P) $(BIN_PATH)
+	@$(MKDIR_P) $(BIN_PATH)
 
 make_obj_dir:
-	$(warning Creating obj directory... (if it doesn't exist))
-	$(MKDIR_P) $(BIN_PATH)$(OBJ_PATH)
+	@$(MKDIR_P) $(BIN_PATH)$(OBJ_PATH)
+	@printf "$(YELLOW)Compiling...\n"
 
 make_src:
-	$(MAKE) -C src
+	@$(MAKE) --no-print-directory -s -C src
 
 ################################################################################
 # Windows 
@@ -64,7 +66,10 @@ make_src:
 all_windows: LDFLAGS += -L./lib/win -lopengl32 -lm -lmingw32 -lglfw3
 
 all_windows:
-	$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@printf "$(GREEN)Compiling done!\n"
+	@printf "$(YELLOW)Linking...\n"
+	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@printf "$(GREEN)Linking done!\n"
 
 ################################################################################
 # Linux
@@ -72,10 +77,13 @@ all_windows:
 all_linux: LDFLAGS += -L./lib/linux -lGL -lglfw -Wl,-rpath=./lib/linux
 
 all_linux:
-	$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@printf "$(GREEN)Compiling done!\n"
+	@printf "$(YELLOW)Linking...\n"
+	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@printf "$(GREEN)Linking done!\n"
 
 clean:
-	$(warning Cleaned!)
-	rm -r $(BIN_PATH)$(OBJ_PATH)
-
+	@rm -r -f $(BIN_PATH)$(OBJ_PATH)
+	@printf "$(GREEN)Cleaned!\n"
+	
 .PHONY: all clean info win

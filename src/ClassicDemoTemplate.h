@@ -38,8 +38,8 @@ private:
   void SetWindowName(const char *name);
   void CreateFullscrenWindow();
   void CreateWindow(const int width, const int height);
-  bool AddGLFWOptions();
-  bool InitEngineData();
+  void AddGLFWOptions();
+  void InitEngineData();
   bool ShowError(const char *message);
 
   //Window related variables

@@ -29,6 +29,8 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     return true;
 }
 
+#pragma region [ CONSTRUCT PRIVATE FUNCTIONS ]
+
 void ClassicDemoTemplate::SetOpenGLVersion()
 {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -55,14 +57,14 @@ void ClassicDemoTemplate::CreateWindow(const int width, const int height)
     window = glfwCreateWindow(width, height, name, NULL, NULL);
 }
 
-bool ClassicDemoTemplate::AddGLFWOptions()
+void ClassicDemoTemplate::AddGLFWOptions()
 {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(0);
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 }
 
-bool ClassicDemoTemplate::InitEngineData()
+void ClassicDemoTemplate::InitEngineData()
 {
     screenData = new unsigned char[this->width * this->height * 3];
 
@@ -81,13 +83,15 @@ bool ClassicDemoTemplate::ShowError(const char *message)
     return false;
 }
 
+#pragma endregion
+
 //Engine basic update
 void ClassicDemoTemplate::Run(float duration)
 {
     while (glfwWindowShouldClose(window) == 0 && duration > 0)
     {
         SetScreenBlack();
-        UpdateInput();
+        UpdateInput(); 
         UpdateTime();
 
         if (!Update(fDeltaTime))
@@ -98,6 +102,8 @@ void ClassicDemoTemplate::Run(float duration)
         duration -= fDeltaTime;
     }
 }
+
+#pragma region [ RUN PRIVATE FUNCTIONS ]
 
 void ClassicDemoTemplate::SetScreenBlack()
 {
@@ -127,6 +133,8 @@ void ClassicDemoTemplate::DrawToScreen()
     
     glfwSwapBuffers(window);
 }
+
+#pragma endregion
 
 //Window and variables deletion
 bool ClassicDemoTemplate::Close()
