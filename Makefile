@@ -63,7 +63,7 @@ make_src:
 ################################################################################
 # Windows 
 ################################################################################
-all_windows: LDFLAGS += -L./lib/win -lopengl32 -lm -lmingw32 -lglfw3
+all_windows: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lm -lmingw32 -lglfw3
 
 all_windows:
 	@printf "$(GREEN)Compiling done!\n"
@@ -74,7 +74,7 @@ all_windows:
 ################################################################################
 # Linux
 ################################################################################
-all_linux: LDFLAGS += -L./lib/linux -lGL -lglfw -Wl,-rpath=./lib/linux
+all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -Wl,-rpath=./lib/linux
 
 all_linux:
 	@printf "$(GREEN)Compiling done!\n"

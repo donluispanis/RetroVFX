@@ -1,7 +1,6 @@
 #pragma once
 
 #include <chrono>
-#include <GL/gl.h>
 
 class GLFWwindow;
 
