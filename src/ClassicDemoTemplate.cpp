@@ -71,9 +71,6 @@ void ClassicDemoTemplate::InitEngineData()
     clockOld = std::chrono::system_clock::now();
     clockNow = clockOld;
     fDeltaTime = 0.f;
- 
-    glGenTextures(1, &screenTexture);
-    glBindTexture(GL_TEXTURE_2D, screenTexture);
 }
 
 bool ClassicDemoTemplate::ShowError(const char *message)
@@ -129,8 +126,6 @@ void ClassicDemoTemplate::UpdateTime()
 
 void ClassicDemoTemplate::DrawToScreen()
 {
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, screenData);
-    
     glfwSwapBuffers(window);
 }
 
