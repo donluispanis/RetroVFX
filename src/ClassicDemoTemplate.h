@@ -18,22 +18,21 @@ public:
   //Getters
   int GetWidth() { return width; }
   int GetHeight() { return height; }
+  int GetChannels() { return channels; }
   unsigned char *GetScreenData() { return screenData; }
 
 private:
   //Functions that have to be overwritten by the implementation
-  virtual bool Init() = 0;                   //Init demo specific related variables
-  virtual bool Update(float fDeltaTime) = 0; //Update demo specific related variables
-  virtual bool Destroy() = 0;                //Destroys, if necessary, variables created on init
+  virtual bool Init() = 0;                  //Init demo specific related variables
+  virtual bool Update(float deltaTime) = 0; //Update demo specific related variables
+  virtual bool Destroy() = 0;               //Destroys, if necessary, variables created on init
 
   //Run related funtions
-  void SetScreenBlack();
   void UpdateInput();
   void UpdateTime();
   void DrawToScreen();
 
   //Init related functions
-  void SetOpenGLVersion();
   void SetWindowName(const char *name);
   void CreateFullscrenWindow();
   void CreateWindow(const int width, const int height);
@@ -41,17 +40,33 @@ private:
   void InitEngineData();
   bool ShowError(const char *message);
 
+  //OpenGL related functions
+
+  void SetOpenGLVersion();
+  void InitOpenGL();
+  const char *GetVertexShader();
+  const char *GetFragmentShader();
+  void InitGlew();
+  void CreateVAOandVBO();
+  void CreateElementBuffers();
+  void CreateOpenGLProgram();
+  void SetShaderVariables();
+  void SetTexture();
+
   //Window related variables
   int height;
   int width;
-  int channels;
+  const int channels = 3;
   const char *name;
   GLFWwindow *window;
+
+  //OpenGL related variables
   unsigned char *screenData;
-  unsigned int tex;
+  unsigned int textureID;
+  unsigned int programID;
 
   //Time related variables
   std::chrono::system_clock::time_point clockOld;
   std::chrono::system_clock::time_point clockNow;
-  float fDeltaTime;
+  float deltaTime;
 };
