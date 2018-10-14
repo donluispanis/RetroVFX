@@ -3,6 +3,9 @@
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 #include "ClassicDemoTemplate.h"
 
 //Window, Engine and OpenGL initialization
@@ -28,23 +31,29 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
 
     // Shader sources
     const GLchar *vertexSource = R"glsl(
-    #version 450 core
+    #version 150 core
     in vec2 position;
     in vec3 color;
+    in vec2 texcoord;
     out vec3 Color;
+    out vec2 Texcoord;
     void main()
     {
         Color = color;
+        Texcoord = texcoord;
         gl_Position = vec4(position, 0.0, 1.0);
     }
 )glsl";
     const GLchar *fragmentSource = R"glsl(
-    #version 450 core
+    #version 150 core
     in vec3 Color;
+    in vec2 Texcoord;
     out vec4 outColor;
+    uniform sampler2D texKitten;
+    uniform sampler2D texPuppy;
     void main()
     {
-        outColor = vec4(Color, 1.0);
+        outColor = texture(texKitten, Texcoord);
     }
 )glsl";
 
@@ -62,10 +71,11 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     glGenBuffers(1, &vbo);
 
     GLfloat vertices[] = {
-        -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, // Top-left
-        0.5f, 0.5f, 0.0f, 1.0f, 0.0f,  // Top-right
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // Bottom-right
-        -0.5f, -0.5f, 1.0f, 1.0f, 1.0f // Bottom-left
+        //  Position      Color             Texcoords
+        -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Top-left
+        0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // Top-right
+        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
+        -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f // Bottom-left
     };
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -103,12 +113,33 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     // Specify the layout of the vertex data
     GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
     glEnableVertexAttribArray(posAttrib);
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), 0);
 
     GLint colAttrib = glGetAttribLocation(shaderProgram, "color");
     glEnableVertexAttribArray(colAttrib);
-    glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+    glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void *)(2 * sizeof(GLfloat)));
 
+    GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+    glEnableVertexAttribArray(texAttrib);
+    glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void *)(5 * sizeof(GLfloat)));
+
+    // Load textures
+    GLuint textures[1];
+    glGenTextures(1, textures);
+
+    int widths, heights, channels;
+    unsigned char *image;
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textures[0]);
+    image = stbi_load("C:/MinGW/msys/1.0/home/Luis/TFG/src/sample.jpg", &widths, &heights, &channels, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widths, heights, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glUniform1i(glGetUniformLocation(shaderProgram, "texKitten"), 0);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     /******************************************************************************************************/
     InitEngineData();
@@ -119,7 +150,7 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     return true;
 }
 
-#pragma region [CONSTRUCT PRIVATE FUNCTIONS]
+#pragma region[CONSTRUCT PRIVATE FUNCTIONS]
 
 void ClassicDemoTemplate::SetOpenGLVersion()
 {
@@ -197,7 +228,7 @@ void ClassicDemoTemplate::Run(float duration)
     }
 }
 
-#pragma region [RUN PRIVATE FUNCTIONS]
+#pragma region[RUN PRIVATE FUNCTIONS]
 
 void ClassicDemoTemplate::SetScreenBlack()
 {

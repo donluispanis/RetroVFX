@@ -47,6 +47,7 @@ private:
   const char *name;
   GLFWwindow *window;
   unsigned char *screenData;
+  unsigned int tex;
 
   //Time related variables
   std::chrono::system_clock::time_point clockOld;
