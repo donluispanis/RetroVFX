@@ -3,9 +3,6 @@
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
-
 #include "ClassicDemoTemplate.h"
 
 //Window, Engine and OpenGL initialization
@@ -121,12 +118,15 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
 
     int widths = 1280, heights = 720, channels = 3;
     unsigned char *image = new unsigned char [widths*heights*channels];
-    for(int i = 0; i < widths * heights * channels; i++)
-        image[i] = rand();
+    for(int i = 0; i < widths * heights * channels; i++){
+        if(i%7)
+            image[i] = 255;
+        else if(i%17)
+            image[i] = 255;
+    }
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
-    //image = stbi_load("C:/MinGW/msys/1.0/home/Luis/TFG/src/sample2.jpg", &widths, &heights, &channels, 0);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widths, heights, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     glUniform1i(glGetUniformLocation(shaderProgram, "texKitten"), 0);
 

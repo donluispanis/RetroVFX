@@ -44,6 +44,7 @@ private:
   //Window related variables
   int height;
   int width;
+  int channels;
   const char *name;
   GLFWwindow *window;
   unsigned char *screenData;
