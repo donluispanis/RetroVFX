@@ -61,6 +61,14 @@ make_src:
 	@$(MAKE) --no-print-directory -s -C src
 
 ################################################################################
+# PERFORMANCE TESTS
+################################################################################
+perf_test:
+	@printf "$(YELLOW)Compiling...\n"
+	@$(CXX) src/PerformanceTests.cpp -o bin/PerformanceTest
+	@printf "$(GREEN)Compiling done!\n"
+
+################################################################################
 # Windows 
 ################################################################################
 all_windows: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lm -lmingw32 -lglfw3
