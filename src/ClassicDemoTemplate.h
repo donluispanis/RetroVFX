@@ -41,6 +41,9 @@ public:
   unsigned char *GetScreenData() { return screenData; }
   Pixel *GetScreenPixels() { return screenPixels; }
 
+  //Setters
+  void showFPS(bool fps) { showFramerate = fps; }
+
 private:
   //Functions that have to be overwritten by the implementation
   virtual bool Init() = 0;                  //Init demo specific related variables
@@ -51,6 +54,7 @@ private:
   void UpdateInput();
   void UpdateTime();
   void DrawToScreen();
+  void ShowFramerate();
 
   //Init related functions
   void SetWindowName(const char *name);
@@ -61,7 +65,6 @@ private:
   bool ShowError(const char *message);
 
   //OpenGL related functions
-
   void SetOpenGLVersion();
   void InitOpenGL();
   const char *GetVertexShader();
@@ -79,6 +82,7 @@ private:
   const int channels = 3;
   const char *name;
   GLFWwindow *window;
+  bool showFramerate = true;
 
   //OpenGL related variables
   union {

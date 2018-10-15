@@ -22,7 +22,7 @@ class Fire : public ClassicDemoTemplate
             for (int i = GetWidth() * (GetHeight() - 1); i < GetWidth() * GetHeight(); i++)
             {
                 GetScreenPixels()[i].Clear();
-                if (rand() % 2 == 0)
+                if (rand() % 2 != 0)
                     GetScreenPixels()[i] = Pixel(255, 0, 0);
             }
             acc = 0;
@@ -31,7 +31,7 @@ class Fire : public ClassicDemoTemplate
         for (int i = GetWidth() * (GetHeight() - 1); i >= 0; i--)
         {
             GetScreenPixels()[i] = Pixel(
-                (GetScreenPixels()[i + 1 + GetWidth()].R + GetScreenPixels()[i + GetWidth()].R + GetScreenPixels()[i - 1 + GetWidth()].R) / 3 + (rand() % 10 == 0 ? 1 : 0),
+                (GetScreenPixels()[i + 1 + GetWidth()].R + GetScreenPixels()[i + GetWidth()].R + GetScreenPixels()[i - 1 + GetWidth()].R) / 3.02 + (rand() % 10 == 0 ? 5 : 0),
                 0,
                 0);
         }

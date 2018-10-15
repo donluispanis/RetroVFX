@@ -3,6 +3,7 @@
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
 #include <utility>
+#include <string>
 
 #include "ClassicDemoTemplate.h"
 
@@ -249,6 +250,8 @@ void ClassicDemoTemplate::Run(float duration)
 
         DrawToScreen();
 
+        ShowFramerate();
+
         duration -= deltaTime;
     }
 }
@@ -280,6 +283,19 @@ void ClassicDemoTemplate::DrawToScreen()
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glfwSwapBuffers(window);
+}
+
+void ClassicDemoTemplate::ShowFramerate()
+{
+    static float accumulated = 0;
+
+    accumulated += deltaTime;
+
+    if (showFramerate && accumulated > 0.5f)
+    {
+        glfwSetWindowTitle(window, std::string(std::string(name) + " - FPS: " + std::to_string(1 / deltaTime)).c_str());
+        accumulated = 0;
+    }
 }
 
 #pragma endregion
