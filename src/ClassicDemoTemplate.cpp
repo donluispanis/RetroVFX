@@ -2,8 +2,27 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
+#include <utility>
 
 #include "ClassicDemoTemplate.h"
+
+ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator+(const Pixel &p) const
+{
+    return std::move(
+        Pixel(
+            (p.R + this->R > 255) ? 255 : p.R + this->R,
+            (p.G + this->G > 255) ? 255 : p.G + this->G,
+            (p.B + this->B > 255) ? 255 : p.B + this->B));
+}
+
+ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator-(const Pixel &p) const
+{
+    return std::move(
+        Pixel(
+            (p.R - this->R < 0) ? 0 : p.R + this->R,
+            (p.G - this->G < 0) ? 0 : p.G + this->G,
+            (p.B - this->B < 0) ? 0 : p.B + this->B));
+}
 
 //Window, Engine and OpenGL initialization
 bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen)

@@ -6,6 +6,25 @@ class GLFWwindow;
 
 class ClassicDemoTemplate
 {
+
+protected:
+  struct Pixel
+  {
+    unsigned char R = 0;
+    unsigned char G = 0;
+    unsigned char B = 0;
+
+    Pixel(unsigned char r, unsigned char g, unsigned char b) : R(r), G(g), B(b){};
+    Pixel operator+(const Pixel &p) const;
+    Pixel operator-(const Pixel &p) const;
+    void Clear()
+    {
+      R = 0;
+      G = 0;
+      B = 0;
+    }
+  };
+
 public:
   ClassicDemoTemplate() {}
   virtual ~ClassicDemoTemplate() {}
@@ -20,6 +39,7 @@ public:
   int GetHeight() { return height; }
   int GetChannels() { return channels; }
   unsigned char *GetScreenData() { return screenData; }
+  Pixel *GetScreenPixels() { return screenPixels; }
 
 private:
   //Functions that have to be overwritten by the implementation
@@ -61,7 +81,11 @@ private:
   GLFWwindow *window;
 
   //OpenGL related variables
-  unsigned char *screenData;
+  union {
+    unsigned char *screenData;
+    Pixel *screenPixels;
+  };
+
   unsigned int textureID;
   unsigned int programID;
 
