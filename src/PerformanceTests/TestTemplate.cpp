@@ -5,14 +5,14 @@
 
 #include "TestTemplate.h"
 
-TestTemplate::TestTemplate()
+TestTemplate::TestTemplate(const char* logPath)
 {
     std::cout << std::endl;
     std::cout << "Running tests... this may take a while" << std::endl;
     std::cout << "Output will be stored in bin/PerformanceResults.txt" << std::endl;
     std::cout << std::endl;
 
-    std::ofstream file("bin/PerformanceResults.txt");
+    file = std::ofstream(logPath);
     writeToScreen = std::cout.rdbuf();
     writeToFile = file.rdbuf();
 }

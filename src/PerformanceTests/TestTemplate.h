@@ -6,7 +6,7 @@
 class TestTemplate
 {
   public:
-    TestTemplate();
+    TestTemplate(const char* logPath);
     double CalculateAverageTime();
     void WriteTestResultsIntoScreenAndFile(const char *testName, const char *testDescription, double testTime);
     void WriteMessageIntoScreenAndFile(const char *message);
@@ -17,4 +17,5 @@ class TestTemplate
     std::filebuf *writeToFile;
     std::chrono::system_clock::time_point time_point;
     std::list<double> timeCounts;
+    std::ofstream file;
 };

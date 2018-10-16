@@ -1,9 +1,8 @@
-
 #include "TestTemplate.h"
 
 int main()
 {
-    TestTemplate T;
+    TestTemplate T("bin/PerformanceResults.txt");
 
     T.WriteMessageIntoScreenAndFile("----------------------------------------------------\n|");
 
