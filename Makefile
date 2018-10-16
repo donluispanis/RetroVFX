@@ -21,6 +21,7 @@ MKDIR_P = mkdir -p
 GREEN  := \033[1;32m
 YELLOW := \033[1;33m
 BLUE   := \033[0;36m
+WHITE  := \033[0;37m
 
 ################################################################################
 # FIRE
@@ -41,6 +42,20 @@ compile_fire_lin: TARGET := Fire
 compile_fire_lin: all_linux
 
 ################################################################################
+# PERFORMANCE TESTS
+################################################################################
+perf_test: create_dir make_perf link_test
+
+make_perf:
+	@$(MAKE) --no-print-directory -s -C src/PerformanceTests
+
+link_test:
+	@printf "$(GREEN)Compiling done!\n"
+	@printf "$(YELLOW)Linking...\n"
+	@$(CXX) bin/obj/PerformanceTests.o bin/obj/TestTemplate.o -o bin/PerformanceTest
+	@printf "$(GREEN)Linking done!\n$(WHITE)"
+
+################################################################################
 # GENERAL
 ################################################################################
 
@@ -59,14 +74,6 @@ make_obj_dir:
 
 make_src:
 	@$(MAKE) --no-print-directory -s -C src
-
-################################################################################
-# PERFORMANCE TESTS
-################################################################################
-perf_test:
-	@printf "$(YELLOW)Compiling...\n"
-	@$(CXX) src/PerformanceTests.cpp -o bin/PerformanceTest
-	@printf "$(GREEN)Compiling done!\n"
 
 ################################################################################
 # Windows 
