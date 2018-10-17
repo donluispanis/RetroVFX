@@ -7,3 +7,5 @@ bin/*.exe
 bin/Fire
 bin/PerformanceTests
 bin/PerformanceResults.txt
+PerformanceTests.s
+TestTemplate.s
