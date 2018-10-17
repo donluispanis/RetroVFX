@@ -55,6 +55,11 @@ link_test:
 	@$(CXX) bin/obj/PerformanceTests.o bin/obj/TestTemplate.o -o bin/PerformanceTest
 	@printf "$(GREEN)Linking done!\n$(WHITE)"
 
+perf_test_asm:
+	@printf "$(YELLOW)Generating assembly...\n"
+	@$(CXX) -S src/PerformanceTests/PerformanceTests.cpp src/PerformanceTests/TestTemplate.cpp
+	@printf "$(GREEN)Assembly generated!\n$(WHITE)"
+
 ################################################################################
 # GENERAL
 ################################################################################
@@ -84,7 +89,7 @@ all_windows:
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
 	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
-	@printf "$(GREEN)Linking done!\n"
+	@printf "$(GREEN)Linking done!\n$(WHITE)"
 
 ################################################################################
 # Linux
@@ -95,10 +100,10 @@ all_linux:
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
 	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
-	@printf "$(GREEN)Linking done!\n"
+	@printf "$(GREEN)Linking done!\n$(WHITE)"
 
 clean:
 	@rm -r -f $(BIN_PATH)$(OBJ_PATH)
-	@printf "$(GREEN)Cleaned!\n"
+	@printf "$(GREEN)Cleaned!\n$(WHITE)"
 	
 .PHONY: all clean info win

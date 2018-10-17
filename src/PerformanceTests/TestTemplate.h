@@ -9,7 +9,7 @@ class TestTemplate
     TestTemplate(const char* logPath);
     double CalculateAverageTime();
     void WriteTestResultsIntoScreenAndFile(const char *testName, const char *testDescription, double testTime);
-    void WriteMessageIntoScreenAndFile(const char *message);
+    void WriteMessageIntoScreenAndFile(const char *message, bool write = true);
     void ExecuteTest(std::function<void(void)> test);
 
   private:

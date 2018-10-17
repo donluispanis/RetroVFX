@@ -5,7 +5,7 @@
 
 #include "TestTemplate.h"
 
-TestTemplate::TestTemplate(const char* logPath)
+TestTemplate::TestTemplate(const char *logPath)
 {
     std::cout << std::endl;
     std::cout << "Running tests... this may take a while" << std::endl;
@@ -19,6 +19,7 @@ TestTemplate::TestTemplate(const char* logPath)
 
 void TestTemplate::ExecuteTest(std::function<void(void)> test)
 {
+    timeCounts.clear();
     std::chrono::duration<double> elapsedSeconds;
 
     for (int i = 0; i < 100; i++)
@@ -35,7 +36,6 @@ void TestTemplate::ExecuteTest(std::function<void(void)> test)
 double TestTemplate::CalculateAverageTime()
 {
     double time = std::accumulate(timeCounts.begin(), timeCounts.end(), 0.0) / (float)timeCounts.size();
-    timeCounts.clear();
     return time;
 }
 
@@ -54,11 +54,14 @@ void TestTemplate::WriteTestResultsIntoScreenAndFile(const char *testName, const
     output(testName, testDescription, testTime);
 }
 
-void TestTemplate::WriteMessageIntoScreenAndFile(const char *message)
+void TestTemplate::WriteMessageIntoScreenAndFile(const char *message, bool write)
 {
-    std::cout.rdbuf(writeToFile);
-    std::cout << message << std::endl;
+    if (write)
+    {
+        std::cout.rdbuf(writeToFile);
+        std::cout << message << std::endl;
 
-    std::cout.rdbuf(writeToScreen);
-    std::cout << message << std::endl;
+        std::cout.rdbuf(writeToScreen);
+        std::cout << message << std::endl;
+    }
 }
