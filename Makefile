@@ -57,7 +57,7 @@ link_test:
 
 perf_test_asm:
 	@printf "$(YELLOW)Generating assembly...\n"
-	@$(CXX) -S src/PerformanceTests/PerformanceTests.cpp src/PerformanceTests/TestTemplate.cpp
+	@$(CXX) -S src/PerformanceTests/PerformanceTests.cpp
 	@printf "$(GREEN)Assembly generated!\n$(WHITE)"
 
 ################################################################################

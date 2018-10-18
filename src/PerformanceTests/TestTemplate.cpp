@@ -35,7 +35,7 @@ void TestTemplate::ExecuteTest(std::function<void(void)> test)
 
 double TestTemplate::CalculateAverageTime()
 {
-    double time = std::accumulate(timeCounts.begin(), timeCounts.end(), 0.0) / (float)timeCounts.size();
+    double time = std::accumulate(timeCounts.begin(), timeCounts.end(), 0.0) / (double)timeCounts.size();
     return time;
 }
 
