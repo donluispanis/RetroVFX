@@ -1,11 +1,4 @@
 .directory
 .vscode
 bin/obj
-bin/PaintLike
-bin/PaintLike.exe
-bin/*.exe
-bin/Fire
-bin/PerformanceTests
-bin/PerformanceResults.txt
-PerformanceTests.s
-TestTemplate.s
+bin/
