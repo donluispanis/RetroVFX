@@ -1,0 +1,108 @@
+----------------------------------------------------
+|
+| Notice:  This is a 30 tests suite
+|          Each Test is averaged over a total of 100 tests repeated
+|          Inside every test, each operation is reapeated 10000000 times
+|          in order to be measurable in time
+|
+| Test 01: Void For Loop with I++
+|          Time spent: 0.0168712 seconds
+|
+| Test 02: Void For Loop with ++I
+|          Time spent: 0.017027 seconds
+|
+| Test 03: Simple assignment (=)
+|          Time spent: 0.0228072 seconds
+|
+| Test 04: Simple assignment (=) + Array access ([]) ((j in scope)k[j] = j)
+|          Time spent: 0.0220261 seconds
+|
+| Test 05: Simple assignment (=) + Array access ([]) ((j in scope, i from out) k[j] = i)
+|          Time spent: 0.0237446 seconds
+|
+| Test 06: Simple assignment (=) + Array access ([]) ((j in scope, i from out) k[i] = j;)
+|          Time spent: 0.0216341 seconds
+|
+|---------------------------------------------------
+|
+| Test 07: (int) Sum
+|          Time spent: 0.0341149 seconds
+|
+| Test 08: (int) Subtraction
+|          Time spent: 0.0262499 seconds
+|
+| Test 09: (int) Multiplication
+|          Time spent: 0.0279369 seconds
+|
+| Test 10: (int) Division
+|          Time spent: 0.0468986 seconds
+|
+| Test 11: (int) Modulus
+|          Time spent: 0.0408405 seconds
+|
+|---------------------------------------------------
+|
+| Test 12: (long int) Sum
+|          Time spent: 0.0219912 seconds
+|
+| Test 13: (long int) Subtraction
+|          Time spent: 0.0246045 seconds
+|
+| Test 14: (long int) Multiplication
+|          Time spent: 0.0257709 seconds
+|
+| Test 15: (long int) Division
+|          Time spent: 0.0509941 seconds
+|
+| Test 16: (long int) Modulus
+|          Time spent: 0.0417384 seconds
+|
+|---------------------------------------------------
+|
+| Test 17: (float) Sum
+|          Time spent: 0.0278602 seconds
+|
+| Test 18: (float) Subtraction
+|          Time spent: 0.0282527 seconds
+|
+| Test 19: (float) Multiplication
+|          Time spent: 0.0280107 seconds
+|
+| Test 20: (float) Division
+|          Time spent: 0.0273703 seconds
+|
+|---------------------------------------------------
+|
+| Test 21: (double) Sum
+|          Time spent: 0.028084 seconds
+|
+| Test 22: (double) Subtraction
+|          Time spent: 0.0272424 seconds
+|
+| Test 23: (double) Multiplication
+|          Time spent: 0.0293274 seconds
+|
+| Test 24: (double) Division
+|          Time spent: 0.028347 seconds
+|
+|---------------------------------------------------
+|
+| Test 25: Call void function
+|          Time spent: 0.0267312 seconds
+|
+| Test 26: Call rand()
+|          Time spent: 0.12384 seconds
+|
+| Test 27: Call cos()
+|          Time spent: 0.513917 seconds
+|
+| Test 28: Call acos()
+|          Time spent: 0.397915 seconds
+|
+| Test 29: Call sqrt()
+|          Time spent: 0.107632 seconds
+|
+| Test 30: Call cbrt()
+|          Time spent: 0.546489 seconds
+|
+----------------------------------------------------
