@@ -31,7 +31,7 @@ public:
 
   //Basic use functions
   bool Construct(const char *name, const int width, const int height, const bool fullscreen); //Creates a screen using OpenGL and provides a mode of accesing pixels
-  void Run(float duration);                                                                   //Causes the demo to run for the given time
+  void Run();                                                                                 //Starts the application
   bool Close();                                                                               //Destroys the window and the pixel data
 
   //Getters
@@ -40,6 +40,7 @@ public:
   int GetChannels() { return channels; }
   unsigned char *GetScreenData() { return screenData; }
   Pixel *GetScreenPixels() { return screenPixels; }
+  float GetElapsedTime() { return elapsedTime; }
 
   //Setters
   void showFPS(bool fps) { showFramerate = fps; }
@@ -83,6 +84,7 @@ private:
   const char *name;
   GLFWwindow *window;
   bool showFramerate = true;
+  float elapsedTime = 0;
 
   //OpenGL related variables
   union {

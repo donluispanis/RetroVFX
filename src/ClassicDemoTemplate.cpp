@@ -238,9 +238,9 @@ void ClassicDemoTemplate::SetTexture()
 #pragma endregion
 
 //Engine basic update
-void ClassicDemoTemplate::Run(float duration)
+void ClassicDemoTemplate::Run()
 {
-    while (glfwWindowShouldClose(window) == 0 && duration > 0)
+    while (glfwWindowShouldClose(window) == 0)
     {
         UpdateInput();
         UpdateTime();
@@ -252,7 +252,7 @@ void ClassicDemoTemplate::Run(float duration)
 
         ShowFramerate();
 
-        duration -= deltaTime;
+        elapsedTime += deltaTime;
     }
 }
 
