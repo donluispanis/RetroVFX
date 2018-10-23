@@ -16,5 +16,7 @@ class FireDemo : public ClassicDemoTemplate
     int width, height;
 
     unsigned char* screenMapping;
-    unsigned char* colourMap;
+    Pixel* colourMap;
+
+    inline unsigned long fast_rand();
 };

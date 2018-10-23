@@ -14,6 +14,7 @@ protected:
     unsigned char G = 0;
     unsigned char B = 0;
 
+    Pixel() : R(0), G(0), B(0){};
     Pixel(unsigned char r, unsigned char g, unsigned char b) : R(r), G(g), B(b){};
     Pixel operator+(const Pixel &p) const;
     Pixel operator-(const Pixel &p) const;
