@@ -44,7 +44,8 @@ public:
   float GetElapsedTime() { return elapsedTime; }
 
   //Setters
-  void showFPS(bool fps) { showFramerate = fps; }
+  void ShowFPS(bool fps) { showFramerate = fps; }
+  bool ShowError(const char *message);
 
 private:
   //Functions that have to be overwritten by the implementation
@@ -64,7 +65,6 @@ private:
   void CreateWindow(const int width, const int height);
   void AddGLFWOptions();
   void InitEngineData();
-  bool ShowError(const char *message);
 
   //OpenGL related functions
   void SetOpenGLVersion();

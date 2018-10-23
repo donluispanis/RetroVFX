@@ -18,11 +18,11 @@ bool FireDemo::Update(float fDeltaTime)
     {
         pixels[i].Clear();
 
-        if (rand() % 2 != 0)
+        if (fast_rand() % 2 != 0)
             pixels[i] = Pixel(255, 0, 0);
     }
 
-    for (int i = GetWidth() * (GetHeight() - 1); i >= 0; i--)
+    for (int i = width * (height - 1); i >= 0; i--)
     {
         pixels[i] = Pixel(
             (pixels[i + 1 + width].R + pixels[i + width].R + pixels[i - 1 + width].R) / 3.02 + (fast_rand() % 10 == 0 ? 5 : 0),
