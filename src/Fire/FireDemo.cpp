@@ -7,7 +7,10 @@ bool FireDemo::Init()
     width = GetWidth();
     height = GetHeight();
     screenMapping = new unsigned char[width * height];
-    colourMap = new Pixel[sizeof(char)]; 
+    colourMap = new Pixel[256]; 
+
+    for(int i = 0; i < 256; i++)
+        colourMap[i].R = (unsigned char)i;
 
     return true;
 }
@@ -16,18 +19,20 @@ bool FireDemo::Update(float fDeltaTime)
 {
     for (int i = width * (height - 1); i < width * height; i++)
     {
-        pixels[i].Clear();
+        screenMapping[i] = 0;
 
         if (fast_rand() % 2 != 0)
-            pixels[i] = Pixel(255, 0, 0);
+            screenMapping[i] = 255;
+        
+        pixels[i] = Pixel(255,0,0); //fast equivalent to -> pixels[i] = colourMap[screenMapping[i]];
+        
     }
 
     for (int i = width * (height - 1); i >= 0; i--)
     {
-        pixels[i] = Pixel(
-            (pixels[i + 1 + width].R + pixels[i + width].R + pixels[i - 1 + width].R) / 3.02 + (fast_rand() % 10 == 0 ? 5 : 0),
-            0,
-            0);
+        int sum = width + i;
+        sum = screenMapping[i] = (screenMapping[sum + 1] + screenMapping[sum] + screenMapping[sum - 1]) / 3.02 + (fast_rand() % 10 == 0 ? 5 : 0);
+        pixels[i] = colourMap[sum];
     }
     return true;
 }
