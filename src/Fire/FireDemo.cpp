@@ -1,6 +1,6 @@
 #include "FireDemo.h"
 #include <stdlib.h>
-
+#include <iostream>
 bool FireDemo::Init()
 {
     pixels = GetScreenPixels();
@@ -9,7 +9,11 @@ bool FireDemo::Init()
     screenMapping = new unsigned char[width * height];
     colourMap = new Pixel[256];
 
-    createColourMap({ColourStamp{0, Pixel{0,0,0}}, ColourStamp{0, Pixel{255,255,255}}});
+    createColourMap({ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.5f, Pixel{255, 255, 0}}, ColourStamp{1.0f, Pixel{255, 0, 255}}});
+
+    for(int i= 0; i < 256; i++){
+        std::cout << i << ": " << (int)colourMap[i].R << ", "<< (int)colourMap[i].G << ", "<< (int)colourMap[i].B << std::endl;
+    }
 
     return true;
 }
@@ -54,22 +58,31 @@ void FireDemo::createColourMap(std::vector<ColourStamp> colours)
 
     if (colours.size() > 1)
     {
-        char from, to, counter;
+        char from, to, counter, way;
         from = 0;
+        way = 0;
         counter = 1;
-        to = colours[1].percentage * 255;
+        to = colours[counter].percentage * 255;
 
         float t = 1.f, tprima = 0.f;
 
         for (int i = 0; i < 256; i++)
         {
-            
+            if (i == to)
+            {
+                from = to;
+                counter++;
+                to = colours[counter].percentage * 255;
+                way = 0;
+            }
 
-            t = (float)(255 - i) / 255;
+            t = (float)(to - from - way) / (to - from);
             tprima = 1 - t;
-            colourMap[i].R = colours[0].colour.R * t + colours[1].colour.R * tprima;
-            colourMap[i].G = colours[0].colour.G * t + colours[1].colour.G * tprima;
-            colourMap[i].B = colours[0].colour.B * t + colours[1].colour.B * tprima;
+            colourMap[i].R = colours[counter - 1].colour.R * t + colours[counter].colour.R * tprima;
+            colourMap[i].G = colours[counter - 1].colour.G * t + colours[counter].colour.G * tprima;
+            colourMap[i].B = colours[counter - 1].colour.B * t + colours[counter].colour.B * tprima;
+
+            way++;
         }
     }
 }
