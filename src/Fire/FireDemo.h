@@ -13,7 +13,7 @@ class FireDemo : public ClassicDemoTemplate
 
   private:
     virtual bool Init() override;
-    virtual bool Update(float fDeltaTime) override;
+    virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
     struct ColourStamp {
@@ -32,7 +32,9 @@ class FireDemo : public ClassicDemoTemplate
       }
     };
 
-    void createColourMap(std::vector<ColourStamp> colours);
+    void interpolateColourMap(std::vector<ColourStamp> colours);
+    void updateFireBase();
+    void updateFireScreen();
 
     Pixel* pixels;
     int width, height;

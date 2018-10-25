@@ -25,6 +25,11 @@ ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator-(const Pixel &p)
             (p.B - this->B < 0) ? 0 : p.B + this->B));
 }
 
+ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator*(const float f) const
+{
+    return std::move(Pixel(this->R * f, this->G * f, this->B * f));
+}
+
 //Window, Engine and OpenGL initialization
 bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen)
 {
