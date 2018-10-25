@@ -67,9 +67,11 @@ void ClassicDemoTemplate::SetWindowName(const char *name)
 
 void ClassicDemoTemplate::CreateFullscrenWindow()
 {
-    GLFWmonitor *monitor = glfwGetPrimaryMonitor();
-    glfwGetMonitorPhysicalSize(monitor, &this->width, &this->height);
-    window = glfwCreateWindow(this->width, this->height, name, monitor, NULL);
+    const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    this->width = mode->width;
+    this->height = mode->height;
+ 
+    window = glfwCreateWindow(this->width, this->height, name, glfwGetPrimaryMonitor(), NULL);
 }
 
 void ClassicDemoTemplate::CreateWindow(const int width, const int height)
