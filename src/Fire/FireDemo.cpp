@@ -10,11 +10,11 @@ bool FireDemo::Init()
     colourMap = new Pixel[256];
 
     //FIRE
-    interpolateColourMap({ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{255, 0, 0}}, ColourStamp{0.2f, Pixel{255, 125, 0}},
+    interpolateColourMap({ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.02f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{255, 0, 0}}, ColourStamp{0.2f, Pixel{255, 125, 0}},
                           ColourStamp{0.4f, Pixel{255, 255, 0}}, ColourStamp{0.5f, Pixel{255, 255, 255}}, ColourStamp{1.0f, Pixel{255, 255, 255}}});
 
     //RETRO COOL
-    //interpolateColourMap({ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{123, 245, 231}}, ColourStamp{0.2f, Pixel{0, 231, 45}},
+    //interpolateColourMap({ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.02f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{123, 245, 231}}, ColourStamp{0.2f, Pixel{0, 231, 45}},
     //                      ColourStamp{0.4f, Pixel{234, 123, 231}}, ColourStamp{0.5f, Pixel{231, 32, 126}}, ColourStamp{1.0f, Pixel{236, 231, 54}}});
 
     updateFireBase();
