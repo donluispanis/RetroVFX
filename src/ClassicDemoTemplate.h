@@ -101,4 +101,41 @@ private:
   std::chrono::system_clock::time_point clockOld;
   std::chrono::system_clock::time_point clockNow;
   float deltaTime;
+
+#define CDT_MOUSE_INPUT
+#define CDT_KEYBOARD_INPUT
+
+//Input related functions and variables
+#if defined(CDT_MOUSE_INPUT) || defined(CDT_KEYBOARD_INPUT)
+
+  struct Key
+  {
+    bool isPressed = false;
+    bool isReleased = false;
+    bool isHeld = false;
+  };
+
+#endif
+
+//Mouse related functions and variables
+#ifdef CDT_MOUSE_INPUT
+
+  struct MouseKeys
+  {
+    double x = 0, y = 0;
+    Key leftKey, rightKey;
+  } mouseKeys;
+
+  void UpdateMouseInput();
+
+#endif
+
+//Keyboard related functions and variables
+#ifdef CDT_KEYBOARD_INPUT
+
+  Key keyboardKeys[256];
+
+  void UpdateKeyboardInput();
+
+#endif
 };

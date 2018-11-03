@@ -35,6 +35,7 @@ class FireDemo : public ClassicDemoTemplate
     void interpolateColourMap(std::vector<ColourStamp> colours);
     void updateFireBase();
     void updateFireScreen();
+    void updateFireInput();
 
     Pixel* pixels;
     int width, height;

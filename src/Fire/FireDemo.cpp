@@ -1,6 +1,6 @@
 #include "FireDemo.h"
 #include <stdlib.h>
-
+#include <GLFW/glfw3.h>
 bool FireDemo::Init()
 {
     pixels = GetScreenPixels();
@@ -24,6 +24,7 @@ bool FireDemo::Init()
 
 bool FireDemo::Update(float deltaTime)
 {
+    updateFireInput();
     updateFireScreen();
     return true;
 }
@@ -40,10 +41,28 @@ void FireDemo::updateFireBase()
         pixels[i] = colourMap[screenMapping[i]];
     }
 }
+#include <iostream>
+void FireDemo::updateFireInput()
+{
+    if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
+        double x,y;
+        glfwGetCursorPos(window, &x, &y);
+        int sum = y * width + x;
+        screenMapping[sum] = 255;
+        pixels[sum] = colourMap[screenMapping[sum]];
+        std::cout << sum << std::endl;
+    }
+}
 
 void FireDemo::updateFireScreen()
 {
-    for (int i = width * (height - 1); i >= 0; i--)
+    /*for (int i = width * (height - 1); i >= 0; i--)
+    {
+        int sum = width + i;
+        sum = screenMapping[i] = (screenMapping[sum + 1] + screenMapping[sum] + screenMapping[sum - 1]) / 3.02 + (fast_rand() % 4 == 0 ? 2 : 0);
+        pixels[i] = colourMap[sum];
+    }*/
+    for (int i = 0; i < width * (height - 1); i++)
     {
         int sum = width + i;
         sum = screenMapping[i] = (screenMapping[sum + 1] + screenMapping[sum] + screenMapping[sum - 1]) / 3.02 + (fast_rand() % 4 == 0 ? 2 : 0);
