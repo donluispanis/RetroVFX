@@ -119,13 +119,13 @@ private:
 
 //Mouse related functions and variables
 #ifdef CDT_MOUSE_INPUT
-
+public:
   struct MouseKeys
   {
     double x = 0, y = 0;
     Key leftKey, rightKey;
   } mouseKeys;
-
+private:
   void UpdateMouseInput();
 
 #endif
