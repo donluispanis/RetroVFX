@@ -1,4 +1,5 @@
 .directory
 .vscode
+.vs
 bin/obj
 bin/
