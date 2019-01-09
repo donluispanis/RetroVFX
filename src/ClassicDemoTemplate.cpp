@@ -58,8 +58,6 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     return true;
 }
 
-#pragma region[CONSTRUCT PRIVATE FUNCTIONS]
-
 void ClassicDemoTemplate::SetWindowName(const char *name)
 {
     this->name = name;
@@ -104,10 +102,6 @@ bool ClassicDemoTemplate::ShowError(const char *message)
     glfwTerminate();
     return false;
 }
-
-#pragma endregion
-
-#pragma region[OPENGL PRIVATE FUNCTIONS]
 
 void ClassicDemoTemplate::SetOpenGLVersion()
 {
@@ -242,8 +236,6 @@ void ClassicDemoTemplate::SetTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-#pragma endregion
-
 //Engine basic update
 void ClassicDemoTemplate::Run()
 {
@@ -262,8 +254,6 @@ void ClassicDemoTemplate::Run()
         elapsedTime += deltaTime;
     }
 }
-
-#pragma region[RUN PRIVATE FUNCTIONS]
 
 void ClassicDemoTemplate::UpdateInput()
 {
@@ -361,8 +351,6 @@ void ClassicDemoTemplate::ShowFramerate()
         accumulated = 0;
     }
 }
-
-#pragma endregion
 
 //Window and variables deletion
 bool ClassicDemoTemplate::Close()

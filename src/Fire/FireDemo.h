@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../ClassicDemoTemplate.h"
-
 #include <vector>
+
+#include "../ClassicDemoTemplate.h"
 
 class FireDemo : public ClassicDemoTemplate
 {
@@ -16,32 +16,18 @@ class FireDemo : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
-    struct ColourStamp {
-      float percentage;
-      Pixel colour;
-
-      ColourStamp(float perc, Pixel col) {
-        if(perc > 1.0f)
-          percentage = 1.0f;
-        else if(perc < 0.0f)
-          percentage = 0.0f;
-        else
-          percentage = perc;
-
-        colour = col;
-      }
-    };
+    struct ColourStamp;
 
     void interpolateColourMap(std::vector<ColourStamp> colours);
     void updateFireBase();
     void updateFireScreen();
     void updateFireInput();
 
-    Pixel* pixels;
+    Pixel *pixels;
     int width, height;
 
-    unsigned char* screenMapping;
-    Pixel* colourMap;
+    unsigned char *screenMapping;
+    Pixel *colourMap;
 
     inline unsigned long fast_rand();
 };
