@@ -79,6 +79,7 @@ make_obj_dir:
 
 make_src:
 	@$(MAKE) --no-print-directory -s -C src
+	@$(MAKE) --no-print-directory -s -C src/Utils
 	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate
 
 ################################################################################

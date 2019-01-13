@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
 #include "../ClassicDemoTemplate/Pixel.h"
 
@@ -19,7 +17,6 @@ class FireDemo : public ClassicDemoTemplate
 
     struct ColourStamp;
 
-    void interpolateColourMap(std::vector<ColourStamp> colours);
     void updateFireBase();
     void updateFireScreen();
     void updateFireInput();
@@ -29,6 +26,5 @@ class FireDemo : public ClassicDemoTemplate
 
     unsigned char *screenMapping;
     Pixel *colourMap;
-
-    inline unsigned long fast_rand();
+    int colourMapSize = 256;
 };
