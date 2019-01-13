@@ -3,7 +3,3 @@
 .vs
 bin/obj
 bin/
-Debug
-Release
-x64
-TFG.vcxproj.user
