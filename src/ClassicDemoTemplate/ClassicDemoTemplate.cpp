@@ -2,33 +2,9 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
-#include <utility>
 #include <string>
 
 #include "ClassicDemoTemplate.h"
-
-ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator+(const Pixel &p) const
-{
-    return std::move(
-        Pixel(
-            (p.R + this->R > 255) ? 255 : p.R + this->R,
-            (p.G + this->G > 255) ? 255 : p.G + this->G,
-            (p.B + this->B > 255) ? 255 : p.B + this->B));
-}
-
-ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator-(const Pixel &p) const
-{
-    return std::move(
-        Pixel(
-            (p.R - this->R < 0) ? 0 : p.R + this->R,
-            (p.G - this->G < 0) ? 0 : p.G + this->G,
-            (p.B - this->B < 0) ? 0 : p.B + this->B));
-}
-
-ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator*(const float f) const
-{
-    return std::move(Pixel(this->R * f, this->G * f, this->B * f));
-}
 
 //Window, Engine and OpenGL initialization
 bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen)
@@ -259,67 +235,13 @@ void ClassicDemoTemplate::UpdateInput()
 {
     glfwPollEvents();
 
-#ifdef CDT_MOUSE_INPUT
-    UpdateMouseInput();
-#endif
-
-#ifdef CDT_KEYBOARD_INPUT
-    UpdateKeyboardInput();
-#endif
-}
-
-#ifdef CDT_MOUSE_INPUT
-
-void ClassicDemoTemplate::UpdateMouseInput()
-{
-    glfwGetCursorPos(window, &mouseKeys.x, &mouseKeys.y);
-
-    int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-    if (state == GLFW_PRESS)
-    {
-        if (!mouseKeys.leftKey.isPressed && !mouseKeys.leftKey.isHeld)
-        {
-            mouseKeys.leftKey.isPressed = true;
-            mouseKeys.leftKey.isHeld = false;
-        }
-        else
-        {
-            mouseKeys.leftKey.isPressed = false;
-            mouseKeys.leftKey.isHeld = true;
-        }
-    }
-    if (state == GLFW_RELEASE && (mouseKeys.leftKey.isPressed || mouseKeys.leftKey.isHeld))
-    {
-        mouseKeys.leftKey.isHeld = false;
-        mouseKeys.leftKey.isPressed = false;
-        mouseKeys.leftKey.isReleased = true;
-    }
-    else
-    {
-        mouseKeys.leftKey.isReleased = false;
-    }
-
-    if (mouseKeys.leftKey.isPressed)
-        std::cout << "PRESSED" << std::endl;
-    if (mouseKeys.leftKey.isHeld)
-        std::cout << "HELD" << std::endl;
-    if (mouseKeys.leftKey.isReleased)
-        std::cout << "RELEASED" << std::endl;
-}
-
-#endif
-
-#ifdef CDT_KEYBOARD_INPUT
-
-void ClassicDemoTemplate::UpdateKeyboardInput()
-{
-
     int state = glfwGetKey(window, GLFW_KEY_ESCAPE);
     if (state == GLFW_PRESS)
+    {
         glfwSetWindowShouldClose(window, 1);
+    }
 }
 
-#endif
 
 void ClassicDemoTemplate::UpdateTime()
 {

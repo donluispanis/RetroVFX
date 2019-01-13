@@ -8,24 +8,7 @@ class ClassicDemoTemplate
 {
 
 protected:
-  struct Pixel
-  {
-    unsigned char R = 0;
-    unsigned char G = 0;
-    unsigned char B = 0;
-
-    Pixel() : R(0), G(0), B(0){};
-    Pixel(unsigned char r, unsigned char g, unsigned char b) : R(r), G(g), B(b){};
-    Pixel operator+(const Pixel &p) const;
-    Pixel operator-(const Pixel &p) const;
-    Pixel operator*(const float f) const;
-    void Clear()
-    {
-      R = 0;
-      G = 0;
-      B = 0;
-    }
-  };
+  struct Pixel;
 
 public:
   ClassicDemoTemplate() {}
@@ -101,41 +84,4 @@ private:
   std::chrono::system_clock::time_point clockOld;
   std::chrono::system_clock::time_point clockNow;
   float deltaTime;
-
-#define CDT_MOUSE_INPUT
-#define CDT_KEYBOARD_INPUT
-
-//Input related functions and variables
-#if defined(CDT_MOUSE_INPUT) || defined(CDT_KEYBOARD_INPUT)
-
-  struct Key
-  {
-    bool isPressed = false;
-    bool isReleased = false;
-    bool isHeld = false;
-  };
-
-#endif
-
-//Mouse related functions and variables
-#ifdef CDT_MOUSE_INPUT
-public:
-  struct MouseKeys
-  {
-    double x = 0, y = 0;
-    Key leftKey, rightKey;
-  } mouseKeys;
-private:
-  void UpdateMouseInput();
-
-#endif
-
-//Keyboard related functions and variables
-#ifdef CDT_KEYBOARD_INPUT
-
-  Key keyboardKeys[256];
-
-  void UpdateKeyboardInput();
-
-#endif
 };

@@ -2,7 +2,8 @@
 
 #include <vector>
 
-#include "../ClassicDemoTemplate.h"
+#include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
+#include "../ClassicDemoTemplate/Pixel.h"
 
 class FireDemo : public ClassicDemoTemplate
 {

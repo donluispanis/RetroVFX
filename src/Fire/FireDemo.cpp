@@ -79,14 +79,7 @@ bool FireDemo::Update(float deltaTime)
 
 void FireDemo::updateFireInput()
 {
-    if (mouseKeys.leftKey.isHeld)
-    {
-        int x = mouseKeys.x;
-        int y = mouseKeys.y;
-        int sum = y * width + x;
-        screenMapping[sum] = 255;
-        pixels[sum] = colourMap[screenMapping[sum]];
-    }
+    
 }
 
 void FireDemo::updateFireScreen()
