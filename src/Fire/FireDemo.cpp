@@ -4,12 +4,14 @@
 #include "FireDemo.h"
 #include "ColourStamp.h"
 #include "../Utils/Fast.h"
+#include "../ClassicDemoTemplate/Pixel.h"
+#include "../ClassicDemoTemplate/IWindowManager.h"
 
 bool FireDemo::Init()
 {
     pixels = GetScreenPixels();
-    width = GetWidth();
-    height = GetHeight();
+    width = GetWindowManager()->GetWidth();
+    height = GetWindowManager()->GetHeight();
     screenMapping = new unsigned char[width * height];
     colourMap = new Pixel[colourMapSize];
 
@@ -23,12 +25,12 @@ bool FireDemo::Init()
     //interpolateColourMap({ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.02f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{123, 245, 231}}, ColourStamp{0.2f, Pixel{0, 231, 45}},
     //                      ColourStamp{0.4f, Pixel{234, 123, 231}}, ColourStamp{0.5f, Pixel{231, 32, 126}}, ColourStamp{1.0f, Pixel{236, 231, 54}}});
 
-    updateFireBase();
+    UpdateFireBase();
 
     return true;
 }
 
-void FireDemo::updateFireBase()
+void FireDemo::UpdateFireBase()
 {
     for (int i = width * (height - 1); i < width * height; i++)
     {
@@ -43,17 +45,11 @@ void FireDemo::updateFireBase()
 
 bool FireDemo::Update(float deltaTime)
 {
-    updateFireInput();
-    updateFireScreen();
+    UpdateFireScreen();
     return true;
 }
 
-void FireDemo::updateFireInput()
-{
-    
-}
-
-void FireDemo::updateFireScreen()
+void FireDemo::UpdateFireScreen()
 {
     for (int i = width * (height - 1); i >= 0; i--)
     {

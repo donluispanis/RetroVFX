@@ -1,88 +1,29 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <GLFW/glfw3.h>
 #include <string>
 
 #include "ClassicDemoTemplate.h"
+#include "GLFWWindowManager.h"
+#include "Clock.h"
 
 //Window, Engine and OpenGL initialization
 bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen)
 {
-    if (!glfwInit())
-        return ShowError("Failed to initialize GLFW");
 
-    SetOpenGLVersion();
-    SetWindowName(name);
+    windowManager = new GLFWWindowManager();
+    windowManager->CreateWindow(name, width, height, fullscreen);
 
-    if (fullscreen)
-        CreateFullscrenWindow();
-    else
-        CreateWindow(width, height);
+    clock = new Clock();
 
-    if (window == NULL)
-        return ShowError("Failed to open GLFW window");
-
-    AddGLFWOptions();
     InitEngineData();
 
     InitOpenGL();
 
-    if (!Init())
-        return ShowError("Failed to execute user defined Init function");
+    if (!Init()){}
+        //return ShowError("Failed to execute user defined Init function");
 
     return true;
-}
-
-void ClassicDemoTemplate::SetWindowName(const char *name)
-{
-    this->name = name;
-}
-
-void ClassicDemoTemplate::CreateFullscrenWindow()
-{
-    const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    this->width = mode->width;
-    this->height = mode->height;
-
-    window = glfwCreateWindow(this->width, this->height, name, glfwGetPrimaryMonitor(), NULL);
-}
-
-void ClassicDemoTemplate::CreateWindow(const int width, const int height)
-{
-    this->width = width;
-    this->height = height;
-
-    window = glfwCreateWindow(width, height, name, NULL, NULL);
-}
-
-void ClassicDemoTemplate::AddGLFWOptions()
-{
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(0);
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-}
-
-void ClassicDemoTemplate::InitEngineData()
-{
-    screenData = new unsigned char[width * height * channels];
-
-    clockOld = std::chrono::system_clock::now();
-    clockNow = clockOld;
-    deltaTime = 0.f;
-}
-
-bool ClassicDemoTemplate::ShowError(const char *message)
-{
-    std::cerr << message << std::endl;
-    glfwTerminate();
-    return false;
-}
-
-void ClassicDemoTemplate::SetOpenGLVersion()
-{
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 }
 
 void ClassicDemoTemplate::InitOpenGL()
@@ -93,6 +34,12 @@ void ClassicDemoTemplate::InitOpenGL()
     CreateOpenGLProgram();
     SetShaderVariables();
     SetTexture();
+}
+
+void ClassicDemoTemplate::InitEngineData()
+{
+    screenData = new unsigned char[windowManager->GetWidth() * windowManager->GetHeight() * channels];
+    deltaTime = 0.f;
 }
 
 void ClassicDemoTemplate::InitGlew()
@@ -205,7 +152,7 @@ void ClassicDemoTemplate::SetTexture()
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, screenData);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowManager->GetWidth(), windowManager->GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, screenData);
     glUniform1i(glGetUniformLocation(programID, "screenData"), 0);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -215,10 +162,9 @@ void ClassicDemoTemplate::SetTexture()
 //Engine basic update
 void ClassicDemoTemplate::Run()
 {
-    while (glfwWindowShouldClose(window) == 0)
+    while (true)//glfwWindowShouldClose(window) == 0)
     {
         UpdateInput();
-        UpdateTime();
 
         if (!Update(deltaTime))
             return; //Update function defined by the user
@@ -227,38 +173,23 @@ void ClassicDemoTemplate::Run()
 
         ShowFramerate();
 
-        elapsedTime += deltaTime;
+        //elapsedTime += deltaTime;
     }
 }
 
 void ClassicDemoTemplate::UpdateInput()
 {
-    glfwPollEvents();
-
-    int state = glfwGetKey(window, GLFW_KEY_ESCAPE);
-    if (state == GLFW_PRESS)
-    {
-        glfwSetWindowShouldClose(window, 1);
-    }
-}
-
-
-void ClassicDemoTemplate::UpdateTime()
-{
-    clockOld = clockNow;
-    clockNow = std::chrono::system_clock::now();
-    std::chrono::duration<float> elapsed_seconds = clockNow - clockOld;
-    deltaTime = elapsed_seconds.count();
+    windowManager->UpdateInput();
 }
 
 void ClassicDemoTemplate::DrawToScreen()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, screenData);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowManager->GetWidth(), windowManager->GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, screenData);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-    glfwSwapBuffers(window);
+    windowManager->SwapBuffers();
 }
 
 void ClassicDemoTemplate::ShowFramerate()
@@ -267,11 +198,11 @@ void ClassicDemoTemplate::ShowFramerate()
 
     accumulated += deltaTime;
 
-    if (showFramerate && accumulated > 0.5f)
+    /*if (showFramerate && accumulated > 0.5f)
     {
         glfwSetWindowTitle(window, std::string(std::string(name) + " - FPS: " + std::to_string(1 / deltaTime)).c_str());
         accumulated = 0;
-    }
+    }*/
 }
 
 //Window and variables deletion
@@ -281,8 +212,7 @@ bool ClassicDemoTemplate::Close()
 
     delete[] screenData;
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    windowManager->DestroyWindow();
 
     return ret;
 }

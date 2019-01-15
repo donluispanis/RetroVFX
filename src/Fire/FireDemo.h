@@ -1,11 +1,9 @@
 #pragma once
 
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
-#include "../ClassicDemoTemplate/Pixel.h"
 
 class FireDemo : public ClassicDemoTemplate
 {
-
   public:
     FireDemo(){};
     virtual ~FireDemo(){};
@@ -15,11 +13,10 @@ class FireDemo : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
-    struct ColourStamp;
+    void UpdateFireBase();
+    void UpdateFireScreen();
 
-    void updateFireBase();
-    void updateFireScreen();
-    void updateFireInput();
+    struct ColourStamp;
 
     Pixel *pixels;
     int width, height;
