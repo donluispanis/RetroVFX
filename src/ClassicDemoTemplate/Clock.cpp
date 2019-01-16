@@ -2,18 +2,16 @@
 
 Clock::Clock()
 {
-    newTimePoint = std::chrono::system_clock::now();
-    oldTimePoint = newTimePoint;
+    Reset();
 }
 
 void Clock::Reset()
 {
-    oldTimePoint = newTimePoint;
-    newTimePoint = std::chrono::system_clock::now();
+    oldTimePoint = std::chrono::system_clock::now();
 }
 
 double Clock::GetElapsedTime()
 {
-    std::chrono::duration<double> elapsed_seconds = newTimePoint - oldTimePoint;
+    std::chrono::duration<double> elapsed_seconds = std::chrono::system_clock::now() - oldTimePoint;
     return elapsed_seconds.count();
 }

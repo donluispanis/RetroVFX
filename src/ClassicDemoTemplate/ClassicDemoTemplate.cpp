@@ -5,7 +5,6 @@
 
 #include "ClassicDemoTemplate.h"
 #include "GLFWWindowManager.h"
-#include "Clock.h"
 
 //Window, Engine and OpenGL initialization
 bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen)
@@ -13,8 +12,7 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
 
     windowManager = new GLFWWindowManager();
     windowManager->CreateWindow(name, width, height, fullscreen);
-
-    clock = new Clock();
+    windowManager->SetFramerateToShow(true);
 
     InitEngineData();
 
@@ -162,24 +160,19 @@ void ClassicDemoTemplate::SetTexture()
 //Engine basic update
 void ClassicDemoTemplate::Run()
 {
-    while (true)//glfwWindowShouldClose(window) == 0)
+    while (windowManager->IsWindowOpen())
     {
-        UpdateInput();
+        windowManager->UpdateWindow();
 
         if (!Update(deltaTime))
-            return; //Update function defined by the user
-
+        {
+            return;
+        }
+            
         DrawToScreen();
 
         ShowFramerate();
-
-        //elapsedTime += deltaTime;
     }
-}
-
-void ClassicDemoTemplate::UpdateInput()
-{
-    windowManager->UpdateInput();
 }
 
 void ClassicDemoTemplate::DrawToScreen()
@@ -200,7 +193,7 @@ void ClassicDemoTemplate::ShowFramerate()
 
     /*if (showFramerate && accumulated > 0.5f)
     {
-        glfwSetWindowTitle(window, std::string(std::string(name) + " - FPS: " + std::to_string(1 / deltaTime)).c_str());
+        
         accumulated = 0;
     }*/
 }
@@ -213,6 +206,7 @@ bool ClassicDemoTemplate::Close()
     delete[] screenData;
 
     windowManager->DestroyWindow();
+    delete windowManager;
 
     return ret;
 }

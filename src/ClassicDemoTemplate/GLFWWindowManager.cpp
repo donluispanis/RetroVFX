@@ -1,5 +1,18 @@
+#include <string>
 #include <GLFW/glfw3.h>
 #include "GLFWWindowManager.h"
+#include "Clock.h"
+
+GLFWWindowManager::GLFWWindowManager()
+{
+    name = nullptr;
+    height = 0;
+    width = 0;
+    window = nullptr;
+    showFramerate = false;
+    clock = new Clock();
+    deltaTime = 0.0;
+}
 
 void GLFWWindowManager::CreateWindow(const char *name, const int width, const int height, const bool fullscreen)
 {
@@ -53,6 +66,17 @@ void GLFWWindowManager::AddGLFWOptions()
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 }
 
+void GLFWWindowManager::UpdateWindow()
+{
+    UpdateInput();
+    UpdateTime();
+
+    if(showFramerate)
+    {
+        glfwSetWindowTitle(window, std::string(std::string(name) + " - FPS: " + std::to_string(1 / deltaTime)).c_str());
+    }
+}
+
 void GLFWWindowManager::UpdateInput()
 {
     glfwPollEvents();
@@ -64,6 +88,12 @@ void GLFWWindowManager::UpdateInput()
     }
 }
 
+void GLFWWindowManager::UpdateTime()
+{
+    deltaTime = clock->GetElapsedTime();
+    clock->Reset();
+}
+
 void GLFWWindowManager::SwapBuffers()
 {
     glfwSwapBuffers(window);
@@ -73,4 +103,34 @@ void GLFWWindowManager::DestroyWindow()
 {
     glfwDestroyWindow(window);
     glfwTerminate();
+}
+
+GLFWWindowManager::~GLFWWindowManager()
+{
+    delete clock;
+}
+
+void GLFWWindowManager::SetFramerateToShow(bool fps)
+{
+    showFramerate = fps;
+}
+
+int GLFWWindowManager::GetWidth()
+{
+    return width;
+}
+
+int GLFWWindowManager::GetHeight()
+{
+    return height;
+}
+
+double GLFWWindowManager::GetDeltaTime()
+{
+    return deltaTime;
+}
+
+bool GLFWWindowManager::IsWindowOpen()
+{
+    return glfwWindowShouldClose(window) == 0;
 }

@@ -13,5 +13,4 @@ class Clock
 
   private:
     TimePoint oldTimePoint;
-    TimePoint newTimePoint;
 };
