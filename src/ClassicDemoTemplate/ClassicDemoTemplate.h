@@ -37,7 +37,6 @@ class ClassicDemoTemplate
     void UpdateInput();
     void UpdateTime();
     void DrawToScreen();
-    void ShowFramerate();
 
     void InitEngineData();
 
@@ -68,7 +67,4 @@ class ClassicDemoTemplate
 
     IWindowManager *windowManager;
     Clock *clock;
-
-    //Time related variables
-    float deltaTime;
 };

@@ -37,7 +37,6 @@ void ClassicDemoTemplate::InitOpenGL()
 void ClassicDemoTemplate::InitEngineData()
 {
     screenData = new unsigned char[windowManager->GetWidth() * windowManager->GetHeight() * channels];
-    deltaTime = 0.f;
 }
 
 void ClassicDemoTemplate::InitGlew()
@@ -162,16 +161,15 @@ void ClassicDemoTemplate::Run()
 {
     while (windowManager->IsWindowOpen())
     {
+        double dt = windowManager->GetDeltaTime();
         windowManager->UpdateWindow();
 
-        if (!Update(deltaTime))
+        if (!Update(dt))
         {
             return;
         }
             
         DrawToScreen();
-
-        ShowFramerate();
     }
 }
 
@@ -183,19 +181,6 @@ void ClassicDemoTemplate::DrawToScreen()
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     windowManager->SwapBuffers();
-}
-
-void ClassicDemoTemplate::ShowFramerate()
-{
-    static float accumulated = 0;
-
-    accumulated += deltaTime;
-
-    /*if (showFramerate && accumulated > 0.5f)
-    {
-        
-        accumulated = 0;
-    }*/
 }
 
 //Window and variables deletion
