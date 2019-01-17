@@ -1,5 +1,7 @@
 #pragma once
 
+struct Pixel;
+
 class IWindowManager
 {
   public:
@@ -8,12 +10,13 @@ class IWindowManager
     virtual ~IWindowManager() = 0;
 
     virtual void UpdateWindow() = 0;
-    virtual void SwapBuffers() = 0;
+    virtual void DrawToScreen() = 0;
 
     virtual void SetFramerateToShow(bool fps) = 0;
 
     virtual int GetWidth() = 0;
     virtual int GetHeight() = 0;
+    virtual Pixel *GetScreenPixels() = 0;
     virtual double GetDeltaTime() = 0;
     virtual bool IsWindowOpen() = 0;
 };

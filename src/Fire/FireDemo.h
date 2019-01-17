@@ -2,6 +2,8 @@
 
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
 
+struct Pixel;
+
 class FireDemo : public ClassicDemoTemplate
 {
   public:

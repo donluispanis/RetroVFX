@@ -2,23 +2,36 @@
 
 #include "IRenderManager.h"
 
-class Pixel;
+struct Pixel;
 
 class OpenGLRenderManager : public IRenderManager
 {
   public:
-    virtual void InitialiseRender(int width, int height, int channels) override;
+    virtual void InitialiseRender(int width, int height) override;
     virtual void DisposeRender() override;
+    virtual ~OpenGLRenderManager() override;
 
-    virtual unsigned char *GetScreenData() override;
+    virtual void DrawToScreen() override;
 
-    private:
+    virtual Pixel *GetScreenPixels() override;
 
-    union {
-        unsigned char *screenData;
-        Pixel *screenPixels;
-    };
+  private:
+    void InitGlew();
+    void InitOpenGL();
+    void CreateVAOandVBO();
+    void CreateElementBuffers();
+    void CreateOpenGLProgram();
+    void SetShaderVariables();
+    void SetTexture();
+    const char *GetVertexShader();
+    const char *GetFragmentShader();
+
+    Pixel *screenPixels;
 
     unsigned int textureID;
     unsigned int programID;
+
+    int width;
+    int height;
+    const int channels = 3;
 };

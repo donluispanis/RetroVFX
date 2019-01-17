@@ -8,7 +8,7 @@
 struct FireDemo::ColourStamp
 {
     float percentage;
-    ClassicDemoTemplate::Pixel colour;
+    Pixel colour;
 
     ColourStamp(float perc, Pixel col);
     static void InterpolateColourMap(std::vector<ColourStamp> colours, Pixel* colourMap, int colourMapSize);

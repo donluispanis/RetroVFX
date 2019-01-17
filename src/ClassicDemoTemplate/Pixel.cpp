@@ -2,13 +2,13 @@
 #include "ClassicDemoTemplate.h"
 #include "Pixel.h"
 
-ClassicDemoTemplate::Pixel::Pixel() 
+Pixel::Pixel() 
     : R(0), G(0), B(0){};
 
-ClassicDemoTemplate::Pixel::Pixel(unsigned char r, unsigned char g, unsigned char b) 
+Pixel::Pixel(unsigned char r, unsigned char g, unsigned char b) 
     : R(r), G(g), B(b){};
 
-ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator+(const Pixel &p) const
+Pixel Pixel::operator+(const Pixel &p) const
 {
     return std::move(
         Pixel(
@@ -17,7 +17,7 @@ ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator+(const Pixel &p)
             (p.B + this->B > 255) ? 255 : p.B + this->B));
 }
 
-ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator-(const Pixel &p) const
+Pixel Pixel::operator-(const Pixel &p) const
 {
     return std::move(
         Pixel(
@@ -26,12 +26,12 @@ ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator-(const Pixel &p)
             (p.B - this->B < 0) ? 0 : p.B + this->B));
 }
 
-ClassicDemoTemplate::Pixel ClassicDemoTemplate::Pixel::operator*(const float f) const
+Pixel Pixel::operator*(const float f) const
 {
     return std::move(Pixel(this->R * f, this->G * f, this->B * f));
 }
 
-void ClassicDemoTemplate::Pixel::Clear()
+void Pixel::Clear()
 {
     R = 0;
     G = 0;

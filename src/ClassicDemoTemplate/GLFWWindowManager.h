@@ -4,6 +4,8 @@
 
 class GLFWwindow;
 class Clock;
+class IRenderManager;
+struct Pixel;
 
 class GLFWWindowManager : public IWindowManager
 {
@@ -14,15 +16,15 @@ class GLFWWindowManager : public IWindowManager
     virtual ~GLFWWindowManager() override;
 
     virtual void UpdateWindow() override;
-    virtual void SwapBuffers() override;
+    virtual void DrawToScreen() override;
 
     virtual void SetFramerateToShow(bool fps) override;
 
     virtual int GetWidth() override;
     virtual int GetHeight() override;
+    virtual Pixel *GetScreenPixels() override;
     virtual double GetDeltaTime() override;
     virtual bool IsWindowOpen() override;
-    
 
   private:
     void CreateFullscrenWindow();
@@ -36,11 +38,13 @@ class GLFWWindowManager : public IWindowManager
     void UpdateTime();
     void ShowFramerateOnTitleWindow();
 
+    IRenderManager *renderManager;
+
     const char *name;
     int height;
     int width;
     GLFWwindow *window;
     bool showFramerate;
-    Clock* clock;
+    Clock *clock;
     double deltaTime;
 };

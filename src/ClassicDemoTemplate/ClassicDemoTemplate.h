@@ -5,10 +5,6 @@ class Clock;
 
 class ClassicDemoTemplate
 {
-
-  protected:
-    struct Pixel;
-
   public:
     ClassicDemoTemplate() {}
     virtual ~ClassicDemoTemplate() {}
@@ -19,9 +15,6 @@ class ClassicDemoTemplate
     bool Close();                                                                               //Destroys the window and the pixel data
 
     //Getters
-    int GetChannels() { return channels; }
-    unsigned char *GetScreenData() { return screenData; }
-    Pixel *GetScreenPixels() { return screenPixels; }
     IWindowManager *GetWindowManager() { return windowManager; }
 
     //Setters
@@ -36,34 +29,6 @@ class ClassicDemoTemplate
     //Run related funtions
     void UpdateInput();
     void UpdateTime();
-    void DrawToScreen();
-
-    void InitEngineData();
-
-    //OpenGL related functions
-    void SetOpenGLVersion();
-    void InitOpenGL();
-    const char *GetVertexShader();
-    const char *GetFragmentShader();
-    void InitGlew();
-    void CreateVAOandVBO();
-    void CreateElementBuffers();
-    void CreateOpenGLProgram();
-    void SetShaderVariables();
-    void SetTexture();
-
-    //Window related variables
-
-    const int channels = 3;
-
-    //OpenGL related variables
-    union {
-        unsigned char *screenData;
-        Pixel *screenPixels;
-    };
-
-    unsigned int textureID;
-    unsigned int programID;
 
     IWindowManager *windowManager;
     Clock *clock;

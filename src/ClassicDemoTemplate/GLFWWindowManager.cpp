@@ -1,10 +1,12 @@
 #include <string>
 #include <GLFW/glfw3.h>
 #include "GLFWWindowManager.h"
+#include "OpenGLRenderManager.h"
 #include "Clock.h"
 
 GLFWWindowManager::GLFWWindowManager()
 {
+    renderManager = nullptr;
     name = nullptr;
     height = 0;
     width = 0;
@@ -31,6 +33,9 @@ void GLFWWindowManager::CreateWindow(const char *name, const int width, const in
     }
 
     AddGLFWOptions();
+
+    renderManager = new OpenGLRenderManager();
+    renderManager->InitialiseRender(this->width, this->height);
 }
 
 void GLFWWindowManager::InitGLFW()
@@ -94,13 +99,17 @@ void GLFWWindowManager::UpdateTime()
     clock->Reset();
 }
 
-void GLFWWindowManager::SwapBuffers()
+void GLFWWindowManager::DrawToScreen()
 {
+    renderManager->DrawToScreen();
     glfwSwapBuffers(window);
 }
 
 void GLFWWindowManager::DestroyWindow()
 {
+    renderManager->DisposeRender();
+    delete renderManager;
+
     glfwDestroyWindow(window);
     glfwTerminate();
 }
@@ -123,6 +132,11 @@ int GLFWWindowManager::GetWidth()
 int GLFWWindowManager::GetHeight()
 {
     return height;
+}
+
+Pixel* GLFWWindowManager::GetScreenPixels()
+{
+    return renderManager->GetScreenPixels();
 }
 
 double GLFWWindowManager::GetDeltaTime()

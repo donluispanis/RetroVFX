@@ -9,7 +9,7 @@
 
 bool FireDemo::Init()
 {
-    pixels = GetScreenPixels();
+    pixels = GetWindowManager()->GetScreenPixels();
     width = GetWindowManager()->GetWidth();
     height = GetWindowManager()->GetHeight();
     screenMapping = new unsigned char[width * height];

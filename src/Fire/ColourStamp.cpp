@@ -1,6 +1,6 @@
 #include "ColourStamp.h"
 
-FireDemo::ColourStamp::ColourStamp(float perc, ClassicDemoTemplate::Pixel col)
+FireDemo::ColourStamp::ColourStamp(float perc, Pixel col)
 {
     if (perc > 1.0f)
     {

@@ -2,7 +2,7 @@
 
 #include "ClassicDemoTemplate.h"
 
-struct ClassicDemoTemplate::Pixel
+struct Pixel
 {
     unsigned char R = 0;
     unsigned char G = 0;
