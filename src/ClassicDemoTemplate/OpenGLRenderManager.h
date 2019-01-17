@@ -18,13 +18,12 @@ class OpenGLRenderManager : public IRenderManager
   private:
     void InitGlew();
     void InitOpenGL();
-    void CreateVAOandVBO();
+    void CreateVAO();
+    void CreateVBO();
     void CreateElementBuffers();
     void CreateOpenGLProgram();
     void SetShaderVariables();
     void SetTexture();
-    const char *GetVertexShader();
-    const char *GetFragmentShader();
 
     Pixel *screenPixels;
 

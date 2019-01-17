@@ -1,21 +1,29 @@
 #include "ClassicDemoTemplate.h"
 #include "GLFWWindowManager.h"
 
+ClassicDemoTemplate::ClassicDemoTemplate()
+{
+}
+
+ClassicDemoTemplate::~ClassicDemoTemplate()
+{
+}
+
 //Window, Engine and OpenGL initialization
 bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen)
 {
-
     windowManager = new GLFWWindowManager();
     windowManager->CreateWindow(name, width, height, fullscreen);
     windowManager->SetFramerateToShow(true);
 
-    if (!Init()){}
-        //return ShowError("Failed to execute user defined Init function");
+    if (!Init())
+    {
+        return false;
+    }
 
     return true;
 }
 
-//Engine basic update
 void ClassicDemoTemplate::Run()
 {
     while (windowManager->IsWindowOpen())
@@ -27,18 +35,15 @@ void ClassicDemoTemplate::Run()
         {
             return;
         }
-        
+
         windowManager->DrawToScreen();
     }
 }
 
-//Window and variables deletion
 bool ClassicDemoTemplate::Close()
 {
-    bool ret = Destroy(); //Destroy function defined by the user
-
     windowManager->DestroyWindow();
     delete windowManager;
 
-    return ret;
+    return Destroy();
 }
