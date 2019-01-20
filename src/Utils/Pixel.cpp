@@ -1,5 +1,4 @@
 #include <utility>
-#include "ClassicDemoTemplate.h"
 #include "Pixel.h"
 
 Pixel::Pixel() 

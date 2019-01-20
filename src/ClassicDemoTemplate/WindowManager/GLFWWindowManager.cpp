@@ -1,8 +1,8 @@
 #include <string>
 #include <GLFW/glfw3.h>
 #include "GLFWWindowManager.h"
-#include "OpenGLRenderManager.h"
-#include "Clock.h"
+#include "../RenderManager/OpenGLRenderManager.h"
+#include "../../Utils/Clock.h"
 
 GLFWWindowManager::GLFWWindowManager()
 {

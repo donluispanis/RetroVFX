@@ -1,9 +1,8 @@
-#include "OpenGLRenderManager.h"
-#include "OpenGLValues.h"
-#include "Pixel.h"
-
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include "OpenGLRenderManager.h"
+#include "OpenGLValues.h"
+#include "../../Utils/Pixel.h"
 
 void OpenGLRenderManager::InitialiseRender(int width, int height)
 {
@@ -58,13 +57,8 @@ void OpenGLRenderManager::CreateElementBuffers()
 
 void OpenGLRenderManager::CreateOpenGLProgram()
 {
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &VertexShader, nullptr);
-    glCompileShader(vertexShader);
-
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &FragmentShader, nullptr);
-    glCompileShader(fragmentShader);
+    GLuint vertexShader = CompileVertexShader();
+    GLuint fragmentShader = CompileFragmentShader();
 
     programID = glCreateProgram();
     glAttachShader(programID, vertexShader);
@@ -73,6 +67,27 @@ void OpenGLRenderManager::CreateOpenGLProgram()
     glLinkProgram(programID);
     glUseProgram(programID);
 
+    DeleteShaders(programID, vertexShader, fragmentShader);
+}
+
+int OpenGLRenderManager::CompileVertexShader()
+{
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &VertexShader, nullptr);
+    glCompileShader(vertexShader);
+    return vertexShader;
+}
+
+int OpenGLRenderManager::CompileFragmentShader()
+{
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &FragmentShader, nullptr);
+    glCompileShader(fragmentShader);
+    return fragmentShader;
+}
+
+void OpenGLRenderManager::DeleteShaders(int programID, int vertexShader, int fragmentShader)
+{
     glDetachShader(programID, fragmentShader);
     glDetachShader(programID, vertexShader);
     glDeleteShader(fragmentShader);
@@ -119,8 +134,6 @@ Pixel *OpenGLRenderManager::GetScreenPixels()
 
 void OpenGLRenderManager::DrawToScreen()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, screenPixels);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

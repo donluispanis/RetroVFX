@@ -81,6 +81,8 @@ make_src:
 	@$(MAKE) --no-print-directory -s -C src
 	@$(MAKE) --no-print-directory -s -C src/Utils
 	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate
+	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate/RenderManager
+	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate/WindowManager
 
 ################################################################################
 # Windows 

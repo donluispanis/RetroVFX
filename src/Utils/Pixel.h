@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ClassicDemoTemplate.h"
-
 struct Pixel
 {
     unsigned char R = 0;

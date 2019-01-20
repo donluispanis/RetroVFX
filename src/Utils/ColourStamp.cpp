@@ -1,6 +1,6 @@
 #include "ColourStamp.h"
 
-FireDemo::ColourStamp::ColourStamp(float perc, Pixel col)
+ColourStamp::ColourStamp(float perc, Pixel col)
 {
     if (perc > 1.0f)
     {
@@ -18,7 +18,7 @@ FireDemo::ColourStamp::ColourStamp(float perc, Pixel col)
     colour = col;
 }
 
-void FireDemo::ColourStamp::InterpolateColourMap(std::vector<ColourStamp> colours, Pixel *colourMap, int colourMapSize)
+void ColourStamp::GenerateGradient(std::vector<ColourStamp> colours, Pixel *colourMap, int colourMapSize)
 {
     if (colours.size() == 0)
     {

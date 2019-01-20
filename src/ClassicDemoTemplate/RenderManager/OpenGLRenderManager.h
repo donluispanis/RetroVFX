@@ -22,6 +22,9 @@ class OpenGLRenderManager : public IRenderManager
     void CreateVBO();
     void CreateElementBuffers();
     void CreateOpenGLProgram();
+    int CompileVertexShader();
+    int CompileFragmentShader();
+    void DeleteShaders(int programID, int vertexShader, int fragmentShader);
     void SetShaderVariables();
     void SetTexture();
 

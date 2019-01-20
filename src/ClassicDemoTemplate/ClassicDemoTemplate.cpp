@@ -1,5 +1,6 @@
 #include "ClassicDemoTemplate.h"
-#include "GLFWWindowManager.h"
+#include "WindowManager/IWindowManager.h"
+#include "WindowManager/GLFWWindowManager.h"
 
 ClassicDemoTemplate::ClassicDemoTemplate()
 {
