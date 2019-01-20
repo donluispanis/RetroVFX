@@ -5,6 +5,7 @@
 #include "../Utils/ColourStamp.h"
 
 struct Pixel;
+struct IWindowManager;
 
 class FireDemo : public ClassicDemoTemplate
 {
@@ -24,6 +25,7 @@ class FireDemo : public ClassicDemoTemplate
 
     Pixel *pixels;
     int width, height;
+    IWindowManager* windowManager;
 
     unsigned char *screenMapping;
     Pixel *colourMap;

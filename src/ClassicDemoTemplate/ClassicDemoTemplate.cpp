@@ -15,7 +15,6 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
 {
     windowManager = new GLFWWindowManager();
     windowManager->CreateWindow(name, width, height, fullscreen);
-    windowManager->SetFramerateToShow(true);
 
     if (!Init())
     {

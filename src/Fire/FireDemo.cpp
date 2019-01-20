@@ -8,9 +8,11 @@
 
 bool FireDemo::Init()
 {
-    pixels = GetWindowManager()->GetScreenPixels();
-    width = GetWindowManager()->GetWidth();
-    height = GetWindowManager()->GetHeight();
+    windowManager = GetWindowManager();
+    windowManager->SetFramerateToShow(true);
+    pixels = windowManager->GetScreenPixels();
+    width = windowManager->GetWidth();
+    height = windowManager->GetHeight();
     screenMapping = new unsigned char[width * height];
     colourMap = new Pixel[colourMapSize];
     currentColour = 0;
