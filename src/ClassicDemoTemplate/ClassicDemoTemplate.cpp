@@ -57,7 +57,7 @@ bool ClassicDemoTemplate::Close()
 
 void ClassicDemoTemplate::InitialiseText()
 {
-    characters = new char *[31];
+    characters = new char *[34];
     characters[0] = (char *)A;
     characters[1] = (char *)B;
     characters[2] = (char *)C;
@@ -89,6 +89,9 @@ void ClassicDemoTemplate::InitialiseText()
     characters[28] = (char *)apostrophe;
     characters[29] = (char *)comma;
     characters[30] = (char *)period;
+    characters[31] = (char *)openParenthesis;
+    characters[32] = (char *)closeParenthesis;
+    characters[33] = (char *)slash;
 }
 
 void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour)
@@ -117,6 +120,15 @@ void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int s
             break;
         case '.':
             RenderCharacter(30, posX, posY, scale, colour);
+            break;
+        case '(':
+            RenderCharacter(31, posX, posY, scale, colour);
+            break;
+        case ')':
+            RenderCharacter(32, posX, posY, scale, colour);
+            break;
+        case '/':
+            RenderCharacter(33, posX, posY, scale, colour);
             break;
         default:
             RenderCharacter(c - 65, posX, posY, scale, colour);

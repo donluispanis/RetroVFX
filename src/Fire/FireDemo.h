@@ -34,5 +34,6 @@ class FireDemo : public ClassicDemoTemplate
 
     std::vector<std::vector<ColourStamp>> colours;
     unsigned int currentColour;
+    float fireIntensity;
     bool isSpaceHeld;
 };

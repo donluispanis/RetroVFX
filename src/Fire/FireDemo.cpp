@@ -17,6 +17,7 @@ bool FireDemo::Init()
     screenMapping = new unsigned char[width * height];
     colourMap = new Pixel[colourMapSize];
     currentColour = 0;
+    fireIntensity = 0.0;
 
     InitialiseFireColours();
     UpdateFireBase();
@@ -60,7 +61,8 @@ void FireDemo::UpdateFireBase()
 bool FireDemo::Update(float deltaTime)
 {
     UpdateFireScreen();
-    RenderText("Press space to change the colour of the fire...", 100, 100, 3, Pixel{255,255,255});
+    RenderText("Press space to change the colour of the fire.", 5, 5, 2, Pixel{255, 255, 255});
+    RenderText("Press up/down to change the intensity of the fire.", 5, 20, 2, Pixel{255, 255, 255});
     return true;
 }
 
@@ -71,7 +73,7 @@ void FireDemo::UpdateFireScreen()
     for (int i = width * (height - 1); i >= 0; i--)
     {
         int sum = width + i;
-        sum = screenMapping[i] = (screenMapping[sum + 1] + screenMapping[sum] + screenMapping[sum - 1]) / 3.02 + (Fast::Rand() % 4 == 0 ? 2 : 0);
+        sum = screenMapping[i] = (screenMapping[sum + 1] + screenMapping[sum] + screenMapping[sum - 1]) / (3.03 + fireIntensity) + (Fast::Rand() % 4 == 0 ? 2 : 0);
         pixels[i] = colourMap[sum];
     }
 }
@@ -88,6 +90,15 @@ void FireDemo::UpdateInput()
     else if (!isSpacePressed)
     {
         isSpaceHeld = false;
+    }
+
+    if (windowManager->IsKeyDown((int)Key::DOWN))
+    {
+        fireIntensity += windowManager->GetDeltaTime() * 0.02;
+    }
+    if (windowManager->IsKeyDown((int)Key::UP) && fireIntensity > -0.029)
+    {
+        fireIntensity -= windowManager->GetDeltaTime() * 0.02;
     }
 }
 

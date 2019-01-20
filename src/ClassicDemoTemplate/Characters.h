@@ -218,3 +218,24 @@ const char *period{
     "     "
     "     "
     "3    "};
+
+const char *openParenthesis{
+    "    3"
+    "   3 "
+    "   3 "
+    "   3 "
+    "    3"};
+
+const char *closeParenthesis{
+    "3    "
+    " 3   "
+    " 3   "
+    " 3   "
+    "3    "};
+
+const char *slash{
+    "    3"
+    "   3 "
+    "  3  "
+    " 3   "
+    "3    "};
