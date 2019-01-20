@@ -60,6 +60,7 @@ void FireDemo::UpdateFireBase()
 bool FireDemo::Update(float deltaTime)
 {
     UpdateFireScreen();
+    RenderText("Press space to change the colour of the fire...", 100, 100, 3, Pixel{255,255,255});
     return true;
 }
 
