@@ -21,6 +21,7 @@ class FireDemo : public ClassicDemoTemplate
     void InitialiseFireColours();
     void UpdateFireBase();
     void UpdateFireScreen();
+    void UpdateInput();
     void SwitchColour();
 
     Pixel *pixels;
@@ -33,5 +34,5 @@ class FireDemo : public ClassicDemoTemplate
 
     std::vector<std::vector<ColourStamp>> colours;
     unsigned int currentColour;
-    bool shouldSwitchColour;
+    bool isSpaceHeld;
 };

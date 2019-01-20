@@ -19,4 +19,6 @@ class IWindowManager
     virtual Pixel *GetScreenPixels() = 0;
     virtual double GetDeltaTime() = 0;
     virtual bool IsWindowOpen() = 0;
+
+    virtual bool IsKeyDown(int key) = 0;
 };

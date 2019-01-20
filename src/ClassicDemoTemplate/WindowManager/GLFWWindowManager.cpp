@@ -148,3 +148,13 @@ bool GLFWWindowManager::IsWindowOpen()
 {
     return glfwWindowShouldClose(window) == 0;
 }
+
+bool GLFWWindowManager::IsKeyDown(int key)
+{
+    if(glfwGetKey(window, key) == 1) 
+    {
+        return true;
+    }
+
+    return false;
+}

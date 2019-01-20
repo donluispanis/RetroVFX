@@ -4,6 +4,7 @@
 #include "FireDemo.h"
 #include "../Utils/Fast.h"
 #include "../Utils/Pixel.h"
+#include "../Utils/InputValues.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 
 bool FireDemo::Init()
@@ -33,8 +34,12 @@ void FireDemo::InitialiseFireColours()
                                            ColourStamp{0.2f, Pixel{0, 231, 45}}, ColourStamp{0.4f, Pixel{234, 123, 231}}, ColourStamp{0.5f, Pixel{231, 32, 126}},
                                            ColourStamp{1.0f, Pixel{236, 231, 54}}};
 
+    std::vector<ColourStamp> vintageColour = {ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.02f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{123, 123, 123}},
+                                              ColourStamp{0.2f, Pixel{255, 255, 255}}, ColourStamp{1.0f, Pixel{255, 255, 255}}};
+
     colours.push_back(fireColour);
     colours.push_back(coolColour);
+    colours.push_back(vintageColour);
 }
 
 void FireDemo::UpdateFireBase()
@@ -60,23 +65,34 @@ bool FireDemo::Update(float deltaTime)
 
 void FireDemo::UpdateFireScreen()
 {
+    UpdateInput();
+
     for (int i = width * (height - 1); i >= 0; i--)
     {
         int sum = width + i;
         sum = screenMapping[i] = (screenMapping[sum + 1] + screenMapping[sum] + screenMapping[sum - 1]) / 3.02 + (Fast::Rand() % 4 == 0 ? 2 : 0);
         pixels[i] = colourMap[sum];
     }
+}
 
-    if (shouldSwitchColour)
+void FireDemo::UpdateInput()
+{
+    bool isSpacePressed = windowManager->IsKeyDown((int)Key::SPACE);
+
+    if (isSpacePressed && !isSpaceHeld)
     {
         SwitchColour();
+        isSpaceHeld = true;
+    }
+    else if (!isSpacePressed)
+    {
+        isSpaceHeld = false;
     }
 }
 
 void FireDemo::SwitchColour()
 {
     currentColour++;
-    shouldSwitchColour = false;
 
     if (currentColour >= colours.size())
     {

@@ -26,6 +26,8 @@ class GLFWWindowManager : public IWindowManager
     virtual double GetDeltaTime() override;
     virtual bool IsWindowOpen() override;
 
+    virtual bool IsKeyDown(int key) override;
+
   private:
     void CreateFullscrenWindow();
     void CreateRegularWindow(const int width, const int height);
