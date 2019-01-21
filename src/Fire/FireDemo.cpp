@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <GLFW/glfw3.h>
-
 #include "FireDemo.h"
 #include "../Utils/Fast.h"
 #include "../Utils/Pixel.h"
