@@ -59,7 +59,7 @@ void TunnelDemo::GenerateTexture()
         counter--;
     }
 
-    delete [] colourMap;
+    delete[] colourMap;
 }
 
 void TunnelDemo::GenerateTransformationTable()
@@ -74,7 +74,7 @@ void TunnelDemo::GenerateTransformationTable()
             int angle, distance;
             float ratio = 32.0;
             distance = int(ratio * height / sqrt((x - width / 2.0) * (x - width / 2.0) + (y - height / 2.0) * (y - height / 2.0))) % height;
-            angle = (unsigned int)(0.5 * height * atan2(y - height / 2.0, x - width / 2.0) / 3.1416);
+            angle = (unsigned int)(0.5 * width * atan2(y - height / 2.0, x - width / 2.0) / 3.1416);
             distanceTable[y * width + x] = distance;
             angleTable[y * width + x] = angle;
         }
@@ -107,6 +107,8 @@ bool TunnelDemo::Update(float deltaTime)
 bool TunnelDemo::Destroy()
 {
     delete[] tunnelTexture;
+    delete[] distanceTable;
+    delete[] angleTable;
 
     return true;
 }

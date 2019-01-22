@@ -60,6 +60,24 @@ compile_tunnel_lin: TARGET := Tunnel
 compile_tunnel_lin: all_linux
 
 ################################################################################
+# DOT TUNNEL
+################################################################################
+dottunnel: create_dir make_src make_dottunnel compile_dottunnel
+
+dottunnel_lin: create_dir make_src make_dottunnel compile_dottunnel_lin
+
+make_dottunnel: 
+	@$(MAKE) --no-print-directory -s -C src/DotTunnel
+
+compile_dottunnel: TARGET := DotTunnel
+
+compile_dottunnel: all_windows
+
+compile_dottunnel_lin: TARGET := DotTunnel
+
+compile_dottunnel_lin: all_linux
+
+################################################################################
 # PERFORMANCE TESTS
 ################################################################################
 perf_test: create_dir make_perf link_test
