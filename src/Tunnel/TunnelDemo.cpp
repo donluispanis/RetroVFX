@@ -1,6 +1,7 @@
 #include <cmath>
 #include "TunnelDemo.h"
 #include "../Utils/Pixel.h"
+#include "../Utils/ColourStamp.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include <iostream>
 
@@ -20,6 +21,12 @@ bool TunnelDemo::Init()
 void TunnelDemo::GenerateTexture()
 {
     tunnelTexture = new Pixel[width * height];
+    int colourMapSize = width / 4;
+    Pixel *colourMap = new Pixel[colourMapSize];
+    ColourStamp::GenerateGradient({ColourStamp{0.0f, Pixel{255, 0, 0}}, ColourStamp{0.16f, Pixel{255, 255, 0}}, ColourStamp{0.33f, Pixel{0, 255, 0}},
+                                   ColourStamp{0.5f, Pixel{0, 255, 255}}, ColourStamp{0.66f, Pixel{0, 0, 255}}, ColourStamp{0.83f, Pixel{255, 0, 255}},
+                                   ColourStamp{1.0f, Pixel{255, 0, 0}}},
+                                  colourMap, colourMapSize);
 
     int counter = 10;
     bool paintWhite = false;
@@ -42,7 +49,7 @@ void TunnelDemo::GenerateTexture()
             }
             if (paintWhite)
             {
-                tunnelTexture[j * width + i] = {255, 255, 255};
+                tunnelTexture[j * width + i] = colourMap[i % colourMapSize];
             }
             else
             {
@@ -51,6 +58,8 @@ void TunnelDemo::GenerateTexture()
         }
         counter--;
     }
+
+    delete [] colourMap;
 }
 
 void TunnelDemo::GenerateTransformationTable()
@@ -77,8 +86,8 @@ bool TunnelDemo::Update(float deltaTime)
     static float animation = 0.0f;
     animation += windowManager->GetDeltaTime();
     //calculate the shift values out of the animation value
-    int shiftX = animation * 20;
-    int shiftY = animation * 20;
+    int shiftX = animation * 40;
+    int shiftY = animation * 40;
 
     for (int x = 0; x < width; x++)
     {

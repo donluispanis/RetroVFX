@@ -38,9 +38,9 @@ void ColourStamp::GenerateGradient(std::vector<ColourStamp> colours, Pixel *colo
 
     if (colours.size() > 1)
     {
-        unsigned char from = 0;
-        unsigned char to = colours[1].percentage * 255;
-        unsigned char current = 0;
+        int from = 0;
+        int to = colours[1].percentage * colourMapSize;
+        int current = 0;
 
         for (int i = 0; i < colourMapSize; i++)
         {
@@ -48,7 +48,7 @@ void ColourStamp::GenerateGradient(std::vector<ColourStamp> colours, Pixel *colo
             {
                 colours.erase(colours.begin());
                 from = to;
-                to = colours[1].percentage * 255;
+                to = colours[1].percentage * colourMapSize;
                 current = 0;
             }
 
