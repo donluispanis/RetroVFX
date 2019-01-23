@@ -3,6 +3,7 @@
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
 
 struct Pixel;
+struct Circle;
 struct IWindowManager;
 
 class DotTunnelDemo : public ClassicDemoTemplate
@@ -18,6 +19,8 @@ class DotTunnelDemo : public ClassicDemoTemplate
 
     void InitSineTable();
     void InitCosineTable();
+    void DrawCircle(const Circle &c, const Pixel &colour);
+    void ClearCircle(const Circle &circle);
 
     Pixel *pixels;
     int width, height;
