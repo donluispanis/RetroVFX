@@ -1,9 +1,10 @@
 #pragma once
 
+#include <deque>
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
+#include "Circle.h"
 
 struct Pixel;
-struct Circle;
 struct IWindowManager;
 
 class DotTunnelDemo : public ClassicDemoTemplate
@@ -17,10 +18,11 @@ class DotTunnelDemo : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
-    void InitSineTable();
-    void InitCosineTable();
+    void InitCircleQueue();
+    void UpdateCircleQueue();
     void DrawCircle(const Circle &c, const Pixel &colour);
-    void ClearCircle(const Circle &circle);
+    void UpdateCircle(Circle &c);
+    void EraseCircle(const Circle &circle);
 
     Pixel *pixels;
     int width, height;
@@ -28,4 +30,8 @@ class DotTunnelDemo : public ClassicDemoTemplate
 
     float *sineTable, *cosineTable;
     int mathTableSize;
+    std::deque<Circle> circles;
+    int circleCount;
+
+    Circle defaultCircle;
 };

@@ -2,7 +2,8 @@
 
 struct Circle
 {
-    int x, y, radius;
-    float rotation;
+    int x, y;
+    float radius;
+    int rotation;
     float density;
 };

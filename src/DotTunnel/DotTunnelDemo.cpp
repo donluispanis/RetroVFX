@@ -2,7 +2,6 @@
 #include "../Utils/Pixel.h"
 #include "../Utils/ColourStamp.h"
 #include "../Utils/Fast.h"
-#include "Circle.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include <iostream>
 
@@ -18,26 +17,57 @@ bool DotTunnelDemo::Init()
     sineTable = Fast::GenerateSineTable(mathTableSize);
     cosineTable = Fast::GenerateCosineTable(mathTableSize);
 
+    circleCount = 20;
+    defaultCircle.x = width / 2;
+    defaultCircle.y = height / 2;
+    defaultCircle.radius = 50;
+    defaultCircle.rotation = 0;
+    defaultCircle.density = 0.05;
+
+    InitCircleQueue();
+
     return true;
+}
+
+void DotTunnelDemo::InitCircleQueue()
+{
+    for (int i = 0; i < circleCount; i++)
+    {
+        circles.push_back(Circle{defaultCircle.x, defaultCircle.y, (defaultCircle.radius * circleCount) / (circleCount - i + 1),
+                                 defaultCircle.rotation, defaultCircle.density});
+    }
 }
 
 bool DotTunnelDemo::Update(float deltaTime)
 {
-
-    int px = width / 2, py = height / 2, radius = 320;
-    static Circle c{px, py, radius, 0.0, 0.05};
-    ClearCircle(c);
-    static float acc = 0;
-    acc += windowManager->GetDeltaTime();
-    if (acc > 0.1)
-    {
-        c.rotation += 1;
-        acc = 0;
-    }
-    DrawCircle(c, Pixel(255, 255, 255));
+    UpdateCircleQueue();
 
     RenderText("DotTunnel effect.", 5, 5, 2, Pixel{255, 255, 255});
     return true;
+}
+
+void DotTunnelDemo::UpdateCircleQueue()
+{
+    for (auto c : circles)
+    {
+        EraseCircle(c);
+    }
+
+    if (circles[circles.size() - 1].radius > defaultCircle.radius * circles.size() / 2)
+    {
+        circles.pop_back();
+        circles.push_front(defaultCircle);
+    }
+
+    for (auto& c : circles)
+    {
+        UpdateCircle(c);
+    }
+
+    for (auto c : circles)
+    {
+        DrawCircle(c, Pixel{255, 255, 255});
+    }
 }
 
 void DotTunnelDemo::DrawCircle(const Circle &c, const Pixel &colour)
@@ -48,19 +78,24 @@ void DotTunnelDemo::DrawCircle(const Circle &c, const Pixel &colour)
 
     for (float i = 0, n = 2 * Fast::PI; i < n; i += increment)
     {
+        x = sineTable[int(i * indexFactor + c.rotation) % mathTableSize] * c.radius + c.x;
+        y = sineTable[int(i * indexFactor + c.rotation + mathTableSize / 4) % mathTableSize] * c.radius + c.y;
 
-        x = sineTable[int(i * indexFactor + c.rotation) % mathTableSize] * c.radius;
-        y = cosineTable[int(i * indexFactor + c.rotation) % mathTableSize] * c.radius;
-
-        if(x < 0){
-            int das = x;
+        if (x < 0 || x > width - 1 || y < 0 || y > height - 1)
+        {
+            continue;
         }
-        //Draw each one of the 8 semiquadrants of the circle
-        pixels[(c.y + y) * width + (c.x + x)] = colour;
+
+        pixels[y * width + x] = colour;
     }
 }
 
-void DotTunnelDemo::ClearCircle(const Circle &circle)
+void DotTunnelDemo::UpdateCircle(Circle &c)
+{
+    c.radius += c.radius * windowManager->GetDeltaTime() * 0.1;
+}
+
+void DotTunnelDemo::EraseCircle(const Circle &circle)
 {
     DrawCircle(circle, Pixel());
 }
