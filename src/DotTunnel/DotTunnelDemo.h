@@ -20,7 +20,7 @@ class DotTunnelDemo : public ClassicDemoTemplate
 
     void InitCircleQueue();
     void UpdateCircleQueue();
-    void DrawCircle(const Circle &c);
+    void DrawCircle(const Circle &c, const Pixel &colour);
     void UpdateCircle(Circle &c);
     void EraseCircle(const Circle &circle);
 

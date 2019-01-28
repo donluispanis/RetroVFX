@@ -4,7 +4,6 @@
 #include "../Utils/Fast.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include <iostream>
-#include <cmath>
 
 bool DotTunnelDemo::Init()
 {
@@ -24,7 +23,6 @@ bool DotTunnelDemo::Init()
     defaultCircle.radius = 50;
     defaultCircle.rotation = 0;
     defaultCircle.density = 0.05;
-    defaultCircle.colour = Pixel{255,0,0};
 
     InitCircleQueue();
 
@@ -55,13 +53,10 @@ void DotTunnelDemo::UpdateCircleQueue()
         EraseCircle(c);
     }
 
-    if (circles[0].radius > defaultCircle.radius + defaultCircle.radius / circleCount)
-    {
-        circles.push_front(defaultCircle);
-    }
-    if (circles[circles.size() - 1].radius > height)
+    if (circles[circles.size() - 1].radius > defaultCircle.radius * circles.size() / 2)
     {
         circles.pop_back();
+        circles.push_front(defaultCircle);
     }
 
     for (auto& c : circles)
@@ -71,44 +66,38 @@ void DotTunnelDemo::UpdateCircleQueue()
 
     for (auto c : circles)
     {
-        DrawCircle(c);
+        DrawCircle(c, Pixel{255, 255, 255});
     }
 }
 
-void DotTunnelDemo::DrawCircle(const Circle &c)
+void DotTunnelDemo::DrawCircle(const Circle &c, const Pixel &colour)
 {
     float increment = 1 / (float)(c.radius * c.density);
     int indexFactor = mathTableSize / (2 * Fast::PI);
     int x, y;
-    static float inc = 0;
-    inc += windowManager->GetDeltaTime() * 0.005;
 
     for (float i = 0, n = 2 * Fast::PI; i < n; i += increment)
     {
-        x = sin(i + inc) * c.radius + c.x;
-        y = cos(i - inc) * c.radius + c.y;
+        x = sineTable[int(i * indexFactor + c.rotation) % mathTableSize] * c.radius + c.x;
+        y = sineTable[int(i * indexFactor + c.rotation + mathTableSize / 4) % mathTableSize] * c.radius + c.y;
 
         if (x < 0 || x > width - 1 || y < 0 || y > height - 1)
         {
             continue;
         }
 
-        pixels[y * width + x] = c.colour;
+        pixels[y * width + x] = colour;
     }
 }
 
 void DotTunnelDemo::UpdateCircle(Circle &c)
 {
     c.radius += c.radius * windowManager->GetDeltaTime() * 0.1;
-    c.rotation += c.radius * windowManager->GetDeltaTime() * 0.1;
-    c.colour.B += 1;
 }
 
 void DotTunnelDemo::EraseCircle(const Circle &circle)
 {
-    Circle c = circle;
-    c.colour = Pixel();
-    DrawCircle(c);
+    DrawCircle(circle, Pixel());
 }
 
 bool DotTunnelDemo::Destroy()
