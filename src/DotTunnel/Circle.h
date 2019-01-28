@@ -1,9 +1,12 @@
 #pragma once
 
+#include "../Utils/Pixel.h"
+
 struct Circle
 {
     int x, y;
     float radius;
-    int rotation;
+    float rotation;
     float density;
+    Pixel colour;
 };
