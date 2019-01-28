@@ -4,7 +4,7 @@
 
 struct Circle
 {
-    int x, y;
+    float x, y;
     float radius;
     float rotation;
     float density;

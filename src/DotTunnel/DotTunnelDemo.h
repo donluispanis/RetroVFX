@@ -22,6 +22,7 @@ class DotTunnelDemo : public ClassicDemoTemplate
     void UpdateCircleQueue();
     void DrawCircle(const Circle &c);
     void UpdateCircle(Circle &c);
+    void UpdateSign(float deltaTime);
     void EraseCircle(const Circle &circle);
 
     Pixel *pixels;
@@ -30,6 +31,7 @@ class DotTunnelDemo : public ClassicDemoTemplate
 
     float *sineTable, *cosineTable;
     int mathTableSize;
+    int signX, signY;
     std::deque<Circle> circles;
     int circleCount;
 

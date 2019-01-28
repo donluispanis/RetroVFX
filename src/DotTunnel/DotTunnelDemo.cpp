@@ -20,10 +20,13 @@ bool DotTunnelDemo::Init()
     circleCount = 20;
     defaultCircle.x = width / 2;
     defaultCircle.y = height / 2;
-    defaultCircle.radius = 50;
+    defaultCircle.radius = 20;
     defaultCircle.rotation = 0;
     defaultCircle.density = 0.05;
-    defaultCircle.colour = Pixel(255,255,255);
+    defaultCircle.colour = Pixel(0, 0, 0);
+
+    signX = 1;
+    signY = 1;
 
     InitCircleQueue();
 
@@ -35,13 +38,14 @@ void DotTunnelDemo::InitCircleQueue()
     for (int i = 0; i < circleCount; i++)
     {
         circles.push_back(Circle{defaultCircle.x, defaultCircle.y, (defaultCircle.radius * circleCount) / (circleCount - i + 1),
-                                 defaultCircle.rotation, defaultCircle.density, defaultCircle.colour});
+                                 defaultCircle.rotation, defaultCircle.density, Pixel(255, 255, 255)});
     }
 }
 
 bool DotTunnelDemo::Update(float deltaTime)
 {
     UpdateCircleQueue();
+    UpdateSign(deltaTime);
 
     RenderText("DotTunnel effect.", 5, 5, 2, Pixel{255, 255, 255});
     return true;
@@ -64,7 +68,7 @@ void DotTunnelDemo::UpdateCircleQueue()
         circles.pop_back();
     }
 
-    for (auto& c : circles)
+    for (auto &c : circles)
     {
         UpdateCircle(c);
     }
@@ -97,7 +101,29 @@ void DotTunnelDemo::DrawCircle(const Circle &c)
 
 void DotTunnelDemo::UpdateCircle(Circle &c)
 {
-    c.radius += c.radius * windowManager->GetDeltaTime() * 0.1;
+    float dt = windowManager->GetDeltaTime();
+
+    c.radius += c.radius * dt * 0.3;
+    c.y += dt * 20 * signY;
+    c.x += dt * 20 * signX;
+    c.colour = c.colour + Pixel(1, 1, 1);
+
+    c.colour.B = 255 / c.radius;
+    c.colour.G = int(255 * c.radius) % 255;
+}
+
+void DotTunnelDemo::UpdateSign(float deltaTime)
+{
+    int modulus = 1 / (deltaTime / 5) + 1;
+
+    if (Fast::Rand() % modulus == 0)
+    {
+        signX = -signX;
+    }
+    if (Fast::Rand() % modulus == 0)
+    {
+        signY = -signY;
+    }
 }
 
 void DotTunnelDemo::EraseCircle(const Circle &circle)
