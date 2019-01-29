@@ -4,6 +4,9 @@
 Pixel::Pixel() 
     : R(0), G(0), B(0){};
 
+Pixel::Pixel(unsigned char i) 
+    : R(i), G(i), B(i){};
+
 Pixel::Pixel(unsigned char r, unsigned char g, unsigned char b) 
     : R(r), G(g), B(b){};
 

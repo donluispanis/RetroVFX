@@ -4,6 +4,15 @@
 #include "../Utils/Fast.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include <iostream>
+#include <vector>
+
+struct TurbulencePath
+{
+    int radius;
+    int phase;
+    int direction;
+    float advance;
+};
 
 bool DotTunnelDemo::Init()
 {
@@ -25,8 +34,13 @@ bool DotTunnelDemo::Init()
     defaultCircle.density = 0.05;
     defaultCircle.colour = Pixel(0, 0, 0);
 
-    signX = 1;
-    signY = 1;
+    pathX = 0.f;
+    pathY = 0.f;
+    pathRadius = height / 2;
+    pathComplexity = 4;
+    pathVelocity = 10;
+
+    pathCirclesDistance = 1;
 
     InitCircleQueue();
 
@@ -35,47 +49,56 @@ bool DotTunnelDemo::Init()
 
 void DotTunnelDemo::InitCircleQueue()
 {
-    for (int i = 0; i < circleCount; i++)
-    {
-        circles.push_back(Circle{defaultCircle.x, defaultCircle.y, (defaultCircle.radius * circleCount) / (circleCount - i + 1),
-                                 defaultCircle.rotation, defaultCircle.density, Pixel(255, 255, 255)});
-    }
+    UpdateTunnelPath(100);
+
+    circles.push_back(Circle{defaultCircle.x + pathX * pathRadius,
+                             defaultCircle.y + pathY * pathRadius,
+                             defaultCircle.radius,
+                             defaultCircle.rotation,
+                             defaultCircle.density,
+                             Pixel(0)});
 }
 
 bool DotTunnelDemo::Update(float deltaTime)
 {
-    UpdateCircleQueue();
-    UpdateSign(deltaTime);
+    UpdateCircleQueue(deltaTime);
+    UpdateTunnelPath(deltaTime);
 
-    RenderText("DotTunnel effect.", 5, 5, 2, Pixel{255, 255, 255});
+    RenderText("DotTunnel effect.", 5, 5, 2, Pixel(255));
     return true;
 }
 
-void DotTunnelDemo::UpdateCircleQueue()
+void DotTunnelDemo::UpdateCircleQueue(float deltaTime)
 {
     for (auto c : circles)
     {
         EraseCircle(c);
     }
 
-    if (circles[0].radius > defaultCircle.radius + defaultCircle.radius / circleCount)
+    PopulateCircleQueue();
+
+    for (auto &c : circles)
     {
-        circles.push_front(defaultCircle);
+        UpdateCircle(c, deltaTime);
+        DrawCircle(c);
+    }
+}
+
+void DotTunnelDemo::PopulateCircleQueue()
+{
+    if (circles[0].radius > defaultCircle.radius + (defaultCircle.radius * pathCirclesDistance) / circleCount)
+    {
+        circles.push_front({defaultCircle.x + pathX * pathRadius,
+                            defaultCircle.y + pathY * pathRadius,
+                            defaultCircle.radius,
+                            defaultCircle.rotation,
+                            defaultCircle.density,
+                            {Pixel(255)}});
     }
 
     if (circles[circles.size() - 1].radius > height)
     {
         circles.pop_back();
-    }
-
-    for (auto &c : circles)
-    {
-        UpdateCircle(c);
-    }
-
-    for (auto c : circles)
-    {
-        DrawCircle(c);
     }
 }
 
@@ -96,33 +119,21 @@ void DotTunnelDemo::DrawCircle(const Circle &c)
         }
 
         pixels[y * width + x] = c.colour;
+        pixels[y * width + x - 1] = c.colour;
+        pixels[(y + 1) * width + x] = c.colour;
+        pixels[(y + 1) * width + -1] = c.colour;
     }
 }
 
-void DotTunnelDemo::UpdateCircle(Circle &c)
+void DotTunnelDemo::UpdateCircle(Circle &c, float deltaTime)
 {
-    float dt = windowManager->GetDeltaTime();
+    c.radius += c.radius * deltaTime * 0.3;
+    
+    int i = 255 * (c.radius / float(defaultCircle.radius * 5));
 
-    c.radius += c.radius * dt * 0.3;
-    c.y += dt * 20 * signY;
-    c.x += dt * 20 * signX;
-    c.colour = c.colour + Pixel(1, 1, 1);
-
-    c.colour.B = 255 / c.radius;
-    c.colour.G = int(255 * c.radius) % 255;
-}
-
-void DotTunnelDemo::UpdateSign(float deltaTime)
-{
-    int modulus = 1 / (deltaTime / 5) + 1;
-
-    if (Fast::Rand() % modulus == 0)
+    if(i < 255)
     {
-        signX = -signX;
-    }
-    if (Fast::Rand() % modulus == 0)
-    {
-        signY = -signY;
+        c.colour = Pixel(i);
     }
 }
 
@@ -131,6 +142,35 @@ void DotTunnelDemo::EraseCircle(const Circle &circle)
     Circle c = circle;
     c.colour = Pixel();
     DrawCircle(c);
+}
+
+void DotTunnelDemo::UpdateTunnelPath(float deltaTime)
+{
+    static std::vector<TurbulencePath> turbulencePaths;
+
+    pathX = 0.f;
+    pathY = 0.f;
+
+    for (int i = 0; i < pathComplexity; i++)
+    {
+        if ((int)turbulencePaths.size() < pathComplexity)
+        {
+            turbulencePaths.push_back(TurbulencePath{
+                height / (i + 2),
+                (int)Fast::Rand() % mathTableSize,
+                i % 2 == 0 ? 1 : -1,
+                0});
+        }
+
+        TurbulencePath &tP = turbulencePaths[i];
+        tP.advance += deltaTime * 0.1;
+        int waveAmplitude = (tP.advance * tP.radius * pathVelocity) / float(i + 2);
+        pathX += cosineTable[int(waveAmplitude + tP.phase) % mathTableSize];
+        pathY += sineTable[int(waveAmplitude + tP.phase) % mathTableSize];
+    }
+
+    pathX /= (float)pathComplexity;
+    pathY /= (float)pathComplexity;
 }
 
 bool DotTunnelDemo::Destroy()

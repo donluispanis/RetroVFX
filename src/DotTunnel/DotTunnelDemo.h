@@ -19,10 +19,11 @@ class DotTunnelDemo : public ClassicDemoTemplate
     virtual bool Destroy() override;
 
     void InitCircleQueue();
-    void UpdateCircleQueue();
+    void UpdateCircleQueue(float deltaTime);
+    void UpdateTunnelPath(float deltaTime);
+    void PopulateCircleQueue();
     void DrawCircle(const Circle &c);
-    void UpdateCircle(Circle &c);
-    void UpdateSign(float deltaTime);
+    void UpdateCircle(Circle &c, float deltaTime);
     void EraseCircle(const Circle &circle);
 
     Pixel *pixels;
@@ -31,7 +32,11 @@ class DotTunnelDemo : public ClassicDemoTemplate
 
     float *sineTable, *cosineTable;
     int mathTableSize;
-    int signX, signY;
+
+    float pathX, pathY, pathVelocity;
+    int pathRadius, pathComplexity;
+    int pathCirclesDistance;
+
     std::deque<Circle> circles;
     int circleCount;
 

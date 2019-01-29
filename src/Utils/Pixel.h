@@ -7,6 +7,7 @@ struct Pixel
     unsigned char B = 0;
 
     Pixel();
+    Pixel(unsigned char i);
     Pixel(unsigned char r, unsigned char g, unsigned char b);
     Pixel operator+(const Pixel &p) const;
     Pixel operator-(const Pixel &p) const;

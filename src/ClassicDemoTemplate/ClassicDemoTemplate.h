@@ -30,6 +30,5 @@ class ClassicDemoTemplate
     void RenderCharacter(char character, int x, int y, int scale, const Pixel &colour);
 
     IWindowManager *windowManager;
-    Clock *clock;
     char **characters;
 };

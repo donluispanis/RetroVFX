@@ -36,6 +36,8 @@ void GLFWWindowManager::CreateWindow(const char *name, const int width, const in
 
     renderManager = new OpenGLRenderManager();
     renderManager->InitialiseRender(this->width, this->height);
+
+    clock->Reset();
 }
 
 void GLFWWindowManager::InitGLFW()
