@@ -31,8 +31,9 @@ bool DotTunnelDemo::Init()
     defaultCircle.y = height / 2;
     defaultCircle.radius = 20;
     defaultCircle.rotation = 0;
-    defaultCircle.density = 0.05;
-    defaultCircle.colour = Pixel(0, 0, 0);
+    defaultCircle.density = 10;
+    defaultCircle.colour = Pixel(255);
+    maxCircleRadius = height;
 
     pathX = 0.f;
     pathY = 0.f;
@@ -40,7 +41,18 @@ bool DotTunnelDemo::Init()
     pathComplexity = 4;
     pathVelocity = 10;
 
-    pathCirclesDistance = 1;
+    radiusVelocity = 1;
+    rotationVelocity = 20;
+
+    pathCirclesDistance = 2;
+
+    colourMapSize = 50;
+    colourMap = new Pixel[colourMapSize];
+    ColourStamp::GenerateGradient({ColourStamp{0.0f, Pixel{255, 0, 0}}, ColourStamp{0.16f, Pixel{255, 255, 0}}, ColourStamp{0.33f, Pixel{0, 255, 0}},
+                                   ColourStamp{0.5f, Pixel{0, 255, 255}}, ColourStamp{0.66f, Pixel{0, 0, 255}}, ColourStamp{0.83f, Pixel{255, 0, 255}},
+                                   ColourStamp{1.0f, Pixel{255, 0, 0}}},
+                                  colourMap, colourMapSize);
+    currentColour = 0;
 
     InitCircleQueue();
 
@@ -51,12 +63,12 @@ void DotTunnelDemo::InitCircleQueue()
 {
     UpdateTunnelPath(100);
 
-    circles.push_back(Circle{defaultCircle.x + pathX * pathRadius,
-                             defaultCircle.y + pathY * pathRadius,
+    circles.push_back(Circle{defaultCircle.x + int(pathX * pathRadius),
+                             defaultCircle.y + int(pathY * pathRadius),
                              defaultCircle.radius,
                              defaultCircle.rotation,
                              defaultCircle.density,
-                             Pixel(0)});
+                             colourMap[currentColour]});
 }
 
 bool DotTunnelDemo::Update(float deltaTime)
@@ -76,6 +88,7 @@ void DotTunnelDemo::UpdateCircleQueue(float deltaTime)
     }
 
     PopulateCircleQueue();
+    std::cout << circles.size() << std::endl;
 
     for (auto &c : circles)
     {
@@ -88,15 +101,15 @@ void DotTunnelDemo::PopulateCircleQueue()
 {
     if (circles[0].radius > defaultCircle.radius + (defaultCircle.radius * pathCirclesDistance) / circleCount)
     {
-        circles.push_front({defaultCircle.x + pathX * pathRadius,
-                            defaultCircle.y + pathY * pathRadius,
+        currentColour++;
+        circles.push_front({defaultCircle.x + int(pathX * pathRadius),
+                            defaultCircle.y + int(pathY * pathRadius),
                             defaultCircle.radius,
                             defaultCircle.rotation,
                             defaultCircle.density,
-                            {Pixel(255)}});
+                            colourMap[currentColour % colourMapSize]});
     }
-
-    if (circles[circles.size() - 1].radius > height)
+    if (circles[circles.size() - 1].radius > maxCircleRadius)
     {
         circles.pop_back();
     }
@@ -104,9 +117,22 @@ void DotTunnelDemo::PopulateCircleQueue()
 
 void DotTunnelDemo::DrawCircle(const Circle &c)
 {
-    float increment = 1 / (float)(c.radius * c.density);
+    float increment = 1 / (float)(c.density);
     int indexFactor = mathTableSize / (2 * Fast::PI);
     int x, y;
+
+    float opacity = 1.f;
+    float fadeIn = 1.3, fadeOut = 0.7;
+
+    if (c.radius < defaultCircle.radius * fadeIn)
+    {
+        opacity = 1 / (defaultCircle.radius * fadeIn - c.radius + 1); //Starts at 0 and goes up to 1
+    }
+
+    if (c.radius > maxCircleRadius * fadeOut)
+    {
+        opacity = (maxCircleRadius - c.radius) / (maxCircleRadius - maxCircleRadius * fadeOut); //Starts at 1 and goes down to 0
+    }
 
     for (float i = 0, n = 2 * Fast::PI; i < n; i += increment)
     {
@@ -118,23 +144,19 @@ void DotTunnelDemo::DrawCircle(const Circle &c)
             continue;
         }
 
-        pixels[y * width + x] = c.colour;
-        pixels[y * width + x - 1] = c.colour;
-        pixels[(y + 1) * width + x] = c.colour;
-        pixels[(y + 1) * width + -1] = c.colour;
+        Pixel colour = c.colour * opacity;
+
+        pixels[y * width + x] = colour;
+        pixels[y * width + x - 1] = colour;
+        pixels[(y + 1) * width + x] = colour;
+        pixels[(y + 1) * width + -1] = colour;
     }
 }
 
 void DotTunnelDemo::UpdateCircle(Circle &c, float deltaTime)
 {
-    c.radius += c.radius * deltaTime * 0.3;
-    
-    int i = 255 * (c.radius / float(defaultCircle.radius * 5));
-
-    if(i < 255)
-    {
-        c.colour = Pixel(i);
-    }
+    c.radius += c.radius * deltaTime * radiusVelocity;
+    c.rotation += deltaTime * rotationVelocity;
 }
 
 void DotTunnelDemo::EraseCircle(const Circle &circle)

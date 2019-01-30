@@ -4,9 +4,9 @@
 
 struct Circle
 {
-    float x, y;
+    int x, y;
     float radius;
     float rotation;
-    float density;
+    int density;
     Pixel colour;
 };

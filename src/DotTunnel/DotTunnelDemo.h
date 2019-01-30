@@ -39,6 +39,13 @@ class DotTunnelDemo : public ClassicDemoTemplate
 
     std::deque<Circle> circles;
     int circleCount;
-
     Circle defaultCircle;
+    int maxCircleRadius;
+
+    float rotationVelocity;
+    float radiusVelocity;
+
+    int colourMapSize;
+    Pixel *colourMap;
+    int currentColour; 
 };
