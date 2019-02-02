@@ -24,15 +24,13 @@ class ClassicDemoTemplate
     virtual bool Init() = 0;                  //Init demo specific related variables
     virtual bool Update(float deltaTime) = 0; //Update demo specific related variables
     virtual bool Destroy() = 0;               //Destroys, if necessary, variables created on init
-
-    void InitialiseText();
+    
     void UpdateInput();
     void UpdateTime();
 
     void RenderCharacter(char character, int x, int y, int scale, const Pixel &colour);
 
     IWindowManager *windowManager;
-    char **characters;
 
     int width, height;
     Pixel *screen;

@@ -23,8 +23,6 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     this->height = windowManager->GetHeight();
     this->screen = windowManager->GetScreenPixels();
 
-    InitialiseText();
-
     if (!Init())
     {
         return false;
@@ -54,48 +52,7 @@ bool ClassicDemoTemplate::Close()
     windowManager->DestroyWindow();
     delete windowManager;
 
-    delete [] characters;
-
     return Destroy();
-}
-
-void ClassicDemoTemplate::InitialiseText()
-{
-    characters = new char *[34];
-    characters[0] = (char *)A;
-    characters[1] = (char *)B;
-    characters[2] = (char *)C;
-    characters[3] = (char *)D;
-    characters[4] = (char *)E;
-    characters[5] = (char *)F;
-    characters[6] = (char *)G;
-    characters[7] = (char *)H;
-    characters[8] = (char *)I;
-    characters[9] = (char *)J;
-    characters[10] = (char *)K;
-    characters[11] = (char *)L;
-    characters[12] = (char *)M;
-    characters[13] = (char *)N;
-    characters[14] = (char *)O;
-    characters[15] = (char *)P;
-    characters[16] = (char *)Q;
-    characters[17] = (char *)R;
-    characters[18] = (char *)S;
-    characters[19] = (char *)T;
-    characters[20] = (char *)U;
-    characters[21] = (char *)V;
-    characters[22] = (char *)W;
-    characters[23] = (char *)X;
-    characters[24] = (char *)Y;
-    characters[25] = (char *)Z;
-    characters[26] = (char *)exclamation;
-    characters[27] = (char *)interrogation;
-    characters[28] = (char *)apostrophe;
-    characters[29] = (char *)comma;
-    characters[30] = (char *)period;
-    characters[31] = (char *)openParenthesis;
-    characters[32] = (char *)closeParenthesis;
-    characters[33] = (char *)slash;
 }
 
 void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour)
@@ -108,46 +65,19 @@ void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int s
 
     for (auto c : txt)
     {
-        switch (c)
-        {
-        case '!':
-            RenderCharacter(26, posX, posY, scale, colour);
-            break;
-        case '?':
-            RenderCharacter(27, posX, posY, scale, colour);
-            break;
-        case '\'':
-            RenderCharacter(28, posX, posY, scale, colour);
-            break;
-        case ',':
-            RenderCharacter(29, posX, posY, scale, colour);
-            break;
-        case '.':
-            RenderCharacter(30, posX, posY, scale, colour);
-            break;
-        case '(':
-            RenderCharacter(31, posX, posY, scale, colour);
-            break;
-        case ')':
-            RenderCharacter(32, posX, posY, scale, colour);
-            break;
-        case '/':
-            RenderCharacter(33, posX, posY, scale, colour);
-            break;
-        default:
-            RenderCharacter(c - 65, posX, posY, scale, colour);
-            break;
-        }
+        RenderCharacter(c, posX, posY, scale, colour);
         posX += 6 * scale;
     }
 }
 
 void ClassicDemoTemplate::RenderCharacter(char character, int x, int y, int scale, const Pixel &colour)
 {
-    if (character < 0)
+    if (character < 0 || character == ' ')
     {
         return;
     }
+
+    const char* c = Characters::GetCharactersMap()[character];
 
     for (int i = x; i < x + 5 * scale; i++)
     {
@@ -156,7 +86,7 @@ void ClassicDemoTemplate::RenderCharacter(char character, int x, int y, int scal
             int offsetX = (i - x) / scale;
             int offsetY = (j - y) / scale;
 
-            if (characters[(int)character][offsetY * 5 + offsetX] != ' ')
+            if (c[offsetY * 5 + offsetX] != ' ')
             {
                 screen[j * width + i] = colour;
             }
@@ -170,15 +100,15 @@ void ClassicDemoTemplate::RenderDot(int x, int y, const Pixel &colour, int dotSi
     {
         for (int j = 0; j < dotSize; j++)
         {
-            int tY = y + j;
-            int tX = x + i;
+            int offsetX = x + i;
+            int offsetY = y + j;
 
-            if (tX < 0 || tX > width - 1 || tY < 0 || tY > height - 1)
+            if (offsetX < 0 || offsetX > width - 1 || offsetY < 0 || offsetY > height - 1)
             {
                 continue;
             }
 
-            screen[(y + j) * width + (x + i)] = colour;
+            screen[offsetY * width + offsetX] = colour;
         }
     }
 }

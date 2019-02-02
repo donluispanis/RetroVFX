@@ -2,240 +2,44 @@
 
 #include <map>
 
-const char *A{
-    " 333 "
-    "3   3"
-    "33333"
-    "3   3"
-    "3   3"};
+class Characters
+{
+  public:
+    static std::map<char, const char*> GetCharactersMap();
 
-const char *B{
-    "3333 "
-    "3   3"
-    "3333 "
-    "3   3"
-    "3333"};
-
-const char *C{
-    " 3333"
-    "3    "
-    "3    "
-    "3    "
-    " 3333"};
-
-const char *D{
-    "333  "
-    "3  3 "
-    "3   3"
-    "3  3 "
-    "333  "};
-
-const char *E{
-    " 3333"
-    "3    "
-    "33333"
-    "3    "
-    " 3333"};
-
-const char *F{
-    "33333"
-    "3    "
-    "333  "
-    "3    "
-    "3    "};
-
-const char *G{
-    " 3333"
-    "3    "
-    "3  33"
-    "3   3"
-    " 3333"};
-
-const char *H{
-    "3   3"
-    "3   3"
-    "33333"
-    "3   3"
-    "3   3"};
-
-const char *I{
-    " 333 "
-    "  3  "
-    "  3  "
-    "  3  "
-    " 333 "};
-
-const char *J{
-    "33333"
-    "    3"
-    "    3"
-    "3   3"
-    " 333"};
-
-const char *K{
-    "3   3"
-    "3  3 "
-    "333  "
-    "3  3 "
-    "3   3"};
-
-const char *L{
-    "3    "
-    "3    "
-    "3    "
-    "3    "
-    "33333"};
-
-const char *M{
-    "3   3"
-    "33 33"
-    "3 3 3"
-    "3   3"
-    "3   3"};
-
-const char *N{
-    "3   3"
-    "33  3"
-    "3 3 3"
-    "3  33"
-    "3   3"};
-
-const char *O{
-    " 333 "
-    "3   3"
-    "3   3"
-    "3   3"
-    " 333 "};
-
-const char *P{
-    "3333 "
-    "3   3"
-    "3333 "
-    "3    "
-    "3    "};
-
-const char *Q{
-    " 33  "
-    "3  3 "
-    "3  3 "
-    "3  3 "
-    " 3333"};
-
-const char *R{
-    "3333 "
-    "3   3"
-    "3333 "
-    "3  3 "
-    "3   3"};
-
-const char *S{
-    " 3333"
-    "3    "
-    " 333 "
-    "    3"
-    "3333 "};
-
-const char *T{
-    "33333"
-    "  3  "
-    "  3  "
-    "  3  "
-    "  3  "};
-
-const char *U{
-    "3   3"
-    "3   3"
-    "3   3"
-    "3   3"
-    " 333 "};
-
-const char *V{
-    "3   3"
-    "3   3"
-    "3   3"
-    " 3 3 "
-    "  3  "};
-
-const char *W{
-    "3   3"
-    "3   3"
-    "3 3 3"
-    "33 33"
-    "3   3"};
-
-const char *X{
-    "3   3"
-    " 3 3 "
-    "  3  "
-    " 3 3 "
-    "3   3"};
-
-const char *Y{
-    "3   3"
-    " 3 3 "
-    "  3  "
-    "  3  "
-    "  3  "};
-
-const char *Z{
-    "33333"
-    "   3 "
-    "  3  "
-    " 3   "
-    "33333"};
-
-const char *exclamation{
-    "  3  "
-    "  3  "
-    "  3  "
-    "     "
-    "  3  "};
-
-const char *interrogation{
-    " 33  "
-    "   3 "
-    "  3  "
-    "     "
-    "  3  "};
-    
-const char *apostrophe{
-    "  3  "
-    "  3  "
-    "     "
-    "     "
-    "     "};
-
-const char *comma{
-    "     "
-    "     "
-    "     "
-    " 3   "
-    "3    "};
-
-const char *period{
-    "     "
-    "     "
-    "     "
-    "     "
-    "3    "};
-
-const char *openParenthesis{
-    "    3"
-    "   3 "
-    "   3 "
-    "   3 "
-    "    3"};
-
-const char *closeParenthesis{
-    "3    "
-    " 3   "
-    " 3   "
-    " 3   "
-    "3    "};
-
-const char *slash{
-    "    3"
-    "   3 "
-    "  3  "
-    " 3   "
-    "3    "};
+  private:
+    static const char *A;
+    static const char *B;
+    static const char *C;
+    static const char *D;
+    static const char *E;
+    static const char *F;
+    static const char *G;
+    static const char *H;
+    static const char *I;
+    static const char *J;
+    static const char *K;
+    static const char *L;
+    static const char *M;
+    static const char *N;
+    static const char *O;
+    static const char *P;
+    static const char *Q;
+    static const char *R;
+    static const char *S;
+    static const char *T;
+    static const char *U;
+    static const char *V;
+    static const char *W;
+    static const char *X;
+    static const char *Y;
+    static const char *Z;
+    static const char *exclamation;
+    static const char *interrogation;
+    static const char *apostrophe;
+    static const char *comma;
+    static const char *period;
+    static const char *openParenthesis;
+    static const char *closeParenthesis;
+    static const char *slash;
+};
