@@ -51,7 +51,7 @@ bool DotTunnelDemo::Init()
 
     colourMapSize = 50;
     colourMap = new Pixel[colourMapSize];
-    ColourStamp::GenerateGradient(ColourStampGradients::COOL, colourMap, colourMapSize);
+    ColourStamp::GenerateGradient(ColourStampGradients::RAINBOW, colourMap, colourMapSize);
     currentColour = 0;
 
     InitCircleQueue();

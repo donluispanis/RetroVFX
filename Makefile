@@ -35,11 +35,11 @@ make_fire:
 
 compile_fire: TARGET := Fire
 
-compile_fire: all_windows
+compile_fire: awf
 
 compile_fire_lin: TARGET := Fire
 
-compile_fire_lin: all_linux
+compile_fire_lin: alf
 
 ################################################################################
 # TUNNEL
@@ -53,11 +53,11 @@ make_tunnel:
 
 compile_tunnel: TARGET := Tunnel
 
-compile_tunnel: all_windows
+compile_tunnel: awt
 
 compile_tunnel_lin: TARGET := Tunnel
 
-compile_tunnel_lin: all_linux
+compile_tunnel_lin: alt
 
 ################################################################################
 # DOT TUNNEL
@@ -71,11 +71,11 @@ make_dottunnel:
 
 compile_dottunnel: TARGET := DotTunnel
 
-compile_dottunnel: all_windows
+compile_dottunnel: awdt
 
 compile_dottunnel_lin: TARGET := DotTunnel
 
-compile_dottunnel_lin: all_linux
+compile_dottunnel_lin: awlt
 
 ################################################################################
 # PERFORMANCE TESTS
@@ -104,6 +104,10 @@ all: create_dir make_src all_windows
 
 linux: create_dir make_src all_linux
 
+rebuild: clean fire tunnel dottunnel
+
+rebuild_lin: clean fire_lin tunnel_lin dottunnel_lin
+
 create_dir: make_bin_dir make_obj_dir
 
 make_bin_dir:
@@ -123,9 +127,9 @@ make_src:
 ################################################################################
 # Windows 
 ################################################################################
-all_windows: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lm -lmingw32 -lglfw3
+all_windows awf awt awdt:: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lm -lmingw32 -lglfw3
 
-all_windows:
+all_windows awf awt awdt::
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
 	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
@@ -134,9 +138,9 @@ all_windows:
 ################################################################################
 # Linux
 ################################################################################
-all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -Wl,-rpath=./lib/linux
+all_linux alf alt aldt: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -Wl,-rpath=./lib/linux
 
-all_linux:
+all_linux alf alt aldt:
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
 	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
