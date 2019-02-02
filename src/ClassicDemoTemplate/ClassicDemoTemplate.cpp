@@ -19,6 +19,10 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     windowManager = new GLFWWindowManager();
     windowManager->CreateWindow(name, width, height, fullscreen);
 
+    this->width = windowManager->GetWidth();
+    this->height = windowManager->GetHeight();
+    this->screen = windowManager->GetScreenPixels();
+
     InitialiseText();
 
     if (!Init())
@@ -145,9 +149,6 @@ void ClassicDemoTemplate::RenderCharacter(char character, int x, int y, int scal
         return;
     }
 
-    Pixel *screen = windowManager->GetScreenPixels();
-    int width = windowManager->GetWidth();
-
     for (int i = x; i < x + 5 * scale; i++)
     {
         for (int j = y; j < y + 5 * scale; j++)
@@ -159,6 +160,36 @@ void ClassicDemoTemplate::RenderCharacter(char character, int x, int y, int scal
             {
                 screen[j * width + i] = colour;
             }
+        }
+    }
+}
+
+void ClassicDemoTemplate::RenderDot(int x, int y, const Pixel &colour, int dotSize)
+{
+    for (int i = 0; i < dotSize; i++)
+    {
+        for (int j = 0; j < dotSize; j++)
+        {
+            int tY = y + j;
+            int tX = x + i;
+
+            if (tX < 0 || tX > width - 1 || tY < 0 || tY > height - 1)
+            {
+                continue;
+            }
+
+            screen[(y + j) * width + (x + i)] = colour;
+        }
+    }
+}
+
+void ClassicDemoTemplate::ClearScreen(const Pixel& colour)
+{
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            screen[j * width + i] = colour;
         }
     }
 }

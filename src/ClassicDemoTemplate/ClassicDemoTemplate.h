@@ -16,6 +16,8 @@ class ClassicDemoTemplate
 
     IWindowManager *GetWindowManager() { return windowManager; }
     void RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour);
+    void RenderDot(int x, int y, const Pixel &colour, int dotSize);
+    void ClearScreen(const Pixel &colour);
 
   private:
     //Functions that have to be overwritten by the implementation
@@ -31,4 +33,7 @@ class ClassicDemoTemplate
 
     IWindowManager *windowManager;
     char **characters;
+
+    int width, height;
+    Pixel *screen;
 };

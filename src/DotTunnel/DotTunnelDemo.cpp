@@ -1,9 +1,10 @@
 #include "DotTunnelDemo.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/ColourStamp.h"
+#include "../Utils/ColourStampGradients.h"
 #include "../Utils/Fast.h"
+#include "../Utils/InputValues.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
-#include <iostream>
 #include <vector>
 
 struct TurbulencePath
@@ -34,6 +35,7 @@ bool DotTunnelDemo::Init()
     defaultCircle.density = 10;
     defaultCircle.colour = Pixel(255);
     maxCircleRadius = height;
+    dotSize = 2;
 
     pathX = 0.f;
     pathY = 0.f;
@@ -42,16 +44,14 @@ bool DotTunnelDemo::Init()
     pathVelocity = 10;
 
     radiusVelocity = 1;
-    rotationVelocity = 20;
+    defaultRotationVelocity = 20;
+    rotationVelocity = defaultRotationVelocity;
 
     pathCirclesDistance = 2;
 
     colourMapSize = 50;
     colourMap = new Pixel[colourMapSize];
-    ColourStamp::GenerateGradient({ColourStamp{0.0f, Pixel{255, 0, 0}}, ColourStamp{0.16f, Pixel{255, 255, 0}}, ColourStamp{0.33f, Pixel{0, 255, 0}},
-                                   ColourStamp{0.5f, Pixel{0, 255, 255}}, ColourStamp{0.66f, Pixel{0, 0, 255}}, ColourStamp{0.83f, Pixel{255, 0, 255}},
-                                   ColourStamp{1.0f, Pixel{255, 0, 0}}},
-                                  colourMap, colourMapSize);
+    ColourStamp::GenerateGradient(ColourStampGradients::COOL, colourMap, colourMapSize);
     currentColour = 0;
 
     InitCircleQueue();
@@ -75,8 +75,12 @@ bool DotTunnelDemo::Update(float deltaTime)
 {
     UpdateCircleQueue(deltaTime);
     UpdateTunnelPath(deltaTime);
+    UpdateInput(deltaTime);
 
-    RenderText("DotTunnel effect.", 5, 5, 2, Pixel(255));
+    RenderText("Keep pressed the arrow keys to control the tunnel", 5, 5, 2, Pixel(255));
+    RenderText("Keep pressed W/S to increase/decrease velocity", 5, 20, 2, Pixel(255));
+    RenderText("Tap A/D to increase/decrease dot size", 5, 35, 2, Pixel(255));
+
     return true;
 }
 
@@ -88,7 +92,6 @@ void DotTunnelDemo::UpdateCircleQueue(float deltaTime)
     }
 
     PopulateCircleQueue();
-    std::cout << circles.size() << std::endl;
 
     for (auto &c : circles)
     {
@@ -115,42 +118,132 @@ void DotTunnelDemo::PopulateCircleQueue()
     }
 }
 
+void DotTunnelDemo::UpdateInput(float deltaTime)
+{
+    UpdatePositionFromInput(deltaTime);
+    UpdateVelocityFromInput(deltaTime);
+    UpdateDotSizeFromInput(deltaTime);
+}
+
+void DotTunnelDemo::UpdatePositionFromInput(float deltaTime)
+{
+    bool isGoingUp = windowManager->IsKeyDown((int)Key::UP);
+    bool isGoingDown = windowManager->IsKeyDown((int)Key::DOWN);
+    bool isGoingLeft = windowManager->IsKeyDown((int)Key::LEFT);
+    bool isGoingRight = windowManager->IsKeyDown((int)Key::RIGHT);
+
+    if (isGoingUp)
+    {
+        defaultCircle.y -= deltaTime * 100;
+    }
+    if (isGoingDown)
+    {
+        defaultCircle.y += deltaTime * 100;
+    }
+    if (isGoingLeft)
+    {
+        defaultCircle.x -= deltaTime * 100;
+    }
+    if (isGoingRight)
+    {
+        defaultCircle.x += deltaTime * 100;
+    }
+}
+
+void DotTunnelDemo::UpdateVelocityFromInput(float deltaTime)
+{
+    bool isIncreasingSpeed = windowManager->IsKeyDown((int)Key::W);
+    bool isDecreasingSpeed = windowManager->IsKeyDown((int)Key::S);
+
+    if (isIncreasingSpeed)
+    {
+        if (radiusVelocity < 5.f)
+            radiusVelocity += deltaTime;
+        if (rotationVelocity < defaultRotationVelocity * 5.f)
+            rotationVelocity += deltaTime * defaultRotationVelocity;
+    }
+    if (isDecreasingSpeed)
+    {
+        if (radiusVelocity > 0.3f)
+            radiusVelocity -= deltaTime;
+        if (rotationVelocity > defaultRotationVelocity)
+            rotationVelocity -= deltaTime * defaultRotationVelocity;
+    }
+}
+
+void DotTunnelDemo::UpdateDotSizeFromInput(float deltaTime)
+{
+    bool isDotSizeIncreasing = windowManager->IsKeyDown((int)Key::D);
+    bool isDotSizeDecreasing = windowManager->IsKeyDown((int)Key::A);
+    static bool isIncreasingHeld = false;
+    static bool isDecreasingHeld = false;
+
+    if (isDotSizeIncreasing && !isIncreasingHeld)
+    {
+        if (dotSize < 15)
+        {
+            dotSize++;
+            ClearScreen(Pixel(0));
+        }
+        isIncreasingHeld = true;
+    }
+    else if (!isDotSizeIncreasing)
+    {
+        isIncreasingHeld = false;
+    }
+
+    if (isDotSizeDecreasing && !isDecreasingHeld)
+    {
+        if (dotSize > 1)
+        {
+            dotSize--;
+            ClearScreen(Pixel(0));
+        }
+        isDecreasingHeld = true;
+    }
+    else if (!isDotSizeDecreasing)
+    {
+        isDecreasingHeld = false;
+    }
+}
+
 void DotTunnelDemo::DrawCircle(const Circle &c)
 {
     float increment = 1 / (float)(c.density);
     int indexFactor = mathTableSize / (2 * Fast::PI);
     int x, y;
 
-    float opacity = 1.f;
-    float fadeIn = 1.3, fadeOut = 0.7;
-
-    if (c.radius < defaultCircle.radius * fadeIn)
-    {
-        opacity = 1 / (defaultCircle.radius * fadeIn - c.radius + 1); //Starts at 0 and goes up to 1
-    }
-
-    if (c.radius > maxCircleRadius * fadeOut)
-    {
-        opacity = (maxCircleRadius - c.radius) / (maxCircleRadius - maxCircleRadius * fadeOut); //Starts at 1 and goes down to 0
-    }
-
     for (float i = 0, n = 2 * Fast::PI; i < n; i += increment)
     {
         x = sineTable[int(i * indexFactor + c.rotation) % mathTableSize] * c.radius + c.x;
         y = cosineTable[int(i * indexFactor + c.rotation) % mathTableSize] * c.radius + c.y;
 
-        if (x < 0 || x > width - 1 || y < 0 || y > height - 1)
-        {
-            continue;
-        }
-
-        Pixel colour = c.colour * opacity;
-
-        pixels[y * width + x] = colour;
-        pixels[y * width + x - 1] = colour;
-        pixels[(y + 1) * width + x] = colour;
-        pixels[(y + 1) * width + -1] = colour;
+        Pixel finalColour = c.colour * CalculateOpacity(c.radius);
+        RenderDot(x, y, finalColour, dotSize);
     }
+}
+
+float DotTunnelDemo::CalculateOpacity(const float radius)
+{
+    float opacity = 1.f;
+    float fadeIn = 1.3, fadeOut = 0.7;
+
+    if (radius < defaultCircle.radius * fadeIn)
+    {
+        opacity = 1 / (defaultCircle.radius * fadeIn - radius + 1); //Starts at 0 and goes up to 1
+    }
+
+    if (radius > maxCircleRadius * fadeOut)
+    {
+        opacity = (maxCircleRadius - radius) / (maxCircleRadius - maxCircleRadius * fadeOut); //Starts at 1 and goes down to 0
+    }
+
+    if(opacity < 0.f)
+    {
+        opacity *= -1.f;
+    }
+
+    return opacity;
 }
 
 void DotTunnelDemo::UpdateCircle(Circle &c, float deltaTime)

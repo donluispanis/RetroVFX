@@ -2,6 +2,7 @@
 #include "TunnelDemo.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/ColourStamp.h"
+#include "../Utils/ColourStampGradients.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include <iostream>
 
@@ -23,10 +24,7 @@ void TunnelDemo::GenerateTexture()
     tunnelTexture = new Pixel[width * height];
     int colourMapSize = width / 4;
     Pixel *colourMap = new Pixel[colourMapSize];
-    ColourStamp::GenerateGradient({ColourStamp{0.0f, Pixel{255, 0, 0}}, ColourStamp{0.16f, Pixel{255, 255, 0}}, ColourStamp{0.33f, Pixel{0, 255, 0}},
-                                   ColourStamp{0.5f, Pixel{0, 255, 255}}, ColourStamp{0.66f, Pixel{0, 0, 255}}, ColourStamp{0.83f, Pixel{255, 0, 255}},
-                                   ColourStamp{1.0f, Pixel{255, 0, 0}}},
-                                  colourMap, colourMapSize);
+    ColourStamp::GenerateGradient(ColourStampGradients::RAINBOW, colourMap, colourMapSize);
 
     int counter = 10;
     bool paintWhite = false;

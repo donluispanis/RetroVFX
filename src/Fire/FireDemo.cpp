@@ -2,6 +2,7 @@
 #include "../Utils/Fast.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/InputValues.h"
+#include "../Utils/ColourStampGradients.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 
 bool FireDemo::Init()
@@ -24,20 +25,9 @@ bool FireDemo::Init()
 
 void FireDemo::InitialiseFireColours()
 {
-    std::vector<ColourStamp> fireColour = {ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.02f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{255, 0, 0}},
-                                           ColourStamp{0.2f, Pixel{255, 125, 0}}, ColourStamp{0.4f, Pixel{255, 255, 0}}, ColourStamp{0.5f, Pixel{255, 255, 255}},
-                                           ColourStamp{1.0f, Pixel{255, 255, 255}}};
-
-    std::vector<ColourStamp> coolColour = {ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.02f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{123, 245, 231}},
-                                           ColourStamp{0.2f, Pixel{0, 231, 45}}, ColourStamp{0.4f, Pixel{234, 123, 231}}, ColourStamp{0.5f, Pixel{231, 32, 126}},
-                                           ColourStamp{1.0f, Pixel{236, 231, 54}}};
-
-    std::vector<ColourStamp> vintageColour = {ColourStamp{0.0f, Pixel{0, 0, 0}}, ColourStamp{0.02f, Pixel{0, 0, 0}}, ColourStamp{0.1f, Pixel{123, 123, 123}},
-                                              ColourStamp{0.2f, Pixel{255, 255, 255}}, ColourStamp{1.0f, Pixel{255, 255, 255}}};
-
-    colours.push_back(fireColour);
-    colours.push_back(coolColour);
-    colours.push_back(vintageColour);
+    colours.push_back(ColourStampGradients::FIRE);
+    colours.push_back(ColourStampGradients::COOL);
+    colours.push_back(ColourStampGradients::VINTAGE);
 }
 
 void FireDemo::UpdateFireBase()

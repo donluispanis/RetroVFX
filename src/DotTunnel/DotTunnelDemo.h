@@ -21,8 +21,13 @@ class DotTunnelDemo : public ClassicDemoTemplate
     void InitCircleQueue();
     void UpdateCircleQueue(float deltaTime);
     void UpdateTunnelPath(float deltaTime);
+    void UpdateInput(float deltaTime);
+    void UpdatePositionFromInput(float deltaTime);
+    void UpdateVelocityFromInput(float deltaTime);
+    void UpdateDotSizeFromInput(float deltaTime);
     void PopulateCircleQueue();
     void DrawCircle(const Circle &c);
+    float CalculateOpacity(const float radius);
     void UpdateCircle(Circle &c, float deltaTime);
     void EraseCircle(const Circle &circle);
 
@@ -41,9 +46,11 @@ class DotTunnelDemo : public ClassicDemoTemplate
     int circleCount;
     Circle defaultCircle;
     int maxCircleRadius;
+    int dotSize;
 
-    float rotationVelocity;
     float radiusVelocity;
+    float rotationVelocity;
+    float defaultRotationVelocity;
 
     int colourMapSize;
     Pixel *colourMap;
