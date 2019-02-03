@@ -42,24 +42,6 @@ compile_fire_lin: TARGET := Fire
 compile_fire_lin: all_linux
 
 ################################################################################
-# TUNNEL
-################################################################################
-tunnel: create_dir make_src make_tunnel compile_tunnel
-
-tunnel_lin: create_dir make_src make_tunnel compile_tunnel_lin
-
-make_tunnel: 
-	@$(MAKE) --no-print-directory -s -C src/Tunnel
-
-compile_tunnel: TARGET := Tunnel
-
-compile_tunnel: all_windows
-
-compile_tunnel_lin: TARGET := Tunnel
-
-compile_tunnel_lin: all_linux
-
-################################################################################
 # DOT TUNNEL
 ################################################################################
 dottunnel: create_dir make_src make_dottunnel compile_dottunnel
