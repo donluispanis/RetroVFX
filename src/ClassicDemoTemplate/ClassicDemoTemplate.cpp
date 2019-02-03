@@ -1,7 +1,7 @@
 #include "ClassicDemoTemplate.h"
 #include "WindowManager/IWindowManager.h"
 #include "WindowManager/GLFWWindowManager.h"
-#include "Characters.h"
+#include "Characters/Characters.h"
 #include "../Utils/Pixel.h"
 #include <string>
 
