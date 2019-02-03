@@ -20,10 +20,8 @@ unsigned long Fast::Rand()
     return z;
 }
 
-float *Fast::GenerateSineTable(int size)
+float *Fast::GenerateSineTable(float *sineTable, int size)
 {
-    float *sineTable = new float[size];
-
     for (int i = 0; i < size; i++)
     {
         float value = (i * 2 * Fast::PI) / size;
@@ -33,10 +31,8 @@ float *Fast::GenerateSineTable(int size)
     return sineTable;
 }
 
-float *Fast::GenerateCosineTable(int size)
+float *Fast::GenerateCosineTable(float *cosineTable, int size)
 {
-    float *cosineTable = new float[size];
-
     for (int i = 0; i < size; i++)
     {
         float value = (i * 2 * Fast::PI) / size;

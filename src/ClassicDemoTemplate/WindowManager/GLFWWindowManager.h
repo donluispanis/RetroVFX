@@ -1,6 +1,8 @@
 #pragma once
 
 #include "IWindowManager.h"
+#include "KeyState.h"
+#include <map>
 
 class GLFWwindow;
 class Clock;
@@ -26,7 +28,11 @@ class GLFWWindowManager : public IWindowManager
     virtual double GetDeltaTime() override;
     virtual bool IsWindowOpen() override;
 
-    virtual bool IsKeyDown(int key) override;
+    virtual void RegisterKeyInput(int key) override;
+    virtual bool IsKeyPressed(int key) override;
+    virtual bool IsKeyHeld(int key) override;
+    virtual bool IsKeyReleased(int key) override;
+    virtual bool IsKeyUp(int key) override;
 
   private:
     void CreateFullscrenWindow();
@@ -37,10 +43,13 @@ class GLFWWindowManager : public IWindowManager
     void SetOpenGLVersion();
 
     void UpdateInput();
+    void UpdateKeyState(int state, KeyState& key);
     void UpdateTime();
     void ShowFramerateOnTitleWindow();
 
     IRenderManager *renderManager;
+
+    std::map<int, KeyState> registeredKeyInput;
 
     const char *name;
     int height;

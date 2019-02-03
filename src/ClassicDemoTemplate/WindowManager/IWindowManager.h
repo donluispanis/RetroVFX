@@ -20,5 +20,9 @@ class IWindowManager
     virtual double GetDeltaTime() = 0;
     virtual bool IsWindowOpen() = 0;
 
-    virtual bool IsKeyDown(int key) = 0;
+    virtual void RegisterKeyInput(int key) = 0;
+    virtual bool IsKeyPressed(int key) = 0;
+    virtual bool IsKeyHeld(int key) = 0;
+    virtual bool IsKeyReleased(int key) = 0;
+    virtual bool IsKeyUp(int key) = 0;
 };

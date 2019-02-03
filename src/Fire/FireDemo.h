@@ -18,6 +18,7 @@ class FireDemo : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
+    void InitInput();
     void InitialiseFireColours();
     void UpdateFireBase();
     void UpdateFireScreen();
@@ -35,5 +36,4 @@ class FireDemo : public ClassicDemoTemplate
     std::vector<std::vector<ColourStamp>> colours;
     unsigned int currentColour;
     float fireIntensity;
-    bool isSpaceHeld;
 };

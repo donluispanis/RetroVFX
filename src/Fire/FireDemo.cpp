@@ -17,10 +17,18 @@ bool FireDemo::Init()
     currentColour = 0;
     fireIntensity = 0.0;
 
+    InitInput();
     InitialiseFireColours();
     UpdateFireBase();
 
     return true;
+}
+
+void FireDemo::InitInput()
+{
+    windowManager->RegisterKeyInput((int)Key::UP);
+    windowManager->RegisterKeyInput((int)Key::DOWN);
+    windowManager->RegisterKeyInput((int)Key::SPACE);
 }
 
 void FireDemo::InitialiseFireColours()
@@ -67,23 +75,19 @@ void FireDemo::UpdateFireScreen()
 
 void FireDemo::UpdateInput()
 {
-    bool isSpacePressed = windowManager->IsKeyDown((int)Key::SPACE);
+    bool isSpacePressed = windowManager->IsKeyPressed((int)Key::SPACE);
+    bool isIntensityIncreasing = windowManager->IsKeyHeld((int)Key::UP);
+    bool isIntensityDecreasing = windowManager->IsKeyHeld((int)Key::DOWN);
 
-    if (isSpacePressed && !isSpaceHeld)
+    if (isSpacePressed)
     {
         SwitchColour();
-        isSpaceHeld = true;
     }
-    else if (!isSpacePressed)
-    {
-        isSpaceHeld = false;
-    }
-
-    if (windowManager->IsKeyDown((int)Key::DOWN))
+    if (isIntensityDecreasing)
     {
         fireIntensity += windowManager->GetDeltaTime() * 0.02;
     }
-    if (windowManager->IsKeyDown((int)Key::UP) && fireIntensity > -0.029)
+    if (isIntensityIncreasing && fireIntensity > -0.029)
     {
         fireIntensity -= windowManager->GetDeltaTime() * 0.02;
     }

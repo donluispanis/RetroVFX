@@ -6,6 +6,7 @@
 
 struct Pixel;
 struct IWindowManager;
+class TurbulencePath;
 
 class DotTunnelDemo : public ClassicDemoTemplate
 {
@@ -18,9 +19,14 @@ class DotTunnelDemo : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
-    void InitCircleQueue();
+    void InitWindowManagerData();
+    void InitDefaultCircleData();
+    void InitMathTables();
+    void InitTurbulencePath();
+    void InitColourMap();
+    void InitInput();
+    void AddCircle();
     void UpdateCircleQueue(float deltaTime);
-    void UpdateTunnelPath(float deltaTime);
     void UpdateInput(float deltaTime);
     void UpdatePositionFromInput(float deltaTime);
     void UpdateVelocityFromInput(float deltaTime);
@@ -38,15 +44,15 @@ class DotTunnelDemo : public ClassicDemoTemplate
     float *sineTable, *cosineTable;
     int mathTableSize;
 
-    float pathX, pathY, pathVelocity;
-    int pathRadius, pathComplexity;
-    int pathCirclesDistance;
-
     std::deque<Circle> circles;
     int circleCount;
     Circle defaultCircle;
     int maxCircleRadius;
     int dotSize;
+    int circlesGapDistance;
+
+    float pathX, pathY;
+    TurbulencePath *turbulencePath;
 
     float radiusVelocity;
     float rotationVelocity;

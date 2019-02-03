@@ -78,7 +78,7 @@ void GLFWWindowManager::UpdateWindow()
     UpdateInput();
     UpdateTime();
 
-    if(showFramerate)
+    if (showFramerate)
     {
         glfwSetWindowTitle(window, std::string(std::string(name) + " - FPS: " + std::to_string(1 / deltaTime)).c_str());
     }
@@ -92,6 +92,37 @@ void GLFWWindowManager::UpdateInput()
     if (state == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, 1);
+    }
+
+    for (auto &key : registeredKeyInput)
+    {
+        int state = glfwGetKey(window, key.first);
+        UpdateKeyState(state, key.second);
+    }
+}
+
+void GLFWWindowManager::UpdateKeyState(int state, KeyState &key)
+{
+    if (state == GLFW_PRESS && (!key.isPressed && !key.isHeld))
+    {
+        key.isPressed = true;
+    }
+    else if (state == GLFW_PRESS)
+    {
+        key.isPressed = false;
+        key.isHeld = true;
+    }
+
+    if (state != GLFW_PRESS && (key.isHeld || key.isPressed))
+    {
+        key.isPressed = false;
+        key.isHeld = false;
+        key.isReleased = true;
+    }
+    else if (state != GLFW_PRESS)
+    {
+        key.isReleased = false;
+        key.isUp = true;
     }
 }
 
@@ -136,7 +167,7 @@ int GLFWWindowManager::GetHeight()
     return height;
 }
 
-Pixel* GLFWWindowManager::GetScreenPixels()
+Pixel *GLFWWindowManager::GetScreenPixels()
 {
     return renderManager->GetScreenPixels();
 }
@@ -151,11 +182,54 @@ bool GLFWWindowManager::IsWindowOpen()
     return glfwWindowShouldClose(window) == 0;
 }
 
-bool GLFWWindowManager::IsKeyDown(int key)
+void GLFWWindowManager::RegisterKeyInput(int key)
 {
-    if(glfwGetKey(window, key) == 1) 
+    registeredKeyInput[key] = KeyState();
+}
+
+bool GLFWWindowManager::IsKeyPressed(int key)
+{
+    const auto &keyState = registeredKeyInput.find(key);
+
+    if (keyState != registeredKeyInput.cend())
     {
-        return true;
+        return keyState->second.isPressed;
+    }
+
+    return false;
+}
+
+bool GLFWWindowManager::IsKeyHeld(int key)
+{
+    const auto &keyState = registeredKeyInput.find(key);
+
+    if (keyState != registeredKeyInput.cend())
+    {
+        return keyState->second.isHeld;
+    }
+
+    return false;
+}
+
+bool GLFWWindowManager::IsKeyReleased(int key)
+{
+    const auto &keyState = registeredKeyInput.find(key);
+
+    if (keyState != registeredKeyInput.cend())
+    {
+        return keyState->second.isReleased;
+    }
+
+    return false;
+}
+
+bool GLFWWindowManager::IsKeyUp(int key)
+{
+    const auto &keyState = registeredKeyInput.find(key);
+
+    if (keyState != registeredKeyInput.cend())
+    {
+        return keyState->second.isUp;
     }
 
     return false;
