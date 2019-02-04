@@ -3,5 +3,6 @@
 class FileLoader
 {
   public:
-    static void LoadBinaryFile(const char *path, unsigned char *&output, unsigned int &size);
+    static void OpenBinaryFile(const char *path, unsigned char *&output, unsigned int &size);
+    static void CloseBinaryFile(unsigned char *output);
 };

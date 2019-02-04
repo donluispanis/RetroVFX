@@ -19,5 +19,8 @@ class RotoZoom : public ClassicDemoTemplate
 
     Pixel *pixels;
     int width, height;
-    IWindowManager* windowManager;
+    IWindowManager *windowManager;
+
+    int texWidth, texHeight;
+    Pixel *texture;
 };
