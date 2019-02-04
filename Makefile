@@ -60,6 +60,24 @@ compile_dottunnel_lin: TARGET := DotTunnel
 compile_dottunnel_lin: all_linux
 
 ################################################################################
+# ROTOZOOM
+################################################################################
+rotozoom: create_dir make_src make_rotozoom compile_rotozoom
+
+rotozoom_lin: create_dir make_src make_rotozoom compile_rotozoom_lin
+
+make_rotozoom: 
+	@$(MAKE) --no-print-directory -s -C src/RotoZoom
+
+compile_rotozoom: TARGET := RotoZoom
+
+compile_rotozoom: all_windows
+
+compile_rotozoom_lin: TARGET := RotoZoom
+
+compile_rotozoom_lin: all_linux
+
+################################################################################
 # PERFORMANCE TESTS
 ################################################################################
 perf_test: create_dir make_perf link_test

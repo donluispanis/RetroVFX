@@ -3,12 +3,12 @@
 int main()
 {
 
-    DotTunnelDemo f;
-    if (!f.Construct("DotTunnel", 1280, 720, false))
+    DotTunnelDemo d;
+    if (!d.Construct("DotTunnel", 1280, 720, false))
         return -1;
 
-    f.Run();
-    f.Close();
+    d.Run();
+    d.Close();
 
     return 0;
 }
