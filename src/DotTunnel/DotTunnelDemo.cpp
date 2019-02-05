@@ -1,12 +1,11 @@
 #include "DotTunnelDemo.h"
-#include "TurbulencePath.h"
+#include "../Utils/Fast.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/ColourStamp.h"
-#include "../Utils/ColourStampGradients.h"
-#include "../Utils/Fast.h"
 #include "../Utils/InputValues.h"
+#include "../Utils/TurbulencePath.h"
+#include "../Utils/ColourStampGradients.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
-#include <vector>
 
 bool DotTunnelDemo::Init()
 {

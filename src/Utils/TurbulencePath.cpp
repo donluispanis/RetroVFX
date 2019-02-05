@@ -1,5 +1,5 @@
 #include "TurbulencePath.h"
-#include "../Utils/Fast.h"
+#include "Fast.h"
 
 TurbulencePath::TurbulencePath(float* sineTable, float *cosineTable, int mathTableSize)
 {

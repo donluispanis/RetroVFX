@@ -5,6 +5,7 @@
 
 struct Pixel;
 struct IWindowManager;
+class TurbulencePath;
 
 class RotoZoom : public ClassicDemoTemplate
 {
@@ -25,6 +26,11 @@ class RotoZoom : public ClassicDemoTemplate
 
     int mathTableSize;
     float *sineTable, *cosineTable;
+
+    TurbulencePath *offsetPath;
+    TurbulencePath *scaleAndAnglePath;
+    float offsetX, offsetY;
+    float scale, angle;
 
     int texWidth, texHeight;
     Pixel *texture;

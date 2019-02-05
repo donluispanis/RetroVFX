@@ -2,6 +2,7 @@
 #include "../Utils/Pixel.h"
 #include "../Utils/BMP.h"
 #include "../Utils/Fast.h"
+#include "../Utils/TurbulencePath.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 
 bool RotoZoom::Init()
@@ -18,6 +19,15 @@ bool RotoZoom::Init()
     cosineTable = new float[mathTableSize];
     Fast::GenerateCosineTable(cosineTable, mathTableSize);
 
+    offsetPath = new TurbulencePath(sineTable, cosineTable, mathTableSize);
+    scaleAndAnglePath = new TurbulencePath(sineTable, cosineTable, mathTableSize);
+
+    offsetPath->CreateTurbulencePath(3, height, 2);
+    offsetPath->UpdateTurbulencePath(100, offsetX, offsetY);
+
+    scaleAndAnglePath->CreateTurbulencePath(3, height, 2);
+    scaleAndAnglePath->UpdateTurbulencePath(100, scale, angle);
+
     BMP::OpenRGBImage("assets/img/lena.bmp", texture, texWidth, texHeight);
 
     return true;
@@ -25,10 +35,6 @@ bool RotoZoom::Init()
 
 bool RotoZoom::Update(float deltaTime)
 {
-    static int offsetX = 0;
-    static int offsetY = 0;
-    static int angle = 0;
-    static float scale = 1;
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
@@ -37,13 +43,10 @@ bool RotoZoom::Update(float deltaTime)
             DrawPixel(i, j, offsetX, offsetY, angle, scale);
         }
     }
-    offsetX++;
-    offsetY++;
-    angle++;
-    angle++;
-    angle++;
-    angle++;
-    scale += 0.1;
+
+    offsetPath->UpdateTurbulencePath(deltaTime, offsetX, offsetY);
+    scaleAndAnglePath->UpdateTurbulencePath(deltaTime, scale, angle);
+    scale /= (height / 2.f) + 0.5;
 
     RenderText("Press space to change effect", 5, 5, 2, Pixel{255, 255, 255});
     return true;
@@ -54,11 +57,8 @@ void RotoZoom::DrawPixel(int x, int y, int offsetX, int offsetY, int angle, floa
     float sine = sineTable[angle % mathTableSize];
     float cosine = cosineTable[angle % mathTableSize];
 
-    int texX = (x + offsetX) / scale;
-    int texY = (y + offsetY) / scale;
-
-    texX = int(x * cosine - y * sine) % texWidth;
-    texY = int(y * cosine + x * sine) % texHeight;
+    int texX = int((x * cosine - y * sine) / scale + offsetX) % texWidth;
+    int texY = int((y * cosine + x * sine) / scale + offsetY) % texHeight;
 
     pixels[y * width + x] = texture[texY * texWidth + texX];
 }
@@ -67,6 +67,8 @@ bool RotoZoom::Destroy()
 {
     BMP::CloseRGBImage(texture);
 
+    delete offsetPath;
+    delete scaleAndAnglePath;
     delete[] sineTable;
     delete[] cosineTable;
 
