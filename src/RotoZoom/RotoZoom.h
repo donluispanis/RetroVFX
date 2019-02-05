@@ -17,9 +17,14 @@ class RotoZoom : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
+    void DrawPixel(int x, int y, int offsetX, int offsetY, int angle, float scale);
+
     Pixel *pixels;
     int width, height;
     IWindowManager *windowManager;
+
+    int mathTableSize;
+    float *sineTable, *cosineTable;
 
     int texWidth, texHeight;
     Pixel *texture;
