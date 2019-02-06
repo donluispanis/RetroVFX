@@ -9,7 +9,7 @@ void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
 
     FileLoader::OpenBinaryFile(path, imageBinary, imageSize);
 
-    width = CharToInt(imageBinary + 18); //Offset where width info is in BMP formar
+    width = CharToInt(imageBinary + 18);  //Offset where width info is in BMP formar
     height = CharToInt(imageBinary + 22); //Offset where height info is in BMP formar
     image = new Pixel[width * height];
 
@@ -17,10 +17,10 @@ void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
     {
         for (int j = 0; j < height; j++)
         {
-            //The first part of the index "(imageSize - j * width * 3) + i * 3" draws the image inverted in the Y axis
-            //The second part of the index "- ((width * 3) % 4) * j" add the corresponding offset (in the BMP format, all
+            //The first part of the index "(imageSize - (j + 1) * width * 3) + i * 3" draws the image inverted in the Y axis
+            //The second part of the index "- ((width * 3) % 4) * j" adds the corresponding offset (in the BMP format, all
             // rows are 32 bit aligned)
-            int index = (imageSize - j * width * 3) + i * 3 - ((width * 3) % 4) * j;
+            int index = (imageSize - (j + 1) * width * 3) + i * 3 - ((width * 3) % 4) * j;
             image[j * width + i] = Pixel(imageBinary[index + 2], imageBinary[index + 1], imageBinary[index]);
         }
     }
@@ -30,7 +30,7 @@ void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
 
 void BMP::CloseRGBImage(Pixel *image)
 {
-    delete [] image;
+    delete[] image;
 }
 
 int BMP::CharToInt(unsigned char *p)

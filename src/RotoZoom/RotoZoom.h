@@ -18,7 +18,11 @@ class RotoZoom : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
+    void InitMath();
+    void InitTurbulencePaths();
+    void UpdatePath(float deltaTime);
     void DrawPixel(int x, int y, int offsetX, int offsetY, int angle, float scale);
+    void DrawPixelWave(int x, int y);
 
     Pixel *pixels;
     int width, height;

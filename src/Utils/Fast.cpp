@@ -20,6 +20,20 @@ unsigned long Fast::Rand()
     return z;
 }
 
+int Fast::Abs(int n)
+{
+    if (n < 0)
+        return n * -1;
+    return n;
+}
+
+float Fast::Abs(float n)
+{
+    if (n < 0.f)
+        return n * -1.f;
+    return n;
+}
+
 float *Fast::GenerateSineTable(float *sineTable, int size)
 {
     for (int i = 0; i < size; i++)
