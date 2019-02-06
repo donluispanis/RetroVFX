@@ -56,7 +56,6 @@ bool RotoZoom::Update(float deltaTime)
         }
     }
 
-    //RenderText("Press space to change effect", 5, 5, 2, Pixel{255, 255, 255});
     return true;
 }
 
@@ -77,11 +76,6 @@ void RotoZoom::DrawPixel(int x, int y, int offsetX, int offsetY, int angle, floa
     int texY = Fast::Abs(int((y * cosine + x * sine) / scale + offsetY)) % texHeight;
 
     pixels[y * width + x] = texture[texY * texWidth + texX];
-}
-
-void RotoZoom::DrawPixelWave(int x, int y)
-{
-
 }
 
 bool RotoZoom::Destroy()
