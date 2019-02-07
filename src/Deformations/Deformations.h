@@ -1,16 +1,19 @@
 #pragma once
 
+#include <vector>
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
 
 struct Pixel;
 struct IWindowManager;
-class TurbulencePath;
 
-class RotoZoom : public ClassicDemoTemplate
+class Deformations : public ClassicDemoTemplate
 {
   public:
-    RotoZoom(){};
-    virtual ~RotoZoom(){};
+    Deformations(){};
+    virtual ~Deformations(){};
+
+  private:
+    typedef int (Deformations::*delegate)(int, float);
 
   private:
     virtual bool Init() override;
@@ -18,9 +21,7 @@ class RotoZoom : public ClassicDemoTemplate
     virtual bool Destroy() override;
 
     void InitMath();
-    void InitTurbulencePaths();
-    void UpdatePath(float deltaTime);
-    void DrawPixel(int x, int y, int offsetX, int offsetY, int angle, float scale);
+    void DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier);
 
     Pixel *pixels;
     int width, height;
@@ -28,11 +29,6 @@ class RotoZoom : public ClassicDemoTemplate
 
     int mathTableSize;
     float *sineTable, *cosineTable;
-
-    TurbulencePath *offsetPath;
-    TurbulencePath *scaleAndAnglePath;
-    float offsetX, offsetY;
-    float scale, angle;
 
     int texWidth, texHeight;
     Pixel *texture;

@@ -78,6 +78,24 @@ compile_rotozoom_lin: TARGET := RotoZoom
 compile_rotozoom_lin: all_linux
 
 ################################################################################
+# DEFORMATIONS
+################################################################################
+deformations: create_dir make_src make_deformations compile_deformations
+
+deformations_lin: create_dir make_src make_deformations compile_deformations_lin
+
+make_deformations: 
+	@$(MAKE) --no-print-directory -s -C src/Deformations
+
+compile_deformations: TARGET := Deformations
+
+compile_deformations: all_windows
+
+compile_deformations_lin: TARGET := Deformations
+
+compile_deformations_lin: all_linux
+
+################################################################################
 # PERFORMANCE TESTS
 ################################################################################
 perf_test: create_dir make_perf link_test

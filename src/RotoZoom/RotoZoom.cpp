@@ -4,7 +4,6 @@
 #include "../Utils/Fast.h"
 #include "../Utils/TurbulencePath.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
-#include <iostream>
 
 bool RotoZoom::Init()
 {
