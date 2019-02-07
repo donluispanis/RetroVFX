@@ -23,6 +23,9 @@ class Deformations : public ClassicDemoTemplate
     void InitMath();
     void DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier);
 
+    int DefaultXModifier(int x, float deltaTime);
+    int DefaultYModifier(int y, float deltaTime);
+
     Pixel *pixels;
     int width, height;
     IWindowManager *windowManager;

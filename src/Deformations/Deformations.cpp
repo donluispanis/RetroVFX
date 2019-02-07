@@ -3,6 +3,7 @@
 #include "../Utils/BMP.h"
 #include "../Utils/Fast.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
+#include <iostream>
 
 bool Deformations::Init()
 {
@@ -14,7 +15,7 @@ bool Deformations::Init()
 
     InitMath();
 
-    BMP::OpenRGBImage("assets/img/lena.bmp", texture, texWidth, texHeight);
+    BMP::OpenRGBImage("assets/img/tiger.bmp", texture, texWidth, texHeight);
 
     return true;
 }
@@ -41,7 +42,7 @@ bool Deformations::Update(float deltaTime)
     {
         for (int j = 0; j < height; j++)
         {
-            //DrawPixel(i, j, offsetX + 10000, offsetY + 10000, angle, scale);
+            DrawPixel(i, j, deltaTime, DefaultXModifier, DefaultYModifier);
         }
     }
 
@@ -50,8 +51,25 @@ bool Deformations::Update(float deltaTime)
 
 void Deformations::DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier)
 {
-    int texX = (this->*xModifier)(x, deltaTime) % texWidth;
-    int texY = (this->*yModifier)(y, deltaTime) % texHeight;
+    int scaledX = x * texWidth / (float)width;
+    int scaledY = y * texHeight / (float)height;
+
+    int texX = (this->*xModifier)(scaledX, deltaTime) % texWidth;
+    int texY = (this->*yModifier)(scaledY, deltaTime) % texHeight;
 
     pixels[y * width + x] = texture[texY * texWidth + texX];
+}
+
+int Deformations::DefaultXModifier(int x, float deltaTime)
+{
+    int xCenter = width * texWidth / (float)width / 2;
+    float scale = Fast::Abs(xCenter - x) / (float)(xCenter) + 1;
+
+    //std::cout << xCenter << " " << x << " " << xCenter - x << std::endl;
+    return x * scale;
+}
+
+int Deformations::DefaultYModifier(int y, float deltaTime)
+{
+    return y;
 }
