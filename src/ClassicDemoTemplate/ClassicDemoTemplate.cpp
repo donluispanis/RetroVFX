@@ -31,6 +31,14 @@ bool ClassicDemoTemplate::Construct(const char *name, const int width, const int
     return true;
 }
 
+bool ClassicDemoTemplate::Close()
+{
+    windowManager->DestroyWindow();
+    delete windowManager;
+
+    return Destroy();
+}
+
 void ClassicDemoTemplate::Run()
 {
     while (windowManager->IsWindowOpen())
@@ -45,14 +53,6 @@ void ClassicDemoTemplate::Run()
 
         windowManager->DrawToScreen();
     }
-}
-
-bool ClassicDemoTemplate::Close()
-{
-    windowManager->DestroyWindow();
-    delete windowManager;
-
-    return Destroy();
 }
 
 void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour)

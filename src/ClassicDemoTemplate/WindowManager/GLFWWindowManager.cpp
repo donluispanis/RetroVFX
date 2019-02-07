@@ -16,6 +16,11 @@ GLFWWindowManager::GLFWWindowManager()
     deltaTime = 0.0;
 }
 
+GLFWWindowManager::~GLFWWindowManager()
+{
+    delete clock;
+}
+
 void GLFWWindowManager::CreateWindow(const char *name, const int width, const int height, const bool fullscreen)
 {
     InitGLFW();
@@ -145,11 +150,6 @@ void GLFWWindowManager::DestroyWindow()
 
     glfwDestroyWindow(window);
     glfwTerminate();
-}
-
-GLFWWindowManager::~GLFWWindowManager()
-{
-    delete clock;
 }
 
 void GLFWWindowManager::SetFramerateToShow(bool fps)

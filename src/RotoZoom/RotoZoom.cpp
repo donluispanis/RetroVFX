@@ -24,10 +24,8 @@ bool RotoZoom::Init()
 void RotoZoom::InitMath()
 {
     mathTableSize = 2048;
-    sineTable = new float[mathTableSize];
-    Fast::GenerateSineTable(sineTable, mathTableSize);
-    cosineTable = new float[mathTableSize];
-    Fast::GenerateCosineTable(cosineTable, mathTableSize);
+    sineTable = Fast::GenerateSineTable(mathTableSize);
+    cosineTable = Fast::GenerateCosineTable(mathTableSize);
 }
 
 void RotoZoom::InitTurbulencePaths()
@@ -40,6 +38,18 @@ void RotoZoom::InitTurbulencePaths()
 
     scaleAndAnglePath->CreateTurbulencePath(4, height, 4);
     scaleAndAnglePath->UpdateTurbulencePath(200, scale, angle);
+}
+
+bool RotoZoom::Destroy()
+{
+    BMP::CloseRGBImage(texture);
+    Fast::DeleteMathTable(sineTable);
+    Fast::DeleteMathTable(cosineTable);
+
+    delete offsetPath;
+    delete scaleAndAnglePath;
+
+    return true;
 }
 
 bool RotoZoom::Update(float deltaTime)
@@ -75,16 +85,4 @@ void RotoZoom::DrawPixel(int x, int y, int offsetX, int offsetY, int angle, floa
     int texY = Fast::Abs(int((y * cosine + x * sine) / scale + offsetY)) % texHeight;
 
     pixels[y * width + x] = texture[texY * texWidth + texX];
-}
-
-bool RotoZoom::Destroy()
-{
-    BMP::CloseRGBImage(texture);
-
-    delete offsetPath;
-    delete scaleAndAnglePath;
-    delete[] sineTable;
-    delete[] cosineTable;
-
-    return true;
 }

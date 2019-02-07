@@ -14,6 +14,11 @@ void OpenGLRenderManager::InitialiseRender(int width, int height)
     InitOpenGL();
 }
 
+void OpenGLRenderManager::DisposeRender()
+{
+    delete[] screenPixels;
+}
+
 void OpenGLRenderManager::InitGlew()
 {
     glewExperimental = GL_TRUE;
@@ -116,11 +121,6 @@ void OpenGLRenderManager::SetTexture()
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-}
-
-void OpenGLRenderManager::DisposeRender()
-{
-    delete[] screenPixels;
 }
 
 OpenGLRenderManager::~OpenGLRenderManager()

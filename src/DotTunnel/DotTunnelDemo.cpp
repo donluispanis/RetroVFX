@@ -47,10 +47,8 @@ void DotTunnelDemo::InitDefaultCircleData()
 void DotTunnelDemo::InitMathTables()
 {
     mathTableSize = 1024;
-    sineTable = new float[mathTableSize];
-    Fast::GenerateSineTable(sineTable, mathTableSize);
-    cosineTable = new float[mathTableSize];
-    Fast::GenerateCosineTable(cosineTable, mathTableSize);
+    sineTable = Fast::GenerateSineTable(mathTableSize);
+    cosineTable = Fast::GenerateCosineTable(mathTableSize);
 }
 
 void DotTunnelDemo::InitTurbulencePath()
@@ -66,6 +64,17 @@ void DotTunnelDemo::InitColourMap()
     colourMap = new Pixel[colourMapSize];
     ColourStamp::GenerateGradient(ColourStampGradients::RAINBOW, colourMap, colourMapSize);
     currentColour = 0;
+}
+
+bool DotTunnelDemo::Destroy()
+{
+    Fast::DeleteMathTable(sineTable);
+    Fast::DeleteMathTable(cosineTable);
+
+    delete turbulencePath;
+    delete[] colourMap;
+
+    return true;
 }
 
 void DotTunnelDemo::InitInput()
@@ -253,15 +262,4 @@ void DotTunnelDemo::EraseCircle(const Circle &circle)
     Circle c = circle;
     c.colour = Pixel();
     DrawCircle(c);
-}
-
-bool DotTunnelDemo::Destroy()
-{
-    delete turbulencePath;
-
-    delete[] sineTable;
-    delete[] cosineTable;
-    delete[] colourMap;
-
-    return true;
 }

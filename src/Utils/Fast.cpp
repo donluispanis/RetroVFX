@@ -34,8 +34,10 @@ float Fast::Abs(float n)
     return n;
 }
 
-float *Fast::GenerateSineTable(float *sineTable, int size)
+float *Fast::GenerateSineTable(int size)
 {
+    float* sineTable = new float[size];
+
     for (int i = 0; i < size; i++)
     {
         float value = (i * 2 * Fast::PI) / size;
@@ -45,8 +47,10 @@ float *Fast::GenerateSineTable(float *sineTable, int size)
     return sineTable;
 }
 
-float *Fast::GenerateCosineTable(float *cosineTable, int size)
+float *Fast::GenerateCosineTable(int size)
 {
+    float *cosineTable = new float[size];
+
     for (int i = 0; i < size; i++)
     {
         float value = (i * 2 * Fast::PI) / size;
@@ -54,4 +58,9 @@ float *Fast::GenerateCosineTable(float *cosineTable, int size)
     }
 
     return cosineTable;
+}
+
+void Fast::DeleteMathTable(float * table)
+{
+    delete [] table;
 }

@@ -22,10 +22,17 @@ bool Deformations::Init()
 void Deformations::InitMath()
 {
     mathTableSize = 2048;
-    sineTable = new float[mathTableSize];
-    Fast::GenerateSineTable(sineTable, mathTableSize);
-    cosineTable = new float[mathTableSize];
-    Fast::GenerateCosineTable(cosineTable, mathTableSize);
+    sineTable = Fast::GenerateSineTable(mathTableSize);
+    cosineTable = Fast::GenerateCosineTable(mathTableSize);
+}
+
+bool Deformations::Destroy()
+{
+    BMP::CloseRGBImage(texture);
+    Fast::DeleteMathTable(sineTable);
+    Fast::DeleteMathTable(cosineTable);
+
+    return true;
 }
 
 bool Deformations::Update(float deltaTime)
@@ -47,14 +54,4 @@ void Deformations::DrawPixel(int x, int y, float deltaTime, delegate xModifier, 
     int texY = (this->*yModifier)(y, deltaTime) % texHeight;
 
     pixels[y * width + x] = texture[texY * texWidth + texX];
-}
-
-bool Deformations::Destroy()
-{
-    BMP::CloseRGBImage(texture);
-
-    delete[] sineTable;
-    delete[] cosineTable;
-
-    return true;
 }
