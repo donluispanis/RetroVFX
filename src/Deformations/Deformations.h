@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <utility>
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
 
 struct Pixel;
@@ -13,7 +14,7 @@ class Deformations : public ClassicDemoTemplate
     virtual ~Deformations(){};
 
   private:
-    typedef int (Deformations::*delegate)(int);
+    typedef int (Deformations::*delegate)(int, int);
 
   private:
     virtual bool Init() override;
@@ -21,13 +22,21 @@ class Deformations : public ClassicDemoTemplate
     virtual bool Destroy() override;
 
     void InitMath();
+    void RegisterModifiers();
+    void RegisterInput();
+    void UpdateInput();
+    void UpdateCurrentModifier();
     void DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier);
 
     //Modifiers
-    int DefaultXModifier(int x);
-    int DefaultYModifier(int y);
-    int WaveXModifier(int x);
-    int WaveYModifier(int y);
+    int DefaultXModifier(int x, int y);
+    int DefaultYModifier(int x, int y);
+    int WaveXModifier(int x, int y);
+    int WaveYModifier(int x, int y);
+    int MosaicXModifier(int x, int y);
+    int MosaicYModifier(int x, int y);
+    int MagnifyingGlassXModifier(int x, int y);
+    int MagnifyingGlassYModifier(int x, int y);
 
     Pixel *pixels;
     int width, height;
@@ -39,4 +48,8 @@ class Deformations : public ClassicDemoTemplate
 
     int texWidth, texHeight;
     Pixel *texture;
+
+    std::vector<std::pair<delegate, delegate>> modifiers;
+    std::pair<delegate, delegate> currentModifier;
+    unsigned int currentModifierIndex;
 };
