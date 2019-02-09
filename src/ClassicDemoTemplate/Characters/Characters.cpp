@@ -42,6 +42,16 @@ std::map<char, const char *> Characters::GetCharactersMap()
         charMap['('] = openParenthesis;
         charMap[')'] = closeParenthesis;
         charMap['/'] = slash;
+        charMap['0'] = _0;
+        charMap['1'] = _1;
+        charMap['2'] = _2;
+        charMap['3'] = _3;
+        charMap['4'] = _4;
+        charMap['5'] = _5;
+        charMap['6'] = _6;
+        charMap['7'] = _7;
+        charMap['8'] = _8;
+        charMap['9'] = _9;
     }
 
     return charMap;
@@ -284,3 +294,73 @@ const char *Characters::slash{
     "  3  "
     " 3   "
     "3    "};
+
+const char *Characters::_0{
+    " 333 "
+    "3   3"
+    "3 3 3"
+    "3   3"
+    " 333 "};
+
+const char *Characters::_1{
+    "   3 "
+    "  33 "
+    " 3 3 "
+    "   3 "
+    " 3333"};
+
+const char *Characters::_2{
+    "  33 "
+    " 3  3"
+    "   3 "
+    "  3  "
+    " 3333"};
+
+const char *Characters::_3{
+    "3333 "
+    "    3"
+    " 333 "
+    "    3"
+    "3333 "};
+
+const char *Characters::_4{
+    "  33 "
+    " 3 3 "
+    "3333 "
+    "   3 "
+    "  333"};
+
+const char *Characters::_5{
+    "33333"
+    "3    "
+    "3333 "
+    "    3"
+    "3333 "};
+
+const char *Characters::_6{
+    " 333 "
+    "3    "
+    "3333 "
+    "3   3"
+    "3333 "};
+
+const char *Characters::_7{
+    "33333"
+    "   3 "
+    "  3  "
+    " 3   "
+    "3    "};
+
+const char *Characters::_8{
+    " 333 "
+    "3   3"
+    " 333 "
+    "3   3"
+    " 333 "};
+
+const char *Characters::_9{
+    " 333 "
+    "3   3"
+    " 3333"
+    "    3"
+    " 333 "};

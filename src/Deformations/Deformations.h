@@ -35,8 +35,6 @@ class Deformations : public ClassicDemoTemplate
     int WaveYModifier(int x, int y);
     int MosaicXModifier(int x, int y);
     int MosaicYModifier(int x, int y);
-    int MagnifyingGlassXModifier(int x, int y);
-    int MagnifyingGlassYModifier(int x, int y);
 
     Pixel *pixels;
     int width, height;
@@ -52,4 +50,5 @@ class Deformations : public ClassicDemoTemplate
     std::vector<std::pair<delegate, delegate>> modifiers;
     std::pair<delegate, delegate> currentModifier;
     unsigned int currentModifierIndex;
+    std::vector<const char*> texts;
 };

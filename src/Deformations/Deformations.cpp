@@ -38,9 +38,14 @@ void Deformations::RegisterModifiers()
     modifiers.push_back(std::pair<delegate, delegate>(WaveXModifier, DefaultYModifier));
     modifiers.push_back(std::pair<delegate, delegate>(WaveXModifier, WaveYModifier));
     modifiers.push_back(std::pair<delegate, delegate>(MosaicXModifier, MosaicYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(MagnifyingGlassXModifier, MagnifyingGlassYModifier));
 
-    currentModifierIndex = 5;
+    texts.push_back("1. Raw image");
+    texts.push_back("2. Horizontal wave");
+    texts.push_back("3. Vertical wave");
+    texts.push_back("4. Diamond");
+    texts.push_back("5. Mosaic");
+    
+    currentModifierIndex = 0;
     currentModifier = modifiers[currentModifierIndex];
 }
 
@@ -62,8 +67,6 @@ bool Deformations::Update(float deltaTime)
 {
     UpdateInput();
 
-    accumulatedTime += deltaTime;
-
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
@@ -72,13 +75,17 @@ bool Deformations::Update(float deltaTime)
         }
     }
 
+    accumulatedTime += deltaTime;
+    RenderText("Tap space to change modifier", 5, 5, 2, Pixel(255));
+    RenderText(texts[currentModifierIndex], 5, 25, 4, Pixel(255, 255, 150));
+
     return true;
 }
 
 void Deformations::UpdateInput()
 {
     bool changeCurrentModifier = windowManager->IsKeyPressed((int)Key::SPACE);
-    if (changeCurrentModifier)
+    if(changeCurrentModifier)
     {
         UpdateCurrentModifier();
     }
@@ -88,7 +95,7 @@ void Deformations::UpdateCurrentModifier()
 {
     currentModifierIndex++;
 
-    if (currentModifierIndex == modifiers.size())
+    if(currentModifierIndex == modifiers.size())
     {
         currentModifierIndex = 0;
     }
@@ -124,12 +131,12 @@ int Deformations::DefaultYModifier(int x, int y)
 
 int Deformations::MosaicXModifier(int x, int y)
 {
-    return x + sineTable[(x * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20;
+    return x + sineTable[(x * 20 + int(500 * accumulatedTime)) % mathTableSize ] * 20;
 }
 
 int Deformations::MosaicYModifier(int x, int y)
 {
-    return y + sineTable[(y * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20;
+    return y + sineTable[(y * 20 + int(500 * accumulatedTime)) % mathTableSize ] * 20;
 }
 
 int Deformations::WaveXModifier(int x, int y)
@@ -140,15 +147,4 @@ int Deformations::WaveXModifier(int x, int y)
 int Deformations::WaveYModifier(int x, int y)
 {
     return y + sineTable[(x * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20;
-}
-
-int Deformations::MagnifyingGlassXModifier(int x, int y)
-{
-    int index = (x / (float)width) * (mathTableSize / 2);
-    return x * (sineTable[index]);
-}
-
-int Deformations::MagnifyingGlassYModifier(int x, int y)
-{
-    return y;
 }
