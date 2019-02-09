@@ -96,6 +96,24 @@ compile_deformations_lin: TARGET := Deformations
 compile_deformations_lin: all_linux
 
 ################################################################################
+# PLASMA
+################################################################################
+plasma: create_dir make_src make_plasma compile_plasma
+
+plasma_lin: create_dir make_src make_plasma compile_plasma_lin
+
+make_plasma: 
+	@$(MAKE) --no-print-directory -s -C src/Plasma
+
+compile_plasma: TARGET := Plasma
+
+compile_plasma: all_windows
+
+compile_plasma_lin: TARGET := Plasma
+
+compile_plasma_lin: all_linux
+
+################################################################################
 # PERFORMANCE TESTS
 ################################################################################
 perf_test: create_dir make_perf link_test
