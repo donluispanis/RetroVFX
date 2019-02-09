@@ -18,6 +18,7 @@ class ClassicDemoTemplate
     void RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour);
     void RenderDot(int x, int y, const Pixel &colour, int dotSize);
     void ClearScreen(const Pixel &colour);
+    bool IsPixelOutOfBounds(int x, int y);
 
   private:
     //Functions that have to be overwritten by the implementation

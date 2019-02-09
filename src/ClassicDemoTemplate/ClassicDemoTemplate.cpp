@@ -77,7 +77,7 @@ void ClassicDemoTemplate::RenderCharacter(char character, int x, int y, int scal
         return;
     }
 
-    const char* c = Characters::GetCharactersMap()[character];
+    const char *c = Characters::GetCharactersMap()[character];
 
     for (int i = x; i < x + 5 * scale; i++)
     {
@@ -103,7 +103,7 @@ void ClassicDemoTemplate::RenderDot(int x, int y, const Pixel &colour, int dotSi
             int offsetX = x + i;
             int offsetY = y + j;
 
-            if (offsetX < 0 || offsetX > width - 1 || offsetY < 0 || offsetY > height - 1)
+            if (IsPixelOutOfBounds(offsetX, offsetY))
             {
                 continue;
             }
@@ -113,7 +113,7 @@ void ClassicDemoTemplate::RenderDot(int x, int y, const Pixel &colour, int dotSi
     }
 }
 
-void ClassicDemoTemplate::ClearScreen(const Pixel& colour)
+void ClassicDemoTemplate::ClearScreen(const Pixel &colour)
 {
     for (int i = 0; i < width; i++)
     {
@@ -122,4 +122,13 @@ void ClassicDemoTemplate::ClearScreen(const Pixel& colour)
             screen[j * width + i] = colour;
         }
     }
+}
+
+bool ClassicDemoTemplate::IsPixelOutOfBounds(int x, int y)
+{
+    if (x < 0 || x > width - 1 || y < 0 || y > height - 1)
+    {
+        return true;
+    }
+    return false;
 }

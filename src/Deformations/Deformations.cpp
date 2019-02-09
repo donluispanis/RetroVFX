@@ -12,6 +12,7 @@ bool Deformations::Init()
     pixels = windowManager->GetScreenPixels();
     width = windowManager->GetWidth();
     height = windowManager->GetHeight();
+    accumulatedTime = 0.f;
 
     InitMath();
 
@@ -38,11 +39,13 @@ bool Deformations::Destroy()
 
 bool Deformations::Update(float deltaTime)
 {
+    accumulatedTime += deltaTime;
+
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
         {
-            DrawPixel(i, j, deltaTime, DefaultXModifier, DefaultYModifier);
+            DrawPixel(i, j, deltaTime, WaveXModifier, WaveYModifier);
         }
     }
 
@@ -51,16 +54,21 @@ bool Deformations::Update(float deltaTime)
 
 void Deformations::DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier)
 {
-    int scaledX = x * texWidth / (float)width;
-    int scaledY = y * texHeight / (float)height;
+    int scaledX = int(x * texWidth / (float)width) % texWidth;
+    int scaledY = int(y * texHeight / (float)height) % texHeight;
 
-    int texX = (this->*xModifier)(scaledX, deltaTime) % texWidth;
-    int texY = (this->*yModifier)(scaledY, deltaTime) % texHeight;
+    int newX = (this->*xModifier)(x);
+    int newY = (this->*yModifier)(y);
 
-    pixels[y * width + x] = texture[texY * texWidth + texX];
+    if (IsPixelOutOfBounds(newX, newY))
+    {
+        return;
+    }
+
+    pixels[newY * width + newX] = texture[scaledY * texWidth + scaledX];
 }
 
-int Deformations::DefaultXModifier(int x, float deltaTime)
+int Deformations::DefaultXModifier(int x)
 {
     int xCenter = width * texWidth / (float)width / 2;
     float scale = Fast::Abs(xCenter - x) / (float)(xCenter) + 1;
@@ -69,7 +77,17 @@ int Deformations::DefaultXModifier(int x, float deltaTime)
     return x * scale;
 }
 
-int Deformations::DefaultYModifier(int y, float deltaTime)
+int Deformations::DefaultYModifier(int y)
 {
     return y;
+}
+
+int Deformations::WaveXModifier(int x)
+{
+    return x + sineTable[(x * 20 + int(500 * accumulatedTime)) % mathTableSize ] * 20;
+}
+
+int Deformations::WaveYModifier(int y)
+{
+    return y + sineTable[(y * 20 + int(500 * accumulatedTime)) % mathTableSize ] * 20;
 }

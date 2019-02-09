@@ -13,7 +13,7 @@ class Deformations : public ClassicDemoTemplate
     virtual ~Deformations(){};
 
   private:
-    typedef int (Deformations::*delegate)(int, float);
+    typedef int (Deformations::*delegate)(int);
 
   private:
     virtual bool Init() override;
@@ -23,12 +23,16 @@ class Deformations : public ClassicDemoTemplate
     void InitMath();
     void DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier);
 
-    int DefaultXModifier(int x, float deltaTime);
-    int DefaultYModifier(int y, float deltaTime);
+    //Modifiers
+    int DefaultXModifier(int x);
+    int DefaultYModifier(int y);
+    int WaveXModifier(int x);
+    int WaveYModifier(int y);
 
     Pixel *pixels;
     int width, height;
     IWindowManager *windowManager;
+    float accumulatedTime;
 
     int mathTableSize;
     float *sineTable, *cosineTable;
