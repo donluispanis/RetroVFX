@@ -33,11 +33,11 @@ void Deformations::InitMath()
 
 void Deformations::RegisterModifiers()
 {
-    modifiers.push_back(std::pair<delegate, delegate>(DefaultXModifier, DefaultYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(DefaultXModifier, WaveYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(WaveXModifier, DefaultYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(WaveXModifier, WaveYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(MosaicXModifier, MosaicYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::DefaultXModifier, &Deformations::DefaultYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::DefaultXModifier, &Deformations::WaveYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::WaveXModifier, &Deformations::DefaultYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::WaveXModifier, &Deformations::WaveYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::MosaicXModifier, &Deformations::MosaicYModifier));
 
     texts.push_back("1. Raw image");
     texts.push_back("2. Horizontal wave");
