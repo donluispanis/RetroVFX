@@ -20,7 +20,9 @@ class PlasmaDemo : public ClassicDemoTemplate
 
     void InitMath();
     void InitColours();
+    void InitInput();
     void SwitchColour();
+    void UpdateInput();
 
     Pixel *pixels;
     int width, height;
@@ -35,4 +37,5 @@ class PlasmaDemo : public ClassicDemoTemplate
     unsigned int currentColour;
 
     float accumulatedTime;
+    int scale;
 };

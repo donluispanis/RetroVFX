@@ -16,9 +16,11 @@ bool PlasmaDemo::Init()
     height = windowManager->GetHeight();
 
     accumulatedTime = 0.f;
+    scale = 5;
 
     InitMath();
     InitColours();
+    InitInput();
 
     return true;
 }
@@ -33,16 +35,20 @@ void PlasmaDemo::InitMath()
 
 void PlasmaDemo::InitColours()
 {
-    colours.push_back(ColourStampGradients::VINTAGE);
-    colours.push_back(ColourStampGradients::RAINBOW);
     colours.push_back(ColourStampGradients::FIRE);
-    colours.push_back(ColourStampGradients::COOL);
+    colours.push_back(ColourStampGradients::PLASMA);
+    colours.push_back(ColourStampGradients::VINTAGE);
 
     colourMapSize = 256;
     colourMap = new Pixel[colourMapSize];
     currentColour = colours.size(); //We set cuurent colour to the maximum so SwitchColour goes back to the first one
 
     SwitchColour();
+}
+
+void PlasmaDemo::InitInput()
+{
+    windowManager->RegisterKeyInput((int)Key::SPACE);
 }
 
 bool PlasmaDemo::Destroy()
@@ -74,28 +80,38 @@ void PlasmaDemo::SwitchColour()
 
 bool PlasmaDemo::Update(float deltaTime)
 {
+    UpdateInput();
     accumulatedTime += deltaTime;
-    int scale = 5;
 
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
         {
             float value = 0;
+            
             value += sineTable[int((j * i) / (j + i + 1.f) * scale + accumulatedTime * 166) % mathTableSize];
             value += sineTable[int(sqrtTable[i * j] * scale + accumulatedTime * 133) % mathTableSize];
             value += sineTable[int(sqrtTable[(width - i) * (height - j)] * scale + accumulatedTime * 100) % mathTableSize];
             value += sineTable[int(sqrtTable[(i) * (height - j)] * scale + accumulatedTime * 66) % mathTableSize];
             value *= 0.25f;
 
-            //value = Fast::Abs(value * (colourMapSize - 1));
-            int x = Fast::Abs((int)(value * (colourMapSize - 1))) % colourMapSize;
+            int index = Fast::Abs((int)(value * (colourMapSize - 1)));
 
-            pixels[j * width + i] = colourMap[x];
+            pixels[j * width + i] = colourMap[index];
         }
     }
 
-    RenderText("Plasma", 5, 5, 2, Pixel(255));
+    RenderText("Tab space to change colour", 5, 5, 4, Pixel(0));
 
     return true;
+}
+
+void PlasmaDemo::UpdateInput()
+{
+    bool isSpacePressed = windowManager->IsKeyPressed((int)Key::SPACE);
+
+    if (isSpacePressed)
+    {
+        SwitchColour();
+    }
 }

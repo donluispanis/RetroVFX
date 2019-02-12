@@ -33,3 +33,10 @@ const std::vector<ColourStamp> ColourStampGradients::RAINBOW = std::vector<Colou
      ColourStamp{0.66f, Pixel{0, 0, 255}},
      ColourStamp{0.83f, Pixel{255, 0, 255}},
      ColourStamp{1.0f, Pixel{255, 0, 0}}});
+
+const std::vector<ColourStamp> ColourStampGradients::PLASMA = std::vector<ColourStamp>(
+    {ColourStamp{0.0f, Pixel{0, 0, 0}},
+     ColourStamp{0.1f, Pixel{0, 255, 0}},
+     ColourStamp{0.2f, Pixel{255, 255, 0}},
+     ColourStamp{0.5f, Pixel{255, 255, 255}},
+     ColourStamp{1.0f, Pixel{255, 255, 255}}});

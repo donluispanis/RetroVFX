@@ -10,4 +10,5 @@ class ColourStampGradients
     static const std::vector<ColourStamp> COOL;
     static const std::vector<ColourStamp> VINTAGE;
     static const std::vector<ColourStamp> RAINBOW;
+    static const std::vector<ColourStamp> PLASMA;
 };
