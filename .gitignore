@@ -4,3 +4,4 @@
 bin/obj
 bin/
 *.s
+build.sh

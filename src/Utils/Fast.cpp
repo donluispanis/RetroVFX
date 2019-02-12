@@ -36,7 +36,7 @@ float Fast::Abs(float n)
 
 float *Fast::GenerateSineTable(int size)
 {
-    float* sineTable = new float[size];
+    float *sineTable = new float[size];
 
     for (int i = 0; i < size; i++)
     {
@@ -60,7 +60,19 @@ float *Fast::GenerateCosineTable(int size)
     return cosineTable;
 }
 
-void Fast::DeleteMathTable(float * table)
+float *Fast::GenerateSqrtTable(int size)
 {
-    delete [] table;
+    float *sqrtTable = new float[size];
+
+    for (int i = 0; i < size; i++)
+    {
+        sqrtTable[i] = sqrt(i);
+    }
+
+    return sqrtTable;
+}
+
+void Fast::DeleteMathTable(float *table)
+{
+    delete[] table;
 }
