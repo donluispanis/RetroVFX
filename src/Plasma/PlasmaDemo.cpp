@@ -41,7 +41,7 @@ void PlasmaDemo::InitColours()
 
     colourMapSize = 256;
     colourMap = new Pixel[colourMapSize];
-    currentColour = colours.size(); //We set cuurent colour to the maximum so SwitchColour goes back to the first one
+    currentColour = colours.size(); //We set current colour to the maximum so SwitchColour goes back to the first one
 
     SwitchColour();
 }

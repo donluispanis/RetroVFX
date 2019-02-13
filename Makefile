@@ -114,6 +114,24 @@ compile_plasma_lin: TARGET := Plasma
 compile_plasma_lin: all_linux
 
 ################################################################################
+# PLANES
+################################################################################
+planes: create_dir make_src make_planes compile_planes
+
+planes_lin: create_dir make_src make_planes compile_planes_lin
+
+make_planes: 
+	@$(MAKE) --no-print-directory -s -C src/Planes
+
+compile_planes: TARGET := Planes
+
+compile_planes: all_windows
+
+compile_planes_lin: TARGET := Planes
+
+compile_planes_lin: all_linux
+
+################################################################################
 # PERFORMANCE TESTS
 ################################################################################
 perf_test: create_dir make_perf link_test

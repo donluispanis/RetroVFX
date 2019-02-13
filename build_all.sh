@@ -8,3 +8,5 @@ make clean_main
 make deformations
 make clean_main
 make plasma
+make clean_main
+make planes
