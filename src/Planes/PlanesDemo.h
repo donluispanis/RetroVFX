@@ -17,7 +17,6 @@ class PlanesDemo : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
-    void Generate2DPerlinNoiseTexture();
     int texWidth, texHeight;
     Pixel *texture;
 

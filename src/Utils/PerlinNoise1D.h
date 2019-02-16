@@ -1,10 +1,10 @@
 #pragma once
 
-class PerlinNoise
+class PerlinNoise1D
 {
   public:
-    PerlinNoise(int levels);
-    ~PerlinNoise();
+    PerlinNoise1D(int levels);
+    ~PerlinNoise1D();
 
     void Build(float *&noiseMap, int &size);
 
