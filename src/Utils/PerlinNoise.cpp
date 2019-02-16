@@ -6,7 +6,7 @@
 PerlinNoise::PerlinNoise(int levels)
 {
     this->levels = pow(2, levels);
-    noiseMap = new float[this->levels];
+    noiseMap = new float[this->levels + 1];
     randomMap = new float[this->levels];
 
     BuildRandomMap();
@@ -32,7 +32,7 @@ void PerlinNoise::Build(float *&outNoiseMap, int &outSize)
     DivideNoiseMap(globalIntensity);
 
     outNoiseMap = noiseMap;
-    outSize = levels;
+    outSize = levels + 1;
 }
 
 void PerlinNoise::BuildRandomMap()
@@ -45,7 +45,7 @@ void PerlinNoise::BuildRandomMap()
 
 void PerlinNoise::ClearNoiseMap()
 {
-    for (int i = 0; i < levels; i++)
+    for (int i = 0, n = levels + 1; i < n; i++)
     {
         noiseMap[i] = 0.f;
     }
@@ -53,23 +53,34 @@ void PerlinNoise::ClearNoiseMap()
 
 void PerlinNoise::AddNoiseValue(int frequency, float intensity)
 {
-    for (int i = 0; i < levels; i += frequency)
-    {
-        for (int j = 0; j < levels; j++)
+    int currentIndex = 0;
+    int nextIndex = frequency % levels;
+
+    auto UpdateIndex = [&](int i) {
+        int tempNextIndex = ((i / frequency + 1) * frequency) % levels;
+
+        if (tempNextIndex != nextIndex)
         {
-            float currentValue = randomMap[j / frequency];
-            float nextValue = randomMap[((j / frequency + 1) * frequency) % levels];
-
-            int path = ((j % frequency) / float(frequency));
-
-            noiseMap[j] += (currentValue * (j - path) + nextValue * path) * intensity;
+            currentIndex = nextIndex;
+            nextIndex = tempNextIndex;
         }
+    };
+
+    for (int i = 0, n = levels + 1; i < n; i++)
+    {
+        UpdateIndex(i);
+
+        float currentValue = randomMap[currentIndex];
+        float nextValue = randomMap[nextIndex];
+
+        float path = (i % frequency) / float(frequency);
+        noiseMap[i] += (currentValue * (1 - path) + nextValue * path) * intensity;
     }
 }
 
 void PerlinNoise::DivideNoiseMap(float divisor)
 {
-    for (int i = 0; i < levels; i++)
+    for (int i = 0, n = levels + 1; i < n; i++)
     {
         noiseMap[i] /= divisor;
     }
