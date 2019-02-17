@@ -6,7 +6,7 @@
 PerlinNoise1D::PerlinNoise1D(int levels)
 {
     this->levels = pow(2, levels);
-    noiseMap = new float[this->levels + 1];
+    noiseMap = new float[this->levels];
     randomMap = new float[this->levels];
 
     BuildRandomMap();
@@ -17,6 +17,22 @@ PerlinNoise1D::~PerlinNoise1D()
 {
     delete[] noiseMap;
     delete[] randomMap;
+}
+
+void PerlinNoise1D::BuildRandomMap()
+{
+    for (int i = 0; i < levels; i++)
+    {
+        randomMap[i] = Fast::Rand() / float(ULONG_MAX);
+    }
+}
+
+void PerlinNoise1D::ClearNoiseMap()
+{
+    for (int i = 0; i < levels; i++)
+    {
+        noiseMap[i] = 0.f;
+    }
 }
 
 void PerlinNoise1D::Build(float *&outNoiseMap, int &outSize)
@@ -32,23 +48,7 @@ void PerlinNoise1D::Build(float *&outNoiseMap, int &outSize)
     DivideNoiseMap(globalIntensity);
 
     outNoiseMap = noiseMap;
-    outSize = levels + 1;
-}
-
-void PerlinNoise1D::BuildRandomMap()
-{
-    for (int i = 0; i < levels; i++)
-    {
-        randomMap[i] = Fast::Rand() / float(ULONG_MAX);
-    }
-}
-
-void PerlinNoise1D::ClearNoiseMap()
-{
-    for (int i = 0, n = levels + 1; i < n; i++)
-    {
-        noiseMap[i] = 0.f;
-    }
+    outSize = levels;
 }
 
 void PerlinNoise1D::AddNoiseValue(int frequency, float intensity)
@@ -66,7 +66,7 @@ void PerlinNoise1D::AddNoiseValue(int frequency, float intensity)
         }
     };
 
-    for (int i = 0, n = levels + 1; i < n; i++)
+    for (int i = 0; i < levels; i++)
     {
         UpdateIndex(i);
 
@@ -80,7 +80,7 @@ void PerlinNoise1D::AddNoiseValue(int frequency, float intensity)
 
 void PerlinNoise1D::DivideNoiseMap(float divisor)
 {
-    for (int i = 0, n = levels + 1; i < n; i++)
+    for (int i = 0; i < levels; i++)
     {
         noiseMap[i] /= divisor;
     }

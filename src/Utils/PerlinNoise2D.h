@@ -15,6 +15,6 @@ class PerlinNoise2D
     void DivideNoiseMap(float divisor);
 
     int levels;
-    int noiseMapSize;
+    int size;
     float *noiseMap, *randomMap;
 };

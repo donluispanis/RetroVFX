@@ -2,6 +2,7 @@
 #include "../Utils/InputValues.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/Fast.h"
+#include "../Utils/PerlinNoise2D.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include <iostream>
 #include <cmath>
@@ -25,7 +26,12 @@ bool PlanesDemo::Init()
     nearPlane = 0.01f;
     farPlane = 0.5f;
 
-    texture = new Pixel[256 * 256];
+    PerlinNoise2D p2D(8);
+    int size;
+    float *noiseMap;
+    p2D.Build(noiseMap, size);
+
+    texture = new Pixel[size];
     texWidth = 256;
     texHeight = 256;
     texSize = texWidth * texHeight;
@@ -34,8 +40,7 @@ bool PlanesDemo::Init()
     {
         for (int j = 0; j < texHeight; j++)
         {
-            float intensity = char(i ^ j) / float(256);
-            texture[j * texWidth + i] = Pixel(char(255 * 255 * intensity), 125, 255 * (1 - intensity));
+            texture[j * texWidth + i] = Pixel(255) * noiseMap[j * texWidth + i];
         }
     }
 
@@ -63,20 +68,11 @@ bool PlanesDemo::Update(float deltaTime)
 {
     UpdateInput(deltaTime);
 
-    float px, py;
-    int count = 0;
-
-    int startingHeight = height *0.33;
-
-    for (int j = startingHeight; j < height; j++)
+    for (int i = 0; i < width; i++)
     {
-        count++;
-        py = (height - j) * (1 - j / float(height));
-        for (int i = 0; i < width; i++)
+        for (int j = 0; j < height; j++)
         {
-            px = i;
-
-            pixels[j * width + i] = texture[int((int(py) % texHeight) * texWidth + int(px) % texWidth) % texSize];
+            pixels[j * width + i] = texture[(j * texWidth + i) % texSize];
         }
     }
 
