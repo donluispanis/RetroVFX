@@ -2,9 +2,8 @@
 
 #include <vector>
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
-#include "../Utils/ColourStamp.h"
+#include "../Utils/Pixel.h"
 
-struct Pixel;
 struct IWindowManager;
 
 class GeometryDemo : public ClassicDemoTemplate
@@ -14,18 +13,34 @@ class GeometryDemo : public ClassicDemoTemplate
     virtual ~GeometryDemo(){};
 
   private:
+    struct Point2D
+    {
+        float X;
+        float Y;
+    };
+    struct Point3D
+    {
+        float X;
+        float Y;
+        float Z;
+    };
+    struct Object3D
+    {
+        std::vector<Point3D> points;
+        std::vector<Point2D> projectedPoints;
+        std::vector<Point2D> indexes;
+        Pixel colour;
+    };
+
     virtual bool Init() override;
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
-    void InitInput();
-    void InitialiseFireColours();
-    void UpdateFireBase();
-    void UpdateFireScreen();
-    void UpdateInput();
-    void SwitchColour();
+    void RenderObject(Object3D object);
 
     Pixel *pixels;
     int width, height;
-    IWindowManager* windowManager;
+    IWindowManager *windowManager;
+
+    Object3D object;
 };
