@@ -1,4 +1,4 @@
-#Makefile for X-Kating Project
+
 
 # Name of the executable created (.exe will be added automatically if necessary)
 TARGET := Demo
@@ -148,25 +148,6 @@ compile_geometry: all_windows
 compile_geometry_lin: TARGET := Geometry
 
 compile_geometry_lin: all_linux
-
-################################################################################
-# PERFORMANCE TESTS
-################################################################################
-perf_test: create_dir make_perf link_test
-
-make_perf:
-	@$(MAKE) --no-print-directory -s -C src/PerformanceTests
-
-link_test:
-	@printf "$(GREEN)Compiling done!\n"
-	@printf "$(YELLOW)Linking...\n"
-	@$(CXX) bin/obj/PerformanceTests.o bin/obj/TestTemplate.o -o bin/PerformanceTest
-	@printf "$(GREEN)Linking done!\n$(WHITE)"
-
-perf_test_asm:
-	@printf "$(YELLOW)Generating assembly...\n"
-	@$(CXX) -S src/PerformanceTests/PerformanceTests.cpp
-	@printf "$(GREEN)Assembly generated!\n$(WHITE)"
 
 ################################################################################
 # GENERAL

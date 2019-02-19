@@ -1,0 +1,14 @@
+make clean;
+make fire_lin NDEBUG=QWERTY;
+make clean_main;
+make dottunnel_lin NDEBUG=QWERTY;
+make clean_main;
+make rotozoom_lin NDEBUG=QWERTY;
+make clean_main;
+make deformations_lin NDEBUG=QWERTY;
+make clean_main;
+make plasma_lin NDEBUG=QWERTY;
+make clean_main;
+make planes_lin NDEBUG=QWERTY;
+make clean_main;
+make geometry_lin NDEBUG=QWERTY;
