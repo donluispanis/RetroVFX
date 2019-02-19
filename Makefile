@@ -132,6 +132,24 @@ compile_planes_lin: TARGET := Planes
 compile_planes_lin: all_linux
 
 ################################################################################
+# GEOMETRY
+################################################################################
+geometry: create_dir make_src make_geometry compile_geometry
+
+geometry_lin: create_dir make_src make_geometry compile_geometry_lin
+
+make_geometry: 
+	@$(MAKE) --no-print-directory -s -C src/Geometry
+
+compile_geometry: TARGET := Geometry
+
+compile_geometry: all_windows
+
+compile_geometry_lin: TARGET := Geometry
+
+compile_geometry_lin: all_linux
+
+################################################################################
 # PERFORMANCE TESTS
 ################################################################################
 perf_test: create_dir make_perf link_test

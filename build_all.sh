@@ -10,3 +10,5 @@ make clean_main
 make plasma
 make clean_main
 make planes
+make clean_main
+make geometry

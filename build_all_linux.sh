@@ -10,3 +10,5 @@ make clean_main;
 make plasma_lin;
 make clean_main;
 make planes_lin;
+make clean_main;
+make geometry_lin;

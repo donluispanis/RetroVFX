@@ -82,23 +82,26 @@ bool PlanesDemo::Update(float deltaTime)
     double scaleX = 16.0;
     double scaleY = 16.0;
 
+    float cosa = cosf(cameraAngle);
+    float sina = sinf(cameraAngle);
+
     //Mode 7 - loop (Left Top to Down)
     for (int y = 0; y < height; y++)
     {
-
-        _y = y / (z == 0 ? 1 : z); //The new _y coord generated
-        if (_y < 0)
-            _y *= -1;              //Control the _y because the z starting with a negative number
-        _y *= scaleY;              //Increase the size using scale
-        _y = fmod(_y, texHeight); //Repeat the pixel avoiding get texture out of bounds
+        
 
         for (int x = 0; x < width; x++)
         {
+            _y = (((width - x) * cosa - x * sina)) / z; //The new _y coord generated
+            if (_y < 0)
+                _y *= -1;             //Control the _y because the z starting with a negative number
+            _y *= scaleY;             //Increase the size using scale
+            _y = fmod(_y, texHeight); //Repeat the pixel avoiding get texture out of bounds
 
-            _x = (width / 2 - x) / (z == 0 ? 1 : z); //The new _x coord generated
+            _x = (((width - x) * sina + x * cosa)); //The new _x coord generated
             if (_x < 0)
-                _x *= -1;             //Control the _x to dont be negative
-            _x *= scaleX;             //Increase the size using scale
+                _x *= -1;            //Control the _x to dont be negative
+            _x *= scaleX;            //Increase the size using scale
             _x = fmod(_x, texWidth); //Repeat the pixel avoiding get texture out of bounds
 
             //Set x,y of the view image with the _x,_y pixel in the texture
