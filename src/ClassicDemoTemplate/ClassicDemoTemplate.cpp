@@ -3,6 +3,7 @@
 #include "WindowManager/GLFWWindowManager.h"
 #include "Characters/Characters.h"
 #include "../Utils/Pixel.h"
+#include "../Utils/Fast.h"
 #include <string>
 
 ClassicDemoTemplate::ClassicDemoTemplate()
@@ -111,6 +112,87 @@ void ClassicDemoTemplate::RenderDot(int x, int y, const Pixel &colour, int dotSi
             screen[offsetY * width + offsetX] = colour;
         }
     }
+}
+
+void ClassicDemoTemplate::RenderLine(int x1, int y1, int x2, int y2, const Pixel &colour)
+{
+    //Calculate the slope of the line to be drawn
+    float slope = GetSlope(x1, y1, x2, y2);
+
+    //Slope < 45º
+    if (Fast::Abs(slope) <= 1.f && Fast::Abs(slope) >= 0.f)
+    {
+        DrawLineWithSmallSlope(x1, y1, x2, y2, colour, slope);
+    }
+    //Slope > 45º
+    else if (Fast::Abs(slope) > 1.f)
+    {
+        DrawLineWithBigSlope(x1, y1, x2, y2, colour, slope);
+    }
+}
+
+void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope)
+{
+    float acummulated = 0.f;  //When this hits 1, we make 1 pixel increment
+    int auxX = x1, auxY = y1; //auxiliar point that we will increment from the old point to the new one
+
+    int signX, signY;
+    GetSigns(x1, y1, x2, y2, signX, signY);
+
+    //While we don't reach the desired pixel position
+    while (auxX != x2 || auxY != y2)
+    {
+        RenderDot(auxX, auxY, colour, 1);
+
+        if (auxX != x2)
+        {
+            auxX += signX; //Increment X until it reaches the target
+        }
+
+        acummulated += Fast::Abs(slope); //When this reaches 1, we increment Y
+
+        if (acummulated >= 1.f)
+        {
+            auxY += signY;
+            acummulated -= 1.f;
+        }
+    }
+}
+
+void ClassicDemoTemplate::DrawLineWithBigSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope)
+{
+    float acummulated = 0.f;  //When this hits 1, we make 1 pixel increment
+    int auxX = x1, auxY = y1; //auxiliar point that we will increment from the old point to the new one
+
+    int signX, signY;
+    GetSigns(x1, y1, x2, y2, signX, signY);
+
+    //While we don't reach the desired pixel position
+    while (auxX != x2 || auxY != y2)
+    {
+        RenderDot(auxX, auxY, colour, 1);
+
+        if (auxY != y2)
+            auxY += signY;                   //Increment Y until it reaches the target
+        acummulated += 1 / Fast::Abs(slope); //When this reaches 1, we increment X
+
+        if (acummulated >= 1.f)
+        {
+            auxX += signX;
+            acummulated -= 1.f;
+        }
+    }
+}
+
+float ClassicDemoTemplate::GetSlope(int x1, int y1, int x2, int y2)
+{
+    return (float)(y2 - y1) / (float)(x2 - x1);
+}
+
+void ClassicDemoTemplate::GetSigns(int x1, int y1, int x2, int y2, int &signX, int &signY)
+{
+    signX = (x2 - x1) >= 0 ? 1 : -1; //Calculate X direction
+    signY = (y2 - x2) >= 0 ? 1 : -1; //Calculate Y direction
 }
 
 void ClassicDemoTemplate::ClearScreen(const Pixel &colour)
