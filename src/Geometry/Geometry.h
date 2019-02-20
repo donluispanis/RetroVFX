@@ -23,20 +23,25 @@ class GeometryDemo : public ClassicDemoTemplate
         float X;
         float Y;
         float Z;
+        Point3D operator+=(const Point3D &p) const;
+        Point3D(float x, float y, float z);
+        Point3D();
     };
     struct Object3D
     {
         std::vector<Point3D> points;
-        std::vector<Point2D> projectedPoints;
         std::vector<Point2D> indexes;
-        Pixel colour;
+        std::vector<Point2D> projectedPoints;
     };
 
     virtual bool Init() override;
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
-    void RenderObject(Object3D object);
+    void Generate2DProjection(Object3D &object);
+    void TranslateObject(Object3D &object, Point3D offset);
+    void Rotate3DObjectAroundZAxis(Object3D &object, float angle);
+    void RenderObject(Object3D object, const Pixel &colour);
 
     Pixel *pixels;
     int width, height;

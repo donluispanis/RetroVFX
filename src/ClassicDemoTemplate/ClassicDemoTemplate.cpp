@@ -192,7 +192,7 @@ float ClassicDemoTemplate::GetSlope(int x1, int y1, int x2, int y2)
 void ClassicDemoTemplate::GetSigns(int x1, int y1, int x2, int y2, int &signX, int &signY)
 {
     signX = (x2 - x1) >= 0 ? 1 : -1; //Calculate X direction
-    signY = (y2 - x2) >= 0 ? 1 : -1; //Calculate Y direction
+    signY = (y2 - y1) >= 0 ? 1 : -1; //Calculate Y direction
 }
 
 void ClassicDemoTemplate::ClearScreen(const Pixel &colour)
