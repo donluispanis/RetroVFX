@@ -5,8 +5,6 @@
 #include "../Utils/ColourStampGradients.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 
-#include <cmath>
-
 bool PlasmaDemo::Init()
 {
     windowManager = GetWindowManager();

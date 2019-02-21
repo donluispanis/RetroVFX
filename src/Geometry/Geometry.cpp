@@ -2,8 +2,7 @@
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include "../Utils/Fast.h"
 #include <cmath>
-#include <utility>
-
+ 
 bool GeometryDemo::Init()
 {
     windowManager = GetWindowManager();
@@ -14,7 +13,7 @@ bool GeometryDemo::Init()
 
     object = {
         {{100, 100, 100}, {100, 200, 100}, {200, 100, 100}, {200, 200, 100}, {100, 100, 200}, {100, 200, 200}, {200, 100, 200}, {200, 200, 200}},
-        {{0, 1}, {0, 2}, {2, 3}, {1, 3}, {0, 4}, {1, 5}, {2, 6}, {3, 7}, {4, 5}, {4, 6}, {6, 7}, {5, 7}},
+        {{0, 1}, {0, 2}, {2, 3}, {1, 3}, {0, 4}, {1, 5}, {2, 6}, {3, 7}, {4, 5}, {4, 6}, {6, 7}, {5, 7}, {0, 7}},
         {}};
 
     TranslateObject(object, Point3D{-150, -150, -150});
@@ -35,11 +34,11 @@ bool GeometryDemo::Update(float deltaTime)
     angle += 0.005f;
 
     //Transform
-    ScaleObject(object, Point3D{scale, scale, scale});
+    ScaleObject(object, Point3D(scale, scale, scale));
     Rotate3DObjectAroundYAxis(object, angle);
-    //Rotate3DObjectAroundXAxis(object, angle);
-    //Rotate3DObjectAroundZAxis(object, angle);
-    TranslateObject(object, Point3D{500, 500, 0});
+    Rotate3DObjectAroundXAxis(object, angle);
+    Rotate3DObjectAroundZAxis(object, angle);
+    TranslateObject(object, Point3D(500, 500, 0));
 
     //Project
     Generate2DProjection(object);
@@ -50,8 +49,8 @@ bool GeometryDemo::Update(float deltaTime)
 
     //Undo some transforms
     TranslateObject(object, Point3D{-500, -500, 0});
-    //Rotate3DObjectAroundZAxis(object, -angle);
-    //Rotate3DObjectAroundXAxis(object, -angle);
+    Rotate3DObjectAroundZAxis(object, -angle);
+    Rotate3DObjectAroundXAxis(object, -angle);
     Rotate3DObjectAroundYAxis(object, -angle);
     ScaleObject(object, Point3D{1/scale, 1/scale, 1/scale});
     return true;
@@ -61,7 +60,7 @@ void GeometryDemo::Generate2DProjection(Object3D &object)
 {
     object.projectedPoints.clear();
 
-    for (unsigned int i = 0, n = object.indexes.size(); i < n; i++)
+    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
     {
         Point3D p = object.points[i];
         object.projectedPoints.push_back({p.X, p.Y});
@@ -69,69 +68,57 @@ void GeometryDemo::Generate2DProjection(Object3D &object)
 }
 
 void GeometryDemo::TranslateObject(Object3D &object, Point3D offset)
-{  
-    std::vector<Point3D> newPoints;
-    for (unsigned int i = 0, n = object.indexes.size(); i < n; i++)
+{
+    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
     {
-        Point3D p = object.points[i];
-        newPoints.push_back(Point3D{p.X + offset.X, p.Y + offset.Y, p.Z + offset.Z});
+        object.points[i] += offset;
     }
-    object.points = newPoints;
 }
 
 void GeometryDemo::ScaleObject(Object3D &object, Point3D scale)
 {
-    std::vector<Point3D> newPoints;
-    for (unsigned int i = 0, n = object.indexes.size(); i < n; i++)
+    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
     {
-        Point3D p = object.points[i];
-        newPoints.push_back(Point3D{p.X * scale.X, p.Y * scale.Y, p.Z * scale.Z});
+        object.points[i] *= scale;
     }
-    object.points = newPoints;
 }
 
 void GeometryDemo::Rotate3DObjectAroundXAxis(Object3D &object, float angle)
 {
-    for (unsigned int i = 0, n = object.indexes.size(); i < n; i++)
+    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
     {
         Point3D p = object.points[i];
-        Point3D aux;
 
-        aux.X = p.X;
-        aux.Y = p.Y * cosf(angle) - p.Z * sinf(angle);
-        aux.Z = p.Y * sinf(angle) + p.Z * cosf(angle);
-        
-        object.points[i] = aux;
+        object.points[i] = Point3D(
+            p.X,
+            p.Y * cosf(angle) - p.Z * sinf(angle),
+            p.Y * sinf(angle) + p.Z * cosf(angle));
     }
 }
 
 void GeometryDemo::Rotate3DObjectAroundYAxis(Object3D &object, float angle)
 {
-    for (unsigned int i = 0, n = object.indexes.size(); i < n; i++)
+    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
     {
         Point3D p = object.points[i];
-        Point3D aux;
 
-        aux.X = p.X * cosf(angle) + p.Z * sinf(angle);
-        aux.Y = p.Y;
-        aux.Z = -p.X * sinf(angle) + p.Z * cosf(angle);
-
-        object.points[i] = aux;
+        object.points[i] = Point3D(
+            p.X * cosf(angle) + p.Z * sinf(angle),
+            p.Y,
+            -p.X * sinf(angle) + p.Z * cosf(angle));
     }
 }
 
 void GeometryDemo::Rotate3DObjectAroundZAxis(Object3D &object, float angle)
 {
-    for (unsigned int i = 0, n = object.indexes.size(); i < n; i++)
+    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
     {
         Point3D p = object.points[i];
-        Point3D aux;
 
-        aux.X = p.X * cosf(angle) - p.Y * sinf(angle);
-        aux.Y = p.X * sinf(angle) + p.Y * cosf(angle);
-        aux.Z = p.Z;
-
-        object.points[i] = aux;
+        object.points[i] = Point3D(
+            p.X * cosf(angle) - p.Y * sinf(angle),
+            p.X * sinf(angle) + p.Y * cosf(angle),
+            p.Z);
     }
 }
 
