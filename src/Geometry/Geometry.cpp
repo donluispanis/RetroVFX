@@ -3,25 +3,6 @@
 #include <cmath>
 #include <utility>
 
-GeometryDemo::Point3D::Point3D()
-    : X(0.f), Y(0.f), Z(0.f)
-{
-}
-
-GeometryDemo::Point3D::Point3D(float x, float y, float z)
-    : X(x), Y(y), Z(z)
-{
-}
-
-GeometryDemo::Point3D GeometryDemo::Point3D::operator+=(const Point3D &p) const
-{
-    return std::move(
-        Point3D(
-            this->X + p.X,
-            this->Y + p.Y,
-            this->Z + p.Z));
-}
-
 bool GeometryDemo::Init()
 {
     windowManager = GetWindowManager();
@@ -35,7 +16,7 @@ bool GeometryDemo::Init()
         {{0, 1}, {0, 2}, {2, 3}, {1, 3}, {0, 4}, {1, 5}, {2, 6}, {3, 7}, {4, 5}, {4, 6}, {6, 7}, {5, 7}},
         {}};
 
-    TranslateObject(object, Point3D(300, 300, 0));
+    TranslateObject(object, Point3D{-150, -150, -150});
     Generate2DProjection(object);
 
     return true;
@@ -45,9 +26,11 @@ bool GeometryDemo::Update(float deltaTime)
 {
     RenderObject(object, Pixel(0));
     Rotate3DObjectAroundZAxis(object, 0.001);
+    TranslateObject(object, Point3D{500, 500, 0});
     Generate2DProjection(object);
     RenderObject(object, Pixel(255));
     RenderText("Geometry", 5, 5, 2, Pixel{255, 255, 255});
+    TranslateObject(object, Point3D{-500, -500, 0});
     return true;
 }
 
@@ -63,11 +46,14 @@ void GeometryDemo::Generate2DProjection(Object3D &object)
 }
 
 void GeometryDemo::TranslateObject(Object3D &object, Point3D offset)
-{
+{  
+        std::vector<Point3D> newPoints;
     for (unsigned int i = 0, n = object.indexes.size(); i < n; i++)
     {
-        object.points[i] += offset;
+        Point3D p = object.points[i];
+        newPoints.push_back(Point3D{p.X + offset.X, p.Y + offset.Y, p.Z + offset.Z});
     }
+    object.points = newPoints;
 }
 
 void GeometryDemo::Rotate3DObjectAroundZAxis(Object3D &object, float angle)

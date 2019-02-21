@@ -23,9 +23,6 @@ class GeometryDemo : public ClassicDemoTemplate
         float X;
         float Y;
         float Z;
-        Point3D operator+=(const Point3D &p) const;
-        Point3D(float x, float y, float z);
-        Point3D();
     };
     struct Object3D
     {

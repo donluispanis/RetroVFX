@@ -4,7 +4,7 @@ int main()
 {
 
     GeometryDemo g;
-    if (!g.Construct("Fire", 1280, 720, false))
+    if (!g.Construct("Geometry", 1280, 720, false))
         return -1;
 
     g.Run();
