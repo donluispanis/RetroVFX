@@ -29,12 +29,16 @@ bool GeometryDemo::Update(float deltaTime)
 {
     //Erase
     RenderObject(object, Pixel(0));
+    static float scale = 1.f;
+    scale += 0.001f;
+    static float angle = 0.f;
+    angle += 0.005f;
 
     //Transform
-    //Rotate3DObjectAroundXAxis(object, 0.005);
-    Rotate3DObjectAroundYAxis(object, 0.005);
-    //Rotate3DObjectAroundZAxis(object, 0.005);
-    //ScaleObject(object, Point3D{1.0001f,1.0001f,1.0001f});
+    ScaleObject(object, Point3D{scale, scale, scale});
+    Rotate3DObjectAroundYAxis(object, angle);
+    //Rotate3DObjectAroundXAxis(object, angle);
+    //Rotate3DObjectAroundZAxis(object, angle);
     TranslateObject(object, Point3D{500, 500, 0});
 
     //Project
@@ -46,6 +50,10 @@ bool GeometryDemo::Update(float deltaTime)
 
     //Undo some transforms
     TranslateObject(object, Point3D{-500, -500, 0});
+    //Rotate3DObjectAroundZAxis(object, -angle);
+    //Rotate3DObjectAroundXAxis(object, -angle);
+    Rotate3DObjectAroundYAxis(object, -angle);
+    ScaleObject(object, Point3D{1/scale, 1/scale, 1/scale});
     return true;
 }
 
@@ -73,17 +81,13 @@ void GeometryDemo::TranslateObject(Object3D &object, Point3D offset)
 
 void GeometryDemo::ScaleObject(Object3D &object, Point3D scale)
 {
+    std::vector<Point3D> newPoints;
     for (unsigned int i = 0, n = object.indexes.size(); i < n; i++)
     {
         Point3D p = object.points[i];
-        Point3D aux;
-
-        aux.X = p.X * scale.X;
-        aux.Y = p.Y * scale.Y;
-        aux.Z = p.Y * scale.Z;
-        
-        object.points[i] = aux;
+        newPoints.push_back(Point3D{p.X * scale.X, p.Y * scale.Y, p.Z * scale.Z});
     }
+    object.points = newPoints;
 }
 
 void GeometryDemo::Rotate3DObjectAroundXAxis(Object3D &object, float angle)
