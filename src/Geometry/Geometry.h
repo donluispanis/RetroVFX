@@ -37,6 +37,9 @@ class GeometryDemo : public ClassicDemoTemplate
 
     void Generate2DProjection(Object3D &object);
     void TranslateObject(Object3D &object, Point3D offset);
+    void ScaleObject(Object3D &object, Point3D scale);
+    void Rotate3DObjectAroundXAxis(Object3D &object, float angle);
+    void Rotate3DObjectAroundYAxis(Object3D &object, float angle);
     void Rotate3DObjectAroundZAxis(Object3D &object, float angle);
     void RenderObject(Object3D object, const Pixel &colour);
 
