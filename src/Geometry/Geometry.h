@@ -18,6 +18,9 @@ class GeometryDemo : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
+    void RegisterInput();
+    void UpdateInput(float deltaTime);
+
     void Generate2DProjection(Object3D &object);
     void TranslateObject(Object3D &object, Point3D offset);
     void ScaleObject(Object3D &object, Point3D scale);
@@ -30,5 +33,8 @@ class GeometryDemo : public ClassicDemoTemplate
     int width, height;
     IWindowManager *windowManager;
 
-    Object3D object;
+    std::vector<Object3D> objects;
+    std::vector<Point3D> transformations;
+    std::vector<float> transformMultiplier;
+    unsigned int objectsIndex, transformationsIndex;
 };
