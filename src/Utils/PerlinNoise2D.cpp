@@ -2,7 +2,7 @@
 #include "Fast.h"
 #include <cmath>
 #include <climits>
-
+#include <iostream>
 PerlinNoise2D::PerlinNoise2D(int levels)
 {
     this->levels = pow(2, levels);
@@ -23,14 +23,15 @@ PerlinNoise2D::~PerlinNoise2D()
 void PerlinNoise2D::Build(float *&outNoiseMap, int &outSize)
 {
     float globalIntensity = 0;
-    for (int level = levels; level >= 1; level /= 2)
+    /*for (int level = levels; level >= 1; level /= 2)
     {
         float intensity = level / float(levels);
         globalIntensity += intensity;
 
         AddNoiseValue(level, intensity);
     }
-    DivideNoiseMap(globalIntensity);
+    DivideNoiseMap(globalIntensity);*/
+    AddNoiseValue(levels/4.f, 1);
 
     outNoiseMap = noiseMap;
     outSize = levels;
@@ -68,7 +69,7 @@ void PerlinNoise2D::AddNoiseValue(int frequency, float intensity)
             nextIndex = tempNextIndex;
         }
     };
-
+    static bool fe = true;
     for (int i = 0, n = levels; i < n; i++)
     {
         for (int j = 0, n = levels; j < n; j++)
@@ -78,16 +79,13 @@ void PerlinNoise2D::AddNoiseValue(int frequency, float intensity)
 
             float currentXValue = randomMap[currentYIndex * levels + currentXIndex];
             float nextXValue = randomMap[currentYIndex * levels + nextXIndex];
-            float currentYValue = randomMap[currentYIndex * levels + currentXIndex];
-            float nextYValue = randomMap[nextYIndex * levels + currentXIndex];
 
             float pathX = (i % frequency) / float(frequency);
             float pathY = (j % frequency) / float(frequency);
 
-            float valueX = (currentXValue * (1 - pathX) + nextXValue * pathX) * intensity;
-            float valueY = (currentYValue * (1 - pathY) + nextYValue * pathY) * intensity;
+            float value = (currentXValue * (1 - pathX) + nextXValue * pathX) * intensity;
 
-            noiseMap[j * n + i] += valueX + valueY;
+            noiseMap[j * n + i] += value;
         }
     }
 }

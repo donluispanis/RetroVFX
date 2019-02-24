@@ -93,7 +93,7 @@ bool PlanesDemo::Update(float deltaTime)
         }
     }*/
 
-    RenderText("dfsgdftgh", 5, 5, 2, Pixel(255));
+    //RenderText("dfsgdftgh", 5, 5, 2, Pixel(255));
     return true;
 }
 
