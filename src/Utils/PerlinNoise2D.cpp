@@ -76,10 +76,10 @@ void PerlinNoise2D::AddNoiseValue(int frequency, float intensity)
             UpdateIndex(i, currentXIndex, nextXIndex);
             UpdateIndex(j, currentYIndex, nextYIndex);
 
-            float currentXValue = randomMap[currentYIndex];
-            float nextXValue = randomMap[nextYIndex];
-            float currentYValue = randomMap[currentYIndex];
-            float nextYValue = randomMap[nextYIndex];
+            float currentXValue = randomMap[currentYIndex * levels + currentXIndex];
+            float nextXValue = randomMap[currentYIndex * levels + nextXIndex];
+            float currentYValue = randomMap[currentYIndex * levels + currentXIndex];
+            float nextYValue = randomMap[nextYIndex * levels + currentXIndex];
 
             float pathX = (i % frequency) / float(frequency);
             float pathY = (j % frequency) / float(frequency);
