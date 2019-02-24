@@ -5,6 +5,7 @@
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include <iostream>
 #include <cmath>
+
 bool PlanesDemo::Init()
 {
     windowManager = GetWindowManager();
@@ -18,17 +19,10 @@ bool PlanesDemo::Init()
     sineTable = Fast::GenerateSineTable(mathTableSize);
     cosineTable = Fast::GenerateCosineTable(mathTableSize);
 
-    cameraPosition.X = 500.f;
-    cameraPosition.Y = 500.f;
-    cameraAngle = 0.f;
-
-    nearPlane = 0.01f;
-    farPlane = 0.5f;
-
-    texture = new Pixel[80 * 80];
-    texWidth = 80;
-    texHeight = 80;
+    texWidth = 404;
+    texHeight = 204;
     texSize = texWidth * texHeight;
+    texture = new Pixel[texSize];
 
     for (int i = 0; i < texWidth; i++)
     {
@@ -63,53 +57,25 @@ bool PlanesDemo::Destroy()
 
 bool PlanesDemo::Update(float deltaTime)
 {
+    float farX = 1.f, nearX = 1.f;
+    float minY = 200.f, maxY = 404.f;
+
     UpdateInput(deltaTime);
 
-    int pixelScaleFactor = 4;
-
-    int maxWidth = width / pixelScaleFactor;
-    int maxHeight = height / pixelScaleFactor;
-    int startingWidth = -maxWidth / 2;
-    int startingHeight = maxHeight / 2;
-
-    double _x, _y;
-
-    //z - the incrementable variable that beggins at -300 and go to 300, because
-    //the depth will be in the center of the HEIGHT
-    double z = (height / 2) * -1;
-
-    //Scales just to control de scale of the printed pixel. It is not necessary
-    double scaleX = 16.0;
-    double scaleY = 16.0;
-
-    float cosa = cosf(cameraAngle);
-    float sina = sinf(cameraAngle);
-
-    //Mode 7 - loop (Left Top to Down)
-    for (int y = 0; y < height; y++)
+    for(int i = 200; i < 604; i++)
     {
-        
-
-        for (int x = 0; x < width; x++)
+        for(int j = 200; j < 404; j++)
         {
-            _y = (((width - x) * cosa - x * sina)) / z; //The new _y coord generated
-            if (_y < 0)
-                _y *= -1;             //Control the _y because the z starting with a negative number
-            _y *= scaleY;             //Increase the size using scale
-            _y = fmod(_y, texHeight); //Repeat the pixel avoiding get texture out of bounds
+            Point2D line1_1(farX * i, minY);
+            Point2D line1_2(nearX * i, maxY);
 
-            _x = (((width - x) * sina + x * cosa)); //The new _x coord generated
-            if (_x < 0)
-                _x *= -1;            //Control the _x to dont be negative
-            _x *= scaleX;            //Increase the size using scale
-            _x = fmod(_x, texWidth); //Repeat the pixel avoiding get texture out of bounds
+            Point2D line2_1(i, j);
+            Point2D line2_2(i + 1, j);
 
-            //Set x,y of the view image with the _x,_y pixel in the texture
-            pixels[y * width + x] = texture[Fast::Abs((int)_y * texWidth + (int)_x)];
+            Point2D intersection = CalculateIntersectionOfTwoLinesGiven4Points(line1_1, line1_2, line2_1, line2_2);
+
+            pixels[int(intersection.Y * width + intersection.X)] = texture[(j - 200) * texWidth + int(i - 200)];
         }
-
-        //Increment depth
-        z++;
     }
 
     RenderText("dfsgdftgh", 5, 5, 2, Pixel(255));
@@ -127,30 +93,58 @@ void PlanesDemo::UpdateInput(float deltaTime)
 
     if (turnLeft)
     {
-        cameraAngle -= deltaTime * 0.1;
+        //cameraAngle -= deltaTime * 0.1;
     }
     if (turnRight)
     {
-        cameraAngle += deltaTime * 0.1;
+        //cameraAngle += deltaTime * 0.1;
     }
 
     if (goForth)
     {
-        cameraPosition.X = cameraPosition.X * cosf(cameraAngle) - cameraPosition.Y * sinf(cameraAngle);
-        cameraPosition.Y = cameraPosition.X * sinf(cameraAngle) + cameraPosition.Y * cosf(cameraAngle);
+        //cameraPosition.X = cameraPosition.X * cosf(cameraAngle) - cameraPosition.Y * sinf(cameraAngle);
+        //cameraPosition.Y = cameraPosition.X * sinf(cameraAngle) + cameraPosition.Y * cosf(cameraAngle);
     }
     if (goBack)
     {
-        cameraPosition.X += deltaTime * cosf(cameraAngle) * 20;
-        cameraPosition.Y -= deltaTime * sinf(cameraAngle) * 20;
+        //cameraPosition.X += deltaTime * cosf(cameraAngle) * 20;
+        //cameraPosition.Y -= deltaTime * sinf(cameraAngle) * 20;
     }
 
     if (goUp)
     {
-        farPlane += deltaTime * 0.1;
+        //farPlane += deltaTime * 0.1;
     }
     if (goDown)
     {
-        farPlane -= deltaTime * 0.1;
+        //farPlane -= deltaTime * 0.1;
     }
+}
+
+Point2D PlanesDemo::CalculateIntersectionOfTwoLinesGiven4Points(Point2D line1_1, Point2D line1_2, Point2D line2_1, Point2D line2_2)
+{
+    Point2D director1 = line1_2 - line1_1;
+    Point2D director2 = line2_2 - line2_1;
+
+    float slope1 = director1.X / director1.Y;
+    float slope2 = director2.X / director2.Y;
+
+    if(director1.Y == 0.f)
+    {
+        slope1 = 0.f;
+    }
+    if(director2.Y == 0.f)
+    {
+        slope2 = 0.f;
+    }
+
+    float phase1 = line1_1.Y - slope1 * line1_1.X;
+    float phase2 = line2_1.Y - slope2 * line2_1.X;
+
+    Point2D intersection;
+
+    intersection.X = (phase2 - phase1) / (slope1 - slope2);
+    intersection.Y = slope1 * intersection.X + phase1;
+
+    return intersection;
 }

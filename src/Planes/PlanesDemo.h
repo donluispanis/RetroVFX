@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
-#include "../Utils/ColourStamp.h"
+#include "../Utils/Point2D.h"
 
 struct Pixel;
 struct IWindowManager;
@@ -18,13 +18,8 @@ class PlanesDemo : public ClassicDemoTemplate
     virtual bool Destroy() override;
 
     void RegisterInput();
+    Point2D CalculateIntersectionOfTwoLinesGiven4Points(Point2D line1_1, Point2D line1_2, Point2D line2_1, Point2D line2_2);
     void UpdateInput(float deltaTime);
-
-    struct Point
-    {
-        float X;
-        float Y;
-    };
 
     int texWidth, texHeight;
     int texSize;
@@ -32,10 +27,6 @@ class PlanesDemo : public ClassicDemoTemplate
 
     float *sineTable, *cosineTable;
     int mathTableSize;
-
-    Point cameraPosition;
-    float cameraAngle;
-    float nearPlane, farPlane;
 
     Pixel *pixels;
     int width, height;

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Point2D.h"
-#include "Point3D.h"
+#include "../Utils/Point2D.h"
+#include "../Utils/Point3D.h"
 
 struct Object3D
 {
