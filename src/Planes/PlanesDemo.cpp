@@ -3,6 +3,7 @@
 #include "../Utils/Pixel.h"
 #include "../Utils/Fast.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
+#include "../Utils/PerlinNoise2D.h"
 #include <iostream>
 #include <cmath>
 
@@ -19,6 +20,20 @@ bool PlanesDemo::Init()
     sineTable = Fast::GenerateSineTable(mathTableSize);
     cosineTable = Fast::GenerateCosineTable(mathTableSize);
 
+    PerlinNoise2D perlinNoise(8);
+    float *noiseMap;
+    int size;
+    perlinNoise.Build(noiseMap, size);
+
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            pixels[j * width + i] = Pixel(255) * noiseMap[j * size + i];
+        }
+    }
+
+    /*
     texWidth = 404;
     texHeight = 204;
     texSize = texWidth * texHeight;
@@ -33,7 +48,7 @@ bool PlanesDemo::Init()
                 texture[j * texWidth + i] = Pixel(255);
             }
         }
-    }
+    }*/
 
     RegisterInput();
 
@@ -62,7 +77,7 @@ bool PlanesDemo::Update(float deltaTime)
 
     UpdateInput(deltaTime);
 
-    for(int i = 200; i < 604; i++)
+    /*for(int i = 200; i < 604; i++)
     {
         for(int j = 200; j < 404; j++)
         {
@@ -76,7 +91,7 @@ bool PlanesDemo::Update(float deltaTime)
 
             pixels[int(intersection.Y * width + intersection.X)] = texture[(j - 200) * texWidth + int(i - 200)];
         }
-    }
+    }*/
 
     RenderText("dfsgdftgh", 5, 5, 2, Pixel(255));
     return true;
