@@ -1,9 +1,9 @@
 #include "PlanesDemo.h"
+#include "../Utils/NoiseGenerator.h"
 #include "../Utils/InputValues.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/Fast.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
-#include "../Utils/PerlinNoise2D.h"
 #include <iostream>
 #include <cmath>
 
@@ -20,16 +20,14 @@ bool PlanesDemo::Init()
     sineTable = Fast::GenerateSineTable(mathTableSize);
     cosineTable = Fast::GenerateCosineTable(mathTableSize);
 
-    PerlinNoise2D perlinNoise(8);
-    float *noiseMap;
-    int size;
-    perlinNoise.Build(noiseMap, size);
+    NoiseGenerator noiseGenerator = NoiseGenerator(512, 512, 4);
+    float *noiseMap = noiseGenerator.Generate2DNoise();
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < 512; i++)
     {
-        for (int j = 0; j < size; j++)
+        for (int j = 0; j < 512; j++)
         {
-            pixels[j * width + i] = Pixel(255) * noiseMap[j * size + i];
+            pixels[j * width + i] = Pixel(255) * noiseMap[j * 512 + i];
         }
     }
 
