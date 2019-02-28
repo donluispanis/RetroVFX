@@ -5,6 +5,10 @@
 #include "../Utils/ColourStampGradients.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 
+Fast::SineTable<PlasmaDemo::tableSize> PlasmaDemo::sine = Fast::SineTable<PlasmaDemo::tableSize>();
+
+Fast::SquareRootTable<PlasmaDemo::tableSize> PlasmaDemo::sqrt = Fast::SquareRootTable<PlasmaDemo::tableSize>();
+
 bool PlasmaDemo::Init()
 {
     windowManager = GetWindowManager();
@@ -16,19 +20,10 @@ bool PlasmaDemo::Init()
     accumulatedTime = 0.f;
     scale = 5;
 
-    InitMath();
     InitColours();
     InitInput();
 
     return true;
-}
-
-void PlasmaDemo::InitMath()
-{
-    mathTableSize = 1024;
-    sineTable = Fast::GenerateSineTable(mathTableSize);
-    cosineTable = Fast::GenerateCosineTable(mathTableSize);
-    sqrtTable = Fast::GenerateSqrtTable(width * height);
 }
 
 void PlasmaDemo::InitColours()
@@ -53,10 +48,6 @@ bool PlasmaDemo::Destroy()
 {
     delete[] colourMap;
 
-    Fast::DeleteMathTable(sineTable);
-    Fast::DeleteMathTable(cosineTable);
-    Fast::DeleteMathTable(sqrtTable);
-
     return true;
 }
 
@@ -70,10 +61,6 @@ void PlasmaDemo::SwitchColour()
     }
 
     ColourStamp::GenerateGradient(colours[currentColour], colourMap, colourMapSize);
-
-    for (int i = 0; i < colourMapSize; i++)
-    {
-    }
 }
 
 bool PlasmaDemo::Update(float deltaTime)
@@ -87,10 +74,10 @@ bool PlasmaDemo::Update(float deltaTime)
         {
             float value = 0;
             
-            value += sineTable[int((j * i) / (j + i + 1.f) * scale + accumulatedTime * 166) % mathTableSize];
-            value += sineTable[int(sqrtTable[i * j] * scale + accumulatedTime * 133) % mathTableSize];
-            value += sineTable[int(sqrtTable[(width - i) * (height - j)] * scale + accumulatedTime * 100) % mathTableSize];
-            value += sineTable[int(sqrtTable[(i) * (height - j)] * scale + accumulatedTime * 66) % mathTableSize];
+            value += sine.table[int((j * i) / (j + i + 1.f) * scale + accumulatedTime * 166) % tableSize];
+            value += sine.table[int(sqrt.table[i * j] * scale + accumulatedTime * 133) % tableSize];
+            value += sine.table[int(sqrt.table[(width - i) * (height - j)] * scale + accumulatedTime * 100) % tableSize];
+            value += sine.table[int(sqrt.table[(i) * (height - j)] * scale + accumulatedTime * 66) % tableSize];
             value *= 0.25f;
 
             int index = Fast::Abs((int)(value * (colourMapSize - 1)));
