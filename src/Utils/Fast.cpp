@@ -1,4 +1,7 @@
 #include "Fast.h"
+#include <cmath>
+
+const float Fast::PI = 3.14159265358979323846;
 
 unsigned long Fast::Rand()
 {
