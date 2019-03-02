@@ -1,6 +1,7 @@
 #include "PlanesDemo.h"
 #include "../Utils/NoiseGenerator.h"
 #include "../Utils/InputValues.h"
+#include "../Utils/Point3D.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/Fast.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
@@ -20,16 +21,34 @@ bool PlanesDemo::Init()
     sineTable = Fast::GenerateSineTable(mathTableSize);
     cosineTable = Fast::GenerateCosineTable(mathTableSize);
 
+    texWidth = 512;
+    texHeight = 512;
+    texSize = texHeight * texWidth;
+    texture = new Pixel[texSize];
+
     NoiseGenerator noiseGenerator = NoiseGenerator(512, 512, 4);
     float *noiseMap = noiseGenerator.Generate2DNoise();
+
+    for (int i = 0; i < texWidth; i++)
+    {
+        for (int j = 0; j < texHeight; j++)
+        {
+            texture[j * texWidth + i] = Pixel(255) * noiseMap[j * texHeight + i];
+        }
+    }
 
     for (int i = 0; i < 512; i++)
     {
         for (int j = 0; j < 512; j++)
         {
-            pixels[j * width + i] = Pixel(255) * noiseMap[j * 512 + i];
+            if (i % 64 == 0 || i % 64 == 1 || i % 64 == 2 || i % 64 == 3 || j % 64 == 0 || j % 64 == 1 || j % 64 == 2 || j % 64 == 3)
+            {
+                pixels[j * width + i] = Pixel(0);
+            }
         }
     }
+
+    cameraAngle = 0.f;
 
     /*
     texWidth = 404;
@@ -65,6 +84,7 @@ void PlanesDemo::RegisterInput()
 
 bool PlanesDemo::Destroy()
 {
+    delete[] texture;
     return true;
 }
 
@@ -75,21 +95,37 @@ bool PlanesDemo::Update(float deltaTime)
 
     UpdateInput(deltaTime);
 
-    /*for(int i = 200; i < 604; i++)
+    const int depth = 500;
+
+            ClearScreen(Pixel(0));
+    for (int i = -width / 2, nw = width / 2; i < nw; i++)
     {
-        for(int j = 200; j < 404; j++)
+        for (int j = 0, nh = height *2 / 3; j < nh; j++)
         {
-            Point2D line1_1(farX * i, minY);
-            Point2D line1_2(nearX * i, maxY);
+            const int horizon = 0;
+            const int fieldOfView = 200;
+            const float scale = 100.f;
 
-            Point2D line2_1(i, j);
-            Point2D line2_2(i + 1, j);
+            Point3D p(i, fieldOfView, j + horizon);
+            Point2D s(p.X / p.Z, p.Y / p.Z);
 
-            Point2D intersection = CalculateIntersectionOfTwoLinesGiven4Points(line1_1, line1_2, line2_1, line2_2);
+            s *= scale;
 
-            pixels[int(intersection.Y * width + intersection.X)] = texture[(j - 200) * texWidth + int(i - 200)];
+            float coss = cosf(cameraAngle);
+            float sinn = sinf(cameraAngle);
+
+            Point2D r(s.X * coss - s.Y * sinn,
+                        s.X * sinn + s.Y * coss);
+
+            Pixel pix = texture[Fast::Abs((int(r.Y + cameraPosition.Y * scale) % texHeight) * texWidth + 
+                                                            int(r.X + cameraPosition.X * scale) % texWidth)];
+
+            float sc = pix.R / 500.f;
+            int a = (depth * 2 * sc) * (p.Z / float(height / 2));
+
+            pixels[(j - a + nh) * width + (i + nw)] = pix;
         }
-    }*/
+    }
 
     //RenderText("dfsgdftgh", 5, 5, 2, Pixel(255));
     return true;
@@ -106,22 +142,22 @@ void PlanesDemo::UpdateInput(float deltaTime)
 
     if (turnLeft)
     {
-        //cameraAngle -= deltaTime * 0.1;
+        cameraAngle += deltaTime;
     }
     if (turnRight)
     {
-        //cameraAngle += deltaTime * 0.1;
+        cameraAngle -= deltaTime;
     }
 
     if (goForth)
     {
-        //cameraPosition.X = cameraPosition.X * cosf(cameraAngle) - cameraPosition.Y * sinf(cameraAngle);
-        //cameraPosition.Y = cameraPosition.X * sinf(cameraAngle) + cameraPosition.Y * cosf(cameraAngle);
+        cameraPosition.X -= deltaTime * sinf(cameraAngle);
+        cameraPosition.Y += deltaTime * cosf(cameraAngle);
     }
     if (goBack)
     {
-        //cameraPosition.X += deltaTime * cosf(cameraAngle) * 20;
-        //cameraPosition.Y -= deltaTime * sinf(cameraAngle) * 20;
+        cameraPosition.X += deltaTime * sinf(cameraAngle);
+        cameraPosition.Y -= deltaTime * cosf(cameraAngle);
     }
 
     if (goUp)
@@ -142,11 +178,11 @@ Point2D PlanesDemo::CalculateIntersectionOfTwoLinesGiven4Points(Point2D line1_1,
     float slope1 = director1.X / director1.Y;
     float slope2 = director2.X / director2.Y;
 
-    if(director1.Y == 0.f)
+    if (director1.Y == 0.f)
     {
         slope1 = 0.f;
     }
-    if(director2.Y == 0.f)
+    if (director2.Y == 0.f)
     {
         slope2 = 0.f;
     }

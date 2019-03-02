@@ -28,6 +28,9 @@ class PlanesDemo : public ClassicDemoTemplate
     float *sineTable, *cosineTable;
     int mathTableSize;
 
+    Point2D cameraPosition;
+    float cameraAngle;
+
     Pixel *pixels;
     int width, height;
     IWindowManager* windowManager;
