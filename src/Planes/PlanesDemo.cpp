@@ -70,8 +70,6 @@ bool PlanesDemo::Update(float deltaTime)
 
         for (int i = -width / 2, nw = width / 2; i < nw; i++)
         {
-            //Point3D pointInSpace(i, fieldOfView, j);
-            //Point2D projectedPoint(pointInSpace.X / pointInSpace.Z, pointInSpace.Y / pointInSpace.Z);
             Point2D projectedPoint(i / (float)j, fieldOfView / (float)j);
             projectedPoint *= textureScale;
 
