@@ -19,6 +19,7 @@ class ClassicDemoTemplate
     void RenderDot(int x, int y, const Pixel &colour, int dotSize);
     void RenderLine(int x1, int y1, int x2, int y2, const Pixel &colour);
     void ClearScreen(const Pixel &colour);
+    void ClearScreen(int x1, int y1, int x2, int y2, const Pixel &colour);
     bool IsPixelOutOfBounds(int x, int y);
 
   private:

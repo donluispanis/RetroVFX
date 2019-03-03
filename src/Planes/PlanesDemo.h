@@ -18,7 +18,6 @@ class PlanesDemo : public ClassicDemoTemplate
     virtual bool Destroy() override;
 
     void RegisterInput();
-    Point2D CalculateIntersectionOfTwoLinesGiven4Points(Point2D line1_1, Point2D line1_2, Point2D line2_1, Point2D line2_2);
     void UpdateInput(float deltaTime);
 
     int texWidth, texHeight;
@@ -34,4 +33,8 @@ class PlanesDemo : public ClassicDemoTemplate
     Pixel *pixels;
     int width, height;
     IWindowManager* windowManager;
+
+    float bumpLevel = 0;
+    float textureScale = 20.f;
+    int fieldOfView = 500;
 };

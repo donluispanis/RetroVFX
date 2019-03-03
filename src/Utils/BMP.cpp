@@ -9,8 +9,8 @@ void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
 
     FileLoader::OpenBinaryFile(path, imageBinary, imageSize);
 
-    width = CharToInt(imageBinary + 18);  //Offset where width info is in BMP formar
-    height = CharToInt(imageBinary + 22); //Offset where height info is in BMP formar
+    width = CharToInt(imageBinary + 18);  //Offset where width info is in BMP format
+    height = CharToInt(imageBinary + 22); //Offset where height info is in BMP format
     image = new Pixel[width * height];
 
     for (int i = 0; i < width; i++)

@@ -1,5 +1,6 @@
 #include "PlanesDemo.h"
 #include "../Utils/NoiseGenerator.h"
+#include "../Utils/BMP.h"
 #include "../Utils/InputValues.h"
 #include "../Utils/Point3D.h"
 #include "../Utils/Pixel.h"
@@ -21,53 +22,16 @@ bool PlanesDemo::Init()
     sineTable = Fast::GenerateSineTable(mathTableSize);
     cosineTable = Fast::GenerateCosineTable(mathTableSize);
 
-    texWidth = 512;
-    texHeight = 512;
+    BMP::OpenRGBImage("assets/img/groundsoil.bmp", texture, texWidth, texHeight);
     texSize = texHeight * texWidth;
-    texture = new Pixel[texSize];
-
-    NoiseGenerator noiseGenerator = NoiseGenerator(512, 512, 4);
-    float *noiseMap = noiseGenerator.Generate2DNoise();
-
-    for (int i = 0; i < texWidth; i++)
-    {
-        for (int j = 0; j < texHeight; j++)
-        {
-            texture[j * texWidth + i] = Pixel(255) * noiseMap[j * texHeight + i];
-        }
-    }
-
-    for (int i = 0; i < 512; i++)
-    {
-        for (int j = 0; j < 512; j++)
-        {
-            if (i % 64 == 0 || i % 64 == 1 || i % 64 == 2 || i % 64 == 3 || j % 64 == 0 || j % 64 == 1 || j % 64 == 2 || j % 64 == 3)
-            {
-                pixels[j * width + i] = Pixel(0);
-            }
-        }
-    }
 
     cameraAngle = 0.f;
 
-    /*
-    texWidth = 404;
-    texHeight = 204;
-    texSize = texWidth * texHeight;
-    texture = new Pixel[texSize];
-
-    for (int i = 0; i < texWidth; i++)
-    {
-        for (int j = 0; j < texHeight; j++)
-        {
-            if (i % 20 == 0 || j % 20 == 0 || i % 20 == 1 || j % 20 == 1 || i % 20 == 2 || j % 20 == 2 || i % 20 == 3 || j % 20 == 3)
-            {
-                texture[j * texWidth + i] = Pixel(255);
-            }
-        }
-    }*/
-
     RegisterInput();
+
+    RenderText("Use W, A, S, D to move around", 5, 5, 2, Pixel(255));
+    RenderText("Use Q / E to go up / down", 5, 20, 2, Pixel(255));
+    RenderText("Use Z / X to create relief on the terrain", 5, 35, 2, Pixel(255));
 
     return true;
 }
@@ -80,54 +44,51 @@ void PlanesDemo::RegisterInput()
     windowManager->RegisterKeyInput((int)Key::A);
     windowManager->RegisterKeyInput((int)Key::S);
     windowManager->RegisterKeyInput((int)Key::D);
+    windowManager->RegisterKeyInput((int)Key::Z);
+    windowManager->RegisterKeyInput((int)Key::X);
 }
 
 bool PlanesDemo::Destroy()
 {
-    delete[] texture;
+    BMP::CloseRGBImage(texture);
+    Fast::DeleteMathTable(sineTable);
+    Fast::DeleteMathTable(cosineTable);
     return true;
 }
 
 bool PlanesDemo::Update(float deltaTime)
 {
-    float farX = 1.f, nearX = 1.f;
-    float minY = 200.f, maxY = 404.f;
-
+    ClearScreen(0, height / 2, width, height, Pixel(0));
     UpdateInput(deltaTime);
 
-    const int depth = 500;
+    float cosine = cosf(cameraAngle);
+    float sine = sinf(cameraAngle);
 
-            ClearScreen(Pixel(0));
-    for (int i = -width / 2, nw = width / 2; i < nw; i++)
+    for (int j = 0, nh = height / 2; j < nh; j++)
     {
-        for (int j = 0, nh = height *2 / 3; j < nh; j++)
+        float distanceFactor = (j / float(height / 2));
+
+        for (int i = -width / 2, nw = width / 2; i < nw; i++)
         {
-            const int horizon = 0;
-            const int fieldOfView = 200;
-            const float scale = 100.f;
+            //Point3D pointInSpace(i, fieldOfView, j);
+            //Point2D projectedPoint(pointInSpace.X / pointInSpace.Z, pointInSpace.Y / pointInSpace.Z);
+            Point2D projectedPoint(i / (float)j, fieldOfView / (float)j);
+            projectedPoint *= textureScale;
 
-            Point3D p(i, fieldOfView, j + horizon);
-            Point2D s(p.X / p.Z, p.Y / p.Z);
+            Point2D rotatedPoint(projectedPoint.X * cosine - projectedPoint.Y * sine,
+                                 projectedPoint.X * sine + projectedPoint.Y * cosine);
 
-            s *= scale;
+            Pixel colour = texture[Fast::Abs((int(rotatedPoint.Y + cameraPosition.Y) % texHeight) * texWidth +
+                                             int(rotatedPoint.X + cameraPosition.X) % texWidth)] *
+                           distanceFactor;
 
-            float coss = cosf(cameraAngle);
-            float sinn = sinf(cameraAngle);
+            float colourBrightness = ((colour.R * 0.3) + (colour.G * 0.59) + (colour.B * 0.11)) * 0.004f; // * 1 / 256
+            int textureDesplacement = (bumpLevel * colourBrightness) * distanceFactor;
 
-            Point2D r(s.X * coss - s.Y * sinn,
-                        s.X * sinn + s.Y * coss);
-
-            Pixel pix = texture[Fast::Abs((int(r.Y + cameraPosition.Y * scale) % texHeight) * texWidth + 
-                                                            int(r.X + cameraPosition.X * scale) % texWidth)];
-
-            float sc = pix.R / 500.f;
-            int a = (depth * 2 * sc) * (p.Z / float(height / 2));
-
-            pixels[(j - a + nh) * width + (i + nw)] = pix;
+            pixels[(j - textureDesplacement + nh) * width + (i + nw)] = colour;
         }
     }
 
-    //RenderText("dfsgdftgh", 5, 5, 2, Pixel(255));
     return true;
 }
 
@@ -137,8 +98,10 @@ void PlanesDemo::UpdateInput(float deltaTime)
     bool turnRight = windowManager->IsKeyHeld((int)Key::D);
     bool goForth = windowManager->IsKeyHeld((int)Key::W);
     bool goBack = windowManager->IsKeyHeld((int)Key::S);
-    bool goUp = windowManager->IsKeyHeld((int)Key::Q);
-    bool goDown = windowManager->IsKeyHeld((int)Key::E);
+    bool bumpUp = windowManager->IsKeyHeld((int)Key::Z);
+    bool bumpDown = windowManager->IsKeyHeld((int)Key::X);
+    bool increaseTextureSize = windowManager->IsKeyHeld((int)Key::Q);
+    bool decreaseTextureSize = windowManager->IsKeyHeld((int)Key::E);
 
     if (turnLeft)
     {
@@ -151,49 +114,38 @@ void PlanesDemo::UpdateInput(float deltaTime)
 
     if (goForth)
     {
-        cameraPosition.X -= deltaTime * sinf(cameraAngle);
-        cameraPosition.Y += deltaTime * cosf(cameraAngle);
+        cameraPosition.X -= deltaTime * sinf(cameraAngle) * 40;
+        cameraPosition.Y += deltaTime * cosf(cameraAngle) * 40;
     }
     if (goBack)
     {
-        cameraPosition.X += deltaTime * sinf(cameraAngle);
-        cameraPosition.Y -= deltaTime * cosf(cameraAngle);
+        cameraPosition.X += deltaTime * sinf(cameraAngle) * 40;
+        cameraPosition.Y -= deltaTime * cosf(cameraAngle) * 40;
     }
 
-    if (goUp)
+    if (bumpUp)
     {
-        //farPlane += deltaTime * 0.1;
+        bumpLevel += deltaTime * 20;
     }
-    if (goDown)
+    if (bumpDown)
     {
-        //farPlane -= deltaTime * 0.1;
+        bumpLevel -= deltaTime * 20;
+        if (bumpLevel < 0.f)
+        {
+            bumpLevel = 0.f;
+        }
     }
-}
 
-Point2D PlanesDemo::CalculateIntersectionOfTwoLinesGiven4Points(Point2D line1_1, Point2D line1_2, Point2D line2_1, Point2D line2_2)
-{
-    Point2D director1 = line1_2 - line1_1;
-    Point2D director2 = line2_2 - line2_1;
-
-    float slope1 = director1.X / director1.Y;
-    float slope2 = director2.X / director2.Y;
-
-    if (director1.Y == 0.f)
+    if (increaseTextureSize)
     {
-        slope1 = 0.f;
+        textureScale += deltaTime * 20;
     }
-    if (director2.Y == 0.f)
+    if (decreaseTextureSize)
     {
-        slope2 = 0.f;
+        textureScale -= deltaTime * 20;
+        if (textureScale < 0.f)
+        {
+            textureScale = 0.f;
+        }
     }
-
-    float phase1 = line1_1.Y - slope1 * line1_1.X;
-    float phase2 = line2_1.Y - slope2 * line2_1.X;
-
-    Point2D intersection;
-
-    intersection.X = (phase2 - phase1) / (slope1 - slope2);
-    intersection.Y = slope1 * intersection.X + phase1;
-
-    return intersection;
 }

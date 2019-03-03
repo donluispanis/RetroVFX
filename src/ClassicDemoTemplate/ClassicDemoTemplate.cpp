@@ -206,6 +206,39 @@ void ClassicDemoTemplate::ClearScreen(const Pixel &colour)
     }
 }
 
+void ClassicDemoTemplate::ClearScreen(int x1, int y1, int x2, int y2, const Pixel &colour)
+{
+    int nx1 = x1 < x2 ? x1 : x2;
+    int nx2 = x2 > x1 ? x2 : x1;
+    int ny1 = y1 < y2 ? y1 : y2;
+    int ny2 = y2 > y1 ? y2 : y1;
+
+    if (nx1 < 0)
+    {
+        nx1 = 0;
+    }
+    if (nx2 > width)
+    {
+        nx2 = width;
+    }
+    if (ny1 < 0)
+    {
+        ny1 = 0;
+    }
+    if (ny2 > height)
+    {
+        ny2 = 0;
+    }
+
+    for (int i = nx1; i < nx2; i++)
+    {
+        for (int j = ny1; j < ny2; j++)
+        {
+            screen[j * width + i] = colour;
+        }
+    }
+}
+
 bool ClassicDemoTemplate::IsPixelOutOfBounds(int x, int y)
 {
     if (x < 0 || x > width - 1 || y < 0 || y > height - 1)
