@@ -24,9 +24,6 @@ class PlanesDemo : public ClassicDemoTemplate
     int texSize;
     Pixel *texture;
 
-    float *sineTable, *cosineTable;
-    int mathTableSize;
-
     Point2D cameraPosition;
     float cameraAngle;
 

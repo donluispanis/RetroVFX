@@ -1,12 +1,9 @@
 #include "PlanesDemo.h"
-#include "../Utils/NoiseGenerator.h"
 #include "../Utils/BMP.h"
 #include "../Utils/InputValues.h"
-#include "../Utils/Point3D.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/Fast.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
-#include <iostream>
 #include <cmath>
 
 bool PlanesDemo::Init()
@@ -17,10 +14,6 @@ bool PlanesDemo::Init()
     width = windowManager->GetWidth();
     height = windowManager->GetHeight();
     texture = nullptr;
-
-    mathTableSize = 1024;
-    sineTable = Fast::GenerateSineTable(mathTableSize);
-    cosineTable = Fast::GenerateCosineTable(mathTableSize);
 
     BMP::OpenRGBImage("assets/img/groundsoil.bmp", texture, texWidth, texHeight);
     texSize = texHeight * texWidth;
@@ -51,8 +44,6 @@ void PlanesDemo::RegisterInput()
 bool PlanesDemo::Destroy()
 {
     BMP::CloseRGBImage(texture);
-    Fast::DeleteMathTable(sineTable);
-    Fast::DeleteMathTable(cosineTable);
     return true;
 }
 
