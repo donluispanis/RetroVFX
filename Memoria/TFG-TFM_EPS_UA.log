@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  4 MAR 2019 20:55
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  5 MAR 2019 20:27
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2743,24 +2743,18 @@ Overfull \hbox (20.35634pt too wide) in paragraph at lines 47--67
 
 
 
+] [5] [6
+
+
+] [7] [8
+
+
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 21--31
 
-Package natbib Warning: Citation `UNE50136:97' on page v undefined on input lin
-e 12.
+ []
 
-[5] [6
-
-
-] [7
-
-
-] [8
-
-
-] [9
-
-
-] [10
+[9] [10
 
 
 ] [11
@@ -2769,29 +2763,40 @@ e 12.
 ] [12
 
 
-]) (TFG-TFM_EPS_UA.toc [13
+] [13
+
+
+] [14
+
+
+]) (TFG-TFM_EPS_UA.toc
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 2.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <10.95> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 2.
+ [15
 
 
 ])
 \tf@toc=\write8
 \openout8 = `TFG-TFM_EPS_UA.toc'.
 
- [14]
+ [16]
 (TFG-TFM_EPS_UA.lof)
 \tf@lof=\write9
 \openout9 = `TFG-TFM_EPS_UA.lof'.
 
- [15
+ [17
 
 
-] [16
+] [18
 
 
 ] (TFG-TFM_EPS_UA.lot)
 \tf@lot=\write10
 \openout10 = `TFG-TFM_EPS_UA.lot'.
 
- [17] [18
+ [19] [20
 
 
 ]
@@ -2799,7 +2804,7 @@ e 12.
 \tf@lol=\write11
 \openout11 = `TFG-TFM_EPS_UA.lol'.
 
- [19] [20
+ [21] [22
 
 
 ] (capitulos/Introduccion.tex
@@ -2951,7 +2956,7 @@ chapter 2.
 ]
 chapter 3.
 [11]
-Underfull \vbox (badness 2478) has occurred while \output is active []
+Underfull \vbox (badness 2495) has occurred while \output is active []
 
  [12]
 LaTeX Font Info:    Calculating math sizes for size <9.85492> on input line 127
@@ -3098,10 +3103,10 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5.pdf Graphic file (type
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [26]
-Overfull \hbox (47.22083pt too wide) in paragraph at lines 227--229
-[]\TU/lmr/m/n/10.95 Gracias a la herramienta \TU/lmr/m/it/10.95 matlab2tikz \TU
-/lmr/m/n/10.95 ([]$[][][][][] [][][] [][] [] [][][][][][][][][][] [] [][][][] [
-] [][][][][][][][][][][][][] [] [][][][][][][][][][][][] []
+Overfull \hbox (48.39607pt too wide) in paragraph at lines 227--229
+[]\TU/lmr/m/it/10.95 Gracias a la herramienta matlab2tikz ([]$[][][][][] [][][]
+ [][] [] [][][][][][][][][][] [] [][][][] [] [][][][][][][][][][][][][] [] [][]
+[][][][][][][][][][] []
  []
 
 (archivos/ejemplos/ParedFina.tex
@@ -3134,7 +3139,7 @@ File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf Graphic file (type
 chapter 7.
 [31]
 Overfull \hbox (10.95pt too wide) in paragraph at lines 92--99
-[]\TU/lmr/m/n/10.95 donde:[] 
+[]\TU/lmr/m/it/10.95 donde:[] 
  []
 
 
@@ -3216,12 +3221,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 70067 strings out of 427748
- 1529991 string characters out of 3147201
- 2423707 words of memory out of 3000000
- 72904 multiletter control sequences out of 15000+200000
- 568026 words of font info for 204 fonts, out of 3000000 for 9000
+ 70046 strings out of 427748
+ 1529868 string characters out of 3147201
+ 2423797 words of memory out of 3000000
+ 72878 multiletter control sequences out of 15000+200000
+ 557154 words of font info for 168 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,147p,9192b,3017s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (62 pages).
+Output written on TFG-TFM_EPS_UA.pdf (64 pages).
