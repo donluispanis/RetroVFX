@@ -7,13 +7,25 @@
 
 \chapter{Introducción}
 
-Sin saber muy bien cómo, hemos llegado a un punto en el que conocer las bases del funcionamiento de un computador nos parece algo obsoleto, e incluso arcaico. Tecnologías con 20 años de antigüedad se tachan de reliquias en un mundo que aún no cuenta un siglo de antigüedad.\\
+Sin saber muy bien cómo, hemos llegado a un punto en el que conocer las bases del funcionamiento de un computador nos parece algo obsoleto, e incluso arcaico. Tecnologías de hace 20 años se tachan de reliquias en un mundo que aún no cuenta un siglo de antigüedad.\\
 
-El irrefrenable avance de la tecnología y se rapidez de evolución es innegable, pero a menudo, cuando se avanza muy rápido, también se pierde muy rápido.\\
+El irrefrenable avance de la tecnología y velocidad de evolución es innegable, pero a menudo, cuando se avanza muy rápido, también se pierde muy rápido.\\
 
-La abstracción en el mundo de la computación ha sido un factor clave, de hecho es el factor que ha permitido que un set reducido de instrucciones como el que tienen los ordenadores sea capaz de realizar cálculos de los que un humano jamás podría. Abstraer el software y llevarlo hacia modelos más cercanos al ser humano ha permitido pensar más en términos de nuestra realidad y menos en términos de mover memoria y realizar sumas y restas. Y esto es bueno, si para realizar cualquier mínima tarea tuviéramos que preocuparnos de hasta el más mínimo detalle de implementación, la curva de aprendizaje sería demasiado inclinada, y la eficiencia de la producción del software caería en picado.\\
+La abstracción en el mundo de la computación ha sido un factor clave, de hecho es el factor que ha permitido que un set reducido de instrucciones como el que tienen los ordenadores sea capaz de imitar la realidad. Abstraer el software y llevarlo hacia modelos más cercanos al ser humano ha permitido pensar más en términos de nuestro día a día y menos en términos de mover memoria y realizar sumas y restas. Y esto es bueno, si para realizar cualquier mínima tarea tuviéramos que preocuparnos de hasta el más mínimo detalle de implementación, la curva de aprendizaje sería demasiado inclinada, y la eficiencia de la producción del software caería en picado.\\
 
-Sin embargo, a más nos alejamos del hardware y más capas de abstracción añadimos, las instrucciones que escribimos se alejan más y más del reducido set de instrucciones que nuestro ordenador puede ejecutar. Como dijo una vez David J. Wheeler, \emph{"Todo problema en computación puede resolverse con otra capa de indirección, excepto el problema de tener demasiada indirección"}\footnote{\url{http://www.stroustrup.com/bs_faq.html}}. 
+Sin embargo, a más nos alejamos del hardware y más capas de abstracción añadimos, las instrucciones que escribimos se alejan más y más del reducido set de instrucciones que nuestro ordenador puede ejecutar. Como dijo una vez David J. Wheeler, \emph{"Todo problema en computación puede resolverse con otra capa de indirección, excepto el problema de tener demasiada indirección"}\footnote{\url{http://www.stroustrup.com/bs_faq.html}}.\\
+
+Esta frase, además de tener un punto cómico, plantea un problema más serio del que muchas veces nos damos cuenta. Hoy en día hay aplicaciones construidas dentro de webs. Para ejecutar código en el cliente de una web se usa \emph{JavaScript}, un lenguaje interpretado. Esto significa que para ejecutar una instrucción de código máquina proveniente de \emph{JavaScript} es necesario, primero, interpretar la línea de código, compilarla y traducirla al lenguaje de la máquina virtual de \emph{JavaScript} que integra el navegador y que esta máquina virtual interactúe con el sistema operativo para ejecutar la orden necesaria. Esto obviando una gran cantidad de pasos intermedios e ignorando las propias capas de abstracción de la memoria, el funcionamiento del procesador, los posibles fallos de la caché del procesador... Y si a todo este proceso, ya de por sí complejo y con muchas capas de por medio, añadimos una aplicación web compleja que añade nuevas capas de abstracción sobre el propio código que se ejecuta en \emph{JavaScript}... ¿No parece demasiado?\\
+
+Y sin embargo hoy en día prácticas como esta son perfectamente aceptadas, e incluso a veces, son punteras en la industria. Se justifica el hecho de tener una gran capacidad de cómputo para poder añadir más y más carga computacional. Se habla de las ventajas en la velocidad de producción, o en la sencillez de manejo del alto nivel en comparación del bajo nivel. Y es cierto que en muchos casos se gana eficiencia o productividad, ¿pero y lo que estamos perdiendo a cambio?\\
+
+Podemos estar reduciendo la velocidad de nuestro programa cientos de veces, y aún así muchas veces no importa, porque la diferencia entre que algo tarde en ejecutarse 0,001s a que tarde 0,1s se nota, pero tampoco importa tanto. Sin embargo, pensamientos como este son peligrosos, y son los que han llevado a que programas aparentemente sencillos y ligeros incluyan tiempos de espera al iniciarlos, tal y como argumenta Mike Acton                           \footnote{\url{https://www.youtube.com/watch?v=rX0ItVEVjHc&t=4620s}}.\\
+
+Y lo que es más, cabe preguntarse, ¿de verdad tanta abstracción simplifica el problema?\\
+
+La realidad es que hay software donde la gran cantidad de capas que lo forman no solo reducen su tiempo de ejecución, si no que aumenta su complejidad de forma innecesaria, hecho que al que se llama popularmente \emph{overengineering}.\\
+
+Empezar a decir ahora que este contexto y mi curiosidad me lleva a querer explorar los orígenes y de los orígenes pasar a la demoscene
 
 \section{La demoscene}
 
