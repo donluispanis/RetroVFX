@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  7 MAR 2019 20:25
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  9 MAR 2019 12:03
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2877,388 +2877,79 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
 
-[2]
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
+
+ []
+
+) (capitulos/marcoteorico.tex [2]
 chapter 2.
-
-Underfull \hbox (badness 10000) in paragraph at lines 35--37
-
- []
+) (capitulos/objetivos.tex [3
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--42
-
- []
-
-[3
+] [4
 
 
-] [4]
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
-ty"
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang2.s
-ty"
-File: lstlang2.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang3.s
-ty"
-File: lstlang3.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
-ty"
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang2.s
-ty"
-File: lstlang2.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang3.s
-ty"
-File: lstlang3.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
-ty"
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang2.s
-ty"
-File: lstlang2.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang3.s
-ty"
-File: lstlang3.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstmisc.st
-y"
-File: lstmisc.sty 2019/02/27 1.8b (Carsten Heinz)
-) [5]
-Underfull \hbox (badness 10000) in paragraph at lines 126--128
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--130
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 130--132
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 143--145
-
- []
-
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 191--193
-
- []
-
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 199--201
-
- []
-
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 201.
-
-Overfull \hbox (2.34543pt too wide) in paragraph at lines 201--201
-[][][] 
- []
-
-
-Overfull \hbox (2.34543pt too wide) in paragraph at lines 201--201
-[][][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 211--213
-
- []
-
-) (capitulos/marcoteorico.tex [8]
+]
 chapter 3.
-[9
-
-
-] [10]) (capitulos/objetivos.tex [11] [12
+) (capitulos/metodologia.tex [5] [6
 
 
 ]
 chapter 4.
-[13]
-Underfull \vbox (badness 2478) has occurred while \output is active []
-
- [14]
-LaTeX Font Info:    Calculating math sizes for size <9.85492> on input line 127
-.
-)
-(capitulos/metodologia.tex [15] [16]
-chapter 5.
-File: archivos/130.png Graphic file (type bmp)
-<archivos/130.png>
-File: archivos/160.png Graphic file (type bmp)
-<archivos/160.png>
-File: archivos/190.png Graphic file (type bmp)
-<archivos/190.png>
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-File: archivos/230.png Graphic file (type bmp)
-<archivos/230.png>
-File: archivos/260.png Graphic file (type bmp)
-<archivos/260.png>
-File: archivos/290.png Graphic file (type bmp)
-<archivos/290.png>
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-File: archivos/330.png Graphic file (type bmp)
-<archivos/330.png>
-File: archivos/360.png Graphic file (type bmp)
-<archivos/360.png>
-File: archivos/390.png Graphic file (type bmp)
-<archivos/390.png>
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-Missing character: There is no º in font cmmi10!
-[17
+) (capitulos/desarrollo.tex [7] [8
 
 
 ]
-File: archivos/subs-sin.png Graphic file (type bmp)
-<archivos/subs-sin.png>
-File: archivos/subs-con.png Graphic file (type bmp)
-<archivos/subs-con.png>
-File: archivos/subs-sin.png Graphic file (type bmp)
-<archivos/subs-sin.png>
-File: archivos/subs-con.png Graphic file (type bmp)
-<archivos/subs-con.png>
-) (capitulos/desarrollo.tex [18]
+chapter 5.
+[9] [10
+
+
+]
 chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--16
-
- []
-
-
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
-ty"
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstmisc.st
-y"
-File: lstmisc.sty 2019/02/27 1.8b (Carsten Heinz)
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 31.
- [19
-
-
-]
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
-ty"
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-)
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang2.s
-ty"
-File: lstlang2.sty 2019/02/27 1.8b listings language file
-) [20]
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
-ty"
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-) [21]
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
-ty"
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-) [22]
-Overfull \hbox (10.95pt too wide) in paragraph at lines 241--241
-[][][][][][][] 
- []
-
-[23]
-("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
-ty"
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-) (archivos/ejemplos/holamundo.cpp) (archivos/ejemplos/holamundo.py)
-(archivos/ejemplos/holamundo.m)) (capitulos/resultados.tex [24]
-chapter 7.
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--15
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--17
-
- []
-
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure0' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure0.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure0.pdf>
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure1.pdf>
-[25
-
-
-]
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure2.pdf>
-[26] (archivos/ejemplos/perjudicialesopticacentro.tex
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure3.pdf>
-) [27]
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure4.pdf>
-(archivos/ejemplos/polarnorm.tex
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure5.pdf>
-)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [28]
-Overfull \hbox (47.22083pt too wide) in paragraph at lines 227--229
-[]\TU/lmr/m/n/10.95 Gracias a la herramienta \TU/lmr/m/it/10.95 matlab2tikz \TU
-/lmr/m/n/10.95 ([]$[][][][][] [][][] [][] [] [][][][][][][][][][] [] [][][][] [
-] [][][][][][][][][][][][][] [] [][][][][][][][][][][][] []
- []
+ [11]
+Overfull \vbox (357.67014pt too high) has occurred while \output is active []
 
-(archivos/ejemplos/ParedFina.tex
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure6.pdf>
-) [29] (archivos/ejemplos/2D-3314hz.tex
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure7.pdf>
-)
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure8' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure8.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure8.pdf>
-===== Image 'archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9' is up-to-date.
- ======
-File: archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf Graphic file (type
- pdf)
-<use archivos/figuras-procesadas/TFG-TFM_EPS_UA-figure9.pdf>
-[30]) (capitulos/conclusiones.tex [31] [32
+
+[12]
+chapter 7.
+) (capitulos/conclusiones.tex [13
+
+
+] [14
 
 
 ]
 chapter 8.
-[33]
-Overfull \hbox (10.95pt too wide) in paragraph at lines 92--99
-[]\TU/lmr/m/n/10.95 donde:[] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 92--99
-
- []
-
-[34]) (TFG-TFM_EPS_UA.bbl [35] [36
+) (TFG-TFM_EPS_UA.bbl [15] [16
 
 
 ]
 chapter without number
-Missing character: There is no Р in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no и in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no п in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no о in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no л in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no К in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no л in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no а in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no с in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no с in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no и in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no к in font [lmroman10-regular]:mapping=tex-text;!
-[37] [38])
-No file TFG-TFM_EPS_UA.acr.
-(anexos/anexo_I.tex [39] [40
+)
+
+Package caption Warning: Unused \captionsetup[lstlisting] on input line 74.
+See the caption package documentation for explanation.
 
 
-]
-chapter A.
-) (anexos/anexo_2.tex [41] [42
+Package glossaries Warning: No \printglossary or \printglossaries found. 
+(Remove \makeglossaries if you don't want any glossaries.) 
+This document will not have a glossary.
 
-
-]
-chapter B.
-
-Underfull \hbox (badness 10000) in paragraph at lines 14--15
-
- []
-
-[43]
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
-
- []
-
-[44
-
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 23--24
-
- []
-
-[45
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 29--30
-
- []
-
-) (anexos/anexo_3.tex [46
-
-
-]
-chapter C.
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-[47
-
-
-]
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
-File: archivos/ES_a_DF7_Agg_Alicante.pdf Graphic file (type pdf)
-<use archivos/ES_a_DF7_Agg_Alicante.pdf, page 1>
- [48])
+[17]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
  (TFG-TFM_EPS_UA.aux)
@@ -3268,12 +2959,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 70170 strings out of 427748
- 1531973 string characters out of 3147201
- 2426127 words of memory out of 3000000
- 73011 multiletter control sequences out of 15000+200000
- 557106 words of font info for 162 fonts, out of 3000000 for 9000
+ 64147 strings out of 427748
+ 1442302 string characters out of 3147201
+ 1901466 words of memory out of 3000000
+ 67110 multiletter control sequences out of 15000+200000
+ 546653 words of font info for 111 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 80i,21n,147p,9192b,3017s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 80i,20n,136p,9192b,727s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (70 pages).
+Output written on TFG-TFM_EPS_UA.pdf (39 pages).

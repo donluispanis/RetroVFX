@@ -115,30 +115,30 @@ pdftitle = {\titulo},
 \input{capitulos/objetivos}		% Plantilla: Se muestran tablas
 \input{capitulos/metodologia}	% Plantilla: Se muestran figuras
 \input{capitulos/desarrollo}		% Plantilla: Se muestran listados
-\input{capitulos/resultados}		% Plantilla: Se muestran gráficas
 \input{capitulos/conclusiones}	% Plantilla: Se muestran matemáticas
 
+A test for bibliography with Xe\LaTeX.\cite{Alfonso2010a}
 %%%%
 % CONTENIDO. BIBLIOGRAFÍA.
 %%%%
 \nocite{*} %incluye TODOS los documentos de la base de datos bibliográfica sean o no citados en el texto
+\bibliographystyle{unsrt}
 \bibliography{bibliografia/bibliografia} % Archivo que contiene la bibliografía
-\bibliographystyle{apacite}
 
 %%%%
 % CONTENIDO. LISTA DE ACRÓNIMOS. Comenta las líneas si no lo deseas incluir.
 %%%%
 % Incluye el listado de acrónimos utilizados en el trabajo. 
-\printglossary[style=modsuper,type=\acronymtype,title={Lista de Acrónimos y Abreviaturas}]
+%\printglossary[style=modsuper,type=\acronymtype,title={Lista de Acrónimos y Abreviaturas}]
 % Añade el resto de acrónimos si así se desea. Si no elimina el comando siguiente
-\glsaddallunused 
+%\glsaddallunused 
 
 %%%%
 % CONTENIDO. Anexos - Añade o elimina según tus necesidades
 %%%%
-\appendix % Inicio de los apéndices
-\input{anexos/anexo_I}
-\input{anexos/anexo_2}
-\input{anexos/anexo_3}
+%\appendix % Inicio de los apéndices
+%\input{anexos/anexo_I}
+%\input{anexos/anexo_2}
+%\input{anexos/anexo_3}
 
 \end{document}
