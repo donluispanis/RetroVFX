@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  10 MAR 2019 12:09
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  10 MAR 2019 20:03
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2952,12 +2952,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 33--34
 
  []
 
-[4]) (capitulos/objetivos.tex [5] [6
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
+
+ []
 
 
-]
+Underfull \hbox (badness 10000) in paragraph at lines 41--42
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 47--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
+
+ []
+
+[5]) (capitulos/objetivos.tex [6]
 chapter 3.
-) (capitulos/metodologia.tex [7] [8
+) (capitulos/metodologia.tex [7
+
+
+] [8
 
 
 ]
@@ -3014,12 +3044,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 64157 strings out of 427748
- 1442512 string characters out of 3147201
- 1901466 words of memory out of 3000000
- 67120 multiletter control sequences out of 15000+200000
+ 64158 strings out of 427748
+ 1442518 string characters out of 3147201
+ 1903466 words of memory out of 3000000
+ 67121 multiletter control sequences out of 15000+200000
  546653 words of font info for 111 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 80i,21n,136p,9192b,727s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 80i,20n,136p,9192b,727s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 Output written on TFG-TFM_EPS_UA.pdf (41 pages).
