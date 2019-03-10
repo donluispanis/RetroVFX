@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  9 MAR 2019 16:54
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  10 MAR 2019 12:09
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2924,25 +2924,50 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
 ) (capitulos/marcoteorico.tex [2]
 chapter 2.
-) (capitulos/objetivos.tex [3
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
+
+ []
 
 
-] [4
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+
+ []
+
+[3
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
+
+ []
+
+[4]) (capitulos/objetivos.tex [5] [6
 
 
 ]
 chapter 3.
-) (capitulos/metodologia.tex [5] [6
+) (capitulos/metodologia.tex [7] [8
 
 
 ]
 chapter 4.
-) (capitulos/desarrollo.tex [7] [8
+) (capitulos/desarrollo.tex [9] [10
 
 
 ]
 chapter 5.
-[9] [10
+[11] [12
 
 
 ]
@@ -2950,21 +2975,21 @@ chapter 6.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [11]
+ [13]
 Overfull \vbox (357.67014pt too high) has occurred while \output is active []
 
 
-[12]
+[14]
 chapter 7.
-) (capitulos/conclusiones.tex [13
+) (capitulos/conclusiones.tex [15
 
 
-] [14
+] [16
 
 
 ]
 chapter 8.
-) (TFG-TFM_EPS_UA.bbl [15] [16
+) (TFG-TFM_EPS_UA.bbl [17] [18
 
 
 ]
@@ -2979,7 +3004,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[17]
+[19]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
  (TFG-TFM_EPS_UA.aux)
@@ -2989,12 +3014,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 64147 strings out of 427748
- 1442302 string characters out of 3147201
+ 64157 strings out of 427748
+ 1442512 string characters out of 3147201
  1901466 words of memory out of 3000000
- 67110 multiletter control sequences out of 15000+200000
+ 67120 multiletter control sequences out of 15000+200000
  546653 words of font info for 111 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 80i,20n,136p,9192b,727s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 80i,21n,136p,9192b,727s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (39 pages).
+Output written on TFG-TFM_EPS_UA.pdf (41 pages).
