@@ -3,7 +3,7 @@
 #include "../Utils/Fast.h"
 #include "../Utils/InputValues.h"
 #include <cmath>
- 
+
 bool GeometryDemo::Init()
 {
     windowManager = GetWindowManager();
@@ -12,6 +12,43 @@ bool GeometryDemo::Init()
     width = windowManager->GetWidth();
     height = windowManager->GetHeight();
 
+    perspective = true;
+    objectsIndex = 0;
+    transformationsIndex = 0;
+
+    CreateCube();
+    CreatePyramid();
+    CreateStar();
+
+    InitialiseTransformations();
+
+    RegisterInput();
+
+    return true;
+}
+
+bool GeometryDemo::Destroy()
+{
+    return true;
+}
+
+void GeometryDemo::InitialiseTransformations()
+{
+    transformations.push_back(Point3D(width / 2, height / 2, 400.f));
+    transformations.push_back(Point3D(0.f, 0.f, 0.f));
+    transformations.push_back(Point3D(1.f, 1.f, 1.f));
+
+    transformMultiplier.push_back(100.f);
+    transformMultiplier.push_back(1.f);
+    transformMultiplier.push_back(1.f);
+
+    transformText.push_back("Translation mode");
+    transformText.push_back("Rotation mode");
+    transformText.push_back("Scaling mode");
+}
+
+void GeometryDemo::CreateCube()
+{
     objects.push_back(Object3D{
         {{100, 100, 100}, {100, 200, 100}, {200, 100, 100}, {200, 200, 100}, {100, 100, 200}, {100, 200, 200}, {200, 100, 200}, {200, 200, 200}},
         {{0, 1}, {0, 2}, {2, 3}, {1, 3}, {0, 4}, {1, 5}, {2, 6}, {3, 7}, {4, 5}, {4, 6}, {6, 7}, {5, 7}},
@@ -20,29 +57,40 @@ bool GeometryDemo::Init()
     TranslateObject(objects[0], Point3D{-150, -150, -150});
     Rotate3DObjectAroundZAxis(objects[0], Fast::PI / 4.f);
     Rotate3DObjectAroundXAxis(objects[0], Fast::PI / 4.f);
-    Generate2DProjection(objects[0]);
-
-    transformations.push_back(Point3D(width / 2, height / 2, 0.f));
-    transformations.push_back(Point3D(0.f,0.f,0.f));
-    transformations.push_back(Point3D(1.f,1.f,1.f));
-
-    transformMultiplier.push_back(100.f);
-    transformMultiplier.push_back(1.f);
-    transformMultiplier.push_back(1.f);
-
-    objectsIndex = 0;
-    transformationsIndex = 0;
-
-    RegisterInput();
-
-    RenderText("Translation mode", 5, 60, 2, Pixel{255, 255, 255});
-
-    return true;
+    GeneratePerspectiveProjection(objects[0]);
 }
 
-bool GeometryDemo::Destroy()
+void GeometryDemo::CreatePyramid()
 {
-    return true;
+    objects.push_back(Object3D{
+        {{0, -75, 0}, {-100, 75, -100}, {-100, 75, 100}, {100, 75, -100}, {100, 75, 100}},
+        {{0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {2, 4}, {3, 4}},
+        {}});
+
+    GeneratePerspectiveProjection(objects[1]);
+}
+
+void GeometryDemo::CreateStar()
+{
+    objects.push_back(Object3D{
+        {{0, 0, 0},
+         {100, 100, 0},
+         {100, -100, 0},
+         {100, 0, 100},
+         {100, 0, -100},
+         {-100, 100, 0},
+         {-100, -100, 0},
+         {-100, 0, 100},
+         {-100, 0, -100},
+         {0, 100, 100},
+         {0, -100, 100},
+         {0, 100, -100},
+         {0, -100, -100}},
+        {{0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7}, {0, 8}, {0, 9}, {0, 10}, {0, 11}, {0, 12}},
+        {}});
+
+    Rotate3DObjectAroundYAxis(objects[2], Fast::PI / 8.f);
+    GeneratePerspectiveProjection(objects[2]);
 }
 
 void GeometryDemo::RegisterInput()
@@ -55,43 +103,60 @@ void GeometryDemo::RegisterInput()
     windowManager->RegisterKeyInput((int)Key::S);
     windowManager->RegisterKeyInput((int)Key::D);
     windowManager->RegisterKeyInput((int)Key::Z);
+    windowManager->RegisterKeyInput((int)Key::X);
 }
 
 bool GeometryDemo::Update(float deltaTime)
 {
     UpdateInput(deltaTime);
 
-    //Erase
-    RenderObject(objects[0], Pixel(0));
-    static float scale = 1.f;
-    scale += 0.001f;
-    static float angle = 0.f;
-    angle += 0.005f;
-
-    //Transform
-    ScaleObject(objects[objectsIndex], transformations[2]);
-    Rotate3DObjectAroundYAxis(objects[objectsIndex], transformations[1].Y);
-    Rotate3DObjectAroundXAxis(objects[objectsIndex], transformations[1].X);
-    Rotate3DObjectAroundZAxis(objects[objectsIndex], transformations[1].Z);
-    TranslateObject(objects[objectsIndex], transformations[0]);
-
-    //Project
-    Generate2DProjection(objects[objectsIndex]);
-
-    //Render
+    EraseObject(objects[objectsIndex]);
+    ApplyObjectTransformations();
+    ApplyPerspective();
     RenderObject(objects[objectsIndex], Pixel(255));
-    RenderText("Tap z to change transformation (translation, rotation, scaling)", 5, 5, 2, Pixel{255, 255, 255});
-    RenderText("Tap space to change the model", 5, 20, 2, Pixel{255, 255, 255});
-    RenderText("Use q, w, e, a, s, d to move in 3d space", 5, 35, 2, Pixel{255, 255, 255});
-
-    //Undo transforms
-    TranslateObject(objects[objectsIndex], Point3D(-transformations[0].X, -transformations[0].Y, -transformations[0].Z));
-    Rotate3DObjectAroundZAxis(objects[objectsIndex], -transformations[1].Z);
-    Rotate3DObjectAroundXAxis(objects[objectsIndex], -transformations[1].X);
-    Rotate3DObjectAroundYAxis(objects[objectsIndex], -transformations[1].Y);
-    ScaleObject(objects[objectsIndex], Point3D(1 / transformations[2].X, 1 / transformations[2].Y, 1 / transformations[2].Z));
+    RenderInstructions();
+    UndoObjectTransformations();
 
     return true;
+}
+
+void GeometryDemo::ApplyObjectTransformations()
+{
+    ScaleObject(objects[objectsIndex], transformations[2]);
+    Rotate3DObjectAroundZAxis(objects[objectsIndex], -transformations[1].Y);
+    Rotate3DObjectAroundYAxis(objects[objectsIndex], -transformations[1].X);
+    Rotate3DObjectAroundXAxis(objects[objectsIndex], -transformations[1].Z);
+    TranslateObject(objects[objectsIndex], transformations[0]);
+}
+
+void GeometryDemo::ApplyPerspective()
+{
+    if (perspective)
+    {
+        GeneratePerspectiveProjection(objects[objectsIndex]);
+    }
+    else
+    {
+        Generate2DProjection(objects[objectsIndex]);
+    }
+}
+
+void GeometryDemo::RenderInstructions()
+{
+    RenderText("Tap z to change transformation (translation, rotation, scaling)", 5, 5, 2, Pixel{255, 255, 255});
+    RenderText("Tap x to deactivate/active perspective", 5, 20, 2, Pixel{255, 255, 255});
+    RenderText("Tap space to change the model", 5, 35, 2, Pixel{255, 255, 255});
+    RenderText("Use q, w, e, a, s, d to move in 3d space", 5, 50, 2, Pixel{255, 255, 255});
+    RenderText(transformText[transformationsIndex], 5, 75, 2, Pixel{255, 255, 255});
+}
+
+void GeometryDemo::UndoObjectTransformations()
+{
+    TranslateObject(objects[objectsIndex], Point3D(-transformations[0].X, -transformations[0].Y, -transformations[0].Z));
+    Rotate3DObjectAroundXAxis(objects[objectsIndex], transformations[1].Z);
+    Rotate3DObjectAroundYAxis(objects[objectsIndex], transformations[1].X);
+    Rotate3DObjectAroundZAxis(objects[objectsIndex], transformations[1].Y);
+    ScaleObject(objects[objectsIndex], Point3D(1 / transformations[2].X, 1 / transformations[2].Y, 1 / transformations[2].Z));
 }
 
 void GeometryDemo::Generate2DProjection(Object3D &object)
@@ -102,6 +167,24 @@ void GeometryDemo::Generate2DProjection(Object3D &object)
     {
         Point3D p = object.points[i];
         object.projectedPoints.push_back({p.X, p.Y});
+    }
+}
+
+void GeometryDemo::GeneratePerspectiveProjection(Object3D &object)
+{
+    const float depthFactor = 0.001;
+    const int halftWidth = width / 2;
+    const int halftHeight = height / 2;
+
+    object.projectedPoints.clear();
+
+    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
+    {
+        Point3D p = object.points[i];
+        float depth = (p.Z != 0.f) ? (p.Z * depthFactor) : 1.f; //Depth can't be 0
+
+        object.projectedPoints.push_back({((p.X - halftWidth) / depth) + halftWidth, ((p.Y - halftHeight) / depth) + halftHeight});
+        //Move points to the origin, then apply depth by dividing and then move points back to where they were
     }
 }
 
@@ -172,10 +255,16 @@ void GeometryDemo::RenderObject(Object3D object, const Pixel &colour)
     }
 }
 
+void GeometryDemo::EraseObject(Object3D object)
+{
+    RenderObject(object, Pixel(0));
+}
+
 void GeometryDemo::UpdateInput(float deltaTime)
 {
     bool changeMode = windowManager->IsKeyPressed((int)Key::Z);
     bool changeModel = windowManager->IsKeyPressed((int)Key::SPACE);
+    bool changePerspective = windowManager->IsKeyPressed((int)Key::X);
     bool goLeft = windowManager->IsKeyHeld((int)Key::A);
     bool goRight = windowManager->IsKeyHeld((int)Key::D);
     bool goForward = windowManager->IsKeyHeld((int)Key::W);
@@ -183,60 +272,50 @@ void GeometryDemo::UpdateInput(float deltaTime)
     bool goUp = windowManager->IsKeyHeld((int)Key::Q);
     bool goDown = windowManager->IsKeyHeld((int)Key::E);
 
-    if(changeMode)
+    if (changeMode)
     {
         transformationsIndex++;
-        if(transformationsIndex == transformations.size())
+        if (transformationsIndex == transformations.size())
         {
             transformationsIndex = 0;
         }
-
-        if(transformationsIndex == 0)
-        {
-            ClearScreen(Pixel(0));
-            RenderText("Translation mode", 5, 60, 2, Pixel{255, 255, 255});
-        }
-        if(transformationsIndex == 1)
-        {
-            ClearScreen(Pixel(0));
-            RenderText("Rotation mode", 5, 60, 2, Pixel{255, 255, 255});
-        }
-        if(transformationsIndex == 2)
-        {
-            ClearScreen(Pixel(0));
-            RenderText("Scaling mode", 5, 60, 2, Pixel{255, 255, 255});
-        }
+        ClearScreen(Pixel(0));
     }
-    if(changeModel)
+    if (changeModel)
     {
         objectsIndex++;
-        if(objectsIndex == objects.size())
+        if (objectsIndex == objects.size())
         {
             objectsIndex = 0;
         }
+        ClearScreen(Pixel(0));
+    }
+    if(changePerspective)
+    {
+        perspective = !perspective;
     }
 
-    if(goLeft)
+    if (goLeft)
     {
         transformations[transformationsIndex].X -= deltaTime * transformMultiplier[transformationsIndex];
     }
-    if(goRight)
+    if (goRight)
     {
         transformations[transformationsIndex].X += deltaTime * transformMultiplier[transformationsIndex];
     }
-    if(goUp)
+    if (goUp)
     {
         transformations[transformationsIndex].Y -= deltaTime * transformMultiplier[transformationsIndex];
     }
-    if(goDown)
+    if (goDown)
     {
         transformations[transformationsIndex].Y += deltaTime * transformMultiplier[transformationsIndex];
     }
-    if(goBackwards)
+    if (goBackwards)
     {
         transformations[transformationsIndex].Z -= deltaTime * transformMultiplier[transformationsIndex];
     }
-    if(goForward)
+    if (goForward)
     {
         transformations[transformationsIndex].Z += deltaTime * transformMultiplier[transformationsIndex];
     }

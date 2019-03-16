@@ -28,6 +28,12 @@ Point2D Point2D::operator-(const Point2D &p)
             this->Y - p.Y));
 }
 
+void Point2D::operator+=(const Point2D &p) noexcept
+{
+    this->X += p.X;
+    this->Y += p.Y;
+}
+
 void Point2D::operator*=(const float n) noexcept
 {
     this->X *= n;
