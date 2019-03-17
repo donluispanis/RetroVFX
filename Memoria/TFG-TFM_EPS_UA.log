@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  16 MAR 2019 16:42
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  17 MAR 2019 11:48
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2827,15 +2827,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--51
 ]) (TFG-TFM_EPS_UA.toc [15
 
 
-] [16])
+]
+Underfull \vbox (badness 7595) has occurred while \output is active []
+
+ [16])
 \tf@toc=\write8
 \openout8 = `TFG-TFM_EPS_UA.toc'.
 
- [17] [18
+
+[17] [18
 
 
-]
-(TFG-TFM_EPS_UA.lof)
+] (TFG-TFM_EPS_UA.lof)
 \tf@lof=\write9
 \openout9 = `TFG-TFM_EPS_UA.lof'.
 
@@ -3029,31 +3032,84 @@ Underfull \hbox (badness 10000) in paragraph at lines 136--137
 File: archivos/second-reality.png Graphic file (type bmp)
 <archivos/second-reality.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 155--156
+Underfull \hbox (badness 10000) in paragraph at lines 149--150
 
  []
 
-) (capitulos/objetivos.tex [10]
+
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+
+ []
+
+File: archivos/vip2.png Graphic file (type bmp)
+<archivos/vip2.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10]
+File: archivos/equinox1.png Graphic file (type bmp)
+<archivos/equinox1.png>
+File: archivos/equinox2.png Graphic file (type bmp)
+<archivos/equinox2.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
+
+ []
+
+[11]
+File: archivos/fairlight.png Graphic file (type bmp)
+<archivos/fairlight.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
+
+ []
+
+File: archivos/batmanforever.png Graphic file (type bmp)
+<archivos/batmanforever.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+
+ []
+
+[13]) (capitulos/objetivos.tex [14]
 chapter 3.
-) (capitulos/metodologia.tex [11
+) (capitulos/metodologia.tex [15
 
 
-] [12
+] [16
 
 
 ]
 chapter 4.
-) (capitulos/desarrollo.tex [13] [14
+) (capitulos/desarrollo.tex [17] [18
 
 
 ]
 chapter 5.
-[15] [16
+[19] [20
 
 
 ]
 chapter 6.
-[17] [18
+[21] [22
 
 
 ]
@@ -3061,21 +3117,21 @@ chapter 7.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [19]
+ [23]
 Overfull \vbox (357.2346pt too high) has occurred while \output is active []
 
 
-[20]
+[24]
 chapter 8.
-) (capitulos/conclusiones.tex [21
+) (capitulos/conclusiones.tex [25
 
 
-] [22
+] [26
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [23] [24
+) (TFG-TFM_EPS_UA.bbl [27] [28
 
 
 ]
@@ -3090,7 +3146,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[25]
+[29]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
  (TFG-TFM_EPS_UA.aux)
@@ -3100,12 +3156,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 64204 strings out of 427748
- 1443400 string characters out of 3147201
+ 64242 strings out of 427748
+ 1444113 string characters out of 3147201
  1904466 words of memory out of 3000000
- 67157 multiletter control sequences out of 15000+200000
+ 67190 multiletter control sequences out of 15000+200000
  546669 words of font info for 113 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 80i,21n,136p,9192b,727s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 80i,21n,136p,9192b,748s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (49 pages).
+Output written on TFG-TFM_EPS_UA.pdf (53 pages).
