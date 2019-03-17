@@ -9,9 +9,21 @@
 
 \section{Tests de rendimiento}
 
-Herramientas que voy a usar y cómo los voy a medir
+Se pretende recopilar una serie de resultados cuantificables que muestren el coste de distintos tipos de operaciones computacionales, tanto a nivel de coste temporal como espacial (y cantidad de instrucciones).\\
+
+Se realizará un análisis exhaustivo de los resultados obtenidos, exponiéndolos y razonando acerca de los mismos.\\
+
+Para realizar estas pruebas, se procederá a la ejecución de pequeños programas que contengan pruebas concretas. Las pruebas que se propone realizar son: operaciones matemáticas con números enteros, operaciones matemáticas con número en coma flotante, coste de la reserva y liberación de memoria, coste del acceso a memoria, coste de los bucles y las operaciones condicionales.\\
+
+Tras analizar los resultados, se elaborarán una serie de directrices para escribir código que sea generalmente más rápido y/o más fácilmente optimizable por el compilador. Para poder analizar correctamente los resultados obtenidos, se tendrá en cuenta el código ensamblador generado por el compilador.\\
+
+Para compilar, se utilizará el compilador g++\footnote{\url{https://gcc.gnu.org}}. Para medir el rendimiento de los programas se utilizará la herramienta de depuración y perfilado Valgrind\footnote{\url{http://valgrind.org}}.
 
 \section{Las demos}
+
+\subsection{Software}
+
+\subsection{Motor básico}
 
 \subsection{Planteamiento inicial}
 Comprensión del problema (de la demo) y búsqueda de información
@@ -24,6 +36,3 @@ Implementación de la ideal inicial a grosso modo
 
 \subsection{Refinamiento}
 Refactor code, improve code
-
-\section{Software}
-Crear un sistema que me permita ejecutar las demos desde 0, de forma sencilla, sin dependencias, dándome un array de datos y que sea \textbf{multiplataforma}

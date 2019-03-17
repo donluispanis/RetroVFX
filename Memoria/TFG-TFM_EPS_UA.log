@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  17 MAR 2019 17:54
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  17 MAR 2019 18:18
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3099,12 +3099,32 @@ chapter 3.
 
 ]
 chapter 4.
-) (capitulos/desarrollo.tex [17] [18
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+ []
 
 
-]
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+[17]) (capitulos/desarrollo.tex [18]
 chapter 5.
-[19] [20
+[19
+
+
+] [20
 
 
 ]
