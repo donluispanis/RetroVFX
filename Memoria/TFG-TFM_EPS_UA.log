@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  17 MAR 2019 18:18
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  19 MAR 2019 19:11
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2827,18 +2827,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--51
 ]) (TFG-TFM_EPS_UA.toc [15
 
 
-]
-Underfull \vbox (badness 7595) has occurred while \output is active []
-
- [16])
+] [16])
 \tf@toc=\write8
 \openout8 = `TFG-TFM_EPS_UA.toc'.
 
+ [17] [18
 
-[17] [18
 
-
-] (TFG-TFM_EPS_UA.lof)
+]
+(TFG-TFM_EPS_UA.lof)
 \tf@lof=\write9
 \openout9 = `TFG-TFM_EPS_UA.lof'.
 
@@ -3099,37 +3096,47 @@ chapter 3.
 
 ]
 chapter 4.
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 14--15
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--17
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 18--19
+Underfull \hbox (badness 10000) in paragraph at lines 29--30
 
  []
 
-[17]) (capitulos/desarrollo.tex [18]
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--38
+
+ []
+
+[18]) (capitulos/desarrollo.tex [19] [20
+
+
+]
 chapter 5.
-[19
-
-
-] [20
+[21] [22
 
 
 ]
 chapter 6.
-[21] [22
+[23] [24
 
 
 ]
@@ -3137,21 +3144,21 @@ chapter 7.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [23]
+ [25]
 Overfull \vbox (357.2346pt too high) has occurred while \output is active []
 
 
-[24]
+[26]
 chapter 8.
-) (capitulos/conclusiones.tex [25
+) (capitulos/conclusiones.tex [27
 
 
-] [26
+] [28
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [27] [28
+) (TFG-TFM_EPS_UA.bbl [29] [30
 
 
 ]
@@ -3166,7 +3173,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[29]
+[31]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
  (TFG-TFM_EPS_UA.aux)
@@ -3176,12 +3183,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 64242 strings out of 427748
- 1444113 string characters out of 3147201
+ 64243 strings out of 427748
+ 1444119 string characters out of 3147201
  1904466 words of memory out of 3000000
- 67190 multiletter control sequences out of 15000+200000
+ 67191 multiletter control sequences out of 15000+200000
  546669 words of font info for 113 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,748s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (53 pages).
+Output written on TFG-TFM_EPS_UA.pdf (55 pages).

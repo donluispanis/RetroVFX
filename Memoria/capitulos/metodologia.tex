@@ -7,32 +7,53 @@
 
 \chapter{Metodología}
 
+\section{Software}
+
+\begin{itemize}
+	\item \textbf{Toggle}\footnote{\url{https://toggl.com/}}: Se utilizará la herramienta online Toggl para contabilizar el tiempo dedicado a cada parte del proyecto. Esto permitirá poder analizar qué partes del trabajo han requerido más dedicación y por qué, ayudando a completar el estudio.
+	\item \textbf{Git}\footnote{\url{https://git-scm.com}}: Se utilizará Git para el control de versiones. El uso de Git nos permitirá, además, tener un registro detallado de la evolución del código. El código para este proyecto se aloja en GitHub\footnote{\url{https://github.com/donluispanis/TFG}}.
+	\item \textbf{Make}\footnote{\url{https://www.gnu.org/software/make/}}: El código de este proyecto será compilable tanto en las plataformas Windows como Linux. Para ello, el uso de la herramienta Make facilitará la compilación de los proyectos así como su portabilidad.
+	\item \textbf{MinGW}\footnote{\url{http://www.mingw.org}}: MinGW es un entorno de desarrollo para Windows que ofrece un entorno similar al de GNU. Se usará para compilar tanto el código como las librerías en Windows, haciendo la portabilidad más consistente y sencilla.
+	\item \textbf{GCC}\footnote{\url{https://gcc.gnu.org}}: GCC es una colección de compiladores con soporte para C++. Se usará para compilar el código de este proyecto, tanto en Windows (a través de MinGW) como en Linux (de forma nativa).
+	\item \textbf{GLFW}\footnote{\url{https://www.glfw.org}}: GLFW es una librería multiplataforma para OpenGL que facilita los procesos de creación de ventana, generación de contexto y manejo de input. 
+	\item \textbf{OpenGL}\footnote{\url{https://www.opengl.org}}: OpenGL es una extendida librería para la creación y manipulación de gráficos bidimensionales y tridimensionales. En este proyecto, sin embargo, su uso será mínimo y restringido. Se utilizará tan solo para dibujar una textura en nuestra ventana. Será mediante la manipulación de esta textura que generaremos gráficos. OpenGL, por tanto, será un mero mediador, redibujando constantemente la misma textura en pantalla.
+	\item \textbf{Valgrind}\footnote{\url{http://valgrind.org}}: Valgrind es una herramienta de depuración y perfilado. Se utilizará para realizar pruebas de rendimiento y para comprobar el correcto funcionamiento del programa. 
+\end{itemize}
+
 \section{Tests de rendimiento}
 
 Se pretende recopilar una serie de resultados cuantificables que muestren el coste de distintos tipos de operaciones computacionales, tanto a nivel de coste temporal como espacial (y cantidad de instrucciones).\\
 
 Se realizará un análisis exhaustivo de los resultados obtenidos, exponiéndolos y razonando acerca de los mismos.\\
 
-Para realizar estas pruebas, se procederá a la ejecución de pequeños programas que contengan pruebas concretas. Las pruebas que se propone realizar son: operaciones matemáticas con números enteros, operaciones matemáticas con número en coma flotante, coste de la reserva y liberación de memoria, coste del acceso a memoria, coste de los bucles y las operaciones condicionales.\\
+Para realizar estas pruebas, se procederá a la ejecución de pequeños programas que contengan pruebas concretas. Las pruebas que se propone realizar son: operaciones matemáticas con números enteros, operaciones matemáticas con números en coma flotante, coste de la reserva y liberación de memoria, coste del acceso a memoria y coste de los bucles y las operaciones condicionales.\\
 
 Tras analizar los resultados, se elaborarán una serie de directrices para escribir código que sea generalmente más rápido y/o más fácilmente optimizable por el compilador. Para poder analizar correctamente los resultados obtenidos, se tendrá en cuenta el código ensamblador generado por el compilador.\\
 
-Para compilar, se utilizará el compilador g++\footnote{\url{https://gcc.gnu.org}}. Para medir el rendimiento de los programas se utilizará la herramienta de depuración y perfilado Valgrind\footnote{\url{http://valgrind.org}}.
+\section{Entorno: motor gráfico}
+
+El objetivo final de este proyecto es recopilar e implementar una serie de efectos gráficos. Sin embargo, para poder realizar esta tarea, es necesario disponer de un entorno que nos permita realizar labores básicas, como gestión de la ventana o de input.\\
+
+Mediante la creación de un entorno se asegura un flujo de trabajo consistente entre todas las demos, así como la reutilización de código. Será necesaria, por tanto, la creación de un motor gráfico. Este motor deberá de ser lo más sencillo posible, pues debe limitarse a facilitar tareas básicas, pero no debe ofrecer soluciones a problemas complejos o específicos a una demo. Este motor debe ser conciso y ligero, pues debe influir lo mínimo posible en el rendimiento de la demo.\\
+
+Este motor debe darnos soporte para: manejo de la ventana, acceso a un espacio de memoria donde sea posible manipular gráficos, manejo de entradas de teclado, dibujado básico en ventana (puntos, líneas, areas rectangulares y texto)
 
 \section{Las demos}
 
-\subsection{Software}
+Para afrontar cada una de las demos, se seguirá un procedimiento común que se expone a continuación.
 
-\subsection{Motor básico}
+\subsection{Búsqueda de información}
 
-\subsection{Planteamiento inicial}
-Comprensión del problema (de la demo) y búsqueda de información
+En una primera fase, se procederá a la búsqueda de documentación e información sobre la demo. Esto incluye tanto vídeos como imágenes, además de tutoriales o explicaciones teóricas. En esta fase, se plantea recopilar tanta información acerca de la demo como sea posible, y lograr un modelo teórico básico acerca de cómo debería funcionar.
 
-\subsection{Planteamiento matemático inicial}
-Intentar reproducir sin código, de forma matemática, el problema a resolver
+\subsection{Planteamiento formal}
+
+Una vez se ha recopilado información sobre la demo a estudio y se posee un conocimiento suficiente sobre la misma, se procede a un planteamiento formal, previo a su implementación. Este planteamiento incluye entender en profundidad la base matemática de la demo, si la hay. Se debe realizar un análisis y explorar distintos puntos de vista desde los que se podría implementar la demo.
 
 \subsection{Implementación}
-Implementación de la ideal inicial a grosso modo
+
+Analizada la demo, y se habiendo razonado sobre el mejor modo de desarrollarla, se procede a la fase de implementación en código de la demo. Esta es una fase experimental y que permite flexibilidad. Es posible que sea necesario probar distintos acercamientos, buscando el que más se adecúe al resultado que se busca y que ha sido definido en el planteamiento formal de la demo.
 
 \subsection{Refinamiento}
-Refactor code, improve code
+
+Cuando la demo ya está completada a nivel de funcionalidad, se procede a su refinamiento y refactorización. En esta fase se busca hacer el código más legible (nombres de variables y funciones explícitos, correcta documentación del código...) así como hacer el código más eficiente (identificar los factores críticos del programa y buscar e implementar soluciones más eficientes).
