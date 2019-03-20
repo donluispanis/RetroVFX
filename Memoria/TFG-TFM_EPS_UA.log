@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  19 MAR 2019 19:11
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  20 MAR 2019 19:16
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2824,18 +2824,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--51
 ] [14
 
 
-]) (TFG-TFM_EPS_UA.toc [15
+]) (TFG-TFM_EPS_UA.toc
+Underfull \vbox (badness 1789) has occurred while \output is active []
 
-
-] [16])
-\tf@toc=\write8
-\openout8 = `TFG-TFM_EPS_UA.toc'.
-
- [17] [18
+ [15
 
 
 ]
-(TFG-TFM_EPS_UA.lof)
+Underfull \vbox (badness 1917) has occurred while \output is active []
+
+ [16])
+\tf@toc=\write8
+\openout8 = `TFG-TFM_EPS_UA.toc'.
+
+
+[17] [18
+
+
+] (TFG-TFM_EPS_UA.lof)
 \tf@lof=\write9
 \openout9 = `TFG-TFM_EPS_UA.lof'.
 
@@ -3067,12 +3073,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 189--190
 File: archivos/fairlight.png Graphic file (type bmp)
 <archivos/fairlight.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--203
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 204--205
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 
  []
 
@@ -3082,7 +3088,7 @@ File: archivos/batmanforever.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 224--225
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
 
  []
 
@@ -3097,32 +3103,32 @@ chapter 3.
 ]
 chapter 4.
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 25--26
+Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--28
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 29--30
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 31--32
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 35--36
+Underfull \hbox (badness 10000) in paragraph at lines 36--37
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--38
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
 
  []
 
@@ -3183,10 +3189,10 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 64243 strings out of 427748
- 1444119 string characters out of 3147201
+ 64247 strings out of 427748
+ 1444143 string characters out of 3147201
  1904466 words of memory out of 3000000
- 67191 multiletter control sequences out of 15000+200000
+ 67195 multiletter control sequences out of 15000+200000
  546669 words of font info for 113 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,748s stack positions out of 5000i,500n,10000p,200000b,50000s
