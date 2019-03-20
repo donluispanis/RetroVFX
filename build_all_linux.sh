@@ -12,3 +12,5 @@ make clean_main;
 make planes_lin;
 make clean_main;
 make geometry_lin;
+make clean_main;
+make finaldemo_lin;

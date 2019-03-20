@@ -12,3 +12,5 @@ make clean_main
 make planes
 make clean_main
 make geometry
+make clean_main
+make finaldemo

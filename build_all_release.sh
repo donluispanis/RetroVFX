@@ -12,3 +12,5 @@ make clean_main
 make planes NDEBUG=QWERTY
 make clean_main
 make geometry NDEBUG=QWERTY
+make clean_main
+make finaldemo NDEBUG=QWERTY

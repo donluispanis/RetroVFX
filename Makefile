@@ -150,6 +150,24 @@ compile_geometry_lin: TARGET := Geometry
 compile_geometry_lin: all_linux
 
 ################################################################################
+# FINAL DEMO
+################################################################################
+finaldemo: create_dir make_src make_finaldemo compile_finaldemo
+
+finaldemo_lin: create_dir make_src make_finaldemo compile_finaldemo_lin
+
+make_finaldemo: 
+	@$(MAKE) --no-print-directory -s -C src/FinalDemo
+
+compile_finaldemo: TARGET := FinalDemo
+
+compile_finaldemo: all_windows
+
+compile_finaldemo_lin: TARGET := FinalDemo
+
+compile_finaldemo_lin: all_linux
+
+################################################################################
 # GENERAL
 ################################################################################
 
