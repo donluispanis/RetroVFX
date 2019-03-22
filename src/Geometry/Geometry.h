@@ -2,7 +2,7 @@
 
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
 #include "../Utils/Pixel.h"
-#include "Object3D.h"
+#include "../Utils/Object3D.h"
 
 struct IWindowManager;
 
