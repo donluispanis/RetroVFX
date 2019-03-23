@@ -37,14 +37,14 @@ bool FinalDemo::Update(float deltaTime)
 
 void FinalDemo::ApplyObjectTransformations(float deltaTime)
 {
-    phase += 10 * deltaTime;
+    phase += 1 * deltaTime;
     TranslateObject(grid, Point3D(width/2 - (vertexPerWidth * vertexDistance) / 2, height * 0.75f,-550));
-    ApplyWaveTransformation(grid, 50, 0.05, deltaTime);
+    ApplyWaveTransformation(grid, 100, 4, deltaTime);
 }
 
 void FinalDemo::UndoObjectTransformations(float deltaTime)
 {
-    ApplyWaveTransformation(grid, -50, 0.05, deltaTime);
+    ApplyWaveTransformation(grid, -100, 4, deltaTime);
     TranslateObject(grid, Point3D(-width/2 + (vertexPerWidth * vertexDistance) / 2, -height * 0.75f,+550));
 }
 
@@ -102,7 +102,7 @@ void FinalDemo::RenderObject(Object3D object)
         Point2D startPoint = object.projectedPoints[indexPair.X];
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 
-        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, Pixel(255), 2);
+        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, object.colours[indexPair.X], object.colours[indexPair.Y], 2);
     }
 }
 
@@ -126,19 +126,19 @@ void FinalDemo::TranslateObject(Object3D &object, Point3D offset)
     }
 }
 
-void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime)
+void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float wavelength, float deltaTime)
 {
-    static float accumulatedTime = 0;
-    accumulatedTime += deltaTime * 6;
-
+    grid.colours.clear();
     for (float j = 0; j < vertexPerDepth; j++)
     {
         for (float i = 0; i < vertexPerWidth; i++)
         {
-            //Formula of traveling wave -> ((2 * pi * x) / wavelength) - 2 * pi * frequency * time
-            const float wavelength = 4;
-            float wave = (j + phase) / wavelength;
-            grid.points[j * vertexPerWidth + i].Y += amplitude * sin(wave);
+            int index = j * vertexPerWidth + i;
+            float wave = sin((j + phase) / wavelength);
+
+            grid.points[index].Y += amplitude * wave;
+            grid.colours.push_back(Pixel(0,0,125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f));
+
         }
     }
 }

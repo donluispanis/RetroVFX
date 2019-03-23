@@ -116,22 +116,28 @@ void ClassicDemoTemplate::RenderDot(int x, int y, const Pixel &colour, int dotSi
 
 void ClassicDemoTemplate::RenderLine(int x1, int y1, int x2, int y2, const Pixel &colour, const int thickness)
 {
+    RenderLine(x1, y1, x2, y2, colour, colour, thickness);
+}
+
+void ClassicDemoTemplate::RenderLine(int x1, int y1, int x2, int y2, const Pixel &colour1, const Pixel &colour2, const int thickness)
+{
     //Calculate the slope of the line to be drawn
     float slope = GetSlope(x1, y1, x2, y2);
 
     //Slope < 45º
     if (Fast::Abs(slope) <= 1.f && Fast::Abs(slope) >= 0.f)
     {
-        DrawLineWithSmallSlope(x1, y1, x2, y2, colour, slope, thickness);
+        DrawLineWithSmallSlope(x1, y1, x2, y2, colour1, colour2, slope, thickness);
     }
     //Slope > 45º
     else if (Fast::Abs(slope) > 1.f)
     {
-        DrawLineWithBigSlope(x1, y1, x2, y2, colour, slope, thickness);
+        DrawLineWithBigSlope(x1, y1, x2, y2, colour1, colour2, slope, thickness);
     }
 }
 
-void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope, const int thickness)
+
+void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2, const Pixel &colour1, const Pixel &colour2, float slope, const int thickness)
 {
     float acummulated = 0.f;  //When this hits 1, we make 1 pixel increment
     int auxX = x1, auxY = y1; //auxiliar point that we will increment from the old point to the new one
@@ -142,7 +148,8 @@ void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2,
     //While we don't reach the desired pixel position
     while (auxX != x2 || auxY != y2)
     {
-        RenderDot(auxX, auxY, colour, thickness);
+
+        RenderDot(auxX, auxY, GetInterpolatedColour(x1, x2, auxX,colour1, colour2), thickness);
 
         if (auxX != x2)
         {
@@ -159,7 +166,7 @@ void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2,
     }
 }
 
-void ClassicDemoTemplate::DrawLineWithBigSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope, const int thickness)
+void ClassicDemoTemplate::DrawLineWithBigSlope(int x1, int y1, int x2, int y2, const Pixel &colour1, const Pixel &colour2, float slope, const int thickness)
 {
     float acummulated = 0.f;  //When this hits 1, we make 1 pixel increment
     int auxX = x1, auxY = y1; //auxiliar point that we will increment from the old point to the new one
@@ -170,10 +177,13 @@ void ClassicDemoTemplate::DrawLineWithBigSlope(int x1, int y1, int x2, int y2, c
     //While we don't reach the desired pixel position
     while (auxX != x2 || auxY != y2)
     {
-        RenderDot(auxX, auxY, colour, thickness);
+        RenderDot(auxX, auxY, GetInterpolatedColour(y1, y2, auxY,colour1, colour2), thickness);
 
         if (auxY != y2)
+        {
             auxY += signY;                   //Increment Y until it reaches the target
+        }
+
         acummulated += 1 / Fast::Abs(slope); //When this reaches 1, we increment X
 
         if (acummulated >= 1.f)
@@ -193,6 +203,15 @@ void ClassicDemoTemplate::GetSigns(int x1, int y1, int x2, int y2, int &signX, i
 {
     signX = (x2 - x1) >= 0 ? 1 : -1; //Calculate X direction
     signY = (y2 - y1) >= 0 ? 1 : -1; //Calculate Y direction
+}
+
+Pixel ClassicDemoTemplate::GetInterpolatedColour(int p1, int p2, int pAux, const Pixel& colour1, const Pixel& colour2)
+{
+    float path = Fast::Abs(float(p2-pAux)/float(p2-p1));
+
+    return std::move(Pixel(colour1.R * path + colour2.R * (1 - path),
+                            colour1.G * path + colour2.G * (1 - path),
+                            colour1.B * path + colour2.B * (1 - path)));
 }
 
 void ClassicDemoTemplate::ClearScreen(const Pixel &colour)
