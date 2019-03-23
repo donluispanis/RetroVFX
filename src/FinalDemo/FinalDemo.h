@@ -2,6 +2,7 @@
 
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
 #include "../Utils/Object3D.h"
+#include <portaudio/portaudio.h>
 
 struct Pixel;
 struct IWindowManager;
@@ -36,4 +37,5 @@ class FinalDemo : public ClassicDemoTemplate
     const int vertexPerDepth = 30;
     const int vertexDistance = 100;
     float phase = 0;
+    PaStream *stream;
 };
