@@ -25,8 +25,6 @@ bool FinalDemo::Destroy()
 
 bool FinalDemo::Update(float deltaTime)
 {
-    
-
     EraseObject(grid);
     ApplyObjectTransformations(deltaTime);
     GeneratePerspectiveProjection(grid);
@@ -61,18 +59,17 @@ void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float verte
         }
     }
 
-    //Connect vertex horizontally
-    for (float i = 0; i < size; i++)
+    //Insert indexes for far to close, so we don't have problems when painting
+    for (float i = size - 1; i >= 0; i--)
     {
         if ((int(i + 1) % vertexPerWidth) != 0)
         {
             grid.indexes.emplace_back(Point2D{i, i + 1});
         }
-    }
-    //Connect vertex vertically
-    for (float i = 0; i < (size - vertexPerWidth); i++)
-    {
-        grid.indexes.emplace_back(Point2D{i, i + vertexPerWidth});
+        if(i < size - vertexPerWidth)
+        {
+            grid.indexes.emplace_back(Point2D{i, i + vertexPerWidth});
+        }
     }
 }
 
