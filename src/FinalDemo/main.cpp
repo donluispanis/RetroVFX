@@ -2,7 +2,6 @@
 
 int main()
 {
-
     FinalDemo f;
     if (!f.Construct("Fire", 1280, 720, true))
         return -1;

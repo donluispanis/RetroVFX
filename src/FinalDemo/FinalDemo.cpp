@@ -7,77 +7,6 @@
 #include <stdio.h>
 #include <math.h>
 
-/* This routine will be called by the PortAudio engine when audio is needed.
-** It may called at interrupt level on some machines so don't do anything
-** that could mess up the system like calling malloc() or free().
-*/
-static int audioCallback(const void *inputBuffer, void *outputBuffer,
-                         unsigned long framesPerBuffer,
-                         const PaStreamCallbackTimeInfo *timeInfo,
-                         PaStreamCallbackFlags statusFlags,
-                         void *userData)
-{
-    float *out = (float *)outputBuffer;
-    static long int currentCount = 0;
-
-    for (unsigned long i = 0; i < framesPerBuffer; i++)
-    {
-        currentCount++;
-
-        *out++ = 0; /* left */
-        *out++ = 0; /* rigth */
-    }
-    return 0;
-}
-
-float GetSquaredWaveValue(int frequency, int sampleRate, long int currentCount)
-{
-    int steps = sampleRate / frequency;
-    if (currentCount % steps < steps * 0.5)
-    {
-        return 1.f;
-    }
-    return -1.f;
-}
-
-float GetSawtoothWaveValue(int frequency, int sampleRate, long int currentCount)
-{
-    int steps = sampleRate / frequency;
-    float percentage = currentCount % steps / float(steps);
-    return percentage * 2 - 1.f;
-}
-
-float GetTriangleWaveValue(int frequency, int sampleRate, long int currentCount)
-{
-    int steps = sampleRate / frequency;
-    float percentage = currentCount % steps / float(steps);
-    if (percentage < 0.5f)
-    {
-        return percentage * 4 - 2.f;
-    }
-    return (1 - percentage) * 4 - 2.f;
-}
-
-float GetSineWaveValue(int frequency, int sampleRate, long int currentCount)
-{
-    int steps = sampleRate / frequency;
-    float percentage = currentCount % steps / float(steps);
-    return sin(2 * Fast::PI * percentage);
-}
-
-float GetNoiseValue()
-{
-    return (Fast::Rand() / float(ULONG_MAX)) * 2 - 1;
-}
-
-float GetLowPassNoiseValue(float intensity)
-{
-    static float oldValue = 0;
-    float newValue = intensity * GetNoiseValue() + (1 - intensity) * oldValue;
-    oldValue = newValue;
-    return newValue;
-}
-
 bool FinalDemo::Init()
 {
     windowManager = GetWindowManager();
@@ -86,10 +15,9 @@ bool FinalDemo::Init()
     width = windowManager->GetWidth();
     height = windowManager->GetHeight();
 
-    GenerateGrid(vertexPerWidth, vertexPerDepth, vertexDistance);
-    GeneratePerspectiveProjection(grid);
-
     InitAudio();
+    InitFire();
+    InitGeometry();
 
     return true;
 }
@@ -97,6 +25,8 @@ bool FinalDemo::Init()
 bool FinalDemo::Destroy()
 {
     CloseAudio();
+    CloseFire();
+    CloseGeometry();
 
     return true;
 }
@@ -113,6 +43,28 @@ void FinalDemo::CloseAudio()
     Pa_StopStream(stream);
     Pa_CloseStream(stream);
     Pa_Terminate();
+}
+
+void FinalDemo::InitFire()
+{
+    screenMapping = new unsigned char[width / 2 * height / 2];
+    colourMap = new Pixel[colourMapSize];
+}
+
+void FinalDemo::CloseFire()
+{
+    delete screenMapping;
+    delete colourMap;
+}
+
+void FinalDemo::InitGeometry()
+{
+    GenerateGrid(vertexPerWidth, vertexPerDepth, vertexDistance);
+    GeneratePerspectiveProjection(grid);
+}
+
+void FinalDemo::CloseGeometry()
+{
 }
 
 bool FinalDemo::Update(float deltaTime)
@@ -240,4 +192,75 @@ void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float
             grid.colours.push_back(Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f));
         }
     }
+}
+
+/* This routine will be called by the PortAudio engine when audio is needed.
+** It may called at interrupt level on some machines so don't do anything
+** that could mess up the system like calling malloc() or free().
+*/
+static int audioCallback(const void *inputBuffer, void *outputBuffer,
+                         unsigned long framesPerBuffer,
+                         const PaStreamCallbackTimeInfo *timeInfo,
+                         PaStreamCallbackFlags statusFlags,
+                         void *userData)
+{
+    float *out = (float *)outputBuffer;
+    static long int currentCount = 0;
+
+    for (unsigned long i = 0; i < framesPerBuffer; i++)
+    {
+        currentCount++;
+
+        *out++ = 0; /* left */
+        *out++ = 0; /* rigth */
+    }
+    return 0;
+}
+
+float GetSquaredWaveValue(int frequency, long int currentCount)
+{
+    int steps = SAMPLE_RATE / frequency;
+    if (currentCount % steps < steps * 0.5)
+    {
+        return 1.f;
+    }
+    return -1.f;
+}
+
+float GetSawtoothWaveValue(int frequency, long int currentCount)
+{
+    int steps = SAMPLE_RATE / frequency;
+    float percentage = currentCount % steps / float(steps);
+    return percentage * 2 - 1.f;
+}
+
+float GetTriangleWaveValue(int frequency, long int currentCount)
+{
+    int steps = SAMPLE_RATE / frequency;
+    float percentage = currentCount % steps / float(steps);
+    if (percentage < 0.5f)
+    {
+        return percentage * 4 - 2.f;
+    }
+    return (1 - percentage) * 4 - 2.f;
+}
+
+float GetSineWaveValue(int frequency, long int currentCount)
+{
+    int steps = SAMPLE_RATE / frequency;
+    float percentage = currentCount % steps / float(steps);
+    return sin(2 * Fast::PI * percentage);
+}
+
+float GetNoiseValue()
+{
+    return (Fast::Rand() / float(ULONG_MAX)) * 2 - 1;
+}
+
+float GetLowPassNoiseValue(float intensity)
+{
+    static float oldValue = 0;
+    float newValue = intensity * GetNoiseValue() + (1 - intensity) * oldValue;
+    oldValue = newValue;
+    return newValue;
 }
