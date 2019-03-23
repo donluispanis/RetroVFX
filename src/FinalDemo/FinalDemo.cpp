@@ -19,17 +19,13 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
 {
     float *out = (float *)outputBuffer;
     static long int currentCount = 0;
+
     for (unsigned long i = 0; i < framesPerBuffer; i++)
     {
         currentCount++;
-        static float old = 0;
-        float now = (Fast::Rand() / float(ULONG_MAX)) * 2 - 1;
-        float used = now * 0.025 + old * 0.975; //low pass :D
 
-        *out++ = GetSineWaveValue(440, 44100, currentCount) * 0.5; //used;  /* left */
-        *out++ = 0;                                                    //used;  /* right */
-
-        old = used;
+        *out++ = 0; /* left */
+        *out++ = 0; /* rigth */
     }
     return 0;
 }
@@ -67,6 +63,19 @@ float GetSineWaveValue(int frequency, int sampleRate, long int currentCount)
     int steps = sampleRate / frequency;
     float percentage = currentCount % steps / float(steps);
     return sin(2 * Fast::PI * percentage);
+}
+
+float GetNoiseValue()
+{
+    return (Fast::Rand() / float(ULONG_MAX)) * 2 - 1;
+}
+
+float GetLowPassNoiseValue(float intensity)
+{
+    static float oldValue = 0;
+    float newValue = intensity * GetNoiseValue() + (1 - intensity) * oldValue;
+    oldValue = newValue;
+    return newValue;
 }
 
 bool FinalDemo::Init()

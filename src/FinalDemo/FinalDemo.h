@@ -51,3 +51,5 @@ float GetSquaredWaveValue(int frequency, int sampleRate, long int currentCount);
 float GetSawtoothWaveValue(int frequency, int sampleRate, long int currentCount);
 float GetTriangleWaveValue(int frequency, int sampleRate, long int currentCount);
 float GetSineWaveValue(int frequency, int sampleRate, long int currentCount);
+float GetNoiseValue();
+float GetLowPassNoiseValue(float intensity);
