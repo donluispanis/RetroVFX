@@ -32,16 +32,22 @@ class FinalDemo : public ClassicDemoTemplate
 
     Pixel *pixels;
     int width, height;
-    IWindowManager* windowManager;
+    IWindowManager *windowManager;
 
     Object3D grid;
-    const int vertexPerWidth = 60;
+    const int vertexPerWidth = 40;
     const int vertexPerDepth = 30;
-    const int vertexDistance = 100;
+    const int vertexDistance = 250;
     float phase = 0;
+
     PaStream *stream;
     const int SAMPLE_RATE = 44100;
     const int FRAMES_PER_BUFFER = 256;
     const int INPUT_CHANNELS = 0;
     const int OUTPUT_CHANNELS = 2;
 };
+
+float GetSquaredWaveValue(int frequency, int sampleRate, long int currentCount);
+float GetSawtoothWaveValue(int frequency, int sampleRate, long int currentCount);
+float GetTriangleWaveValue(int frequency, int sampleRate, long int currentCount);
+float GetSineWaveValue(int frequency, int sampleRate, long int currentCount);

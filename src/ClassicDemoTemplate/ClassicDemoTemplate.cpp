@@ -136,7 +136,6 @@ void ClassicDemoTemplate::RenderLine(int x1, int y1, int x2, int y2, const Pixel
     }
 }
 
-
 void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2, const Pixel &colour1, const Pixel &colour2, float slope, const int thickness)
 {
     float acummulated = 0.f;  //When this hits 1, we make 1 pixel increment
@@ -149,7 +148,7 @@ void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2,
     while (auxX != x2 || auxY != y2)
     {
 
-        RenderDot(auxX, auxY, GetInterpolatedColour(x1, x2, auxX,colour1, colour2), thickness);
+        RenderDot(auxX, auxY, GetInterpolatedColour(x1, x2, auxX, colour1, colour2), thickness);
 
         if (auxX != x2)
         {
@@ -177,11 +176,11 @@ void ClassicDemoTemplate::DrawLineWithBigSlope(int x1, int y1, int x2, int y2, c
     //While we don't reach the desired pixel position
     while (auxX != x2 || auxY != y2)
     {
-        RenderDot(auxX, auxY, GetInterpolatedColour(y1, y2, auxY,colour1, colour2), thickness);
+        RenderDot(auxX, auxY, GetInterpolatedColour(y1, y2, auxY, colour1, colour2), thickness);
 
         if (auxY != y2)
         {
-            auxY += signY;                   //Increment Y until it reaches the target
+            auxY += signY; //Increment Y until it reaches the target
         }
 
         acummulated += 1 / Fast::Abs(slope); //When this reaches 1, we increment X
@@ -205,13 +204,13 @@ void ClassicDemoTemplate::GetSigns(int x1, int y1, int x2, int y2, int &signX, i
     signY = (y2 - y1) >= 0 ? 1 : -1; //Calculate Y direction
 }
 
-Pixel ClassicDemoTemplate::GetInterpolatedColour(int p1, int p2, int pAux, const Pixel& colour1, const Pixel& colour2)
+Pixel ClassicDemoTemplate::GetInterpolatedColour(int p1, int p2, int pAux, const Pixel &colour1, const Pixel &colour2)
 {
-    float path = Fast::Abs(float(p2-pAux)/float(p2-p1));
+    float path = Fast::Abs(float(p2 - pAux) / float(p2 - p1));
 
     return std::move(Pixel(colour1.R * path + colour2.R * (1 - path),
-                            colour1.G * path + colour2.G * (1 - path),
-                            colour1.B * path + colour2.B * (1 - path)));
+                           colour1.G * path + colour2.G * (1 - path),
+                           colour1.B * path + colour2.B * (1 - path)));
 }
 
 void ClassicDemoTemplate::ClearScreen(const Pixel &colour)

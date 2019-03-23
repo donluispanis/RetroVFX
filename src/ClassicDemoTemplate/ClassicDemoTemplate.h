@@ -36,7 +36,7 @@ class ClassicDemoTemplate
     void DrawLineWithBigSlope(int x1, int y1, int x2, int y2, const Pixel &colour1, const Pixel &colour2, float slope, const int thickness);
     float GetSlope(int x1, int y1, int x2, int y2);
     void GetSigns(int x1, int y1, int x2, int y2, int &signX, int &signY);
-    Pixel GetInterpolatedColour(int p1, int p2, int pAux, const Pixel& colour1, const Pixel& colour2);
+    Pixel GetInterpolatedColour(int p1, int p2, int pAux, const Pixel &colour1, const Pixel &colour2);
 
     void RenderCharacter(char character, int x, int y, int scale, const Pixel &colour);
 
