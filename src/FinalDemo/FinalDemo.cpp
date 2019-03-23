@@ -25,6 +25,8 @@ bool FinalDemo::Destroy()
 
 bool FinalDemo::Update(float deltaTime)
 {
+    
+
     EraseObject(grid);
     ApplyObjectTransformations(deltaTime);
     GeneratePerspectiveProjection(grid);
@@ -33,17 +35,16 @@ bool FinalDemo::Update(float deltaTime)
     return true;
 }
 
-static float phasee = 0;
 void FinalDemo::ApplyObjectTransformations(float deltaTime)
 {
-    phasee+=5;
+    phase += 10 * deltaTime;
     TranslateObject(grid, Point3D(width/2 - (vertexPerWidth * vertexDistance) / 2, height * 0.75f,-550));
-    ApplyWaveTransformation(grid, 50, 0.05, deltaTime, phasee);
+    ApplyWaveTransformation(grid, 50, 0.05, deltaTime);
 }
 
 void FinalDemo::UndoObjectTransformations(float deltaTime)
 {
-    ApplyWaveTransformation(grid, -50, 0.05, deltaTime, phasee);
+    ApplyWaveTransformation(grid, -50, 0.05, deltaTime);
     TranslateObject(grid, Point3D(-width/2 + (vertexPerWidth * vertexDistance) / 2, -height * 0.75f,+550));
 }
 
@@ -65,13 +66,13 @@ void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float verte
     {
         if ((int(i + 1) % vertexPerWidth) != 0)
         {
-            grid.indexes.emplace_back(Point2D{i, i + 1}, Pixel(0, 0, 125) + Pixel(255) * (Fast::Rand() / (float)ULONG_MAX));
+            grid.indexes.emplace_back(Point2D{i, i + 1});
         }
     }
     //Connect vertex vertically
     for (float i = 0; i < (size - vertexPerWidth); i++)
     {
-        grid.indexes.emplace_back(Point2D{i, i + vertexPerWidth}, Pixel(0, 0, 125) + Pixel(255) * (Fast::Rand() / (float)ULONG_MAX));
+        grid.indexes.emplace_back(Point2D{i, i + vertexPerWidth});
     }
 }
 
@@ -97,11 +98,11 @@ void FinalDemo::RenderObject(Object3D object)
 {
     for (int i = 0, n = object.indexes.size(); i < n; i++)
     {
-        Point2D indexPair = object.indexes[i].first;
+        Point2D indexPair = object.indexes[i];
         Point2D startPoint = object.projectedPoints[indexPair.X];
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 
-        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, object.indexes[i].second, 2);
+        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, Pixel(255), 2);
     }
 }
 
@@ -109,7 +110,7 @@ void FinalDemo::EraseObject(Object3D object)
 {
     for (int i = 0, n = object.indexes.size(); i < n; i++)
     {
-        Point2D indexPair = object.indexes[i].first;
+        Point2D indexPair = object.indexes[i];
         Point2D startPoint = object.projectedPoints[indexPair.X];
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 
@@ -125,20 +126,18 @@ void FinalDemo::TranslateObject(Object3D &object, Point3D offset)
     }
 }
 
-void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime, float phase)
+void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime)
 {
     static float accumulatedTime = 0;
-    accumulatedTime += deltaTime;
+    accumulatedTime += deltaTime * 6;
 
     for (float j = 0; j < vertexPerDepth; j++)
     {
         for (float i = 0; i < vertexPerWidth; i++)
         {
             //Formula of traveling wave -> ((2 * pi * x) / wavelength) - 2 * pi * frequency * time
-            const float wavelength = 1000;
-            const float period = 20;
-            float wave = (2 * Fast::PI * (grid.points[j * vertexPerWidth + i].Z + phase)) / wavelength + (2 * Fast::PI * accumulatedTime) / period;
-            
+            const float wavelength = 4;
+            float wave = (j + phase) / wavelength;
             grid.points[j * vertexPerWidth + i].Y += amplitude * sin(wave);
         }
     }

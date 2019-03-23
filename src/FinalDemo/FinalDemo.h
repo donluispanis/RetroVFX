@@ -23,7 +23,7 @@ class FinalDemo : public ClassicDemoTemplate
     void RenderObject(Object3D object);
     void EraseObject(Object3D object);
     void TranslateObject(Object3D &object, Point3D offset);
-    void ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime, float phase);
+    void ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime);
     void ApplyObjectTransformations(float deltaTime);
     void UndoObjectTransformations(float deltaTime);
 
@@ -32,7 +32,8 @@ class FinalDemo : public ClassicDemoTemplate
     IWindowManager* windowManager;
 
     Object3D grid;
-    const int vertexPerWidth = 100;
-    const int vertexPerDepth = 50;
-    const int vertexDistance = 50;
+    const int vertexPerWidth = 70;
+    const int vertexPerDepth = 30;
+    const int vertexDistance = 100;
+    float phase = 0;
 };

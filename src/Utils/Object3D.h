@@ -9,6 +9,7 @@
 struct Object3D
 {
     std::vector<Point3D> points;
-    std::vector<std::pair<Point2D, Pixel>> indexes;
+    std::vector<Pixel> colours;
+    std::vector<Point2D> indexes;
     std::vector<Point2D> projectedPoints;
 };

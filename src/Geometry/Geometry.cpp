@@ -51,18 +51,19 @@ void GeometryDemo::CreateCube()
 {
     objects.push_back(Object3D{
         {{100, 100, 100}, {100, 200, 100}, {200, 100, 100}, {200, 200, 100}, {100, 100, 200}, {100, 200, 200}, {200, 100, 200}, {200, 200, 200}},
-        {std::make_pair<Point2D, Pixel>({0, 1}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 2}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({2, 3}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({1, 3}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 4}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({1, 5}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({2, 6}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({3, 7}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({4, 5}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({4, 6}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({6, 7}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({5, 7}, {0,0,0})},
+        {},
+        {{0, 1},
+        {0, 2},
+        {2, 3},
+        {1, 3},
+        {0, 4},
+        {1, 5},
+        {2, 6},
+        {3, 7},
+        {4, 5},
+        {4, 6},
+        {6, 7},
+        {5, 7}},
         {}});
 
     TranslateObject(objects[0], Point3D{-150, -150, -150});
@@ -75,14 +76,15 @@ void GeometryDemo::CreatePyramid()
 {
     objects.push_back(Object3D{
         {{0, -75, 0}, {-100, 75, -100}, {-100, 75, 100}, {100, 75, -100}, {100, 75, 100}},
-        {std::make_pair<Point2D, Pixel>({0, 1}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 2}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 3}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 4}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({1, 2}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({1, 3}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({2, 4}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({3, 4}, {0,0,0})},
+        {},
+        {{0, 1},
+        {0, 2},
+        {0, 3},
+        {0, 4},
+        {1, 2},
+        {1, 3},
+        {2, 4},
+        {3, 4}},
         {}});
 
     GeneratePerspectiveProjection(objects[1]);
@@ -104,18 +106,19 @@ void GeometryDemo::CreateStar()
          {0, -100, 100},
          {0, 100, -100},
          {0, -100, -100}},
-        {std::make_pair<Point2D, Pixel>({0, 1}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 2}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 3}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 4}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 5}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 6}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 7}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 8}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 9}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 10}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 11}, {0,0,0}),
-        std::make_pair<Point2D, Pixel>({0, 12}, {0,0,0})},
+         {},
+        {{0, 1},
+        {0, 2},
+        {0, 3},
+        {0, 4},
+        {0, 5},
+        {0, 6},
+        {0, 7},
+        {0, 8},
+        {0, 9},
+        {0, 10},
+        {0, 11},
+        {0, 12}},
         {}});
 
     Rotate3DObjectAroundYAxis(objects[2], Fast::PI / 8.f);
@@ -276,7 +279,7 @@ void GeometryDemo::RenderObject(Object3D object, const Pixel &colour)
 {
     for (int i = 0, n = object.indexes.size(); i < n; i++)
     {
-        Point2D indexPair = object.indexes[i].first;
+        Point2D indexPair = object.indexes[i];
         Point2D startPoint = object.projectedPoints[indexPair.X];
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 
