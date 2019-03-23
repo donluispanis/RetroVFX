@@ -17,9 +17,14 @@ class FinalDemo : public ClassicDemoTemplate
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
 
+    void GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance);
+
     void GeneratePerspectiveProjection(Object3D &object);
+    void RenderObject(Object3D object);
 
     Pixel *pixels;
     int width, height;
     IWindowManager* windowManager;
+
+    Object3D grid;
 };
