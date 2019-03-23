@@ -21,10 +21,16 @@ class FinalDemo : public ClassicDemoTemplate
 
     void GeneratePerspectiveProjection(Object3D &object);
     void RenderObject(Object3D object);
+    void TranslateObject(Object3D &object, Point3D offset);
+    void ApplyObjectTransformations();
+    void UndoObjectTransformations();
 
     Pixel *pixels;
     int width, height;
     IWindowManager* windowManager;
 
     Object3D grid;
+    const int vertexPerWidth = 50;
+    const int vertexPerDepth = 25;
+    const int vertexDistance = 100;
 };

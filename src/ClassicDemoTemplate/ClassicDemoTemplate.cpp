@@ -114,7 +114,7 @@ void ClassicDemoTemplate::RenderDot(int x, int y, const Pixel &colour, int dotSi
     }
 }
 
-void ClassicDemoTemplate::RenderLine(int x1, int y1, int x2, int y2, const Pixel &colour)
+void ClassicDemoTemplate::RenderLine(int x1, int y1, int x2, int y2, const Pixel &colour, const int thickness)
 {
     //Calculate the slope of the line to be drawn
     float slope = GetSlope(x1, y1, x2, y2);
@@ -122,16 +122,16 @@ void ClassicDemoTemplate::RenderLine(int x1, int y1, int x2, int y2, const Pixel
     //Slope < 45º
     if (Fast::Abs(slope) <= 1.f && Fast::Abs(slope) >= 0.f)
     {
-        DrawLineWithSmallSlope(x1, y1, x2, y2, colour, slope);
+        DrawLineWithSmallSlope(x1, y1, x2, y2, colour, slope, thickness);
     }
     //Slope > 45º
     else if (Fast::Abs(slope) > 1.f)
     {
-        DrawLineWithBigSlope(x1, y1, x2, y2, colour, slope);
+        DrawLineWithBigSlope(x1, y1, x2, y2, colour, slope, thickness);
     }
 }
 
-void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope)
+void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope, const int thickness)
 {
     float acummulated = 0.f;  //When this hits 1, we make 1 pixel increment
     int auxX = x1, auxY = y1; //auxiliar point that we will increment from the old point to the new one
@@ -142,7 +142,7 @@ void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2,
     //While we don't reach the desired pixel position
     while (auxX != x2 || auxY != y2)
     {
-        RenderDot(auxX, auxY, colour, 1);
+        RenderDot(auxX, auxY, colour, thickness);
 
         if (auxX != x2)
         {
@@ -159,7 +159,7 @@ void ClassicDemoTemplate::DrawLineWithSmallSlope(int x1, int y1, int x2, int y2,
     }
 }
 
-void ClassicDemoTemplate::DrawLineWithBigSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope)
+void ClassicDemoTemplate::DrawLineWithBigSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope, const int thickness)
 {
     float acummulated = 0.f;  //When this hits 1, we make 1 pixel increment
     int auxX = x1, auxY = y1; //auxiliar point that we will increment from the old point to the new one
@@ -170,7 +170,7 @@ void ClassicDemoTemplate::DrawLineWithBigSlope(int x1, int y1, int x2, int y2, c
     //While we don't reach the desired pixel position
     while (auxX != x2 || auxY != y2)
     {
-        RenderDot(auxX, auxY, colour, 1);
+        RenderDot(auxX, auxY, colour, thickness);
 
         if (auxY != y2)
             auxY += signY;                   //Increment Y until it reaches the target

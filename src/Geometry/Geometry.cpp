@@ -280,7 +280,7 @@ void GeometryDemo::RenderObject(Object3D object, const Pixel &colour)
         Point2D startPoint = object.projectedPoints[indexPair.X];
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 
-        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, colour);
+        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, colour, 1);
     }
 }
 

@@ -17,7 +17,7 @@ class ClassicDemoTemplate
     IWindowManager *GetWindowManager() { return windowManager; }
     void RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour);
     void RenderDot(int x, int y, const Pixel &colour, int dotSize);
-    void RenderLine(int x1, int y1, int x2, int y2, const Pixel &colour);
+    void RenderLine(int x1, int y1, int x2, int y2, const Pixel &colour, const int thickness);
     void ClearScreen(const Pixel &colour);
     void ClearScreen(int x1, int y1, int x2, int y2, const Pixel &colour);
     bool IsPixelOutOfBounds(int x, int y);
@@ -31,8 +31,8 @@ class ClassicDemoTemplate
     void UpdateInput();
     void UpdateTime();
 
-    void DrawLineWithSmallSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope);
-    void DrawLineWithBigSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope);
+    void DrawLineWithSmallSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope, const int thickness);
+    void DrawLineWithBigSlope(int x1, int y1, int x2, int y2, const Pixel &colour, float slope, const int thickness);
     float GetSlope(int x1, int y1, int x2, int y2);
     void GetSigns(int x1, int y1, int x2, int y2, int &signX, int &signY);
 
