@@ -195,7 +195,7 @@ make_src:
 ################################################################################
 # Windows 
 ################################################################################
-all_windows: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lm -lmingw32 -lglfw3
+all_windows: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lm -lmingw32 -lglfw3 -lportaudio
 
 all_windows:
 	@printf "$(GREEN)Compiling done!\n"
