@@ -33,15 +33,17 @@ bool FinalDemo::Update(float deltaTime)
     return true;
 }
 
+static float phasee = 0;
 void FinalDemo::ApplyObjectTransformations(float deltaTime)
 {
+    phasee+=5;
     TranslateObject(grid, Point3D(width/2 - (vertexPerWidth * vertexDistance) / 2, height * 0.75f,-550));
-    ApplyWaveTransformation(grid, 50, 1, deltaTime);
+    ApplyWaveTransformation(grid, 50, 0.05, deltaTime, phasee);
 }
 
 void FinalDemo::UndoObjectTransformations(float deltaTime)
 {
-    ApplyWaveTransformation(grid, -50, 1, deltaTime);
+    ApplyWaveTransformation(grid, -50, 0.05, deltaTime, phasee);
     TranslateObject(grid, Point3D(-width/2 + (vertexPerWidth * vertexDistance) / 2, -height * 0.75f,+550));
 }
 
@@ -123,17 +125,21 @@ void FinalDemo::TranslateObject(Object3D &object, Point3D offset)
     }
 }
 
-void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime)
+void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime, float phase)
 {
     static float accumulatedTime = 0;
     accumulatedTime += deltaTime;
 
     for (float j = 0; j < vertexPerDepth; j++)
     {
-        Point3D offset = Point3D(0.f, amplitude * sin(frequency * accumulatedTime + (j / vertexPerDepth) * Fast::PI * 5), 0.f);
         for (float i = 0; i < vertexPerWidth; i++)
         {
-            grid.points[j * vertexPerWidth + i] += offset;
+            //Formula of traveling wave -> ((2 * pi * x) / wavelength) - 2 * pi * frequency * time
+            const float wavelength = 1000;
+            const float period = 20;
+            float wave = (2 * Fast::PI * (grid.points[j * vertexPerWidth + i].Z + phase)) / wavelength + (2 * Fast::PI * accumulatedTime) / period;
+            
+            grid.points[j * vertexPerWidth + i].Y += amplitude * sin(wave);
         }
     }
 }
