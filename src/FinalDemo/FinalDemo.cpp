@@ -2,6 +2,7 @@
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include "../Utils/Fast.h"
 #include <climits>
+#include <cmath>
 
 bool FinalDemo::Init()
 {
@@ -12,6 +13,7 @@ bool FinalDemo::Init()
     height = windowManager->GetHeight();
 
     GenerateGrid(vertexPerWidth, vertexPerDepth, vertexDistance);
+    GeneratePerspectiveProjection(grid);
 
     return true;
 }
@@ -23,21 +25,24 @@ bool FinalDemo::Destroy()
 
 bool FinalDemo::Update(float deltaTime)
 {
-    ApplyObjectTransformations();
+    EraseObject(grid);
+    ApplyObjectTransformations(deltaTime);
     GeneratePerspectiveProjection(grid);
     RenderObject(grid);
-    UndoObjectTransformations();
+    UndoObjectTransformations(deltaTime);
     return true;
 }
 
-void FinalDemo::ApplyObjectTransformations()
+void FinalDemo::ApplyObjectTransformations(float deltaTime)
 {
-    TranslateObject(grid, Point3D(width/2 - (vertexPerWidth * vertexDistance) / 2, height * 0.75f,-500));
+    TranslateObject(grid, Point3D(width/2 - (vertexPerWidth * vertexDistance) / 2, height * 0.75f,-550));
+    ApplyWaveTransformation(grid, 50, 1, deltaTime);
 }
 
-void FinalDemo::UndoObjectTransformations()
+void FinalDemo::UndoObjectTransformations(float deltaTime)
 {
-    TranslateObject(grid, Point3D(-width/2 + (vertexPerWidth * vertexDistance) / 2, -height * 0.75f,+500));
+    ApplyWaveTransformation(grid, -50, 1, deltaTime);
+    TranslateObject(grid, Point3D(-width/2 + (vertexPerWidth * vertexDistance) / 2, -height * 0.75f,+550));
 }
 
 void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance)
@@ -98,10 +103,37 @@ void FinalDemo::RenderObject(Object3D object)
     }
 }
 
+void FinalDemo::EraseObject(Object3D object)
+{
+    for (int i = 0, n = object.indexes.size(); i < n; i++)
+    {
+        Point2D indexPair = object.indexes[i].first;
+        Point2D startPoint = object.projectedPoints[indexPair.X];
+        Point2D endPoint = object.projectedPoints[indexPair.Y];
+
+        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, Pixel(0), 2);
+    }
+}
+
 void FinalDemo::TranslateObject(Object3D &object, Point3D offset)
 {
     for (unsigned int i = 0, n = object.points.size(); i < n; i++)
     {
         object.points[i] += offset;
+    }
+}
+
+void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime)
+{
+    static float accumulatedTime = 0;
+    accumulatedTime += deltaTime;
+
+    for (float j = 0; j < vertexPerDepth; j++)
+    {
+        Point3D offset = Point3D(0.f, amplitude * sin(frequency * accumulatedTime + (j / vertexPerDepth) * Fast::PI * 5), 0.f);
+        for (float i = 0; i < vertexPerWidth; i++)
+        {
+            grid.points[j * vertexPerWidth + i] += offset;
+        }
     }
 }

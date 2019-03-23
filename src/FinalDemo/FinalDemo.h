@@ -21,9 +21,11 @@ class FinalDemo : public ClassicDemoTemplate
 
     void GeneratePerspectiveProjection(Object3D &object);
     void RenderObject(Object3D object);
+    void EraseObject(Object3D object);
     void TranslateObject(Object3D &object, Point3D offset);
-    void ApplyObjectTransformations();
-    void UndoObjectTransformations();
+    void ApplyWaveTransformation(Object3D &object, float amplitude, float frequency, float deltaTime);
+    void ApplyObjectTransformations(float deltaTime);
+    void UndoObjectTransformations(float deltaTime);
 
     Pixel *pixels;
     int width, height;
