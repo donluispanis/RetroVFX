@@ -19,6 +19,8 @@ class FinalDemo : public ClassicDemoTemplate
     virtual bool Destroy() override;
 
     void GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance);
+    void InitAudio();
+    void CloseAudio();
 
     void GeneratePerspectiveProjection(Object3D &object);
     void RenderObject(Object3D object);
@@ -33,9 +35,13 @@ class FinalDemo : public ClassicDemoTemplate
     IWindowManager* windowManager;
 
     Object3D grid;
-    const int vertexPerWidth = 70;
+    const int vertexPerWidth = 60;
     const int vertexPerDepth = 30;
     const int vertexDistance = 100;
     float phase = 0;
     PaStream *stream;
+    const int SAMPLE_RATE = 44100;
+    const int FRAMES_PER_BUFFER = 256;
+    const int INPUT_CHANNELS = 0;
+    const int OUTPUT_CHANNELS = 2;
 };

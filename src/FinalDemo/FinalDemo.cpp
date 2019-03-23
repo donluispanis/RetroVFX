@@ -6,50 +6,32 @@
 
 #include <stdio.h>
 #include <math.h>
-#define NUM_SECONDS   (4)
-#define SAMPLE_RATE   (44100)
-
-typedef struct
-{
-    float left_phase;
-    float right_phase;
-}
-paTestData;
 
 /* This routine will be called by the PortAudio engine when audio is needed.
 ** It may called at interrupt level on some machines so don't do anything
 ** that could mess up the system like calling malloc() or free().
 */
-static int patestCallback( const void *inputBuffer, void *outputBuffer,
+static int audioCallback( const void *inputBuffer, void *outputBuffer,
                            unsigned long framesPerBuffer,
                            const PaStreamCallbackTimeInfo* timeInfo,
                            PaStreamCallbackFlags statusFlags,
                            void *userData )
 {
-    /* Cast data passed through stream to our structure. */
-    paTestData *data = (paTestData*)userData;
     float *out = (float*)outputBuffer;
-    unsigned int i;
-    (void) inputBuffer; /* Prevent unused variable warning. */
 
-    for( i=0; i<framesPerBuffer; i++ )
+    for(unsigned long i=0; i<framesPerBuffer; i++ )
     {
-        *out++ = data->left_phase;  /* left */
-        *out++ = data->right_phase;  /* right */
-        /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-        data->left_phase += 0.001f;
-        /* When signal reaches top, drop back down. */
-        if( data->left_phase >= 1.0f ) data->left_phase -= 2.0f;
-        /* higher pitch so we can distinguish left and right. */
-        data->right_phase += 0.003f;
-        if( data->right_phase >= 1.0f ) data->right_phase -= 2.0f;
+        static float old = 0;
+        float now = (Fast::Rand() / float(ULONG_MAX)) * 2 - 1;
+        float used = now * 0.025 + old * 0.975; //low pass :D
+
+        *out++ = 0;//used;  /* left */
+        *out++ = 0;//used;  /* right */
+
+        old = used;
     }
     return 0;
 }
-
-/*******************************************************************/
-static paTestData data;
-
 
 bool FinalDemo::Init()
 {
@@ -62,39 +44,30 @@ bool FinalDemo::Init()
     GenerateGrid(vertexPerWidth, vertexPerDepth, vertexDistance);
     GeneratePerspectiveProjection(grid);
 
-    printf("PortAudio Test: output sawtooth wave.\n");
-    /* Initialize our data for use by callback. */
-    data.left_phase = data.right_phase = 0.0;
-    /* Initialize library before making any other calls. */
-    int err = Pa_Initialize();
-    if( err != paNoError ) printf("shit1\n");
-
-    /* Open an audio I/O stream. */
-    err = Pa_OpenDefaultStream( &stream,
-                                0,          /* no input channels */
-                                2,          /* stereo output */
-                                paFloat32,  /* 32 bit floating point output */
-                                SAMPLE_RATE,
-                                256,        /* frames per buffer */
-                                patestCallback,
-                                &data );
-    if( err != paNoError ) printf("shit2\n");
-
-    err = Pa_StartStream( stream );
-    if( err != paNoError ) printf("shit3\n");
+    InitAudio();
 
     return true;
 }
 
 bool FinalDemo::Destroy()
 {
-    int err = Pa_StopStream( stream );
-    if( err != paNoError ) printf("shit4\n");
-    err = Pa_CloseStream( stream );
-    if( err != paNoError ) printf("shit5\n");
-    Pa_Terminate();
-    printf("Test finished.\n");
+    CloseAudio();
+
     return true;
+}
+
+void FinalDemo::InitAudio()
+{
+    Pa_Initialize();
+    Pa_OpenDefaultStream( &stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, audioCallback, 0);
+    Pa_StartStream( stream );
+}
+
+void FinalDemo::CloseAudio()
+{
+    Pa_StopStream(stream);
+    Pa_CloseStream(stream);
+    Pa_Terminate();
 }
 
 bool FinalDemo::Update(float deltaTime)
