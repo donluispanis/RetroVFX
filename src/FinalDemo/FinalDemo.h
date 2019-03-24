@@ -52,6 +52,8 @@ class FinalDemo : public ClassicDemoTemplate
     void InitFire();
     void UpdateFire();
     void CloseFire();
+    void InitSmallFireText();
+    void DrawSmallFireText();
     void DrawCharacterOnFireMap(unsigned char* map, int width, unsigned char value, int x, int y, char character, int scale);
 
     unsigned char *screenMapping;
