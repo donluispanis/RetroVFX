@@ -22,6 +22,7 @@ class FinalDemo : public ClassicDemoTemplate
     Pixel *pixels;
     int width, height;
     IWindowManager *windowManager;
+    float accumulatedTime;
 
     //Sound
     void InitAudio();

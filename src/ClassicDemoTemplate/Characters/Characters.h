@@ -42,6 +42,7 @@ class Characters
     static const char *openParenthesis;
     static const char *closeParenthesis;
     static const char *slash;
+    static const char *hyphen;
     static const char *_0;
     static const char *_1;
     static const char *_2;

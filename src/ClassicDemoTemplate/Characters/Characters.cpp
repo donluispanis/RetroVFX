@@ -42,6 +42,7 @@ std::map<char, const char *> Characters::GetCharactersMap()
         charMap['('] = openParenthesis;
         charMap[')'] = closeParenthesis;
         charMap['/'] = slash;
+        charMap['-'] = hyphen;
         charMap['0'] = _0;
         charMap['1'] = _1;
         charMap['2'] = _2;
@@ -294,6 +295,13 @@ const char *Characters::slash{
     "  3  "
     " 3   "
     "3    "};
+
+const char *Characters::hyphen{
+    "     "
+    "     "
+    " 333 "
+    "     "
+    "     "};
 
 const char *Characters::_0{
     " 333 "

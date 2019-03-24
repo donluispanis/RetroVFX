@@ -17,6 +17,8 @@ bool FinalDemo::Init()
     InitFire();
     InitGeometry();
 
+    accumulatedTime = 0;
+
     return true;
 }
 
@@ -31,7 +33,9 @@ bool FinalDemo::Destroy()
 
 bool FinalDemo::Update(float deltaTime)
 {
+    accumulatedTime += deltaTime;
+
     UpdateFire();
-    UpdateGeometry(deltaTime);
+    //UpdateGeometry(deltaTime);
     return true;
 }
