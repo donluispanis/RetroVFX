@@ -51,9 +51,9 @@ class FinalDemo : public ClassicDemoTemplate
     void CloseFire();
 
     unsigned char *screenMapping;
+    unsigned char *fireMapping;
     Pixel *colourMap;
     int colourMapSize = 256;
-    std::vector<ColourStamp> colours;
 };
 
 //SOUND
@@ -68,5 +68,3 @@ float GetTriangleWaveValue(int frequency, long int currentCount);
 float GetSineWaveValue(int frequency, long int currentCount);
 float GetNoiseValue();
 float GetLowPassNoiseValue(float intensity);
-static int audioCallback(const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
-                         const PaStreamCallbackTimeInfo *timeInfo, PaStreamCallbackFlags statusFlags, void *userData);
