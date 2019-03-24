@@ -10,6 +10,15 @@ void FinalDemo::CloseGeometry()
 {
 }
 
+void FinalDemo::UpdateGeometry(float deltaTime)
+{
+    EraseObject(grid);
+    ApplyObjectTransformations(deltaTime);
+    GeneratePerspectiveProjection(grid);
+    RenderObject(grid);
+    UndoObjectTransformations(deltaTime);
+}
+
 void FinalDemo::ApplyObjectTransformations(float deltaTime)
 {
     phase += 1 * deltaTime;

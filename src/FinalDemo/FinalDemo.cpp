@@ -31,33 +31,7 @@ bool FinalDemo::Destroy()
 
 bool FinalDemo::Update(float deltaTime)
 {
-    /** Fire
-    **/
-    ClearScreen(Pixel(0));
-    for (int j = height / 2 - 2; j >= 0; j--)
-    {
-        for (int i = 0, n = width / 2; i < n; i++)
-        {
-            int index = j * n + i;
-            int rowBelow = index + n;
-
-            if (fireMapping[rowBelow] != 0)
-            {
-                screenMapping[rowBelow] = 255;
-            }
-
-            int colourIndex = (screenMapping[rowBelow + 1] + screenMapping[rowBelow] + screenMapping[rowBelow - 1]) / (3.1) + (Fast::Rand() % 3 == 0 ? 1 : 0);
-            screenMapping[index] = colourIndex;
-            RenderDot(i * 2, j * 2, colourMap[colourIndex], 2);
-        }
-    }
-
-    /** Geometry
-    EraseObject(grid);
-    ApplyObjectTransformations(deltaTime);
-    GeneratePerspectiveProjection(grid);
-    RenderObject(grid);
-    UndoObjectTransformations(deltaTime);
-    **/
+    UpdateFire();
+    UpdateGeometry(deltaTime);
     return true;
 }

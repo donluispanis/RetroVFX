@@ -30,6 +30,7 @@ class FinalDemo : public ClassicDemoTemplate
 
     //Geometry
     void InitGeometry();
+    void UpdateGeometry(float deltaTime);
     void CloseGeometry();
     void GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance);
     void GeneratePerspectiveProjection(Object3D &object);
@@ -48,7 +49,9 @@ class FinalDemo : public ClassicDemoTemplate
 
     //Fire
     void InitFire();
+    void UpdateFire();
     void CloseFire();
+    void DrawCharacterOnFireMap(unsigned char* map, int width, unsigned char value, int x, int y, char character, int scale);
 
     unsigned char *screenMapping;
     unsigned char *fireMapping;
