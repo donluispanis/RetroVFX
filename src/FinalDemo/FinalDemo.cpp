@@ -35,6 +35,7 @@ bool FinalDemo::Update(float deltaTime)
 {
     accumulatedTime += deltaTime;
 
+    UpdateSound(deltaTime);
     UpdateFire();
     //UpdateGeometry(deltaTime);
     return true;

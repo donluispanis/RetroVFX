@@ -26,6 +26,7 @@ class FinalDemo : public ClassicDemoTemplate
 
     //Sound
     void InitAudio();
+    void UpdateSound(float deltaTime);
     void CloseAudio();
     PaStream *stream;
 
@@ -67,6 +68,8 @@ const int SAMPLE_RATE = 44100;
 const int FRAMES_PER_BUFFER = 256;
 const int INPUT_CHANNELS = 0;
 const int OUTPUT_CHANNELS = 2;
+
+const int NOTE_ARRAY_SIZE = 1;
 
 float GetSquaredWaveValue(int frequency, long int currentCount);
 float GetSawtoothWaveValue(int frequency, long int currentCount);
