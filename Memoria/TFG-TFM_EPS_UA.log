@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  7 APR 2019 14:14
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  7 APR 2019 17:12
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3109,6 +3109,15 @@ Underfull \vbox (badness 2057) has occurred while \output is active []
 
  [13]
 [14] [15]
+File: archivos/heavenseven.png Graphic file (type bmp)
+<archivos/heavenseven.png>
+File: archivos/stateoftheart.png Graphic file (type bmp)
+<archivos/stateoftheart.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[16] [17]
 File: archivos/fire_inconexia.png Graphic file (type bmp)
 <archivos/fire_inconexia.png>
 File: archivos/plasma.png Graphic file (type bmp)
@@ -3118,25 +3127,21 @@ File: archivos/deformaciones.png Graphic file (type bmp)
 File: archivos/vectorworld.png Graphic file (type bmp)
 <archivos/vectorworld.png>
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 304--305
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
 
  []
 
-[16] [17]) (capitulos/objetivos.tex [18]
+[18]) (capitulos/objetivos.tex [19] [20
+
+
+]
 chapter 3.
-) (capitulos/metodologia.tex [19
-
-
-] [20
+) (capitulos/metodologia.tex [21] [22
 
 
 ]
 chapter 4.
-[21]
+[23]
 Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
@@ -3166,17 +3171,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 38--39
 
  []
 
-[22]) (capitulos/desarrollo.tex [23] [24
+[24]) (capitulos/desarrollo.tex [25] [26
 
 
 ]
 chapter 5.
-[25] [26
+[27] [28
 
 
 ]
 chapter 6.
-[27] [28
+[29] [30
 
 
 ]
@@ -3184,21 +3189,21 @@ chapter 7.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [29]
+ [31]
 Overfull \vbox (357.2346pt too high) has occurred while \output is active []
 
 
-[30]
+[32]
 chapter 8.
-) (capitulos/conclusiones.tex [31
+) (capitulos/conclusiones.tex [33
 
 
-] [32
+] [34
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [33] [34
+) (TFG-TFM_EPS_UA.bbl [35] [36
 
 
 ]
@@ -3213,7 +3218,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[35]
+[37]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
  (TFG-TFM_EPS_UA.aux)
@@ -3227,12 +3232,12 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 64275 strings out of 427748
- 1444785 string characters out of 3147201
+ 64285 strings out of 427748
+ 1445029 string characters out of 3147201
  1904466 words of memory out of 3000000
- 67218 multiletter control sequences out of 15000+200000
+ 67226 multiletter control sequences out of 15000+200000
  546669 words of font info for 113 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,749s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (59 pages).
+Output written on TFG-TFM_EPS_UA.pdf (61 pages).
