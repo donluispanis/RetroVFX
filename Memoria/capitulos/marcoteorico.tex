@@ -179,7 +179,6 @@ Equinox\footnote{\url{https://equinox.planet-d.net}} es un grupo de \emph{demosc
 		\caption{Sota 2004 invitation intro (64k intro) - Fuente: \href{https://www.youtube.com/watch?v=cb8i0WYDLxM}{YouTube}}
 		\label{fig:equinox2}
 	\end{subfigure}
-	\label{hace flata}
 \end{figure}
 
 \subsection{Fairlight}
@@ -249,7 +248,49 @@ A continuación se listan y describen algunos de los portales más populares ded
 juntar y hablar de las principales demos en la demoscene, hacer referencia al top de pouet, incluir elevated y otras mas e intentar explicarlas
 
 \section{Efectos gráficos más comunes}
-comentar algunos de los efectos de la demoscene más comunes y cómo se conseguían (comentar cómo se conseguían sólo por encima)
+
+A continuación se listan algunos de los efectos clásicos más comunes. Estos son efectos gráficos que llevan presentes desde el inicio de la \emph{demoscene} y que se pueden ver en una gran cantidad de producciones \footnote{\url{http://www.oldskool.org/demos/explained/demo_graphics.html}} \footnote{\url{http://demo-effects.sourceforge.net}} \footnote{\url{https://en.wikipedia.org/wiki/Demo_effect}}.
+
+\begin{itemize}
+	\item \textbf{Fuego}: efecto clásico por excelencia [\ref{fig:fire_inconexia}], podría considerarse casi el "Hola Mundo" de la \emph{demoscene}, debido a su sencillo pero consistente resultado. El efecto de fuego en tiempo real es muy sencillo a nivel de implementación, aunque computacionalmente costoso.
+	\item \textbf{Plasma}: este efecto es otro de los grandes clásicos [\ref{fig:plasma}]. Es nuevamente un efecto muy sencillo de implementar, pero con alto coste computacional, por lo que normalmente son necesarias optimizaciones o aproximaciones. Puede implementarse mediante la combinación de funciones de seno o mediante funciones de ruido.
+	\item \textbf{Partículas}: un tipo de efecto muy socorrido es el de partículas. Debido a las limitaciones de los ordenadores, tener que actualizar miles de píxeles en pantalla, a veces con operaciones matemáticas complejas de por medio, era muy a menudo inviable. Sin embargo, aplicar efectos con trayectorias o transformaciones complejas a sets reducidos de objetos (partículas) en pantalla era perfectamente viable. En esta demo de Equinox [\ref{fig:equinox1}] cada una de las esferas se podría considerar de hecho una partícula con una trayectoria compleja. \\
+	Otro uso muy común era el de crear "nubes de puntos". Eran efectos como túneles o formas de apariencia tridimensional compleja (como paraboloides) formados por puntos. La aplicación de estas fórmulas píxel a píxel era computacionalmente inviable, sin embargo, al aplicarlas únicamente sobre un set reducido de píxeles, podían lograrse resultados en tiempo real de lo más sorprendentes\footnote{\url{https://www.youtube.com/watch?v=L_xycbyI1vU}}.
+	\item \textbf{Deformaciones de imagen}: las deformaciones de imagen son y han sido efectos muy usados en la demoscene. Muchas de estos tipos de transformación tienen incluso nombre propios. Uno de los efectos más conocidos es el rotozoom (textura que rota y escala simultáneamente) y se logra mediante la aplicación de transformaciones de escalado (multiplicaciones) y transformaciones de rotación (senos y cosenos). Otros efectos de deformación muy populares son las deformaciones de lente o las torsiones [\ref{fig:deformaciones}].
+	\item \textbf{Vectores y geometría}: hoy en día, puede que los entornos virtuales en 3D se den como algo garantizado, pero detrás de ello lo único que hay son transformaciones matemáticas mediante el uso de matrices y vectores. Cuando no había tarjetas gráficas ni librerías para gráficos 3D, crear figuras geométricas con sensación de tridimensionalidad era todo un reto, no hablemos ya de escenas complejas [\ref{fig:vectorworld}].
+	\item \textbf{Raytracing}: el \emph{raytracing} es una técnica de iluminación usada especialmente para el cálculo de reflexiones. Esta técnica consiste básicamente en hallar la trayectoria de la luz lanzando haces de rayos. Hoy en día existen muchos algoritmos de \emph{raytracing}, y aún así, sigue siendo una operación computacionalmente costosa. Sin embargo, se puede encontrar demos de hace más de 20 años que ya conseguían aplicar esta técnica en tiempo real [\ref{fig:secondreality}].
+	\item \textbf{Otros}: existen una infinidad de efectos y variaciones más. Entre otras destacan los efectos de planos infinitos (mediante el uso de transformaciones afines, es conocido como el Modo 7 \footnote{\url{https://en.wikipedia.org/wiki/Mode_7}} de Nintendo, usado en juegos como el Mario Kart de la Super Nintendo). El efecto de planos infinitos emula un entorno 3D mediante el uso de una textura 2D.
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/fire_inconexia}
+		\caption{Efecto de fuego - Inconexia (por Iguana) - Fuente : \href{https://www.youtube.com/watch?v=ztxbEbUa4YY}{YouTube}}
+		\label{fig:fire_inconexia}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/plasma}
+		\caption{Efecto de plasma - Fuente : \href{https://en.wikipedia.org/wiki/Plasma_effect\#/media/File:Plasma_effect.jpg}{Wikipedia}}
+		\label{fig:plasma}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/deformaciones}
+		\caption{Deformación de imagen - Batman Forever (por Batman Group) - Fuente: \href{https://www.youtube.com/watch?v=YJosZfm560Q}{YouTube}}
+		\label{fig:deformaciones}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/vectorworld}
+		\caption{Mundo vectorial - Airframe (por Prime) - Fuente: \href{http://www.oldskool.org/demos/explained/htmlpictures/vectorw.gif}{OldSkool}}
+		\label{fig:vectorworld}
+	\end{subfigure}
+\end{figure}
+
+
 
 %http://www.farbrausch.de/index.py https://en.wikipedia.org/wiki/Farbrausch
 %https://en.wikipedia.org/wiki/Future_Crew https://demozoo.org/groups/357/
