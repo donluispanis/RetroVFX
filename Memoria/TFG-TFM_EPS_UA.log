@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  7 APR 2019 11:03
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  7 APR 2019 12:17
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3108,16 +3108,17 @@ File: archivos/batmanforever.png Graphic file (type bmp)
 Underfull \vbox (badness 2057) has occurred while \output is active []
 
  [13]
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 263--264
 
  []
 
-[14]) (capitulos/objetivos.tex [15] [16
-
-
-]
+[15]) (capitulos/objetivos.tex [16]
 chapter 3.
-) (capitulos/metodologia.tex [17] [18
+) (capitulos/metodologia.tex [17
+
+
+] [18
 
 
 ]
