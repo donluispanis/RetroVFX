@@ -126,6 +126,8 @@ A continuación, \emph{ClassicDemoTemplate} expone una serie de métodos que pue
 
 Por último, hay tres métodos virtuales y privados que toda demo debe implementar: \emph{Init}, \emph{Update} y \emph{Destroy}. La llamada a estos método es gestionada por \emph{ClassicDemoTemplate}, por lo que el usuario tan sólo debe preocuparse de implementarlos. Los métodos \emph{Init} y \emph{Destroy} permiten inicializar y destruir las variables los datos propios de la demo. El método \emph{Update} es llamado en el bucle de ejecución del programa y recibe el tiempo sucedido desde el último fotograma. Este método contendrá toda la lógica necesaria para actualizar los datos que maneja nuestro programa a lo largo del tiempo. 
 
+\subsection{La textura de dibujado y el píxel}
+
 \subsection{Detectar input}
 
 Por básica que pueda parecer la detección de entradas de teclado, esta característica no fue implementada hasta un estado relativamente avanzado del desarrollo del proyecto. Aunque esto pueda resultar difícil de entender desde el punto de vista del usuario, desde el punto de vista del desarrollador, las entradas de teclado sirven principalmente para "jugar" con la demo y para ajustar valores, es decir, que resultan útiles en el proceso de refinamiento de la demo, pero son irrelevantes en el proceso de creación de la misma. Es por ello que disponer de \emph{input} para las demos no es algo que se priorizara, ya que estaba mucho más interesado en el desarrollo de los algoritmos y métodos necesarios para cada demo que no en poder "jugar" con los resultados.\\
@@ -203,6 +205,8 @@ const char *Characters::A{
 };
 \end{lstlisting}
 
+Así pues, la tareas que realmente más tiempo llevan en un sistema como el definido es crear todos los caracteres que se necesitan, que en mi caso son todas las letras del alfabeto inglés, los números y algunos caracteres especiales. Una vez hecho esto, se inserta todos estos caracteres dentro de un mapa estático cuya clave sea un caracter y el valor sea la cuadrícula 5x5 que lo representa.\\
+
 \begin{lstlisting}[style=C-color, caption={Método que renderiza un sólo caracter},label=rendercharacter]
 void ClassicDemoTemplate::RenderCharacter(char character, int x, int y, int scale, const Pixel &colour)
 {
@@ -229,6 +233,12 @@ void ClassicDemoTemplate::RenderCharacter(char character, int x, int y, int scal
 }
 \end{lstlisting}
 
+Una vez tenemos el mapa de caracteres, dibujar un caracter en pantalla es de lo más sencillo [\ref{rendercharacter}]. Tras una comprobación inicial para saber si el carácter no es válido o es un espacio (que obviamente no se dibuja), lo primero que hacemos es obtener la cuadrícula 5x5 que se asocia con el caracter a dibujar.\\
+
+Una vez hecho esto, recorremos la cuadrícula en vertical y horizontal. La cantidad de píxeles que recorremos en cada dirección es equivalente al tamaño de la cuadrícula (5) multiplicado por la escala del caracter. Así pues, un carácter con escala 1 tendrá un grosor de línea de un píxel y ocupara un espacio de 5x5 píxeles mientras que un caracter con escala 2 tendrá 2 píxeles de grosor de línea y ocupará un espacio de 10x10 píxeles.\\
+
+Tras esto hacemos una conversión sencilla para hallar, dadas unas coordenadas cualesquiera dentro del bucle, las coordenadas de la cuadrícula que le corresponden. Una vez halladas, se comprueba la posición de la cuadrícula. Si es un espacio en blanco (en el ejemplo [\ref{fontA}] se sustituyen los espacios por barras bajas por cuestión de claridad visual) no se rellena, mientras que si esa posición de la cuadrícula no es un espacio, se pinta el píxel con el color correspondiente.\\
+
 \begin{lstlisting}[style=C-color, caption={Método que renderiza una cadena de caracteres},label=rendertext]
 void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour)
 {
@@ -246,7 +256,9 @@ void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int s
 }
 \end{lstlisting}
 
-\subsection{Dibujar líneas}
+El método para dibujar texto es también muy sencillo, como se puede ver en el ejemplo [\ref{rendertext}]. Lo primero que hacemos es poner todos los caracteres en mayúscula, pues como ya habíamos decidido antes, es más práctico tener un único conjunto de letras. A continuación, por cada caracter que forma el texto invocamos a la función de dibujado de caracter [\ref{rendercharacter}]. Por cada dibujado, aumentamos la posición horizontal, de modo que el próximo caracter se dibuje a 6 unidades de distancia del inicio del caracter anterior (es decir, se deja una unidad de 1 espacio entre uno y otro carácter, ya que un caracter ocupa 5 unidades).
+
+\subsection{Dibujar puntos, rectángulos y líneas}
 
 \chapter{Demos clásicas}
 

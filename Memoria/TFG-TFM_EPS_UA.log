@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  13 APR 2019 16:43
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  13 APR 2019 18:46
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2831,14 +2831,11 @@ Underfull \vbox (badness 1789) has occurred while \output is active []
 
 
 ]
-Underfull \vbox (badness 1917) has occurred while \output is active []
-
- [16])
+[16])
 \tf@toc=\write8
 \openout8 = `TFG-TFM_EPS_UA.toc'.
 
-
-[17] [18
+ [17] [18
 
 
 ] (TFG-TFM_EPS_UA.lof)
@@ -2852,11 +2849,11 @@ Underfull \vbox (badness 1917) has occurred while \output is active []
 \tf@lot=\write10
 \openout10 = `TFG-TFM_EPS_UA.lot'.
 
- [21] [22
+ [21]
+[22
 
 
-]
-(TFG-TFM_EPS_UA.lol)
+] (TFG-TFM_EPS_UA.lol)
 \tf@lol=\write11
 \openout11 = `TFG-TFM_EPS_UA.lol'.
 
@@ -3250,11 +3247,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 125--126
  []
 
 [32]
-Underfull \hbox (badness 10000) in paragraph at lines 131--132
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
@@ -3279,14 +3271,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 141--142
 
  []
 
-[33]
-File: archivos/inputuml.eps Graphic file (type eps)
-<archivos/inputuml.eps>
 
-Underfull \hbox (badness 10000) in paragraph at lines 174--175
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
 
  []
 
+[33]
+File: archivos/inputuml.eps Graphic file (type eps)
+<archivos/inputuml.eps>
 
 Underfull \hbox (badness 10000) in paragraph at lines 176--177
 
@@ -3298,12 +3290,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 178--179
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--183
+Underfull \hbox (badness 10000) in paragraph at lines 180--181
 
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 184--185
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
 
@@ -3317,30 +3314,54 @@ y"
 File: lstmisc.sty 2019/02/27 1.8b (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 196.
- [35] [36]
+nput line 198.
+
+Underfull \hbox (badness 10000) in paragraph at lines 208--209
+
+ []
+
+[35]
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 238--239
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [36]
+[37] [38
+
+
+]
 chapter 7.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [37
-
-
-]
+ [39]
 Overfull \vbox (357.2346pt too high) has occurred while \output is active []
 
 
-[38]
+[40]
 chapter 8.
-) (capitulos/conclusiones.tex [39
+) (capitulos/conclusiones.tex [41
 
 
-] [40
+] [42
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [41] [42
+) (TFG-TFM_EPS_UA.bbl [43] [44
 
 
 ]
@@ -3351,7 +3372,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[43]
+[45]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
  (TFG-TFM_EPS_UA.aux)
@@ -3359,18 +3380,14 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 144.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 144.
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 64518 strings out of 427748
- 1447764 string characters out of 3147201
- 2144113 words of memory out of 3000000
- 67449 multiletter control sequences out of 15000+200000
+ 64519 strings out of 427748
+ 1447770 string characters out of 3147201
+ 2123123 words of memory out of 3000000
+ 67450 multiletter control sequences out of 15000+200000
  546677 words of font info for 114 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 80i,21n,136p,9192b,2015s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 80i,21n,136p,9192b,2017s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (67 pages).
+Output written on TFG-TFM_EPS_UA.pdf (69 pages).
