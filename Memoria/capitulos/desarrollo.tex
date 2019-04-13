@@ -128,7 +128,7 @@ Por último, hay tres métodos virtuales y privados que toda demo debe implement
 
 \subsection{Detectar input}
 
-Por básica que pueda parecer la detección de entradas de teclado, esta característica no fue implementada hasta un estado relativamente avanzado del desarrollo del proyecto. Aunque esto pueda resultar difícil de entender desde el punto de vista del usuario, desde el punto de vista del desarrollador, las entradas de teclado sirven principalmente para "jugar" con la demo y para ajustar valor, es decir, que resultan útiles en el proceso de refinamiento de la demo, pero son irrelevantes en el proceso de creación de la misma. Es por ello que disponer de \emph{input} para las demos no es algo que se priorizada, ya que estaba mucho más interesado en el desarrollo de los algoritmos y métodos necesarios para cada demo que no en poder "jugar" con los resultados.\\
+Por básica que pueda parecer la detección de entradas de teclado, esta característica no fue implementada hasta un estado relativamente avanzado del desarrollo del proyecto. Aunque esto pueda resultar difícil de entender desde el punto de vista del usuario, desde el punto de vista del desarrollador, las entradas de teclado sirven principalmente para "jugar" con la demo y para ajustar valores, es decir, que resultan útiles en el proceso de refinamiento de la demo, pero son irrelevantes en el proceso de creación de la misma. Es por ello que disponer de \emph{input} para las demos no es algo que se priorizara, ya que estaba mucho más interesado en el desarrollo de los algoritmos y métodos necesarios para cada demo que no en poder "jugar" con los resultados.\\
 
 No obstante, llegó un punto en el desarrollo en el que las demos, además de ser funcionales, debían ser manipulables, modificables de forma dinámica, y fue en este momento cuándo se planteó la pregunta de cómo gestionar las entradas de teclado.\\
 
@@ -136,13 +136,116 @@ Las entradas de teclado se gestionan desde la ventana, por lo que tenía claro q
 
 Estos eran los eventos que me interesaban: saber el momento en que la tecla se pulsa por primera vez, saber el momento en el que la tecla se suelta y saber si la tecla se está manteniendo pulsada o no. Sin embargo, GLFW sólo daba acceso directo a saber si la tecla estaba pulsada o no, por lo que la lógica para el resto de eventos debía ser implementada por mi parte.\\
 
-GLFW permitía otra opción, además, en lugar de preguntar por el estado de una tecla concreta, es posible pasarle un método delegado que sea llamado cada vez que se produce un evento, de forma que este método sobre el que nosotros tenemos control pueda gestionar los eventos en los que estamos interesados. Por razones de simplicidad y manteniilidad, decidí optar sin embargo por la opción de preguntar por el estado de las teclas.\\
+GLFW permitía otra opción, además, en lugar de preguntar por el estado de una tecla concreta, es posible pasarle un método delegado que sea llamado cada vez que se produce un evento, de forma que este método sobre el que nosotros tenemos control pueda gestionar los eventos en los que estamos interesados. Por razones de simplicidad y mantenibilidad, decidí optar sin embargo por la opción de preguntar por el estado de las teclas.\\
 
-Esta opción sin embargo planteaba un problema de eficiencia: la única forma de saber si una tecla cualquier está pulsada o no es almacenando y actualizando el estado de todas las teclas. Esto implicaría tener que estar actualizando el estado de más de 100 teclas cuando tan sólo tenemos \emph{interés} en unas pocas. Y precisamente lo que decidí fue añadir un método que permitiera registrar interés en una tecla. Esto hace que la gestión en una demo sea ligeramente más compleja (para poder preguntar por el estado de una tecla, esta debe haberse registrado previamente). Sin embargo, a cambio de esta ligera complejidad añadida, hay una gran ganancia en rendimiento, ya que en lugar de actualizar el estado de \emph{todas} las teclas del teclado por fotograma, sólo actualizaremos el estado de aquellas que nos interesan, y en caso de no tener interés en ninguna, simplemente no se tendrán en cuenta las entradas de teclado, no impactando en ningún modo al rendimiento del programa.\\
+Esta opción sin embargo planteaba un problema de eficiencia: la única forma de saber si una tecla cualquiera está pulsada o no es almacenando y actualizando el estado de todas las teclas. Esto implicaría tener que estar actualizando el estado de más de 100 teclas cuando tan sólo tenemos interés en unas pocas. Y precisamente lo que decidí fue añadir un método que permitiera registrar interés en una tecla. Esto hace que la gestión de \emph{input} en una demo sea ligeramente más compleja (para poder preguntar por el estado de una tecla, esta debe haberse registrado previamente). Sin embargo, a cambio de esta ligera complejidad añadida, hay una gran ganancia en rendimiento, ya que en lugar de actualizar el estado de \emph{todas} las teclas del teclado por fotograma, sólo actualizaremos el estado de aquellas que nos interesan, y en caso de no tener interés en ninguna, simplemente no se tendrán en cuenta las entradas de teclado, no impactando en ningún modo al rendimiento del programa.\\
 
-añadir diagrama que muestra la interfaz con las llamadas a input y mostrar el strcut keystate
+%@startuml
+%
+%interface IWindowManager {
+%  +RegisterKeyInput(key)
+%  +IsKeyPressed(key)
+%  +IsKeyHeld(key)
+%  +IsKeyReleased(key)
+%  +IsKeyUp(key)
+%}
+%
+%class KeyState << (S,#FF7700) Struct >>
+%{
+%  +IsPressed
+%  +IsHeld
+%  +IsReleased
+%  +IsUp
+%}
+%
+%hide empty members
+%
+%@enduml
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=10cm]{archivos/inputuml}
+	\caption{Funciones y estructuras del sistema de input}
+	\label{fig:input}
+\end{figure}
 
 \subsection{Dibujar texto}
+
+Al igual que con el input, la necesidad de dibujar texto no se hizo aparente hasta un estado más avanzado de desarrollo del proyecto. Una vez en la tesitura en la que poder dibujar texto en pantalla era necesario, fue necesario dedicar un tiempo de análisis.\\
+
+Inicialmente pensé en usar una librería y estuve investigando cuál podía satisfacer mejor mis objetivos. glfreetype\footnote{\url{https://github.com/benhj/glfreetype}} parecía bastante adecuada, tratándose de una librería pequeña, concisa y aparentemente sencilla de utilizar.\\
+
+A mitad camino del proceso de integración de esta librería, no obstante, me empecé a plantear hasta qué punto tenía sentido utilizar una librería externa para el dibujado de texto en pantalla. Al fin y al cabo, uno de mis objetivos con este trabajo era que todo aquello que estuviera dibujado en pantalla hubiera sido desarrollado de forma exclusiva por mi, sin usar librerías externas. Las únicas librerías que usa este trabajo (GLFW y OpenGL) son utilizadas con el único objetivo de facilitar la implementación y no salirse del ámbito de este estudio. No obstante, este no parecía ser el caso para el dibujado de texto en pantalla.\\
+
+No obstante, implementar un sistema de dibujado de texto parecía complejo, \emph{a priori}. Es por ello que me plantée, ¿cuál es la forma más sencilla y rápida en la que podría dibujar texto en pantalla?
+
+Tras un tiempo de análisis, llegué a la conclusión de que implementar un sistema de dibujado de texto era una tarea sencilla y que se podía considerar dentro del ámbito de este proyecto. Por tanto, no sería necesario usar librerías externas. Este sistema de texto debería ser lo más sencillo posible, no obstante, y tendría ciertas limitaciones.\\
+
+La mayoría de librerías de texto son capaces de leer formatos de fuente como TrueType o OpenType, además, para cada letra dibujan un \emph{quad} mediante OpenGL al que aplican una textura con transparencia representando la letra. Este proceso es más complejo de lo asumible para este proyecto, pero por suerte, no era necesario seguirlo.\\
+
+Mi sistema estaría basado en las siguientes ideas: 
+\begin{itemize}
+	\item Es necesario un método para dibujar caracteres individuales
+	\item Es necesario un método para dibujar cadenas de caracteres
+	\item Todo lo que necesita un carácter para ser dibujado es posición, color y tamaño.
+	\item La forma más sencilla de usar una fuente es crear nuestra propia fuente, que vaya embebida en el código
+	\item Cualquier carácter puede ser definido dentro de una cuadrícula de 5x5 unidades como en [\ref{fontA}]
+	\item No es necesario diferenciar entre mayúscula y minúscula (tener doble representación para las letras supone una pérdida de espacio y tiempo)
+\end{itemize}
+
+\begin{lstlisting}[style=C-color, caption={Método que renderiza un sólo caracter},label=fontA]
+const char *Characters::A{
+    "_###_"
+    "#___#"
+    "#####"
+    "#___#"
+    "#___#"
+};
+\end{lstlisting}
+
+\begin{lstlisting}[style=C-color, caption={Método que renderiza un sólo caracter},label=rendercharacter]
+void ClassicDemoTemplate::RenderCharacter(char character, int x, int y, int scale, const Pixel &colour)
+{
+    if (character < 0 || character == ' ')
+    {
+        return;
+    }
+
+    const char *c = Characters::GetCharactersMap()[character];
+
+    for (int i = x; i < x + 5 * scale; i++)
+    {
+        for (int j = y; j < y + 5 * scale; j++)
+        {
+            int offsetX = (i - x) / scale;
+            int offsetY = (j - y) / scale;
+
+            if (c[offsetY * 5 + offsetX] != ' ')
+            {
+                screen[j * width + i] = colour;
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=C-color, caption={Método que renderiza una cadena de caracteres},label=rendertext]
+void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour)
+{
+    std::string txt(text);
+    for (auto &c : txt)
+    {
+        c = toupper(c);
+    }
+
+    for (auto c : txt)
+    {
+        RenderCharacter(c, posX, posY, scale, colour);
+        posX += 6 * scale;
+    }
+}
+\end{lstlisting}
+
 \subsection{Dibujar líneas}
 
 \chapter{Demos clásicas}
