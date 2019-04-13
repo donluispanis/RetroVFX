@@ -14,6 +14,7 @@ class ClassicDemoTemplate
     void Run();
     bool Close();
 
+  protected:
     IWindowManager *GetWindowManager() { return windowManager; }
     void RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour);
     void RenderDot(int x, int y, const Pixel &colour, int dotSize);
