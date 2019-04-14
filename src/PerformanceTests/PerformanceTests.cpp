@@ -28,6 +28,32 @@ int main()
             i = j;
     } });
     T.WriteTestResultsIntoScreenAndFile("03", "Simple assignment (=)", T.CalculateAverageTime());
+    
+    {
+        int *k = new int[100000000];
+        T.CalculateAverageTime();
+        T.ExecuteTest([&k]() {
+        for(int j = 0; j < 10000; j++){
+            for(int i = 0; i < 10000; i++)
+            {
+                k[j * 10000 + i] = 100;
+            }
+        } });
+        T.WriteTestResultsIntoScreenAndFile("04", "Aligned memory access", T.CalculateAverageTime());
+        delete[] k;
+
+        k = new int[100000000];
+        T.CalculateAverageTime();
+        T.ExecuteTest([&k]() {
+        for(int i = 0; i < 10000; i++){
+            for(int j = 0; j < 10000; j++)
+            {
+                k[j * 10000 + i] = 100;
+            }
+        } });
+        T.WriteTestResultsIntoScreenAndFile("05", "Unaligned memory access", T.CalculateAverageTime());
+        delete[] k;
+    }
 
     int *k = new int[10000000];
     T.ExecuteTest([k, &i]() {
@@ -85,7 +111,7 @@ int main()
     long int li = rand();
     long int *lk = new long int[10000000];
 
-    for(int j=0; j < 999999; j++)
+    for (int j = 0; j < 999999; j++)
         lk[j] = rand();
 
     T.ExecuteTest([lk, &li]() {
@@ -123,7 +149,7 @@ int main()
     float fi = rand() * 0.555;
     float *fk = new float[10000000];
 
-    for(int j=0; j < 999999; j++)
+    for (int j = 0; j < 999999; j++)
         fk[j] = rand() * 0.555;
 
     T.ExecuteTest([fk, &fi]() {
@@ -155,7 +181,7 @@ int main()
     double di = rand() * 0.555;
     double *dk = new double[10000000];
 
-    for(int j=0; j < 999999; j++)
+    for (int j = 0; j < 999999; j++)
         dk[j] = rand() * 0.555;
 
     T.ExecuteTest([dk, &di]() {
@@ -183,7 +209,7 @@ int main()
     T.WriteTestResultsIntoScreenAndFile("24", "(double) Division", T.CalculateAverageTime());
 
     T.WriteMessageIntoScreenAndFile("|---------------------------------------------------\n|");
-    
+
     T.ExecuteTest([]() {
         for (int j = 0; j < 10000000; ++j) {
             voidF();
@@ -219,8 +245,8 @@ int main()
             i = cbrt(j);
     } });
     T.WriteTestResultsIntoScreenAndFile("30", "Call cbrt()", T.CalculateAverageTime());
-
-    T.WriteMessageIntoScreenAndFile("----------------------------------------------------");
+    * /
+        T.WriteMessageIntoScreenAndFile("----------------------------------------------------");
 
     return 0;
 }

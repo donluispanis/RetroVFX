@@ -168,6 +168,25 @@ compile_finaldemo_lin: TARGET := FinalDemo
 compile_finaldemo_lin: all_linux
 
 ################################################################################
+# PERFORMANCE TESTS
+################################################################################
+perf_test: create_dir make_perf link_test
+
+make_perf:
+	@$(MAKE) --no-print-directory -s -C src/PerformanceTests
+
+link_test:
+	@printf "$(GREEN)Compiling done!\n"
+	@printf "$(YELLOW)Linking...\n"
+	@$(CXX) bin/obj/PerformanceTests.o bin/obj/TestTemplate.o -o bin/PerformanceTest
+	@printf "$(GREEN)Linking done!\n$(WHITE)"
+
+perf_test_asm:
+	@printf "$(YELLOW)Generating assembly...\n"
+	@$(CXX) -S src/PerformanceTests/PerformanceTests.cpp
+	@printf "$(GREEN)Assembly generated!\n$(WHITE)"
+
+################################################################################
 # GENERAL
 ################################################################################
 
