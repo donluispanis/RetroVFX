@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  14 APR 2019 12:41
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  14 APR 2019 17:04
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3453,6 +3453,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 422--423
 
 ) (capitulos/demos.tex [42]
 chapter 7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+
+ []
+
 ) (capitulos/demofinal.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -3460,20 +3480,23 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-Overfull \vbox (357.2346pt too high) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [44]
+Overfull \vbox (269.03749pt too high) has occurred while \output is active []
 
 
-[44]
+[45] [46
+
+
+]
 chapter 8.
-) (capitulos/conclusiones.tex [45
-
-
-] [46
+) (capitulos/conclusiones.tex [47] [48
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [47] [48
+) (TFG-TFM_EPS_UA.bbl [49] [50
 
 
 ]
@@ -3484,7 +3507,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[49]
+[51]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 147.
  (TFG-TFM_EPS_UA.aux)
@@ -3502,4 +3525,4 @@ Here is how much of TeX's memory you used:
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2018s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (73 pages).
+Output written on TFG-TFM_EPS_UA.pdf (75 pages).
