@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  13 APR 2019 18:46
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  14 APR 2019 12:41
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3168,33 +3168,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 38--39
 
  []
 
-[24]) (capitulos/desarrollo.tex [25] [26
+[24]) (capitulos/tests.tex [25] [26
 
 
 ]
 chapter 5.
-[27] [28
+) (capitulos/motor.tex [27] [28
 
 
 ]
 chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 15--16
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--22
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--24
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--26
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
@@ -3202,90 +3202,112 @@ Underfull \hbox (badness 10000) in paragraph at lines 25--26
 File: archivos/classicdemotemplateuml.eps Graphic file (type eps)
 <archivos/classicdemotemplateuml.eps>
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--112
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
 
  []
 
 [31]
-Underfull \hbox (badness 10000) in paragraph at lines 113--114
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 115--116
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 117--118
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 119--120
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--124
+Underfull \hbox (badness 10000) in paragraph at lines 118--119
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 125--126
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
 
  []
 
 [32]
-Underfull \hbox (badness 10000) in paragraph at lines 133--134
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--136
+Underfull \hbox (badness 10000) in paragraph at lines 128--129
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--138
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
 
  []
 
+File: archivos/pixeluml.eps Graphic file (type eps)
+<archivos/pixeluml.eps>
 
-Underfull \hbox (badness 10000) in paragraph at lines 143--144
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
 
  []
 
 [33]
-File: archivos/inputuml.eps Graphic file (type eps)
-<archivos/inputuml.eps>
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--179
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 170--171
+
+ []
+
+[34]
+Underfull \hbox (badness 10000) in paragraph at lines 172--173
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
 
  []
 
@@ -3295,16 +3317,58 @@ Underfull \hbox (badness 10000) in paragraph at lines 180--181
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
-
+[35]
 Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
 
-[34]
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+
+ []
+
+File: archivos/inputuml.eps Graphic file (type eps)
+<archivos/inputuml.eps>
+
+Underfull \hbox (badness 10000) in paragraph at lines 223--224
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--226
+
+ []
+
+[36]
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 231--232
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--234
+
+ []
+
+
 ("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
 ty"
 File: lstlang1.sty 2019/02/27 1.8b listings language file
@@ -3314,54 +3378,102 @@ y"
 File: lstmisc.sty 2019/02/27 1.8b (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 198.
-
-Underfull \hbox (badness 10000) in paragraph at lines 208--209
-
- []
-
-[35]
-Underfull \hbox (badness 10000) in paragraph at lines 236--237
+nput line 245.
+ [37]
+Underfull \hbox (badness 10000) in paragraph at lines 255--256
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--239
+Underfull \hbox (badness 10000) in paragraph at lines 283--284
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 240--241
+Underfull \hbox (badness 10000) in paragraph at lines 285--286
 
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
+
+ []
+
+[38]
+Underfull \hbox (badness 10000) in paragraph at lines 310--311
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 314--315
+
+ []
+
+[39]
+Underfull \hbox (badness 10000) in paragraph at lines 337--338
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 343--344
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 351--352
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 357--358
+
+ []
+
+
+Underfull \vbox (badness 2158) has occurred while \output is active []
+
+ [40]
+File: archivos/bresenham.png Graphic file (type bmp)
+<archivos/bresenham.png>
+
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--423
+
+ []
+
+) (capitulos/demos.tex [42]
+chapter 7.
+) (capitulos/demofinal.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [36]
-[37] [38
+ [43
 
 
 ]
-chapter 7.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [39]
 Overfull \vbox (357.2346pt too high) has occurred while \output is active []
 
 
-[40]
+[44]
 chapter 8.
-) (capitulos/conclusiones.tex [41
+) (capitulos/conclusiones.tex [45
 
 
-] [42
+] [46
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [43] [44
+) (TFG-TFM_EPS_UA.bbl [47] [48
 
 
 ]
@@ -3372,22 +3484,22 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[45]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
+[49]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 147.
  (TFG-TFM_EPS_UA.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 144.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 144.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 147.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 147.
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 64519 strings out of 427748
- 1447770 string characters out of 3147201
- 2123123 words of memory out of 3000000
- 67450 multiletter control sequences out of 15000+200000
- 546677 words of font info for 114 fonts, out of 3000000 for 9000
+ 64598 strings out of 427748
+ 1448926 string characters out of 3147201
+ 2135024 words of memory out of 3000000
+ 67516 multiletter control sequences out of 15000+200000
+ 546685 words of font info for 115 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 80i,21n,136p,9192b,2017s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 80i,21n,136p,9192b,2018s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (69 pages).
+Output written on TFG-TFM_EPS_UA.pdf (73 pages).

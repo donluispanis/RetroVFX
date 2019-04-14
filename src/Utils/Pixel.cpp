@@ -32,10 +32,3 @@ Pixel Pixel::operator*(const float f) const
 {
     return std::move(Pixel(this->R * f, this->G * f, this->B * f));
 }
-
-void Pixel::Clear()
-{
-    R = 0;
-    G = 0;
-    B = 0;
-}

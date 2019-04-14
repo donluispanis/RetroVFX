@@ -12,5 +12,4 @@ struct Pixel
     Pixel operator+(const Pixel &p) const;
     Pixel operator-(const Pixel &p) const;
     Pixel operator*(const float f) const;
-    inline void Clear();
 };
