@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  14 APR 2019 17:04
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  23 APR 2019 11:59
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3473,8 +3473,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
 
+File: archivos/fire_whitegrid.png Graphic file (type bmp)
+<archivos/fire_whitegrid.png>
+File: archivos/fire_colouredgrid.png Graphic file (type bmp)
+<archivos/fire_colouredgrid.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 ) (capitulos/demofinal.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1132) has occurred while \output is active []
 
  [43
 
@@ -3483,7 +3490,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [44]
-Overfull \vbox (269.03749pt too high) has occurred while \output is active []
+Overfull \vbox (247.95831pt too high) has occurred while \output is active []
 
 
 [45] [46
@@ -3517,10 +3524,10 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 64598 strings out of 427748
- 1448926 string characters out of 3147201
- 2135024 words of memory out of 3000000
- 67516 multiletter control sequences out of 15000+200000
+ 64611 strings out of 427748
+ 1449272 string characters out of 3147201
+ 2136728 words of memory out of 3000000
+ 67527 multiletter control sequences out of 15000+200000
  546685 words of font info for 115 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2018s stack positions out of 5000i,500n,10000p,200000b,50000s

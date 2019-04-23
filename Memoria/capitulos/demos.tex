@@ -14,9 +14,36 @@ Otra página que ofrece una descripción muy buena del efecto es Lode's Computer
 
 \subsection{Planteamiento formal}
 
-El fuego es un efecto muy sencillo tanto a nivel teórico como de implementación. Consiste en la convolución de una matriz como la de la figura [\ref{}] a lo largo de una matriz de valores [\ref{}]. Al aplicar esta operación, se produce un efecto de disipación que resulta similiar al fuego [\ref{}].
+El fuego es un efecto muy sencillo tanto a nivel teórico como de implementación. Consiste en la convolución de una matriz como la de la figura [\ref{fig:firematrix}] a lo largo de una matriz que tan sólo contiene valores en su fila inferior. Al aplicar esta operación de abajo a arriba, se obtiene un conjunto de valores [\ref{fig:fire_whitegrid}] que al ser asociados a un set concreto de colores [\ref{fig:fire_colouredgrid}], dan una sensación similar al fuego.
 
-usar fuego creado en exceeelel
+\begin{figure}
+	\begin{equation}
+		\begin{bmatrix}
+			0 & 0 & 0 \\
+			0 & 0 & 0 \\
+			\frac{1}{3} & \frac{1}{3} & \frac{1}{3}
+		\end{bmatrix}
+	\end{equation}
+	\caption{Matriz de convolución para generar efecto de fuego}
+	\label{fig:firematrix}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=5.09cm]{archivos/fire_whitegrid}
+		\caption{Valores resultantes tras convolucionar iterativamente la matriz [\ref{fig:firematrix}] por una matriz de ceros, con valores solo en la fila inferior}
+		\label{fig:fire_whitegrid}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/fire_colouredgrid}
+		\caption{Efecto resultante de asociar determinados rangos de valores a un set de colores preestablecido}
+		\label{fig:fire_colouredgrid}
+	\end{subfigure}
+\end{figure}
+
 
 \subsection{Implementación}
 \subsection{Refinamiento}
