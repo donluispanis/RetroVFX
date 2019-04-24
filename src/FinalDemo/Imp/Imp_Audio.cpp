@@ -9,16 +9,16 @@ struct Envelope
 struct Note
 {
     float (*generateWave)(int frequency, long int currentCount);
-    float volume = 1.f;
-    float lifetime = 0.f;
-    int frequency = 440;
     Envelope envelope;
+    int frequency = 440;
+    float volume = 1.f;
+    float position = 0.5f; // 0 = left, 1 = right, 0.5 = center
+    float lifetime = 0.f;
     float currentEnvelopeValue = 0.f;
     float resultingSound;
-    float position = 0.5f; // 0 = left, 1 = right, 0.5 = center
 };
 
-Note* notes;
+Note *notes;
 
 void UpdateEnvelopes(float deltaTime);
 void UpdateNotes(long int currentCount);
@@ -27,14 +27,8 @@ float GetRightValue();
 
 float CreateArmonicSound(int frequency, long int currentCount)
 {
-    return GetTriangleWaveValue(frequency, currentCount) * 0.20f +
-            GetTriangleWaveValue(frequency * 1.5, currentCount) * 0.15f + 
-            GetTriangleWaveValue(frequency * 2, currentCount) * 0.10f +
-            GetTriangleWaveValue(frequency * 2.5, currentCount) * 0.10f +
-            GetTriangleWaveValue(frequency * 3, currentCount) * 0.1f +
-            GetTriangleWaveValue(frequency * 4, currentCount) * 0.1f +
-            GetTriangleWaveValue(frequency * 5, currentCount) * 0.1f +
-            GetTriangleWaveValue(frequency * 6, currentCount) * 0.1f;
+    return GetSineWaveValue(frequency, currentCount) *
+           GetSawtoothWaveValue(frequency * 0.25, currentCount);
 }
 
 /* This routine will be called by the PortAudio engine when audio is needed.
@@ -55,39 +49,19 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
         currentCount++;
 
         UpdateNotes(currentCount);
-    
-        *out++ = 0.f;//GetLeftValue();  /* left */
-        *out++ = 0.f;//GetRightValue(); /* rigth */
+
+        *out++ = GetLeftValue();  /* left */
+        *out++ = GetRightValue(); /* rigth */
     }
     return 0;
 }
 
-void FinalDemo::InitAudio()
+void UpdateNotes(long int currentCount)
 {
-    Pa_Initialize();
-    Pa_OpenDefaultStream(&stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, audioCallback, 0);
-    Pa_StartStream(stream);
-}
-
-void FinalDemo::CloseAudio()
-{
-    Pa_StopStream(stream);
-    Pa_CloseStream(stream);
-    Pa_Terminate();
-}
-
-void FinalDemo::UpdateSound(float deltaTime)
-{
-    static bool initialized = false;
-    if(!initialized)
+    for (int i = 0; i < NOTE_ARRAY_SIZE; i++)
     {
-        notes = new Note[NOTE_ARRAY_SIZE];
-        Envelope env = {1.f,0.5f, 2.5f, 1.f, 1.f, 0.5f};
-        Note note = {CreateArmonicSound, 1.f, 0.f, 200, env, 0.f, 0.f, 0.5f};
-        notes[0] = note;
+        notes[i].resultingSound = notes[i].generateWave(notes[i].frequency, currentCount) * notes[i].currentEnvelopeValue * notes[i].volume;
     }
-
-    UpdateEnvelopes(deltaTime);
 }
 
 float GetLeftValue()
@@ -124,12 +98,33 @@ float GetRightValue()
     return sum / float(NOTE_ARRAY_SIZE);
 }
 
-void UpdateNotes(long int currentCount)
+void FinalDemo::InitAudio()
 {
-    for (int i = 0; i < NOTE_ARRAY_SIZE; i++)
+    Pa_Initialize();
+    Pa_OpenDefaultStream(&stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, audioCallback, 0);
+    Pa_StartStream(stream);
+}
+
+void FinalDemo::CloseAudio()
+{
+    Pa_StopStream(stream);
+    Pa_CloseStream(stream);
+    Pa_Terminate();
+}
+
+void FinalDemo::UpdateSound(float deltaTime)
+{
+    static bool initialized = false;
+    if (!initialized)
     {
-        notes[i].resultingSound = notes[i].generateWave(200, currentCount);
+        notes = new Note[NOTE_ARRAY_SIZE];
+        Envelope env = {1.25f, 0.f, 0.f, 0.f, 1.f, 0.f};
+        Note note = {CreateArmonicSound, env, 200};
+        notes[0] = note;
+        initialized = true;
     }
+
+    UpdateEnvelopes(deltaTime);
 }
 
 void UpdateEnvelopes(float deltaTime)
@@ -139,30 +134,29 @@ void UpdateEnvelopes(float deltaTime)
         Envelope env = notes[i].envelope;
         notes[i].lifetime += deltaTime;
 
-        int life = notes[i].lifetime;
+        float life = notes[i].lifetime;
 
         if (life < env.attack)
         {
             notes[i].currentEnvelopeValue = env.peakAmplitude * (life / env.attack);
         }
-        else if(life < env.attack + env.decay)
+        else if (life < env.attack + env.decay)
         {
-            int t = (life - env.attack) / env.decay;
+            float t = (life - env.attack) / env.decay;
             notes[i].currentEnvelopeValue = t * env.peakAmplitude + (1 - t) * env.sustainAmplitude;
         }
-        else if(life < env.attack + env.decay + env.sustain)
+        else if (life < env.attack + env.decay + env.sustain)
         {
             notes[i].currentEnvelopeValue = env.sustainAmplitude;
         }
-        else if(life < env.attack + env.decay + env.sustain + env.release)
+        else if (life < env.attack + env.decay + env.sustain + env.release)
         {
             notes[i].currentEnvelopeValue = (((env.attack + env.decay + env.sustain + env.release) - life) / env.release) * env.sustainAmplitude;
         }
         else
         {
-            notes[i].currentEnvelopeValue = -1.f;
+            notes[i].currentEnvelopeValue = 0.f;
         }
-        
     }
 }
 
