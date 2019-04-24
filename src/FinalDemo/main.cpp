@@ -3,7 +3,7 @@
 int main()
 {
     FinalDemo f;
-    if (!f.Construct("FinalDemo", 1280, 720, true))
+    if (!f.Construct("FinalDemo", 1280, 720, false))
         return -1;
 
     f.Run();

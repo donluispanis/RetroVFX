@@ -51,9 +51,11 @@ class FinalDemo : public ClassicDemoTemplate
 
     //Fire
     void InitFire();
-    void UpdateFire();
+    void UpdateFire(float deltaTime);
     void CloseFire();
-    void InitSmallFireText();
+    void InitBigFireText(int size, int value);
+    void InitSmallFireText(int size, int value);
+    void DrawBigFireText();
     void DrawSmallFireText();
     void DrawCharacterOnFireMap(unsigned char* map, int width, unsigned char value, int x, int y, char character, int scale);
 
@@ -61,6 +63,18 @@ class FinalDemo : public ClassicDemoTemplate
     unsigned char *fireMapping;
     Pixel *colourMap;
     int colourMapSize = 256;
+
+    int bigFireScale;
+    int bigFireHeight;
+    int bigFireCharCount;
+    int bigFireCharSize;
+    int bigFireTextStart;
+
+    int smallFireScale;
+    int smallFireHeight;
+    int smallFireCharCount;
+    int smallFireCharSize;
+    int smallFireTextStart;
 };
 
 //SOUND

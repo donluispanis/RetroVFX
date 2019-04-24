@@ -13,7 +13,7 @@ bool FinalDemo::Init()
     width = windowManager->GetWidth();
     height = windowManager->GetHeight();
 
-    InitAudio();
+    //InitAudio();
     InitFire();
     InitGeometry();
 
@@ -24,7 +24,7 @@ bool FinalDemo::Init()
 
 bool FinalDemo::Destroy()
 {
-    CloseAudio();
+    //CloseAudio();
     CloseFire();
     CloseGeometry();
 
@@ -35,8 +35,12 @@ bool FinalDemo::Update(float deltaTime)
 {
     accumulatedTime += deltaTime;
 
-    UpdateSound(deltaTime);
-    UpdateFire();
+    if(accumulatedTime < 5.0f)
+    {
+        UpdateFire(deltaTime);
+    }
+
+    //UpdateSound(deltaTime);
     //UpdateGeometry(deltaTime);
     return true;
 }
