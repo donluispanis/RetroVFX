@@ -98,7 +98,7 @@ La decisión de usar nuestro propio generador de números aleatorios se debe a q
 
 Una vez hecho esto, tan sólo queda implementar el algoritmo principal, que cree el efecto de fuego sobre el mapa de valores previamente creado, de acorde a la operación descrita en la figura [\ref{fig:firematrix}] y asocie dichos valores con un color generado por la función \emph{GenerateGradient} [\ref{cod:generateGradient}].\\
 
-\begin{lstlisting}[style=C-color, caption={Creación e incialización del mapa de valores},label=cod:simpleFire,escapechar=|]
+\begin{lstlisting}[style=C-color, caption={Algoritmo básico de efecto de fuego},label=cod:simpleFire,escapechar=|]
 for (int i = width * (height - 1); i >= 0; i--)
 {
     int lowerCell = width + i;|\label{line:simpleFire1}|
@@ -109,44 +109,82 @@ for (int i = width * (height - 1); i >= 0; i--)
 
 En el código [\ref{cod:simpleFire}] podemos  ver el algoritmo de generación de fuego en su forma más simple. Recorremos la pantalla de abajo a arriba y operamos por cada píxel. En la línea [\ref{line:simpleFire1}] obtenemos, para una posición dada en el mapa de valores, la posición del valor inmediatamente por debajo del mismo. Una vez obtenida esta posición, operamos haciendo la media usando su valor y los adyacentes. Guardamos el resultado como nuevo valor y usamos a la vez este nuevo valor para asociar un nuevo color al píxel en pantalla (línea [\ref{line:simpleFire3}]). Los valores más altos (255) representan tonos blancos y/o amarillentos, mientras que los valores intermedios representarán valores rojizos y los valores más bajos tendrán asociados colores más oscuros.\\
 
-El resultado de aplicar este algoritmo resulta en una imagen estática y de aspecto poco realista [\ref{fig:simpleFire}], pero que ya se empieza a parecer al efecto que buscamos.\\
+El resultado de aplicar este algoritmo resulta en una imagen estática y de aspecto poco realista [\ref{fig:fire_simple}], pero que ya se empieza a parecer al efecto que buscamos.\\
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=8cm]{archivos/simpleFire}
+	\includegraphics[width=8cm]{archivos/fire_simple}
 	\caption{Fuego estático, usando el algoritmo en [\ref{cod:simpleFire}]}
-	\label{fig:simpleFire}
+	\label{fig:fire_simple}
 \end{figure}
 
 \subsection{Refinamiento}
 
-rgerg
-sgsdgsfdh
+Una vez tenemos el efecto de fuego a nivel básico, es el momento de iterar sobre la idea y ver cómo mejorarla. A continuación se listan y explican las medidas tomadas, mostradas en el orden en que se aplicaron:
 
-sg
+\begin{itemize}
+	\item \textbf{Hacer fuego dinámico}: una vez obtenido un fuego estático, era el momento de darle movimiento, y que tuviera un efecto realista. Inicialmente probé con una técnica que se sugería en algunos de los tutoriales que había seguido: en lugar de dibujar el fuego de abajo a arriba, dibujarlo de arriba a abajo y aleatorizar la base, de forma que las variaciones en el fuego derivaran a partir de las variaciones en la base.
+	
+	El resultado no me dejó convencido. Cuando uno observa un fuego o una llama, la parte más cambiante del fuego no es la base, la base es siempre estable y es la parte superior la que más titila / oscila. Por tanto no tenía para mí sentido generar dinamismo aleatorizando la base.
+	
+	Una llama se caracteriza a menudo por tener una intensidad variante, y fue esto lo que me decidí por implementar: la base permanecería estable, la llama tendría un factor de aleatoriedad.
+	
+	Tras un ensayo de prueba y error ajustando valores, y teniendo que retocar la posición y tono de los colores en el gradiente, se llegó al siguiente código \lstinline{(Fast::Rand() % 4 == 0 ? 2 : 0)} que se puede ver aplicado en [\ref{cod:finalFire}]. Básicamente este código altera levemente el valor de intensidad del píxel de forma aleatoria, con un 25\% de posibilidades de que el valor del píxel se vea incrementado. 
+	
+	El resultado puede verse en [\ref{fig:fire_final}]. La base sobre la que se aplica es la misma que en la figura [\ref{fig:fire_simple}], sin embargo, el resultado resulta más convincente / natural gracias a que se introduce una pequeña aleatoriedad en la intensidad del píxel, introduciendo cierta dispersión.
+	
+	\item \textbf{Más colores}: una vez tenía el fuego básico creado llegó el momento de ponerse creativo y añadir más degradados, que pudieran ser aplicados para crear fuegos de distintos colores. Al degradado de fuego básico (blanco - amarillo - rojo - negro) se le añadieron dos nuevos degradados, un fuego estilo neón (rosa - verde - azul - negro) y un degradado en blanco y negro (blanco - gris - negro).
+	
+	Además, el código para generar degradados, que inicialmente estaba en el mismo archivo que el fuego, se separó a su propio archivo y clase. Por último, y en vistas de que el código para crear un degradado ocupaba mucho espacio (debido a la necesidad de definir las marcas de color) y que potencialmente sería reutilizado por otros efectos que usasen degradados, el código se movió a una clase común con inicialización estática. De este modo, desde el inicio de la ejecución están disponibles los vectores de marcas de color necesarios para generar distintos patrones (fuego, neón, blanco y negro, arcoiris...) mediante la función \emph{GenerateGradient}.
+	
+	\item \textbf{Manipulación del fuego}: una vez teníamos distintos colores, era necesario poder cambiar entre ellos. Fue en este momento cuando se incorporó al motor la capacidad de gestionar entradas de teclado.
+	
+	Una implementada esta funcionalidad, lo que se hizo fue, al inicio de la ejecución del programa, crear un vector conteniendo patrones de degradado. Luego, al pulsarse una tecla determinada, se actualiza el patrón de degradado en uso al siguiente en el vector.
+	
+	También se añadió la posibilidad de cambiar levemente la intensidad del fuego, añadiendo la variable \emph{fireIntensity}, cuya aplicación se puede ver en [\ref{fig:fire_final}].
+\end{itemize}
 
-drga
+\begin{lstlisting}[style=C-color, caption={Algoritmo final de efecto de fuego},label=cod:finalFire]
+for (int i = width * (height - 1); i >= 0; i--)
+{
+    int sum = width + i;
+    sum = screenMapping[i] = (screenMapping[sum + 1] + screenMapping[sum] + screenMapping[sum - 1]) / (3.03 + fireIntensity) + (Fast::Rand() % 4 == 0 ? 2 : 0);
+    pixels[i] = colourMap[sum];
+}
+\end{lstlisting}
 
-rg
-
-ergregearg
-
-rgerg
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/fire_final}
+	\caption{Fuego dinámico, con intensidad por píxel aleatorizada}
+	\label{fig:fire_final}
+\end{figure}
 
 \subsection{Resultado}
 
-rgerg
-sgsdgsfdh
+A continuación se presenta el resultado final del efecto de fuego: un fuego dinámico, de corte y comportamiento realista, con la posibilidad de cambiar su color y su intensidad.
 
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/fire_final1}
+		\caption{Fuego rojo con intensidad mínima}
+		\label{fig:fire_final1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/fire_final2}
+		\caption{Fuego neón con intensidad media}
+		\label{fig:fire_final2}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/fire_final3}
+		\caption{Fuego en blanco y negro con intensidad máxima}
+		\label{fig:fire_final3}
+	\end{subfigure}
+\end{figure}
 
 \section{Geometría}
 

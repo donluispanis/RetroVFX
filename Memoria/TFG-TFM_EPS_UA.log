@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  24 APR 2019 17:42
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  24 APR 2019 19:30
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2838,11 +2838,7 @@ Underfull \vbox (badness 1789) has occurred while \output is active []
  [17] [18
 
 
-] (TFG-TFM_EPS_UA.lof
-
-LaTeX Warning: Reference `simpleFire' on page xix undefined on input line 26.
-
-)
+] (TFG-TFM_EPS_UA.lof)
 \tf@lof=\write9
 \openout9 = `TFG-TFM_EPS_UA.lof'.
 
@@ -2853,7 +2849,8 @@ LaTeX Warning: Reference `simpleFire' on page xix undefined on input line 26.
 \tf@lot=\write10
 \openout10 = `TFG-TFM_EPS_UA.lot'.
 
- [21] [22
+ [21]
+[22
 
 
 ] (TFG-TFM_EPS_UA.lol)
@@ -2863,8 +2860,7 @@ LaTeX Warning: Reference `simpleFire' on page xix undefined on input line 26.
  [23] [24
 
 
-]
-(capitulos/Introduccion.tex
+] (capitulos/Introduccion.tex
 chapter 1.
 
 Underfull \hbox (badness 10000) in paragraph at lines 10--11
@@ -3548,14 +3544,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
-File: archivos/simpleFire.png Graphic file (type bmp)
-<archivos/simpleFire.png>
-[46] [47] [48] [49] [50] [51] [52]) (capitulos/demofinal.tex [53] [54
+File: archivos/fire_simple.png Graphic file (type bmp)
+<archivos/fire_simple.png>
+[46] [47]
+File: archivos/fire_final.png Graphic file (type bmp)
+<archivos/fire_final.png>
+File: archivos/fire_final1.png Graphic file (type bmp)
+<archivos/fire_final1.png>
+File: archivos/fire_final2.png Graphic file (type bmp)
+<archivos/fire_final2.png>
+File: archivos/fire_final3.png Graphic file (type bmp)
+<archivos/fire_final3.png>
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-]
+ [48]
+[49] [50] [51] [52] [53]) (capitulos/demofinal.tex [54]
 chapter 8.
-) (capitulos/conclusiones.tex [55] [56
+) (capitulos/conclusiones.tex [55
+
+
+] [56
 
 
 ]
@@ -3581,18 +3590,15 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 64659 strings out of 427748
- 1450050 string characters out of 3147201
- 2137450 words of memory out of 3000000
- 67573 multiletter control sequences out of 15000+200000
- 546685 words of font info for 115 fonts, out of 3000000 for 9000
+ 64710 strings out of 427748
+ 1450970 string characters out of 3147201
+ 2137920 words of memory out of 3000000
+ 67613 multiletter control sequences out of 15000+200000
+ 550493 words of font info for 132 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2018s stack positions out of 5000i,500n,10000p,200000b,50000s
 
