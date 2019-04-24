@@ -42,12 +42,14 @@ void FireDemo::UpdateFireBase()
 {
     ColourStamp::GenerateGradient(colours[currentColour], colourMap, colourMapSize);
 
-    for (int i = width * (height - 1); i < width * height; i++)
+    for (int i = width * (height - 1), n = width * height; i < n; i++)
     {
         screenMapping[i] = 0;
 
         if (Fast::Rand() % 10 == 0)
+        {
             screenMapping[i] = 255;
+        }
 
         pixels[i] = colourMap[screenMapping[i]];
     }

@@ -59,17 +59,63 @@ Dado el comportamiento descrito, será necesario realizar los siguientes pasos:
 
 Para poder crear degradados, se crea la función \emph{GenerateGradient} que dado un conjunto de \emph{ColourStamp} y un tamaño, interpola los valores de colores pasados para generar un degradado continuo en \emph{colourMap}.\\
 
-\begin{lstlisting}[style=C-color, caption={Método para crear gradientes de color},label=cod:fontA]
+\begin{lstlisting}[style=C-color, caption={Método para crear gradientes de color},label=cod:generateGradient]
 static void GenerateGradient(std::vector<ColourStamp> colours, Pixel* colourMap, int colourMapSize);
 \end{lstlisting}
 
-\emph{ColourStamp} (marca de color) es una estructura formada por dos variables, un color y un número decimal (que puede oscilar entre 0 y 1), señalando este número la posición de este color en el gradiente o mapa de color, siendo 0 el inicio y 1 el final. 
+\emph{ColourStamp} (marca de color) es una estructura formada por dos variables: un color y un número decimal (que puede oscilar entre 0 y 1). Este número señala la posición de este color en el gradiente o mapa de color, siendo 0 el inicio y 1 el final. 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=12cm]{archivos/colourGradient}
-	\caption{Degradado dadas cinco marcas de color}
+	\caption{Degradado en 32 celdas dadas 5 marcas de color}
 	\label{fig:colourGradient}
+\end{figure}
+
+De este modo, si llamamos a la función \emph{GenerateGradient} con los valores para las marcas de color representados en la figura [\ref{fig:colourGradient}] y pasamos un \emph{array} con capacidad para 32 valores, este método producirá un set de colores similar al ilustrado. Esto se hace mediante una interpolación lineal entre los valores que se pasan, creando un degradado de forma progresiva.\\
+
+Una vez tenemos implementado este método, ya podemos crear un degradado de colores de forma sencilla y cómoda, automatizando el proceso de crear un mapa de color para el fuego.\\
+
+Para nuestra implementación, en lugar de asignar a un rango de valores un color específico, asignaremos un color por valor entero. Esto permitirá un resultado más realista, al disponer de una mayor cantidad de colores. Cada celda de nuestra matriz de valores estará formada por un byte. Esto implica que cada celda podrá tener 256 valores distintos, y que por tanto necesitaremos generar un degradado que nos devuelva 256 colores.\\
+
+Creamos un mapa de valores de un byte de tamaño, lo inicializamos a 0 e inicializamos aleatoriamente algunas de las celdas de la fila inferior a su valor máximo (255).\\
+
+\begin{lstlisting}[style=C-color, caption={Creación e incialización del mapa de valores},label=cod:screenMapping,escapechar=|]
+screenMapping = new unsigned char[width * height];
+
+for (int i = width * (height - 1), n = width * height; i < n; i++)
+{
+    if (Fast::Rand() % 10 == 0)|\label{line:fastRand}|
+    {
+        screenMapping[i] = 255;
+    }
+}
+\end{lstlisting}
+
+Como podemos ver en la línea [\ref{line:fastRand}], hacemos uso de una función propia para la generación de números aleatorios. Esta función está basada en el algoritmo \emph{Xorshift}\footnote{\url{https://en.wikipedia.org/wiki/Xorshift}} de George Marsaglia. La apromaximación usada está basada en una respuesta de \emph{StackOverflow}\footnote{\url{https://stackoverflow.com/questions/1640258/need-a-fast-random-generator-for-c}}.\\
+
+La decisión de usar nuestro propio generador de números aleatorios se debe a que el usualmente provisto por la STL \footnote{\url{https://en.wikipedia.org/wiki/Standard_Template_Library}} es innecesariamente lento y complejo para nuestras necesidades. Para nuestro caso, no necesitamos un algoritmo que pase todos los tests de aleatoriedad\footnote{\url{https://es.wikipedia.org/wiki/Pruebas_de_aleatoriedad}}, con tal de que sea suficientemente "aleatorio al ojo" y sea rápido, nos basta.\\
+
+Una vez hecho esto, tan sólo queda implementar el algoritmo principal, que cree el efecto de fuego sobre el mapa de valores previamente creado, de acorde a la operación descrita en la figura [\ref{fig:firematrix}] y asocie dichos valores con un color generado por la función \emph{GenerateGradient} [\ref{cod:generateGradient}].\\
+
+\begin{lstlisting}[style=C-color, caption={Creación e incialización del mapa de valores},label=cod:simpleFire,escapechar=|]
+for (int i = width * (height - 1); i >= 0; i--)
+{
+    int lowerCell = width + i;|\label{line:simpleFire1}|
+    int newCellValue = screenMapping[i] = (screenMapping[lowerCell + 1] + screenMapping[lowerCell] + screenMapping[lowerCell - 1]) / 3.0;|\label{line:simpleFire2}|
+    pixels[i] = colourMap[newCellValue];|\label{line:simpleFire3}|
+}
+\end{lstlisting}
+
+En el código [\ref{cod:simpleFire}] podemos  ver el algoritmo de generación de fuego en su forma más simple. Recorremos la pantalla de abajo a arriba y operamos por cada píxel. En la línea [\ref{line:simpleFire1}] obtenemos, para una posición dada en el mapa de valores, la posición del valor inmediatamente por debajo del mismo. Una vez obtenida esta posición, operamos haciendo la media usando su valor y los adyacentes. Guardamos el resultado como nuevo valor y usamos a la vez este nuevo valor para asociar un nuevo color al píxel en pantalla (línea [\ref{line:simpleFire3}]). Los valores más altos (255) representan tonos blancos y/o amarillentos, mientras que los valores intermedios representarán valores rojizos y los valores más bajos tendrán asociados colores más oscuros.\\
+
+El resultado de aplicar este algoritmo resulta en una imagen estática y de aspecto poco realista [\ref{fig:simpleFire}], pero que ya se empieza a parecer al efecto que buscamos.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/simpleFire}
+	\caption{Fuego estático, usando el algoritmo en [\ref{cod:simpleFire}]}
+	\label{fig:simpleFire}
 \end{figure}
 
 \subsection{Refinamiento}

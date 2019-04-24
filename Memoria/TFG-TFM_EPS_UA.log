@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  24 APR 2019 12:14
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  24 APR 2019 17:42
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2354,11 +2354,7 @@ Package glossaries Info: Writing glossary file TFG-TFM_EPS_UA.glo on input line
 
 Package glossaries Info: Writing glossary file TFG-TFM_EPS_UA.acn on input line
  81.
- (anexos/acronimos.tex) (TFG-TFM_EPS_UA.aux
-
-LaTeX Warning: Label `cod:fontA' multiply defined.
-
-)
+ (anexos/acronimos.tex) (TFG-TFM_EPS_UA.aux)
 \openout1 = `TFG-TFM_EPS_UA.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
@@ -2381,7 +2377,8 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 88.
 LaTeX Font Info:    ... okay on input line 88.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 88.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 88.
- ("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
+
+("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 88.
@@ -2841,7 +2838,11 @@ Underfull \vbox (badness 1789) has occurred while \output is active []
  [17] [18
 
 
-] (TFG-TFM_EPS_UA.lof)
+] (TFG-TFM_EPS_UA.lof
+
+LaTeX Warning: Reference `simpleFire' on page xix undefined on input line 26.
+
+)
 \tf@lof=\write9
 \openout9 = `TFG-TFM_EPS_UA.lof'.
 
@@ -2852,8 +2853,7 @@ Underfull \vbox (badness 1789) has occurred while \output is active []
 \tf@lot=\write10
 \openout10 = `TFG-TFM_EPS_UA.lot'.
 
- [21]
-[22
+ [21] [22
 
 
 ] (TFG-TFM_EPS_UA.lol)
@@ -2863,7 +2863,8 @@ Underfull \vbox (badness 1789) has occurred while \output is active []
  [23] [24
 
 
-] (capitulos/Introduccion.tex
+]
+(capitulos/Introduccion.tex
 chapter 1.
 
 Underfull \hbox (badness 10000) in paragraph at lines 10--11
@@ -3502,17 +3503,64 @@ Underfull \hbox (badness 10000) in paragraph at lines 60--61
 [44]
 File: archivos/colourGradient.png Graphic file (type bmp)
 <archivos/colourGradient.png>
- [45] [46] [47] [48] [49] [50]) (capitulos/demofinal.tex [51] [52
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--78
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--82
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+ []
+
+[45]
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+
+ []
+
+File: archivos/simpleFire.png Graphic file (type bmp)
+<archivos/simpleFire.png>
+[46] [47] [48] [49] [50] [51] [52]) (capitulos/demofinal.tex [53] [54
 
 
 ]
 chapter 8.
-) (capitulos/conclusiones.tex [53] [54
+) (capitulos/conclusiones.tex [55] [56
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [55] [56
+) (TFG-TFM_EPS_UA.bbl [57] [58
 
 
 ]
@@ -3523,7 +3571,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[57]
+[59]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 147.
  (TFG-TFM_EPS_UA.aux)
@@ -3533,16 +3581,19 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 64629 strings out of 427748
- 1449599 string characters out of 3147201
- 2136767 words of memory out of 3000000
- 67544 multiletter control sequences out of 15000+200000
+ 64659 strings out of 427748
+ 1450050 string characters out of 3147201
+ 2137450 words of memory out of 3000000
+ 67573 multiletter control sequences out of 15000+200000
  546685 words of font info for 115 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2018s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (81 pages).
+Output written on TFG-TFM_EPS_UA.pdf (83 pages).
