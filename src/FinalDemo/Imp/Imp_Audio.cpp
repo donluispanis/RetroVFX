@@ -1,35 +1,9 @@
 #include "Imp_Includes.h"
+#include "Imp_Music.cpp"
 
-struct Envelope
-{
-    float attack, decay, sustain, release;
-    float peakAmplitude, sustainAmplitude;
-};
-
-struct Note
-{
-    float (*generateWave)(int frequency, long int currentCount);
-    Envelope envelope;
-    int frequency = 440;
-    float volume = 1.f;
-    float position = 0.5f; // 0 = left, 1 = right, 0.5 = center
-    float lifetime = 0.f;
-    float currentEnvelopeValue = 0.f;
-    float resultingSound;
-};
-
-Note *notes;
-
-void UpdateEnvelopes(float deltaTime);
 void UpdateNotes(long int currentCount);
 float GetLeftValue();
 float GetRightValue();
-
-float CreateArmonicSound(int frequency, long int currentCount)
-{
-    return GetSineWaveValue(frequency, currentCount) *
-           GetSawtoothWaveValue(frequency * 0.25, currentCount);
-}
 
 /* This routine will be called by the PortAudio engine when audio is needed.
 ** It may called at interrupt level on some machines so don't do anything
@@ -96,35 +70,6 @@ float GetRightValue()
     }
 
     return sum / float(NOTE_ARRAY_SIZE);
-}
-
-void FinalDemo::InitAudio()
-{
-    Pa_Initialize();
-    Pa_OpenDefaultStream(&stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, audioCallback, 0);
-    Pa_StartStream(stream);
-}
-
-void FinalDemo::CloseAudio()
-{
-    Pa_StopStream(stream);
-    Pa_CloseStream(stream);
-    Pa_Terminate();
-}
-
-void FinalDemo::UpdateSound(float deltaTime)
-{
-    static bool initialized = false;
-    if (!initialized)
-    {
-        notes = new Note[NOTE_ARRAY_SIZE];
-        Envelope env = {1.25f, 0.f, 0.f, 0.f, 1.f, 0.f};
-        Note note = {CreateArmonicSound, env, 200};
-        notes[0] = note;
-        initialized = true;
-    }
-
-    UpdateEnvelopes(deltaTime);
 }
 
 void UpdateEnvelopes(float deltaTime)

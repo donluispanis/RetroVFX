@@ -15,7 +15,7 @@ bool FinalDemo::Init()
 
 #ifdef _WIN32
     InitAudio();
-    #endif
+#endif
     InitFire();
     InitGeometry();
 
@@ -26,9 +26,9 @@ bool FinalDemo::Init()
 
 bool FinalDemo::Destroy()
 {
-    #ifdef _WIN32
+#ifdef _WIN32
     CloseAudio();
-    #endif
+#endif
     CloseFire();
     CloseGeometry();
 
@@ -39,7 +39,7 @@ bool FinalDemo::Update(float deltaTime)
 {
     accumulatedTime += deltaTime;
 
-    if(accumulatedTime < 5.0f)
+    if (accumulatedTime < 5.0f)
     {
         UpdateFire(deltaTime);
     }
