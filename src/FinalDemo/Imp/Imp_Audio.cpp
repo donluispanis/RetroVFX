@@ -32,75 +32,87 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
 
 void UpdateNotes(long int currentCount)
 {
-    for (int i = 0; i < NOTE_ARRAY_SIZE; i++)
+    for (auto& note : notes)
     {
-        notes[i].resultingSound = notes[i].generateWave(notes[i].frequency, currentCount) * notes[i].currentEnvelopeValue * notes[i].volume;
+        note.resultingSound = note.generateWave(note.frequency, currentCount) * note.currentEnvelopeValue * note.volume;
     }
 }
 
 float GetLeftValue()
 {
     float sum = 0.f;
-    for (int i = 0; i < NOTE_ARRAY_SIZE; i++)
+    for (auto& note : notes)
     {
         float leftAmplitude = 1.f;
-        if (notes[i].position > 0.5f)
+        if (note.position > 0.5f)
         {
-            leftAmplitude -= (notes[i].position - 0.5f) * 2.f;
+            leftAmplitude -= (note.position - 0.5f) * 2.f;
         }
 
-        sum += notes[i].resultingSound * leftAmplitude;
+        sum += note.resultingSound * leftAmplitude;
     }
 
-    return sum / float(NOTE_ARRAY_SIZE);
+    return sum / (float)notes.size();
 }
 
 float GetRightValue()
 {
     float sum = 0.f;
-    for (int i = 0; i < NOTE_ARRAY_SIZE; i++)
+    for (auto& note : notes)
     {
         float rightAmplitude = 1.f;
-        if (notes[i].position < 0.5f)
+        if (note.position < 0.5f)
         {
-            rightAmplitude -= (0.5f - notes[i].position) * 2.f;
+            rightAmplitude -= (0.5f - note.position) * 2.f;
         }
 
-        sum += notes[i].resultingSound * rightAmplitude;
+        sum += note.resultingSound * rightAmplitude;
     }
 
-    return sum / float(NOTE_ARRAY_SIZE);
+    return sum / (float)notes.size();
 }
 
 void UpdateEnvelopes(float deltaTime)
 {
-    for (int i = 0; i < NOTE_ARRAY_SIZE; i++)
+    for (auto& note : notes)
     {
-        Envelope env = notes[i].envelope;
-        notes[i].lifetime += deltaTime;
+        Envelope env = note.envelope;
+        note.lifetime += deltaTime;
 
-        float life = notes[i].lifetime;
+        float life = note.lifetime;
 
         if (life < env.attack)
         {
-            notes[i].currentEnvelopeValue = env.peakAmplitude * (life / env.attack);
+            note.currentEnvelopeValue = env.peakAmplitude * (life / env.attack);
         }
         else if (life < env.attack + env.decay)
         {
             float t = (life - env.attack) / env.decay;
-            notes[i].currentEnvelopeValue = t * env.peakAmplitude + (1 - t) * env.sustainAmplitude;
+            note.currentEnvelopeValue = t * env.peakAmplitude + (1 - t) * env.sustainAmplitude;
         }
         else if (life < env.attack + env.decay + env.sustain)
         {
-            notes[i].currentEnvelopeValue = env.sustainAmplitude;
+            note.currentEnvelopeValue = env.sustainAmplitude;
         }
         else if (life < env.attack + env.decay + env.sustain + env.release)
         {
-            notes[i].currentEnvelopeValue = (((env.attack + env.decay + env.sustain + env.release) - life) / env.release) * env.sustainAmplitude;
+            note.currentEnvelopeValue = (((env.attack + env.decay + env.sustain + env.release) - life) / env.release) * env.sustainAmplitude;
         }
         else
         {
-            notes[i].currentEnvelopeValue = 0.f;
+            note.currentEnvelopeValue = -1.f;
+        }
+    }
+}
+
+void RemoveDeadNotes()
+{
+    for (int i = 0; i < notes.size(); i++)
+    {
+        if(notes[i].currentEnvelopeValue < 0.f)
+        {
+            notes.erase(notes.begin() + i);
+            i--;
         }
     }
 }

@@ -27,16 +27,16 @@ void FinalDemo::UpdateFire(float deltaTime)
 {
     static float bigFireSize = 0;
 
-    if(accumulatedTime < 1.25f)
+    if(accumulatedTime < 1.25f + START_FIRE)
     {
         InitBigFireText(bigFireSize, 0);
         bigFireSize += deltaTime * 20;
     }
-    if(accumulatedTime > 2.f)
+    if(accumulatedTime > 2.f + START_FIRE)
     {
         InitSmallFireText(8, 1);
     }
-    if(accumulatedTime > 4.f)
+    if(accumulatedTime > 4.f + START_FIRE)
     {
         for(int i = 0; i < 256; i++)
         {

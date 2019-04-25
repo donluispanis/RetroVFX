@@ -39,7 +39,7 @@ bool FinalDemo::Update(float deltaTime)
 {
     accumulatedTime += deltaTime;
 
-    if (accumulatedTime < 5.0f)
+    if (accumulatedTime > START_FIRE && accumulatedTime < 5.0f + START_FIRE)
     {
         UpdateFire(deltaTime);
     }

@@ -1,6 +1,7 @@
 #include "Imp_Includes.h"
 
 void UpdateEnvelopes(float deltaTime);
+void RemoveDeadNotes();
 static int audioCallback(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *);
 
 //=============================================================================
@@ -24,19 +25,12 @@ struct Note
     float resultingSound;
 };
 
-Note *notes;
+std::vector<Note> notes;
 
 //=============================================================================
 //      INSTRUMENTS
 //=============================================================================
 float CreateArmonicSound(int frequency, long int currentCount)
-{
-    return (GetSineWaveValue(frequency, currentCount) * 0.7f +
-            GetTriangleWaveValue(frequency * 2, currentCount) * 0.3f) *
-           GetSawtoothWaveValue(frequency * 0.25f, currentCount);
-}
-
-float CreateArmonicSound2(int frequency, long int currentCount)
 {
     return GetSawtoothWaveValue(frequency * 0.5, currentCount) * 0.4f +
            GetSquaredWaveValue(frequency, currentCount) * 0.4 +
@@ -53,11 +47,6 @@ void FinalDemo::InitAudio()
     Pa_Initialize();
     Pa_OpenDefaultStream(&stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, audioCallback, 0);
     Pa_StartStream(stream);
-
-    notes = new Note[NOTE_ARRAY_SIZE];
-    Envelope env = {1.f, 0.f, 0.f, 1.f, 1.f, 0.5f};
-    Note note = {CreateArmonicSound2, env, 200};
-    notes[0] = note;
 }
 
 void FinalDemo::CloseAudio()
@@ -69,5 +58,25 @@ void FinalDemo::CloseAudio()
 
 void FinalDemo::UpdateSound(float deltaTime)
 {
+    static bool fire = false;
+    static bool fire1 = false;
+
+    const Envelope env = {2.f, 0.f, 0.f, 1.f, 1.f, 0.5f};
+    const Note note = {CreateArmonicSound, env, 200};
+
+    if (accumulatedTime > START_FIRE && !fire)
+    {
+        notes.push_back(note);
+        fire = true;
+    }
+    if (accumulatedTime > START_FIRE + 1.5f && !fire1)
+    {
+        Note aux = Note(note);
+        aux.frequency = 222;
+        notes.push_back(aux);
+        fire1 = true;
+    }
+
     UpdateEnvelopes(deltaTime);
+    RemoveDeadNotes();
 }

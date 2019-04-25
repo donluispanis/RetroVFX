@@ -75,6 +75,10 @@ class FinalDemo : public ClassicDemoTemplate
     int smallFireCharCount;
     int smallFireCharSize;
     int smallFireTextStart;
+
+    //TIMING VARIABLES
+    const float START_FIRE = 4.f;
+    const float START_GEOMETRY = 0.f;
 };
 
 //SOUND
@@ -82,8 +86,6 @@ const int SAMPLE_RATE = 44100;
 const int FRAMES_PER_BUFFER = 256;
 const int INPUT_CHANNELS = 0;
 const int OUTPUT_CHANNELS = 2;
-
-const int NOTE_ARRAY_SIZE = 1;
 
 float GetSquaredWaveValue(int frequency, long int currentCount);
 float GetSawtoothWaveValue(int frequency, long int currentCount);
