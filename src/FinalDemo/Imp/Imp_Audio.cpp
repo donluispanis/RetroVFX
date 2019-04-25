@@ -107,7 +107,7 @@ void UpdateEnvelopes(float deltaTime)
 
 void RemoveDeadNotes()
 {
-    for (int i = 0; i < notes.size(); i++)
+    for (unsigned int i = 0; i < notes.size(); i++)
     {
         if(notes[i].currentEnvelopeValue < 0.f)
         {

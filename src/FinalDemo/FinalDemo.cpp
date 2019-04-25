@@ -13,24 +13,26 @@ bool FinalDemo::Init()
     width = windowManager->GetWidth();
     height = windowManager->GetHeight();
 
-#ifdef _WIN32
-    InitAudio();
-#endif
     InitFire();
     InitGeometry();
 
     accumulatedTime = 0;
+
+#ifdef _WIN32
+    InitAudio();
+#endif
 
     return true;
 }
 
 bool FinalDemo::Destroy()
 {
+    CloseFire();
+    CloseGeometry();
+
 #ifdef _WIN32
     CloseAudio();
 #endif
-    CloseFire();
-    CloseGeometry();
 
     return true;
 }
@@ -43,11 +45,14 @@ bool FinalDemo::Update(float deltaTime)
     {
         UpdateFire(deltaTime);
     }
+    if (accumulatedTime > START_GEOMETRY && accumulatedTime < 5.0f + START_GEOMETRY)
+    {
+        UpdateGeometry(deltaTime);
+    }
 
 #ifdef _WIN32
     UpdateSound(deltaTime);
 #endif
 
-    //UpdateGeometry(deltaTime);
     return true;
 }
