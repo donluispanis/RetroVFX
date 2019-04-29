@@ -186,6 +186,100 @@ A continuación se presenta el resultado final del efecto de fuego: un fuego din
 	\end{subfigure}
 \end{figure}
 
+\section{Túnel de puntos}
+
+\subsection{Investigación inicial}
+
+Un efecto también muy común en el mundo de la \emph{demoscene} es el efecto de túnel o vórtice, entre otras causas por su relativa sencillez sumada a su espectacularidad (por la sensación de profundidad y de dinamismo, evocando a escenas futuristas o situadas en el espacio).\\
+
+Es por ello que el efecto de túnel parecía un candidato perfecto para ser la segunda demo a implementar; más complejo que el efecto de fuego pero aún así sencillo, y con un resultado visual más complejo.\\
+
+Una vez decidido, llegó el momento de recabar información acerca de este efecto y cómo implementarlo. Mi idea inicial era generar un túnel de puntos como el de la figura [\ref{fig:cyberdance}], sin embargo, conforme fui ahondando en mi búsqueda, descubrí que también era un efecto bastante común generar túneles como el que se muestra en la figura [\ref{fig:dane_kefrens}].\\ 
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/cyberdance}
+		\caption{Túnel de puntos - Cyberdance (por Virtual Dreams y Fairlight, 1993) - Fuente: \href{https://www.youtube.com/watch?v=X7sHODKip_c}{YouTube}}
+		\label{fig:cyberdance}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/dane_kefrens}
+		\caption{Túnel mediante deformación de textura - D.A.N.E (por Kefrens, 1993) - Fuente: \href{https://www.youtube.com/watch?v=ZbPGU5p7O4Y}{YouTube}}
+		\label{fig:dane_kefrens}
+	\end{subfigure}
+\end{figure}
+
+De hecho, de cara a la búsqueda de explicaciones teóricas y detalles de implementación, fue más fácil encontrar información acerca del efecto mostrado en [\ref{fig:dane_kefrens}] que del túnel de puntos. Páginas como \emph{\href{http://benryves.com/tutorials/tunnel}{benryves.com}} o \emph{\href{https://lodev.org/cgtutor/tunnel.html}{lodev.org}} ofrecían tutoriales detallados, en los que se explica paso a paso la base matemática del efecto así como su implementación en código.\\
+
+En resumen, el efecto que se muestra en la figura [\ref{fig:dane_kefrens}] es el resultado de deformar una imagen o una textura de forma que toda la textura tienda hacia un punto central, de modo que se produce una textura circular a partir de un patrón plano. Se deforma la imagen aplicando algo de trigonometría básica. Además, como en el ejemplo de \emph{\href{https://lodev.org/cgtutor/tunnel.html}{lodev.org}}, se pueden usar tablas precalculadas para así evitar tener que realizar operaciones trigonométicas complejas y/o lentas de forma repetida.\\
+
+No fui, sin embargo, capaz de encontrar tutoriales o detalles de implementación para lograr el efecto de la figura [\ref{fig:cyberdance}]. Tras una búsqueda a conciencia con resultado infructuoso, me decidí por implementar este efecto. Mi objetivo con este trabajo no es el de seguir tutoriales ya existentes, si no el de crear efectos visuales partiendo de cero, y guiado por la intuición y la razón. No tiene sentido alguno que trate de implementar un efecto de túnel basado en una textura cuando ya hay tutoriales que desgranan (con detalle y acierto) cómo hacerlo, tanto a nivel matemático como de código.\\
+
+Por tanto, resolví por implementar el efecto de túnel de puntos.
+
+\subsection{Planteamiento formal}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Implementación}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Refinamiento}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Resultado}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
 \section{Geometría}
 
 
@@ -500,84 +594,6 @@ rgerg
 
 
 \section{Deformaciones de imagen}
-
-\subsection{Investigación inicial}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Planteamiento formal}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Implementación}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Refinamiento}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Resultado}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-
-\section{Túnel de puntos}
 
 \subsection{Investigación inicial}
 

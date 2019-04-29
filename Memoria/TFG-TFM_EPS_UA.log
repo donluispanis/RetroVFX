@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  24 APR 2019 19:30
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  29 APR 2019 20:47
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3556,20 +3556,53 @@ File: archivos/fire_final2.png Graphic file (type bmp)
 File: archivos/fire_final3.png Graphic file (type bmp)
 <archivos/fire_final3.png>
 
+Underfull \hbox (badness 10000) in paragraph at lines 193--194
+
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [48]
-[49] [50] [51] [52] [53]) (capitulos/demofinal.tex [54]
+Underfull \hbox (badness 10000) in paragraph at lines 195--196
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+
+ []
+
+File: archivos/cyberdance.png Graphic file (type bmp)
+<archivos/cyberdance.png>
+File: archivos/dane_kefrens.png Graphic file (type bmp)
+<archivos/dane_kefrens.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 215--216
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--218
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
+
+ []
+
+[49] [50] [51] [52] [53] [54]) (capitulos/demofinal.tex [55] [56
+
+
+]
 chapter 8.
-) (capitulos/conclusiones.tex [55
-
-
-] [56
+) (capitulos/conclusiones.tex [57] [58
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [57] [58
+) (TFG-TFM_EPS_UA.bbl [59] [60
 
 
 ]
@@ -3580,7 +3613,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[59]
+[61]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 147.
  (TFG-TFM_EPS_UA.aux)
@@ -3594,12 +3627,12 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 64710 strings out of 427748
- 1450970 string characters out of 3147201
- 2137920 words of memory out of 3000000
- 67613 multiletter control sequences out of 15000+200000
+ 64722 strings out of 427748
+ 1451246 string characters out of 3147201
+ 2137634 words of memory out of 3000000
+ 67623 multiletter control sequences out of 15000+200000
  550493 words of font info for 132 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2018s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (83 pages).
+Output written on TFG-TFM_EPS_UA.pdf (85 pages).
