@@ -42,11 +42,11 @@ class FinalDemo : public ClassicDemoTemplate
     void ApplyWaveTransformation(Object3D &object, float amplitude, float wavelength, float deltaTime);
     void ApplyObjectTransformations(float deltaTime);
     void UndoObjectTransformations(float deltaTime);
-    Point3D FinalDemo::GetPointInSphereFromPlane(const int gridX, const int gridY, const int gridSize, const float radius);
+    Point3D GetPointInSphereFromPlane(const int gridX, const int gridY, const int gridSize, const float radius);
 
     Object3D grid;
-    const int vertexPerWidth = 20;
-    const int vertexPerDepth = 20;
+    const int vertexPerWidth = 6;
+    const int vertexPerDepth = 6;
     const int vertexDistance = 250;
     float phase = 0;
 

@@ -4,6 +4,7 @@ void FinalDemo::InitGeometry()
 {
     GenerateGrid(vertexPerWidth, vertexPerDepth, vertexDistance);
     GeneratePerspectiveProjection(grid);
+    ApplyWaveTransformation(grid, 0, 1.5, 0);
 }
 
 void FinalDemo::CloseGeometry()
@@ -22,14 +23,14 @@ void FinalDemo::UpdateGeometry(float deltaTime)
 void FinalDemo::ApplyObjectTransformations(float deltaTime)
 {
     phase += 1 * deltaTime;
-    TranslateObject(grid, Point3D(width / 2 - (vertexPerWidth * vertexDistance) / 2, height * 0.75f, -550));
-    ApplyWaveTransformation(grid, 100, 1.5, deltaTime);
+    TranslateObject(grid, Point3D(width / 2, height / 2, 0));
+    ///ApplyWaveTransformation(grid, 0, 1.5, deltaTime);
 }
 
 void FinalDemo::UndoObjectTransformations(float deltaTime)
 {
-    ApplyWaveTransformation(grid, -100, 1.5, deltaTime);
-    TranslateObject(grid, Point3D(-width / 2 + (vertexPerWidth * vertexDistance) / 2, -height * 0.75f, +550));
+    //ApplyWaveTransformation(grid, 0, 1.5, deltaTime);
+    TranslateObject(grid, Point3D(-width / 2, -height / 2, 0));
 }
 
 void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance)
@@ -55,6 +56,16 @@ void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float verte
         if (i < size - vertexPerWidth)
         {
             grid.indexes.emplace_back(Point2D{i, i + vertexPerWidth});
+        }
+    }
+
+    grid.points.clear();
+
+    for (float j = 0; j < vertexPerDepth; j++)
+    {
+        for (float i = 0; i < vertexPerWidth; i++)
+        {
+            grid.points.push_back(GetPointInSphereFromPlane(i, j, vertexPerWidth, 300.f));
         }
     }
 }
@@ -120,9 +131,35 @@ void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float
             float wave = sin((j + phase) / wavelength);
 
             grid.points[index].Y += amplitude * wave;
-            grid.colours.push_back(Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f));
+            //grid.colours.push_back(Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f));
+            grid.colours.push_back(Pixel(((grid.points[j * vertexPerDepth + i].Z / 300.f) + 1.f) * 125));
         }
     }
+}
+
+float CalculateQuadrant(int posX, int posY, int halfGrid)
+{
+    const float quarterCircle = Fast::PI / 2.f;
+    float quadrant;
+
+    if (posX < halfGrid && posY < halfGrid)
+    {
+        quadrant = 0.f;
+    }
+    else if (posX >= halfGrid && posY < halfGrid)
+    {
+        quadrant = quarterCircle;
+    }
+    else if (posX >= halfGrid && posY >= halfGrid)
+    {
+        quadrant = Fast::PI;
+    }
+    else
+    {
+        quadrant = quarterCircle * 3.f;
+    }
+
+    return quadrant;
 }
 
 Point3D FinalDemo::GetPointInSphereFromPlane(const int posX, const int posY, const int gridSize, const float radius)
@@ -136,48 +173,32 @@ Point3D FinalDemo::GetPointInSphereFromPlane(const int posX, const int posY, con
     const float radiusSign = (ring < halfGrid) ? -1.f : 1.f;
 
     //top && bottom
-    if(ring == 1 || ring == gridSize - 1)
+    if (ring == 1 || ring == gridSize - 1)
     {
         return Point3D(0.f, radius * radiusSign, 0.f);
     }
-    //center
-    else if(ring == halfGrid)
-    {
-        return Point3D(posX, 0.f, posY);
-    }
-    //middle ones
     else
     {
         const int positiveRing = (ring < halfGrid) ? ring : gridSize - ring;
         const float perRingHeight = radius / float(halfGrid - 1);
-        const float height = perRingHeight * positiveRing * radiusSign;
+        float height = perRingHeight * (positiveRing - 1) * radiusSign;
+
+        if (ring == halfGrid)
+        {
+            height = 0.f;
+        }
 
         const float sine = height / radius;
         const float circleRadius = radius * sqrt(1 - sine * sine); //circleRadius = radius * cos()
-        
+
         const float quarterCircle = Fast::PI / 2.f;
 
-        float quadrant;
-        if(posX < halfGrid && posY < halfGrid)
-        {
-            quadrant = 0.f;
-        }
-        else if(posX > halfGrid && posY < halfGrid)
-        {
-            quadrant = quarterCircle;
-        }
-        else if(posX > halfGrid && posY > halfGrid)
-        {
-            quadrant = Fast::PI;
-        }
-        else
-        {
-            quadrant = quarterCircle * 3.f;
-        }
+        float quadrant = CalculateQuadrant(posX, posY, halfGrid);
 
         const int positiveFirstQuarterPosX = (ring <= halfGrid) ? firstQuarterPosX - (halfGrid - ring) : firstQuarterPosX;
-        const float angle =  ((positiveFirstQuarterPosX + 1) / float(positiveRing)) * quarterCircle + quadrant;
+        const float angle = ((positiveFirstQuarterPosX + 1) / float(positiveRing)) * quarterCircle + quadrant;
 
-        return Point3D(circleRadius * cos(angle), height, circleRadius * sin(angle));
+        Point3D p = Point3D(circleRadius * cos(angle), height, circleRadius * sin(angle));
+        return p;
     }
 }
