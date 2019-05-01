@@ -35,6 +35,7 @@ class FinalDemo : public ClassicDemoTemplate
     void UpdateGeometry(float deltaTime);
     void CloseGeometry();
     void GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance);
+    void GenerateSphere(int gridSize, float radius);
     void GeneratePerspectiveProjection(Object3D &object);
     void RenderObject(Object3D object);
     void EraseObject(Object3D object);
@@ -49,7 +50,18 @@ class FinalDemo : public ClassicDemoTemplate
     const int vertexPerWidth = 30;
     const int vertexPerDepth = 30;
     const int vertexDistance = 250;
-    float phase = 0;
+    float phase = 0.f;
+    float phaseVelocity = 1.f;
+
+    float waveAmplitude = 0.f;
+    float waveAmplitudeVelocity = 0.f;
+    float colourOpacityIn = 0.f;
+    float colourOpacityOut = 1.f;
+    Point3D position;
+
+    bool renderLines = true;
+
+    Point3D colourDeformator = Point3D(1.f,1.f,1.f);
 
     //Fire
     void InitFire();
@@ -80,9 +92,10 @@ class FinalDemo : public ClassicDemoTemplate
 
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;
-    const float DURATION_GEOMETRY = 60.0f;
-    const float START_FIRE = 60.f;
-    const float START_GEOMETRY = 0.f;
+    const float DURATION_GEOMETRY = 75.0f;
+    const float START_FIRE = 0.f;
+    const float START_GEOMETRY = DURATION_FIRE;
+    const float START_TEXT = DURATION_FIRE + DURATION_GEOMETRY;
 };
 
 //SOUND

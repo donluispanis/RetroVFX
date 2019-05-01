@@ -49,6 +49,10 @@ bool FinalDemo::Update(float deltaTime)
     {
         UpdateGeometry(deltaTime);
     }
+    if(accumulatedTime > START_TEXT)
+    {
+        RenderText("CONTINUARA", 100, height / 2, 10, Pixel(255));
+    }
 
 #ifdef _WIN32
     UpdateSound(deltaTime);

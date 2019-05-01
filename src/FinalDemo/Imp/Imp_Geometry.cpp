@@ -4,7 +4,10 @@ void FinalDemo::InitGeometry()
 {
     GenerateGrid(vertexPerWidth, vertexPerDepth, vertexDistance);
     GeneratePerspectiveProjection(grid);
-    ApplyWaveTransformation(grid, 0, 1.5, 0);
+    GenerateSphere(vertexPerWidth, 300.f);
+
+    waveAmplitude = 50.f;
+    position = Point3D(width / 2 - (vertexPerWidth * vertexDistance) / 2, height * 0.75f, -550);
 }
 
 void FinalDemo::CloseGeometry()
@@ -18,22 +21,98 @@ void FinalDemo::UpdateGeometry(float deltaTime)
     GeneratePerspectiveProjection(grid);
     RenderObject(grid);
     UndoObjectTransformations(deltaTime);
+
+    if (accumulatedTime > START_GEOMETRY + 2.0f && colourOpacityIn < 1.f)
+    {
+        colourOpacityIn += 0.2 * deltaTime;
+    }
+
+    if (accumulatedTime > START_GEOMETRY + 15.f && accumulatedTime < START_GEOMETRY + 20.f)
+    {
+        waveAmplitudeVelocity += 20 * deltaTime;
+        waveAmplitude += waveAmplitudeVelocity * deltaTime;
+        phaseVelocity += deltaTime * 5;
+    }
+    if (accumulatedTime > START_GEOMETRY + 20.f && accumulatedTime < START_GEOMETRY + 25.f)
+    {
+        waveAmplitudeVelocity -= 50 * deltaTime;
+        waveAmplitude += waveAmplitudeVelocity * deltaTime;
+        phaseVelocity -= deltaTime * 5;
+    }
+    if (accumulatedTime > START_GEOMETRY + 25.f && waveAmplitude > 0.f)
+    {
+        waveAmplitude -= 30 * deltaTime;
+    }
+    if (accumulatedTime > START_GEOMETRY + 26.f && waveAmplitude <= 0.f)
+    {
+        float t = 0.f;
+        if (t < 1.f)
+        {
+            t += 0.01;
+        }
+
+        Point3D position2(width / 2, height / 2, 0.f);
+
+        position = position * (1.f - t) + position2 * t;
+
+        for (int j = 0; j < vertexPerWidth; j++)
+        {
+            for (int i = 0; i < vertexPerWidth; i++)
+            {
+                grid.points[j * vertexPerWidth + i] =
+                    grid.points[j * vertexPerWidth + i] * (1.f - t) +
+                    sphere.points[j * vertexPerWidth + i] * t;
+            }
+        }
+    }
+    if (accumulatedTime > START_GEOMETRY + 40.f && accumulatedTime < START_GEOMETRY + 55.f)
+    {
+        phaseVelocity += deltaTime * 3;
+    }
+    if (accumulatedTime > START_GEOMETRY + 50.f && accumulatedTime < START_GEOMETRY + 53.f)
+    {
+        for (auto &point : grid.points)
+        {
+            point *= Point3D(0.99, 0.99, 0.99);
+        }
+    }
+    if (accumulatedTime > START_GEOMETRY + 53.f && accumulatedTime < START_GEOMETRY + 55.f)
+    {
+        for (auto &point : grid.points)
+        {
+            point *= Point3D(0.95, 0.95, 0.95);
+        }
+    }
+    if (accumulatedTime > START_GEOMETRY + 53.f && renderLines)
+    {
+        renderLines = false;
+    }
+    if (accumulatedTime > START_GEOMETRY + 55.f && accumulatedTime < START_GEOMETRY + 60.f )
+    {
+        for (auto &point : grid.points)
+        {
+            point *= Point3D(1.01, 1.01, 1.01);
+        }
+        phaseVelocity -= deltaTime * 5;
+    }
+    if (accumulatedTime > START_GEOMETRY + 70.f && colourOpacityOut > 0.f)
+    {
+        colourOpacityOut -= 0.3 * deltaTime;
+    }
 }
 
 void FinalDemo::ApplyObjectTransformations(float deltaTime)
 {
-    phase += 1 * deltaTime;
+    phase += 1 * deltaTime * phaseVelocity;
 
-    TranslateObject(grid, Point3D(width / 2, height / 2, 0));
-    ApplyWaveTransformation(grid, 0, 1.5, deltaTime);
+    TranslateObject(grid, position);
+    ApplyWaveTransformation(grid, waveAmplitude, 1.5, deltaTime);
 }
 
 void FinalDemo::UndoObjectTransformations(float deltaTime)
 {
-    static float aux = 0;
-
-    ApplyWaveTransformation(grid, 0, 1.5, deltaTime);
-    TranslateObject(grid, Point3D(-width / 2, -height / 2, 0));
+    ApplyWaveTransformation(grid, -waveAmplitude, 1.5, deltaTime);
+    TranslateObject(grid, -position);
 }
 
 void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance)
@@ -52,24 +131,24 @@ void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float verte
     //Insert indexes from far to close, so we don't have problems when painting
     for (float i = size - 1; i >= 0; i--)
     {
-        //int leftVertex = ((int(i) % vertexPerWidth) != 0) ? 1 : (-vertexPerWidth + 1);
-        int rightVertex = ((int(i + 1) % vertexPerWidth) != 0) ? 1 : (-vertexPerWidth + 1);
-        //int botVertex = (i - vertexPerWidth >= 0) ? vertexPerWidth : (vertexPerWidth - size);
-        int topVertex = (i + vertexPerWidth < size) ? vertexPerWidth : (vertexPerWidth - size);
-
-        //grid.indexes.emplace_back(Point2D{i, i - leftVertex});
-        grid.indexes.emplace_back(Point2D{i, i + rightVertex});
-        //grid.indexes.emplace_back(Point2D{i, i - botVertex});
-        grid.indexes.emplace_back(Point2D{i, i + topVertex});
-    }
-
-    grid.points.clear();
-
-    for (float j = 0; j < vertexPerDepth; j++)
-    {
-        for (float i = 0; i < vertexPerWidth; i++)
+        if ((int(i + 1) % vertexPerWidth) != 0)
         {
-            grid.points.push_back(GetPointInSphereFromPlane(i, j, vertexPerWidth, 300.f));
+            grid.indexes.emplace_back(Point2D{i, i + 1});
+        }
+        if (i < size - vertexPerWidth)
+        {
+            grid.indexes.emplace_back(Point2D{i, i + vertexPerWidth});
+        }
+    }
+}
+
+void FinalDemo::GenerateSphere(int gridSize, float radius)
+{
+    for (int j = 0; j < gridSize; j++)
+    {
+        for (int i = 0; i < gridSize; i++)
+        {
+            sphere.points.push_back(GetPointInSphereFromPlane(i, j, vertexPerWidth, radius));
         }
     }
 }
@@ -100,7 +179,16 @@ void FinalDemo::RenderObject(Object3D object)
         Point2D startPoint = object.projectedPoints[indexPair.X];
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 
-        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, object.colours[indexPair.X], object.colours[indexPair.Y], 2);
+        if (renderLines)
+        {
+            RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, object.colours[indexPair.X], object.colours[indexPair.Y], 2);
+        }
+        else
+        {
+            RenderDot(startPoint.X, startPoint.Y, object.colours[indexPair.X] * colourOpacityOut, 2);
+            RenderDot(endPoint.X, endPoint.Y, object.colours[indexPair.Y] * colourOpacityOut, 2);
+        }
+        
     }
 }
 
@@ -135,7 +223,7 @@ void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float
             float wave = sin((j + phase) / wavelength);
 
             grid.points[index].Y += amplitude * wave;
-            grid.colours.push_back(Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f));
+            grid.colours.push_back((Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f)) * colourOpacityIn);
         }
     }
 }
