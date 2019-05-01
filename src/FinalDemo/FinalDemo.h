@@ -45,8 +45,9 @@ class FinalDemo : public ClassicDemoTemplate
     Point3D GetPointInSphereFromPlane(const int gridX, const int gridY, const int gridSize, const float radius);
 
     Object3D grid;
-    const int vertexPerWidth = 6;
-    const int vertexPerDepth = 6;
+    Object3D sphere;
+    const int vertexPerWidth = 30;
+    const int vertexPerDepth = 30;
     const int vertexDistance = 250;
     float phase = 0;
 

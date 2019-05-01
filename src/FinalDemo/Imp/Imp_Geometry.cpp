@@ -23,18 +23,17 @@ void FinalDemo::UpdateGeometry(float deltaTime)
 void FinalDemo::ApplyObjectTransformations(float deltaTime)
 {
     phase += 1 * deltaTime;
-    static float aux = 0;
-    aux += 0.0;
-    TranslateObject(grid, Point3D(width / 2 + aux, height / 2 - aux, 0));
-    ///ApplyWaveTransformation(grid, 0, 1.5, deltaTime);
+
+    TranslateObject(grid, Point3D(width / 2, height / 2, 0));
+    ApplyWaveTransformation(grid, 0, 1.5, deltaTime);
 }
 
 void FinalDemo::UndoObjectTransformations(float deltaTime)
 {
     static float aux = 0;
-    aux += 0.0;
-    //ApplyWaveTransformation(grid, 0, 1.5, deltaTime);
-    TranslateObject(grid, Point3D(-width / 2 - aux, -height / 2 + aux, 0));
+
+    ApplyWaveTransformation(grid, 0, 1.5, deltaTime);
+    TranslateObject(grid, Point3D(-width / 2, -height / 2, 0));
 }
 
 void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance)
@@ -53,16 +52,15 @@ void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float verte
     //Insert indexes from far to close, so we don't have problems when painting
     for (float i = size - 1; i >= 0; i--)
     {
-        if ((int(i + 1) % vertexPerWidth) != 0)
-        {
-            grid.indexes.emplace_back(Point2D{i, i + 1});
-            grid.indexes.emplace_back(Point2D{i, i - 1});
-        }
-        if (i < size - vertexPerWidth)
-        {
-            grid.indexes.emplace_back(Point2D{i, i + vertexPerWidth});
-            grid.indexes.emplace_back(Point2D{i, i - vertexPerWidth});
-        }
+        //int leftVertex = ((int(i) % vertexPerWidth) != 0) ? 1 : (-vertexPerWidth + 1);
+        int rightVertex = ((int(i + 1) % vertexPerWidth) != 0) ? 1 : (-vertexPerWidth + 1);
+        //int botVertex = (i - vertexPerWidth >= 0) ? vertexPerWidth : (vertexPerWidth - size);
+        int topVertex = (i + vertexPerWidth < size) ? vertexPerWidth : (vertexPerWidth - size);
+
+        //grid.indexes.emplace_back(Point2D{i, i - leftVertex});
+        grid.indexes.emplace_back(Point2D{i, i + rightVertex});
+        //grid.indexes.emplace_back(Point2D{i, i - botVertex});
+        grid.indexes.emplace_back(Point2D{i, i + topVertex});
     }
 
     grid.points.clear();
@@ -103,8 +101,6 @@ void FinalDemo::RenderObject(Object3D object)
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 
         RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, object.colours[indexPair.X], object.colours[indexPair.Y], 2);
-        //RenderDot(startPoint.X, startPoint.Y, Pixel(255), 4);
-        //RenderDot(endPoint.X, endPoint.Y, Pixel(255), 4);
     }
 }
 
@@ -139,8 +135,7 @@ void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float
             float wave = sin((j + phase) / wavelength);
 
             grid.points[index].Y += amplitude * wave;
-            //grid.colours.push_back(Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f));
-            grid.colours.push_back(Pixel(255)); //((grid.points[j * vertexPerDepth + i].Z / 300.f) + 1.f) * 125));
+            grid.colours.push_back(Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f));
         }
     }
 }
