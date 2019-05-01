@@ -41,11 +41,11 @@ bool FinalDemo::Update(float deltaTime)
 {
     accumulatedTime += deltaTime;
 
-    if (accumulatedTime > START_FIRE && accumulatedTime < 5.0f + START_FIRE)
+    if (accumulatedTime > START_FIRE && accumulatedTime < DURATION_FIRE + START_FIRE)
     {
         UpdateFire(deltaTime);
     }
-    if (accumulatedTime > START_GEOMETRY && accumulatedTime < 5.0f + START_GEOMETRY)
+    if (accumulatedTime > START_GEOMETRY && accumulatedTime < DURATION_GEOMETRY + START_GEOMETRY)
     {
         UpdateGeometry(deltaTime);
     }

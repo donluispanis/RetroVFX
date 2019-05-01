@@ -42,10 +42,11 @@ class FinalDemo : public ClassicDemoTemplate
     void ApplyWaveTransformation(Object3D &object, float amplitude, float wavelength, float deltaTime);
     void ApplyObjectTransformations(float deltaTime);
     void UndoObjectTransformations(float deltaTime);
+    Point3D FinalDemo::GetPointInSphereFromPlane(const int gridX, const int gridY, const int gridSize, const float radius);
 
     Object3D grid;
-    const int vertexPerWidth = 40;
-    const int vertexPerDepth = 30;
+    const int vertexPerWidth = 20;
+    const int vertexPerDepth = 20;
     const int vertexDistance = 250;
     float phase = 0;
 
@@ -77,7 +78,9 @@ class FinalDemo : public ClassicDemoTemplate
     int smallFireTextStart;
 
     //TIMING VARIABLES
-    const float START_FIRE = 4.f;
+    const float DURATION_FIRE = 5.0f;
+    const float DURATION_GEOMETRY = 60.0f;
+    const float START_FIRE = 60.f;
     const float START_GEOMETRY = 0.f;
 };
 

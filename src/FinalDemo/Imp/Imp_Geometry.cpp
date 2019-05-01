@@ -124,3 +124,60 @@ void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float
         }
     }
 }
+
+Point3D FinalDemo::GetPointInSphereFromPlane(const int posX, const int posY, const int gridSize, const float radius)
+{
+    const int halfGrid = gridSize / 2;
+
+    const int firstQuarterPosX = (posX < gridSize / 2) ? posX : gridSize - posX - 1;
+    const int firstQuarterPosY = (posY < gridSize / 2) ? posY : gridSize - posY - 1;
+
+    const int ring = gridSize - 1 - firstQuarterPosX - firstQuarterPosY; //The numbers of rings goes from 1 to gridSize - 1
+    const float radiusSign = (ring < halfGrid) ? -1.f : 1.f;
+
+    //top && bottom
+    if(ring == 1 || ring == gridSize - 1)
+    {
+        return Point3D(0.f, radius * radiusSign, 0.f);
+    }
+    //center
+    else if(ring == halfGrid)
+    {
+        return Point3D(posX, 0.f, posY);
+    }
+    //middle ones
+    else
+    {
+        const int positiveRing = (ring < halfGrid) ? ring : gridSize - ring;
+        const float perRingHeight = radius / float(halfGrid - 1);
+        const float height = perRingHeight * positiveRing * radiusSign;
+
+        const float sine = height / radius;
+        const float circleRadius = radius * sqrt(1 - sine * sine); //circleRadius = radius * cos()
+        
+        const float quarterCircle = Fast::PI / 2.f;
+
+        float quadrant;
+        if(posX < halfGrid && posY < halfGrid)
+        {
+            quadrant = 0.f;
+        }
+        else if(posX > halfGrid && posY < halfGrid)
+        {
+            quadrant = quarterCircle;
+        }
+        else if(posX > halfGrid && posY > halfGrid)
+        {
+            quadrant = Fast::PI;
+        }
+        else
+        {
+            quadrant = quarterCircle * 3.f;
+        }
+
+        const int positiveFirstQuarterPosX = (ring <= halfGrid) ? firstQuarterPosX - (halfGrid - ring) : firstQuarterPosX;
+        const float angle =  ((positiveFirstQuarterPosX + 1) / float(positiveRing)) * quarterCircle + quadrant;
+
+        return Point3D(circleRadius * cos(angle), height, circleRadius * sin(angle));
+    }
+}
