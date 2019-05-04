@@ -35,13 +35,14 @@ void DotTunnelDemo::InitDefaultCircleData()
     maxCircleRadius = height;
     circleCount = 20;
     dotSize = 2;
-    defaultCircle = Circle{width / 2.f, height / 2.f, 20, 0, 10, Pixel()};
+    defaultCircle = Circle{width / 2.f, height / 2.f, 20, 0, Pixel()};
 
     radiusVelocity = 1;
     defaultRotationVelocity = 20;
     rotationVelocity = defaultRotationVelocity;
 
     circlesGapDistance = 2;
+    pointsPerCircle = 65;
 }
 
 void DotTunnelDemo::InitMathTables()
@@ -95,7 +96,6 @@ void DotTunnelDemo::AddCircle()
                               defaultCircle.y + (int)pathY,
                               defaultCircle.radius,
                               defaultCircle.rotation,
-                              defaultCircle.density,
                               colourMap[currentColour % colourMapSize]});
 }
 
@@ -130,12 +130,12 @@ void DotTunnelDemo::UpdateCircleQueue(float deltaTime)
 
 void DotTunnelDemo::PopulateCircleQueue()
 {
-    if (circles[0].radius > defaultCircle.radius + (defaultCircle.radius * circlesGapDistance) / circleCount)
+    if (circles.front().radius > defaultCircle.radius + (defaultCircle.radius * circlesGapDistance) / circleCount)
     {
         currentColour++;
         AddCircle();
     }
-    if (circles[circles.size() - 1].radius > maxCircleRadius)
+    if (circles.back().radius > maxCircleRadius)
     {
         circles.pop_back();
     }
@@ -214,14 +214,14 @@ void DotTunnelDemo::UpdateDotSizeFromInput(float deltaTime)
 
 void DotTunnelDemo::DrawCircle(const Circle &c)
 {
-    float increment = 1 / (float)(c.density);
-    int indexFactor = mathTableSize / (2 * Fast::PI);
+    const float increment = (2 * Fast::PI) / float(pointsPerCircle);
+    const int indexFactor = mathTableSize / (2 * Fast::PI);
     int x, y;
 
-    for (float i = 0, n = 2 * Fast::PI; i < n; i += increment)
+    for (float angle = 0, n = 2 * Fast::PI; angle < n; angle += increment)
     {
-        x = sineTable[int(i * indexFactor + c.rotation) % mathTableSize] * c.radius + c.x;
-        y = cosineTable[int(i * indexFactor + c.rotation) % mathTableSize] * c.radius + c.y;
+        x = cosineTable[int(angle * indexFactor + c.rotation) % mathTableSize] * c.radius + c.x;
+        y = sineTable[int(angle * indexFactor + c.rotation) % mathTableSize] * c.radius + c.y;
 
         Pixel finalColour = c.colour * CalculateOpacity(c.radius);
         RenderDot(x, y, finalColour, dotSize);
@@ -254,7 +254,7 @@ float DotTunnelDemo::CalculateOpacity(const float radius)
 void DotTunnelDemo::UpdateCircle(Circle &c, float deltaTime)
 {
     c.radius += c.radius * deltaTime * radiusVelocity;
-    c.rotation += deltaTime * rotationVelocity;
+    c.rotation += deltaTime * rotationVelocity * 2;
 }
 
 void DotTunnelDemo::EraseCircle(const Circle &circle)

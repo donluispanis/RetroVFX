@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  29 APR 2019 20:47
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  4 MAY 2019 13:55
 entering extended mode
 **./demos.tex
 (demos.tex
@@ -2967,68 +2967,109 @@ Overfull \hbox (554.66035pt too wide) in paragraph at lines 35--50
 \TU/lmr/m/n/10 [width=6cm]archivos/fire$[]\OML/cmm/m/it/10 olouredgrid[][]$
  []
 
-! Undefined control sequence.
-l.51 \subsection
-                {Implementación}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
-
-Overfull \hbox (69.44pt too wide) in paragraph at lines 51--52
-[]\TU/lmr/m/n/10 Implementación 
- []
-
-
-Overfull \hbox (23.2pt too wide) in paragraph at lines 53--54
+Overfull \hbox (23.2pt too wide) in paragraph at lines 51--52
 []\TU/lmr/m/n/10 Dado
  []
 
 
-Overfull \hbox (7.22pt too wide) in paragraph at lines 53--54
+Overfull \hbox (7.22pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 el
  []
 
 
-Overfull \hbox (21.1pt too wide) in paragraph at lines 53--54
+Overfull \hbox (21.1pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 com-
  []
 
 
-Overfull \hbox (18.09pt too wide) in paragraph at lines 53--54
+Overfull \hbox (18.09pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 por-
  []
 
 
-Overfull \hbox (38.61pt too wide) in paragraph at lines 53--54
+Overfull \hbox (38.61pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 tamiento
  []
 
 
-Overfull \hbox (13.33pt too wide) in paragraph at lines 53--54
+Overfull \hbox (13.33pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 de-
  []
 
 
-Overfull \hbox (26.75pt too wide) in paragraph at lines 53--54
+Overfull \hbox (26.75pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 scrito,
  []
 
 
-Overfull \hbox (17.3pt too wide) in paragraph at lines 53--54
+Overfull \hbox (17.3pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 será
  []
 
 
-Overfull \hbox (22.21pt too wide) in paragraph at lines 53--54
+Overfull \hbox (22.21pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 nece-
  []
 
 
-Overfull \hbox (20.64pt too wide) in paragraph at lines 53--54
+Overfull \hbox (20.64pt too wide) in paragraph at lines 51--52
 \TU/lmr/m/n/10 sario
+ []
+
+
+Overfull \hbox (11.69pt too wide) in paragraph at lines 51--52
+\TU/lmr/m/n/10 re-
+ []
+
+
+Overfull \hbox (23.92pt too wide) in paragraph at lines 51--52
+\TU/lmr/m/n/10 alizar
+ []
+
+
+Overfull \hbox (11.72pt too wide) in paragraph at lines 51--52
+\TU/lmr/m/n/10 los
+ []
+
+
+Overfull \hbox (20.61pt too wide) in paragraph at lines 51--52
+\TU/lmr/m/n/10 sigu-
+ []
+
+
+Overfull \hbox (24.77pt too wide) in paragraph at lines 51--52
+\TU/lmr/m/n/10 ientes
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 51--52
+\TU/lmr/m/n/10 pa-
+ []
+
+
+Overfull \hbox (15.66pt too wide) in paragraph at lines 51--52
+\TU/lmr/m/n/10 sos: 
+ []
+
+
+Overfull \hbox (55.58pt too wide) in paragraph at lines 53--54
+\TU/lmr/m/n/10 Implementar
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 53--54
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (25.31pt too wide) in paragraph at lines 53--54
+\TU/lmr/m/n/10 forma
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 53--54
+\TU/lmr/m/n/10 de
  []
 
 
@@ -3042,199 +3083,144 @@ Overfull \hbox (23.92pt too wide) in paragraph at lines 53--54
  []
 
 
-Overfull \hbox (11.72pt too wide) in paragraph at lines 53--54
-\TU/lmr/m/n/10 los
- []
-
-
-Overfull \hbox (20.61pt too wide) in paragraph at lines 53--54
-\TU/lmr/m/n/10 sigu-
- []
-
-
-Overfull \hbox (24.77pt too wide) in paragraph at lines 53--54
-\TU/lmr/m/n/10 ientes
- []
-
-
-Overfull \hbox (13.89pt too wide) in paragraph at lines 53--54
-\TU/lmr/m/n/10 pa-
- []
-
-
-Overfull \hbox (15.66pt too wide) in paragraph at lines 53--54
-\TU/lmr/m/n/10 sos: 
- []
-
-
-Overfull \hbox (55.58pt too wide) in paragraph at lines 55--56
-\TU/lmr/m/n/10 Implementar
- []
-
-
-Overfull \hbox (16.12pt too wide) in paragraph at lines 55--56
-\TU/lmr/m/n/10 una
- []
-
-
-Overfull \hbox (25.31pt too wide) in paragraph at lines 55--56
-\TU/lmr/m/n/10 forma
- []
-
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 55--56
-\TU/lmr/m/n/10 de
- []
-
-
-Overfull \hbox (11.69pt too wide) in paragraph at lines 55--56
-\TU/lmr/m/n/10 re-
- []
-
-
-Overfull \hbox (23.92pt too wide) in paragraph at lines 55--56
-\TU/lmr/m/n/10 alizar
- []
-
-
-Overfull \hbox (37.81pt too wide) in paragraph at lines 55--56
+Overfull \hbox (37.81pt too wide) in paragraph at lines 53--54
 \TU/lmr/m/n/10 degrada-
  []
 
 
-Overfull \hbox (14.5pt too wide) in paragraph at lines 55--56
+Overfull \hbox (14.5pt too wide) in paragraph at lines 53--54
 \TU/lmr/m/n/10 dos
  []
 
 
-Overfull \hbox (8.89pt too wide) in paragraph at lines 55--56
+Overfull \hbox (8.89pt too wide) in paragraph at lines 53--54
 \TU/lmr/m/n/10 (o
  []
 
 
-Overfull \hbox (16.66pt too wide) in paragraph at lines 55--56
+Overfull \hbox (16.66pt too wide) in paragraph at lines 53--54
 \TU/lmr/m/n/10 ma-
  []
 
 
-Overfull \hbox (14.5pt too wide) in paragraph at lines 55--56
+Overfull \hbox (14.5pt too wide) in paragraph at lines 53--54
 \TU/lmr/m/n/10 pas
  []
 
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 55--56
+Overfull \hbox (10.0pt too wide) in paragraph at lines 53--54
 \TU/lmr/m/n/10 de
  []
 
 
-Overfull \hbox (25.03pt too wide) in paragraph at lines 55--56
+Overfull \hbox (25.03pt too wide) in paragraph at lines 53--54
 \TU/lmr/m/n/10 color) 
  []
 
 
-Overfull \hbox (37.74pt too wide) in paragraph at lines 56--57
+Overfull \hbox (37.74pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 Reservar
  []
 
 
-Overfull \hbox (4.44pt too wide) in paragraph at lines 56--57
+Overfull \hbox (4.44pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 e
  []
 
 
-Overfull \hbox (14.45pt too wide) in paragraph at lines 56--57
+Overfull \hbox (14.45pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 ini-
  []
 
 
-Overfull \hbox (31.14pt too wide) in paragraph at lines 56--57
+Overfull \hbox (31.14pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 cializar
  []
 
 
-Overfull \hbox (16.12pt too wide) in paragraph at lines 56--57
+Overfull \hbox (16.12pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 una
  []
 
 
-Overfull \hbox (16.66pt too wide) in paragraph at lines 56--57
+Overfull \hbox (16.66pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 ma-
  []
 
 
-Overfull \hbox (15.03pt too wide) in paragraph at lines 56--57
+Overfull \hbox (15.03pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 triz
  []
 
 
-Overfull \hbox (5.0pt too wide) in paragraph at lines 56--57
+Overfull \hbox (5.0pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 a
  []
 
 
-Overfull \hbox (20.58pt too wide) in paragraph at lines 56--57
+Overfull \hbox (20.58pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 cero,
  []
 
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 56--57
+Overfull \hbox (15.0pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 con
  []
 
 
-Overfull \hbox (15.83pt too wide) in paragraph at lines 56--57
+Overfull \hbox (15.83pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 val-
  []
 
 
-Overfull \hbox (17.3pt too wide) in paragraph at lines 56--57
+Overfull \hbox (17.3pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 ores
  []
 
 
-Overfull \hbox (29.44pt too wide) in paragraph at lines 56--57
+Overfull \hbox (29.44pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 aleato-
  []
 
 
-Overfull \hbox (15.64pt too wide) in paragraph at lines 56--57
+Overfull \hbox (15.64pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 rios
  []
 
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 56--57
+Overfull \hbox (10.0pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 en
  []
 
 
-Overfull \hbox (9.5pt too wide) in paragraph at lines 56--57
+Overfull \hbox (9.5pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 su
  []
 
 
-Overfull \hbox (13.34pt too wide) in paragraph at lines 56--57
+Overfull \hbox (13.34pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 fila
  []
 
 
-Overfull \hbox (11.67pt too wide) in paragraph at lines 56--57
+Overfull \hbox (11.67pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 in-
  []
 
 
-Overfull \hbox (10.83pt too wide) in paragraph at lines 56--57
+Overfull \hbox (10.83pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 fe-
  []
 
 
-Overfull \hbox (15.62pt too wide) in paragraph at lines 56--57
+Overfull \hbox (15.62pt too wide) in paragraph at lines 54--55
 \TU/lmr/m/n/10 rior 
  []
 
 ! Undefined control sequence.
 <write> ...ence `fig:firematrix' on page \thepage 
                                                   \space undefined\on@line .^^J
-l.57 ...olución de la matriz [\ref{fig:firematrix}
+l.55 ...olución de la matriz [\ref{fig:firematrix}
                                                   ]
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3243,76 +3229,90 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `fig:firematrix' on page  undefined on input line 57.
+LaTeX Warning: Reference `fig:firematrix' on page  undefined on input line 55.
 
 
-Overfull \hbox (55.58pt too wide) in paragraph at lines 57--58
+Overfull \hbox (55.58pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 Implementar
  []
 
 
-Overfull \hbox (7.22pt too wide) in paragraph at lines 57--58
+Overfull \hbox (7.22pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 el
  []
 
 
-Overfull \hbox (21.1pt too wide) in paragraph at lines 57--58
+Overfull \hbox (21.1pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 com-
  []
 
 
-Overfull \hbox (18.09pt too wide) in paragraph at lines 57--58
+Overfull \hbox (18.09pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 por-
  []
 
 
-Overfull \hbox (38.61pt too wide) in paragraph at lines 57--58
+Overfull \hbox (38.61pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 tamiento
  []
 
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 57--58
+Overfull \hbox (10.0pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 de
  []
 
 
-Overfull \hbox (18.33pt too wide) in paragraph at lines 57--58
+Overfull \hbox (18.33pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 con-
  []
 
 
-Overfull \hbox (21.67pt too wide) in paragraph at lines 57--58
+Overfull \hbox (21.67pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 volu-
  []
 
 
-Overfull \hbox (17.78pt too wide) in paragraph at lines 57--58
+Overfull \hbox (17.78pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 ción
  []
 
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 57--58
+Overfull \hbox (10.0pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 de
  []
 
 
-Overfull \hbox (7.78pt too wide) in paragraph at lines 57--58
+Overfull \hbox (7.78pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 la
  []
 
 
-Overfull \hbox (16.66pt too wide) in paragraph at lines 57--58
+Overfull \hbox (16.66pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 ma-
  []
 
 
-Overfull \hbox (15.03pt too wide) in paragraph at lines 57--58
+Overfull \hbox (15.03pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 triz
  []
 
 
-Overfull \hbox (16.42pt too wide) in paragraph at lines 57--58
+Overfull \hbox (16.42pt too wide) in paragraph at lines 55--56
 \TU/lmr/m/n/10 [[]] 
+ []
+
+! Undefined control sequence.
+l.58 \subsection
+                {Implementación}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (69.44pt too wide) in paragraph at lines 58--59
+[]\TU/lmr/m/n/10 Implementación 
  []
 
 
@@ -16718,47 +16718,1622 @@ Overfull \hbox (16.11pt too wide) in paragraph at lines 223--224
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 225--227
-[]\TU/lmr/m/n/10 rgerg
+Overfull \hbox (30.27pt too wide) in paragraph at lines 225--226
+[]\TU/lmr/m/n/10 ¿Cómo
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 225--227
-\TU/lmr/m/n/10 sgs-
+Overfull \hbox (8.38pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 se
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 225--227
-\TU/lmr/m/n/10 dgsfdh 
+Overfull \hbox (18.33pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 con-
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 228--229
-[]\TU/lmr/m/n/10 sg 
+Overfull \hbox (21.72pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 sigue
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 230--231
-[]\TU/lmr/m/n/10 drga 
+Overfull \hbox (7.22pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 el
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 232--233
-[]\TU/lmr/m/n/10 rg 
+Overfull \hbox (25.27pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 efecto
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 234--235
-[]\TU/lmr/m/n/10 ergregearg 
+Overfull \hbox (10.0pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 de
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 236--237
-[]\TU/lmr/m/n/10 rgerg 
+Overfull \hbox (32.28pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 generar
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (22.23pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 túnel
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (55.55pt too wide) in paragraph at lines 225--226
+\TU/lmr/m/n/10 movimiento? 
+ []
+
+
+Overfull \hbox (11.25pt too wide) in paragraph at lines 227--228
+[]\TU/lmr/m/n/10 La
+ []
+
+
+Overfull \hbox (11.69pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 re-
+ []
+
+
+Overfull \hbox (32.33pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 spuesta
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (11.69pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 re-
+ []
+
+
+Overfull \hbox (11.11pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 al-
+ []
+
+
+Overfull \hbox (6.11pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 i-
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 dad
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 es
+ []
+
+
+Overfull \hbox (17.83pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 bas-
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 tante
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 sen-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 cilla
+ []
+
+
+Overfull \hbox (6.72pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 si
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 ob-
+ []
+
+
+Overfull \hbox (15.63pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 ser-
+ []
+
+
+Overfull \hbox (13.05pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 va-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 mos
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 con
+ []
+
+
+Overfull \hbox (22.22pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 aten-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 ción
+ []
+
+
+Overfull \hbox (39.76pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 cualquier
+ []
+
+
+Overfull \hbox (23.33pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 demo
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (14.44pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 im-
+ []
+
+
+Overfull \hbox (16.11pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 ple-
+ []
+
+
+Overfull \hbox (26.38pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 mente
+ []
+
+
+Overfull \hbox (16.71pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 este
+ []
+
+
+Overfull \hbox (28.05pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 efecto:
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 con-
+ []
+
+
+Overfull \hbox (18.99pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 siste
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 su-
+ []
+
+
+Overfull \hbox (17.53pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 per-
+ []
+
+
+Overfull \hbox (20.89pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 posi-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 ción
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (16.16pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 cias
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (15.61pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 dis-
+ []
+
+
+Overfull \hbox (15.56pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 tin-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (36.72pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 tamaños
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (15.61pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 dis-
+ []
+
+
+Overfull \hbox (15.56pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 tin-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 tas
+ []
+
+
+Overfull \hbox (20.89pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 posi-
+ []
+
+
+Overfull \hbox (28.94pt too wide) in paragraph at lines 227--228
+\TU/lmr/m/n/10 ciones. 
  []
 
 ! Undefined control sequence.
-l.238 \subsection
+<write> ...ence `fig:cyberdance' on page \thepage 
+                                                  \space undefined\on@line .^^J
+l.229 ...l caso de la figura [\ref{fig:cyberdance}
+                                                  ]) se simplifica a dibujar...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `fig:cyberdance' on page  undefined on input line 229.
+
+
+
+Overfull \hbox (9.59pt too wide) in paragraph at lines 229--230
+[]\TU/lmr/m/n/10 El
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (18.62pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 jado
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (11.71pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 es-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tas
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (16.16pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cias
+ []
+
+
+Overfull \hbox (8.89pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 (o
+ []
+
+
+Overfull \hbox (27.88pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 elipses
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (18.38pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 caso
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (25.04001pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 figura
+ []
+
+
+Overfull \hbox (20.31pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 [[]])
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 se
+ []
+
+
+Overfull \hbox (18.38pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 sim-
+ []
+
+
+Overfull \hbox (14.45pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 pli-
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 fica
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 a
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (11.98pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 jar
+ []
+
+
+Overfull \hbox (16.72pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 solo
+ []
+
+
+Overfull \hbox (16.97pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 var-
+ []
+
+
+Overfull \hbox (11.72pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 ios
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (61.74pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 pertenecientes
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 a
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cia,
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 lu-
+ []
+
+
+Overfull \hbox (13.92pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 gar
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (11.98pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 jar
+ []
+
+
+Overfull \hbox (19.73pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 todo
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (45.34pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 perímetro.
+ []
+
+
+Overfull \hbox (12.08pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 De
+ []
+
+
+Overfull \hbox (16.71pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 este
+ []
+
+
+Overfull \hbox (24.17pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 modo
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 se
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 con-
+ []
+
+
+Overfull \hbox (21.72pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 sigue
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (30.28pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tiempo
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (18.62pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 jado
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 con-
+ []
+
+
+Overfull \hbox (16.14pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tro-
+ []
+
+
+Overfull \hbox (20.56pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 lable
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 con-
+ []
+
+
+Overfull \hbox (26.44pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 stante
+ []
+
+
+Overfull \hbox (10.61pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 (si
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 de-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cidi-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 mos
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cia
+ []
+
+
+Overfull \hbox (17.3pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 será
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 rep-
+ []
+
+
+Overfull \hbox (11.69pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 re-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 sen-
+ []
+
+
+Overfull \hbox (19.45pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tada
+ []
+
+
+Overfull \hbox (16.1pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 me-
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 di-
+ []
+
+
+Overfull \hbox (18.61pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 ante
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 16
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (15.61pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tos,
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 se
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 us-
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 arán
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 16
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 ya
+ []
+
+
+Overfull \hbox (13.38pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 sea
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (12.25pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 ra-
+ []
+
+
+Overfull \hbox (13.34pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 dio
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cia
+ []
+
+
+Overfull \hbox (12.78pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 50,
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 100
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 o
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 200
+ []
+
+
+Overfull \hbox (16.95pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 píx-
+ []
+
+
+Overfull \hbox (7.77pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 e-
+ []
+
+
+Overfull \hbox (13.94pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 les,
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (24.17pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 modo
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (31.4pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 aunque
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (42.56pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 perímetro
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 au-
+ []
+
+
+Overfull \hbox (29.16pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 mente,
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (11.71pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 es-
+ []
+
+
+Overfull \hbox (16.42pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 fera
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 es
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 rep-
+ []
+
+
+Overfull \hbox (11.69pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 re-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 sen-
+ []
+
+
+Overfull \hbox (19.45pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tada
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 con
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 can-
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 ti-
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 dad
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 con-
+ []
+
+
+Overfull \hbox (26.44pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 stante
+ []
+
+
+Overfull \hbox (3.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 -
+ []
+
+
+Overfull \hbox (13.38pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 eso
+ []
+
+
+Overfull \hbox (9.5pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 sí,
+ []
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 cada
+ []
+
+
+Overfull \hbox (13.88pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 vez
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 más
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 sep-
+ []
+
+
+Overfull \hbox (8.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 a-
+ []
+
+
+Overfull \hbox (12.25pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 ra-
+ []
+
+
+Overfull \hbox (14.5pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 dos
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.25pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 tre
+ []
+
+
+Overfull \hbox (10.05pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 sí-
+ []
+
+
+Overfull \hbox (6.67pt too wide) in paragraph at lines 229--230
+\TU/lmr/m/n/10 ). 
+ []
+
+
+Overfull \hbox (15.45pt too wide) in paragraph at lines 231--232
+[]\TU/lmr/m/n/10 Por
+ []
+
+
+Overfull \hbox (25.84pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 tanto,
+ []
+
+
+Overfull \hbox (17.3pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 será
+ []
+
+
+Overfull \hbox (22.21pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 nece-
+ []
+
+
+Overfull \hbox (20.64pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 sario
+ []
+
+
+Overfull \hbox (14.44pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 im-
+ []
+
+
+Overfull \hbox (16.11pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 ple-
+ []
+
+
+Overfull \hbox (21.66pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 men-
+ []
+
+
+Overfull \hbox (12.81pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 tar
+ []
+
+
+Overfull \hbox (11.72pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 las
+ []
+
+
+Overfull \hbox (20.61pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 sigu-
+ []
+
+
+Overfull \hbox (24.77pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 ientes
+ []
+
+
+Overfull \hbox (17.51pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 fun-
+ []
+
+
+Overfull \hbox (28.89pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 cional-
+ []
+
+
+Overfull \hbox (6.11pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 i-
+ []
+
+
+Overfull \hbox (27.28pt too wide) in paragraph at lines 231--232
+\TU/lmr/m/n/10 dades: 
+ []
+
+
+Overfull \hbox (46.12pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 Capacidad
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (11.98pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 jar
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 cír-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 culo
+ []
+
+
+Overfull \hbox (25.06pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 dadas
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (20.89pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 posi-
+ []
+
+
+Overfull \hbox (20.56pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 ción,
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (12.25pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 ra-
+ []
+
+
+Overfull \hbox (13.34pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 dio
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (14.76pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 por
+ []
+
+
+Overfull \hbox (23.89pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 cuan-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (20.28pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 debe
+ []
+
+
+Overfull \hbox (11.71pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 es-
+ []
+
+
+Overfull \hbox (12.81pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 tar
+ []
+
+
+Overfull \hbox (15.31pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 for-
+ []
+
+
+Overfull \hbox (26.67pt too wide) in paragraph at lines 233--234
+\TU/lmr/m/n/10 mado. 
+ []
+
+
+Overfull \hbox (46.12pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 Capacidad
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (22.22pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 man-
+ []
+
+
+Overfull \hbox (22.25pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 tener
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 con-
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 junto
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (16.16pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 cias
+ []
+
+
+Overfull \hbox (10.05pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 si-
+ []
+
+
+Overfull \hbox (43.61pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 multánea-
+ []
+
+
+Overfull \hbox (26.38pt too wide) in paragraph at lines 234--235
+\TU/lmr/m/n/10 mente 
+ []
+
+
+Overfull \hbox (46.12pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 Capacidad
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (16.71pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 ges-
+ []
+
+
+Overfull \hbox (26.15pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 tionar
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (10.55pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 ci-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 clo
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (18.62pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 vida
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 235--236
+\TU/lmr/m/n/10 cia 
+ []
+
+
+Overfull \hbox (55.58pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 Implementar
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (31.1pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 mecan-
+ []
+
+
+Overfull \hbox (20.05pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 ismo
+ []
+
+
+Overfull \hbox (16.1pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 me-
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 di-
+ []
+
+
+Overfull \hbox (18.61pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 ante
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (22.23pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 túnel
+ []
+
+
+Overfull \hbox (16.72pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 siga
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (18.37pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 ruta
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (25.59pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 apari-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 cia
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 nat-
+ []
+
+
+Overfull \hbox (8.89pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 u-
+ []
+
+
+Overfull \hbox (11.7pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 ral
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (14.45pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 flu-
+ []
+
+
+Overfull \hbox (13.34pt too wide) in paragraph at lines 236--237
+\TU/lmr/m/n/10 ida 
+ []
+
+! Undefined control sequence.
+l.239 \subsection
                  {Implementación}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16767,52 +18342,2405 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (69.44pt too wide) in paragraph at lines 238--239
+Overfull \hbox (69.44pt too wide) in paragraph at lines 239--240
 []\TU/lmr/m/n/10 Implementación 
  []
 
+! Undefined control sequence.
+<write> ...rence `fig:circleuml' on page \thepage 
+                                                  \space undefined\on@line .^^J
+l.241 ...que los representara [\ref{fig:circleuml}
+                                                  ].\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 240--242
-[]\TU/lmr/m/n/10 rgerg
+
+LaTeX Warning: Reference `fig:circleuml' on page  undefined on input line 241.
+
+
+Overfull \hbox (50.98pt too wide) in paragraph at lines 241--242
+[]\TU/lmr/m/n/10 Empezando
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 240--242
-\TU/lmr/m/n/10 sgs-
+Overfull \hbox (14.76pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 por
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 240--242
-\TU/lmr/m/n/10 dgsfdh 
+Overfull \hbox (7.22pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 el
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 243--244
-[]\TU/lmr/m/n/10 sg 
+Overfull \hbox (21.15pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 prin-
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 245--246
-[]\TU/lmr/m/n/10 drga 
+Overfull \hbox (10.55pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 ci-
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 247--248
-[]\TU/lmr/m/n/10 rg 
+Overfull \hbox (16.12pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 pio,
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 249--250
-[]\TU/lmr/m/n/10 ergregearg 
+Overfull \hbox (13.36pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 era
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 251--252
-[]\TU/lmr/m/n/10 rgerg 
+Overfull \hbox (22.21pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 nece-
+ []
+
+
+Overfull \hbox (20.64pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 sario
+ []
+
+
+Overfull \hbox (25.04001pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 poder
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (11.98pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 jar
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (16.16pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 cias
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (19.45pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 pan-
+ []
+
+
+Overfull \hbox (22.23pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 talla.
+ []
+
+
+Overfull \hbox (14.08pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 Es-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 cír-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 cu-
+ []
+
+
+Overfull \hbox (14.5pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 los,
+ []
+
+
+Overfull \hbox (35.05pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 además,
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 de-
+ []
+
+
+Overfull \hbox (18.9pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 bían
+ []
+
+
+Overfull \hbox (25.04001pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 poder
+ []
+
+
+Overfull \hbox (25.34pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 variar
+ []
+
+
+Overfull \hbox (9.5pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 su
+ []
+
+
+Overfull \hbox (20.89pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 posi-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 ción
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (32.78pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 tamaño
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 a
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 lo
+ []
+
+
+Overfull \hbox (21.7pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 largo
+ []
+
+
+Overfull \hbox (12.78pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 del
+ []
+
+
+Overfull \hbox (33.06pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 tiempo,
+ []
+
+
+Overfull \hbox (14.76pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 por
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 lo
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (21.67pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 tenía
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 sen-
+ []
+
+
+Overfull \hbox (17.23pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 tido
+ []
+
+
+Overfull \hbox (21.72pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 crear
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (11.71pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 es-
+ []
+
+
+Overfull \hbox (21.14pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 truc-
+ []
+
+
+Overfull \hbox (18.37pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 tura
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (11.72pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 los
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 rep-
+ []
+
+
+Overfull \hbox (11.69pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 re-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 sen-
+ []
+
+
+Overfull \hbox (17.81pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 tara
+ []
+
+
+Overfull \hbox (19.2pt too wide) in paragraph at lines 241--242
+\TU/lmr/m/n/10 [[]]. 
+ []
+
+
+! LaTeX Error: Environment figure undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.255 \begin{figure}
+                    [h]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.257 ^^I\includegraphics
+                         [width=6cm]{archivos/circleuml}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.258 ^^I\caption
+                 {Estructura básica de un círculo}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \begin{document} ended by \end{figure}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.260 \end{figure}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 255--261
+[]\TU/lmr/m/n/10 [h]
+ []
+
+
+Overfull \hbox (135.95pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 [width=6cm]archivos/circleuml
+ []
+
+
+Overfull \hbox (14.08pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 Es-
+ []
+
+
+Overfull \hbox (21.14pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 truc-
+ []
+
+
+Overfull \hbox (18.37pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 tura
+ []
+
+
+Overfull \hbox (26.72pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 básica
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 cír-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 255--261
+\TU/lmr/m/n/10 culo
  []
 
 ! Undefined control sequence.
-l.253 \subsection
+<write> ...ence `cod:drawcircle' on page \thepage 
+                                                  \space undefined\on@line .^^J
+l.262 ...os ver en el código [\ref{cod:drawcircle}
+                                                  ], para dibujar una circun...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `cod:drawcircle' on page  undefined on input line 262.
+
+
+
+Overfull \hbox (25.55pt too wide) in paragraph at lines 262--263
+[]\TU/lmr/m/n/10 Como
+ []
+
+
+Overfull \hbox (24.45pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 pode-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mos
+ []
+
+
+Overfull \hbox (13.36pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 ver
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (28.06pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 código
+ []
+
+
+Overfull \hbox (19.2pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 [[]],
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (11.98pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 jar
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cia,
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 lo
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (22.77pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 hace-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mos
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 es
+ []
+
+
+Overfull \hbox (6.7pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 ir
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 262--263
+\OT1/cmr/m/n/10 0$
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 a
+ []
+
+
+Overfull \hbox (10.00003pt too wide) in paragraph at lines 262--263
+\OT1/cmr/m/n/10 2 \OMS/cmsy/m/n/10 ^^C
+ []
+
+
+Overfull \hbox (8.83905pt too wide) in paragraph at lines 262--263
+\OML/cmm/m/it/10 ^^Y$\TU/lmr/m/n/10 .
+ []
+
+
+Overfull \hbox (19.64pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 Esto
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 es
+ []
+
+
+Overfull \hbox (26.17pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 trazar
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cia
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (19.19pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 360º
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (12.25pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 ra-
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 di-
+ []
+
+
+Overfull \hbox (21.72pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 anes.
+ []
+
+
+Overfull \hbox (26.53pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 Defin-
+ []
+
+
+Overfull \hbox (6.11pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 i-
+ []
+
+
+Overfull \hbox (20.05pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mos,
+ []
+
+
+Overfull \hbox (10.56pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 no
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 ob-
+ []
+
+
+Overfull \hbox (29.22pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 stante,
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 in-
+ []
+
+
+Overfull \hbox (16.13pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cre-
+ []
+
+
+Overfull \hbox (26.94pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mento
+ []
+
+
+Overfull \hbox (19.75pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 vari-
+ []
+
+
+Overfull \hbox (20.56pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 able,
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 de-
+ []
+
+
+Overfull \hbox (25.84pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 pende
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 can-
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 ti-
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 dad
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (22.53pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 quer-
+ []
+
+
+Overfull \hbox (7.77pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 e-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mos
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (14.76pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 jar.
+ []
+
+
+Overfull \hbox (12.08pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 De
+ []
+
+
+Overfull \hbox (16.71pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 este
+ []
+
+
+Overfull \hbox (26.95pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 modo,
+ []
+
+
+Overfull \hbox (6.72pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 si
+ []
+
+
+Overfull \hbox (22.53pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 quer-
+ []
+
+
+Overfull \hbox (7.77pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 e-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mos
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (11.98pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 jar
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cia
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 4
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (15.61pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 tos,
+ []
+
+
+Overfull \hbox (16.71pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 este
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 in-
+ []
+
+
+Overfull \hbox (16.13pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cre-
+ []
+
+
+Overfull \hbox (26.94pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mento
+ []
+
+
+Overfull \hbox (17.3pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 será
+ []
+
+
+Overfull \hbox (10.00003pt too wide) in paragraph at lines 262--263
+\OT1/cmr/m/n/10 2 \OMS/cmsy/m/n/10 ^^C
+ []
+
+
+Overfull \hbox (26.6146pt too wide) in paragraph at lines 262--263
+\OML/cmm/m/it/10 ^^Y=\OT1/cmr/m/n/10 4 =
+ []
+
+
+Overfull \hbox (10.10747pt too wide) in paragraph at lines 262--263
+[]$\TU/lmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 o
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 lo
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 es
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 lo
+ []
+
+
+Overfull \hbox (31.16pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mismo,
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (19.75pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 jare-
+ []
+
+
+Overfull \hbox (17.27pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 mos
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (27.81pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cuarto
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 en
+ []
+
+
+Overfull \hbox (27.81pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cuarto
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cia,
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (24.18001pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 jando
+ []
+
+
+Overfull \hbox (11.72pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 así
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 4
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 tos
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (21.1pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 com-
+ []
+
+
+Overfull \hbox (16.11pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 ple-
+ []
+
+
+Overfull \hbox (12.81pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 tar
+ []
+
+
+Overfull \hbox (16.12pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 una
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 cia
+ []
+
+
+Overfull \hbox (21.1pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 com-
+ []
+
+
+Overfull \hbox (24.45pt too wide) in paragraph at lines 262--263
+\TU/lmr/m/n/10 pleta. 
+ []
+
+
+Overfull \hbox (11.25pt too wide) in paragraph at lines 264--265
+[]\TU/lmr/m/n/10 La
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 op-
+ []
+
+
+Overfull \hbox (31.14pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 eración
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 de-
+ []
+
+
+Overfull \hbox (15.58pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ter-
+ []
+
+
+Overfull \hbox (14.44pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 mi-
+ []
+
+
+Overfull \hbox (14.48pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 nar
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (20.89pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 posi-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ción
+ []
+
+
+Overfull \hbox (12.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 del
+ []
+
+
+Overfull \hbox (25.29001pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 punto
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 es
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 muy
+ []
+
+
+Overfull \hbox (29.5pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 básica,
+ []
+
+
+Overfull \hbox (4.44pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 e
+ []
+
+
+Overfull \hbox (14.44pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 im-
+ []
+
+
+Overfull \hbox (20.56pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 plica
+ []
+
+
+Overfull \hbox (18.38pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 sim-
+ []
+
+
+Overfull \hbox (16.11pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ple-
+ []
+
+
+Overfull \hbox (26.38pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 mente
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (20.56pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 poco
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (62.29001pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 trigonometría.
+ []
+
+
+Overfull \hbox (11.25pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 La
+ []
+
+
+Overfull \hbox (20.89pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 posi-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ción
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cada
+ []
+
+
+Overfull \hbox (25.29001pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 punto
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cia
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 viene
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 de-
+ []
+
+
+Overfull \hbox (15.58pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ter-
+ []
+
+
+Overfull \hbox (14.44pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 mi-
+ []
+
+
+Overfull \hbox (21.12pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 nada
+ []
+
+
+Overfull \hbox (14.76pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 por
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 án-
+ []
+
+
+Overfull \hbox (18.34pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 gulo
+ []
+
+
+Overfull \hbox (18.65pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 (por
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (28.38pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 coseno
+ []
+
+
+Overfull \hbox (12.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 del
+ []
+
+
+Overfull \hbox (28.38pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 mismo
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (12.77pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 co-
+ []
+
+
+Overfull \hbox (12.25pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 or-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 de-
+ []
+
+
+Overfull \hbox (21.12pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 nada
+ []
+
+
+Overfull \hbox (17.81pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 hor-
+ []
+
+
+Overfull \hbox (6.11pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 i-
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 zon-
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 tal
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (14.76pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 por
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (18.94pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 seno
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (12.77pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 co-
+ []
+
+
+Overfull \hbox (12.25pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 or-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 de-
+ []
+
+
+Overfull \hbox (21.12pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 nada
+ []
+
+
+Overfull \hbox (16.69pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ver-
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ti-
+ []
+
+
+Overfull \hbox (16.11pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cal)
+ []
+
+
+Overfull \hbox (19.72pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 mul-
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ti-
+ []
+
+
+Overfull \hbox (14.45pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 pli-
+ []
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cado
+ []
+
+
+Overfull \hbox (14.76pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 por
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (12.25pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ra-
+ []
+
+
+Overfull \hbox (13.34pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 dio
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (33.39pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 sumada
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (20.89pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 posi-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 ción
+ []
+
+
+Overfull \hbox (12.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 del
+ []
+
+
+Overfull \hbox (17.77pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cen-
+ []
+
+
+Overfull \hbox (12.81pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 tro
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 264--265
+\TU/lmr/m/n/10 cia. 
+ []
+
+
+Overfull \hbox (18.06pt too wide) in paragraph at lines 266--267
+[]\TU/lmr/m/n/10 Una
+ []
+
+
+Overfull \hbox (13.88pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 vez
+ []
+
+
+Overfull \hbox (37.79001pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 obtenida
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (20.89pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 posi-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 ción
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (25.29001pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 punto
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 la
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 cia,
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 lo
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (25.33pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 jamos
+ []
+
+
+Overfull \hbox (12.83pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 us-
+ []
+
+
+Overfull \hbox (21.12pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 ando
+ []
+
+
+Overfull \hbox (22.55pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 nues-
+ []
+
+
+Overfull \hbox (12.81pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 tra
+ []
+
+
+Overfull \hbox (17.51pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 fun-
+ []
+
+
+Overfull \hbox (17.78pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 ción
+ []
+
+
+Overfull \hbox (12.78pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 del
+ []
+
+
+Overfull \hbox (16.66pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 mo-
+ []
+
+
+Overfull \hbox (12.81pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 tor
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (11.98pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 jar
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 pun-
+ []
+
+
+Overfull \hbox (15.61pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 tos,
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (8.38pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 se
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (23.36pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 carga
+ []
+
+
+Overfull \hbox (32.27pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 además
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (21.1pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 com-
+ []
+
+
+Overfull \hbox (17.81pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 pro-
+ []
+
+
+Overfull \hbox (14.48pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 bar
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 que
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (25.29001pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 punto
+ []
+
+
+Overfull \hbox (16.71pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 esté
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 den-
+ []
+
+
+Overfull \hbox (12.81pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 tro
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (11.72pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 los
+ []
+
+
+Overfull \hbox (28.94pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 límites
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (19.45pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 pan-
+ []
+
+
+Overfull \hbox (22.23pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 talla,
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (14.5pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 nos
+ []
+
+
+Overfull \hbox (17.53pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 per-
+ []
+
+
+Overfull \hbox (19.44pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 mite
+ []
+
+
+Overfull \hbox (32.27pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 además
+ []
+
+
+Overfull \hbox (30.64pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 pasarle
+ []
+
+
+Overfull \hbox (39.47pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 parámet-
+ []
+
+
+Overfull \hbox (12.86pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 ros
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (21.14pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 color
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (32.78pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 tamaño
+ []
+
+
+Overfull \hbox (12.78pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 del
+ []
+
+
+Overfull \hbox (25.29001pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 punto
+ []
+
+
+Overfull \hbox (32.23pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 (blanco
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (11.12pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 un
+ []
+
+
+Overfull \hbox (20.84pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 píxel
+ []
+
+
+Overfull \hbox (19.48pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 para
+ []
+
+
+Overfull \hbox (7.22pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 el
+ []
+
+
+Overfull \hbox (23.6pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 ejem-
+ []
+
+
+Overfull \hbox (20.01pt too wide) in paragraph at lines 266--267
+\TU/lmr/m/n/10 plo). 
+ []
+
+
+! LaTeX Error: Environment lstlisting undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.268 \begin{lstlisting}
+                        [style=C-color, caption={Algoritmo básico de dibujad...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Misplaced alignment tab character &.
+l.269 ... DotTunnelDemo::DrawCircle(const Circle &
+                                                  c)
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+
+Overfull \hbox (41.16pt too wide) in paragraph at lines 268--273
+[]\TU/lmr/m/n/10 [style=C-
+ []
+
+
+Overfull \hbox (23.92pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 color,
+ []
+
+
+Overfull \hbox (18.33pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 cap-
+ []
+
+
+Overfull \hbox (69.21pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 tion=Algoritmo
+ []
+
+
+Overfull \hbox (26.72pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 básico
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (22.79001pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 dibu-
+ []
+
+
+Overfull \hbox (18.62pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 jado
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 de
+ []
+
+
+Overfull \hbox (14.47pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 cir-
+ []
+
+
+Overfull \hbox (18.89pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 cun-
+ []
+
+
+Overfull \hbox (14.75pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 fer-
+ []
+
+
+Overfull \hbox (13.33pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 en-
+ []
+
+
+Overfull \hbox (112.34pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 cias,label=cod:drawcircle]
+ []
+
+
+Overfull \hbox (18.34pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 void
+ []
+
+
+Overfull \hbox (19.86pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 Dot-
+ []
+
+
+Overfull \hbox (20.84pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 Tun-
+ []
+
+
+Overfull \hbox (119.55pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 nelDemo::DrawCircle(const
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 Cir-
+ []
+
+
+Overfull \hbox (11.66pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 cle
+ []
+
+
+Overfull \hbox (8.33pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 c)
+ []
+
+
+Overfull \hbox (22.83pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 const
+ []
+
+
+Overfull \hbox (19.45pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 float
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 in-
+ []
+
+
+Overfull \hbox (16.13pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 cre-
+ []
+
+
+Overfull \hbox (21.94pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 ment
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 =
+ []
+
+
+Overfull \hbox (8.89pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 (2
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 *
+ []
+
+
+Overfull \hbox (38.40001pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 Fast::PI)
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 /
+ []
+
+
+Overfull \hbox (97.21pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 float(pointsPerCircle);
+ []
+
+
+Overfull \hbox (11.95pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 int
+ []
+
+
+Overfull \hbox (8.06pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 x,
+ []
+
+
+Overfull \hbox (8.06pt too wide) in paragraph at lines 268--273
+\TU/lmr/m/n/10 y; 
+ []
+
+
+Overfull \hbox (11.98pt too wide) in paragraph at lines 274--278
+[]\TU/lmr/m/n/10 for
+ []
+
+
+Overfull \hbox (23.34pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 (float
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 an-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 gle
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 =
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 0,
+ []
+
+
+Overfull \hbox (5.56pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 n
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 =
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 2
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 *
+ []
+
+
+Overfull \hbox (37.29001pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 Fast::PI;
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 an-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 gle
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 <
+ []
+
+
+Overfull \hbox (8.34pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 n;
+ []
+
+
+Overfull \hbox (13.89pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 an-
+ []
+
+
+Overfull \hbox (12.22pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 gle
+ []
+
+
+Overfull \hbox (15.56pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 +=
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 in-
+ []
+
+
+Overfull \hbox (16.13pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 cre-
+ []
+
+
+Overfull \hbox (25.83pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 ment)
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 x
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 =
+ []
+
+
+Overfull \hbox (43.94pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 cos(angle)
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 *
+ []
+
+
+Overfull \hbox (33.98pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 c.radius
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 +
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 c.x;
+ []
+
+
+Overfull \hbox (5.28pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 y
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 =
+ []
+
+
+Overfull \hbox (42.84pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 sin(angle)
+ []
+
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 *
+ []
+
+
+Overfull \hbox (33.98pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 c.radius
+ []
+
+
+Overfull \hbox (7.78pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 +
+ []
+
+
+Overfull \hbox (15.28pt too wide) in paragraph at lines 274--278
+\TU/lmr/m/n/10 c.y; 
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{lstlisting}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.282 \end{lstlisting}
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (59.76pt too wide) in paragraph at lines 279--283
+[]\TU/lmr/m/n/10 RenderDot(x,
+ []
+
+
+Overfull \hbox (7.23pt too wide) in paragraph at lines 279--283
+\TU/lmr/m/n/10 y,
+ []
+
+
+Overfull \hbox (47.65001pt too wide) in paragraph at lines 279--283
+\TU/lmr/m/n/10 Pixel(255),
+ []
+
+
+Overfull \hbox (11.67pt too wide) in paragraph at lines 279--283
+\TU/lmr/m/n/10 1);
+ []
+
+! Undefined control sequence.
+l.284 \subsection
                  {Refinamiento}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16821,52 +20749,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (57.64pt too wide) in paragraph at lines 253--254
+Overfull \hbox (57.64pt too wide) in paragraph at lines 284--285
 []\TU/lmr/m/n/10 Refinamiento 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 255--257
+Overfull \hbox (22.28pt too wide) in paragraph at lines 286--288
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 255--257
+Overfull \hbox (16.21pt too wide) in paragraph at lines 286--288
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 255--257
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 286--288
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 258--259
+Overfull \hbox (8.94pt too wide) in paragraph at lines 289--290
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 260--261
+Overfull \hbox (19.48pt too wide) in paragraph at lines 291--292
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 262--263
+Overfull \hbox (8.92pt too wide) in paragraph at lines 293--294
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 264--265
+Overfull \hbox (45.08pt too wide) in paragraph at lines 295--296
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 266--267
+Overfull \hbox (22.28pt too wide) in paragraph at lines 297--298
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.268 \subsection
+l.299 \subsection
                  {Resultado}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16875,52 +20803,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (43.53pt too wide) in paragraph at lines 268--269
+Overfull \hbox (43.53pt too wide) in paragraph at lines 299--300
 []\TU/lmr/m/n/10 Resultado 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 270--272
+Overfull \hbox (22.28pt too wide) in paragraph at lines 301--303
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 270--272
+Overfull \hbox (16.21pt too wide) in paragraph at lines 301--303
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 270--272
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 301--303
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 273--274
+Overfull \hbox (8.94pt too wide) in paragraph at lines 304--305
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 275--276
+Overfull \hbox (19.48pt too wide) in paragraph at lines 306--307
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 277--278
+Overfull \hbox (8.92pt too wide) in paragraph at lines 308--309
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 279--280
+Overfull \hbox (45.08pt too wide) in paragraph at lines 310--311
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 281--282
+Overfull \hbox (22.28pt too wide) in paragraph at lines 312--313
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.283 \section
+l.314 \section
               {Geometría}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16929,12 +20857,12 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (45.65001pt too wide) in paragraph at lines 283--284
+Overfull \hbox (45.65001pt too wide) in paragraph at lines 314--315
 []\TU/lmr/m/n/10 Geometría 
  []
 
 ! Undefined control sequence.
-l.286 \subsection
+l.317 \subsection
                  {Investigación inicial}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16943,62 +20871,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (56.72pt too wide) in paragraph at lines 286--287
+Overfull \hbox (56.72pt too wide) in paragraph at lines 317--318
 []\TU/lmr/m/n/10 Investigación
  []
 
 
-Overfull \hbox (14.45pt too wide) in paragraph at lines 286--287
+Overfull \hbox (14.45pt too wide) in paragraph at lines 317--318
 \TU/lmr/m/n/10 ini-
  []
 
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 286--287
+Overfull \hbox (15.0pt too wide) in paragraph at lines 317--318
 \TU/lmr/m/n/10 cial 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 288--290
+Overfull \hbox (22.28pt too wide) in paragraph at lines 319--321
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 288--290
+Overfull \hbox (16.21pt too wide) in paragraph at lines 319--321
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 288--290
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 319--321
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 291--292
+Overfull \hbox (8.94pt too wide) in paragraph at lines 322--323
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 293--294
+Overfull \hbox (19.48pt too wide) in paragraph at lines 324--325
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 295--296
+Overfull \hbox (8.92pt too wide) in paragraph at lines 326--327
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 297--298
+Overfull \hbox (45.08pt too wide) in paragraph at lines 328--329
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 299--300
+Overfull \hbox (22.28pt too wide) in paragraph at lines 330--331
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.301 \subsection
+l.332 \subsection
                  {Planteamiento formal}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17007,62 +20935,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (62.92pt too wide) in paragraph at lines 301--302
+Overfull \hbox (62.92pt too wide) in paragraph at lines 332--333
 []\TU/lmr/m/n/10 Planteamiento
  []
 
 
-Overfull \hbox (15.31pt too wide) in paragraph at lines 301--302
+Overfull \hbox (15.31pt too wide) in paragraph at lines 332--333
 \TU/lmr/m/n/10 for-
  []
 
 
-Overfull \hbox (16.11pt too wide) in paragraph at lines 301--302
+Overfull \hbox (16.11pt too wide) in paragraph at lines 332--333
 \TU/lmr/m/n/10 mal 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 303--305
+Overfull \hbox (22.28pt too wide) in paragraph at lines 334--336
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 303--305
+Overfull \hbox (16.21pt too wide) in paragraph at lines 334--336
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 303--305
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 334--336
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 306--307
+Overfull \hbox (8.94pt too wide) in paragraph at lines 337--338
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 308--309
+Overfull \hbox (19.48pt too wide) in paragraph at lines 339--340
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 310--311
+Overfull \hbox (8.92pt too wide) in paragraph at lines 341--342
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 312--313
+Overfull \hbox (45.08pt too wide) in paragraph at lines 343--344
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 314--315
+Overfull \hbox (22.28pt too wide) in paragraph at lines 345--346
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.316 \subsection
+l.347 \subsection
                  {Implementación}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17071,52 +20999,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (69.44pt too wide) in paragraph at lines 316--317
+Overfull \hbox (69.44pt too wide) in paragraph at lines 347--348
 []\TU/lmr/m/n/10 Implementación 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 318--320
+Overfull \hbox (22.28pt too wide) in paragraph at lines 349--351
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 318--320
+Overfull \hbox (16.21pt too wide) in paragraph at lines 349--351
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 318--320
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 349--351
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 321--322
+Overfull \hbox (8.94pt too wide) in paragraph at lines 352--353
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 323--324
+Overfull \hbox (19.48pt too wide) in paragraph at lines 354--355
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 325--326
+Overfull \hbox (8.92pt too wide) in paragraph at lines 356--357
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 327--328
+Overfull \hbox (45.08pt too wide) in paragraph at lines 358--359
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 329--330
+Overfull \hbox (22.28pt too wide) in paragraph at lines 360--361
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.331 \subsection
+l.362 \subsection
                  {Refinamiento}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17125,52 +21053,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (57.64pt too wide) in paragraph at lines 331--332
+Overfull \hbox (57.64pt too wide) in paragraph at lines 362--363
 []\TU/lmr/m/n/10 Refinamiento 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 333--335
+Overfull \hbox (22.28pt too wide) in paragraph at lines 364--366
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 333--335
+Overfull \hbox (16.21pt too wide) in paragraph at lines 364--366
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 333--335
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 364--366
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 336--337
+Overfull \hbox (8.94pt too wide) in paragraph at lines 367--368
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 338--339
+Overfull \hbox (19.48pt too wide) in paragraph at lines 369--370
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 340--341
+Overfull \hbox (8.92pt too wide) in paragraph at lines 371--372
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 342--343
+Overfull \hbox (45.08pt too wide) in paragraph at lines 373--374
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 344--345
+Overfull \hbox (22.28pt too wide) in paragraph at lines 375--376
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.346 \subsection
+l.377 \subsection
                  {Resultado}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17179,52 +21107,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (43.53pt too wide) in paragraph at lines 346--347
+Overfull \hbox (43.53pt too wide) in paragraph at lines 377--378
 []\TU/lmr/m/n/10 Resultado 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 348--350
+Overfull \hbox (22.28pt too wide) in paragraph at lines 379--381
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 348--350
+Overfull \hbox (16.21pt too wide) in paragraph at lines 379--381
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 348--350
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 379--381
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 351--352
+Overfull \hbox (8.94pt too wide) in paragraph at lines 382--383
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 353--354
+Overfull \hbox (19.48pt too wide) in paragraph at lines 384--385
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 355--356
+Overfull \hbox (8.92pt too wide) in paragraph at lines 386--387
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 357--358
+Overfull \hbox (45.08pt too wide) in paragraph at lines 388--389
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 359--360
+Overfull \hbox (22.28pt too wide) in paragraph at lines 390--391
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.362 \section
+l.393 \section
               {Planos infinitos}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17233,27 +21161,27 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (29.09pt too wide) in paragraph at lines 362--363
+Overfull \hbox (29.09pt too wide) in paragraph at lines 393--394
 []\TU/lmr/m/n/10 Planos
  []
 
 
-Overfull \hbox (11.67pt too wide) in paragraph at lines 362--363
+Overfull \hbox (11.67pt too wide) in paragraph at lines 393--394
 \TU/lmr/m/n/10 in-
  []
 
 
-Overfull \hbox (17.23pt too wide) in paragraph at lines 362--363
+Overfull \hbox (17.23pt too wide) in paragraph at lines 393--394
 \TU/lmr/m/n/10 fini-
  []
 
 
-Overfull \hbox (12.83pt too wide) in paragraph at lines 362--363
+Overfull \hbox (12.83pt too wide) in paragraph at lines 393--394
 \TU/lmr/m/n/10 tos 
  []
 
 ! Undefined control sequence.
-l.364 \subsection
+l.395 \subsection
                  {Investigación inicial}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17262,62 +21190,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (56.72pt too wide) in paragraph at lines 364--365
+Overfull \hbox (56.72pt too wide) in paragraph at lines 395--396
 []\TU/lmr/m/n/10 Investigación
  []
 
 
-Overfull \hbox (14.45pt too wide) in paragraph at lines 364--365
+Overfull \hbox (14.45pt too wide) in paragraph at lines 395--396
 \TU/lmr/m/n/10 ini-
  []
 
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 364--365
+Overfull \hbox (15.0pt too wide) in paragraph at lines 395--396
 \TU/lmr/m/n/10 cial 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 366--368
+Overfull \hbox (22.28pt too wide) in paragraph at lines 397--399
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 366--368
+Overfull \hbox (16.21pt too wide) in paragraph at lines 397--399
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 366--368
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 397--399
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 369--370
+Overfull \hbox (8.94pt too wide) in paragraph at lines 400--401
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 371--372
+Overfull \hbox (19.48pt too wide) in paragraph at lines 402--403
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 373--374
+Overfull \hbox (8.92pt too wide) in paragraph at lines 404--405
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 375--376
+Overfull \hbox (45.08pt too wide) in paragraph at lines 406--407
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 377--378
+Overfull \hbox (22.28pt too wide) in paragraph at lines 408--409
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.379 \subsection
+l.410 \subsection
                  {Planteamiento formal}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17326,62 +21254,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (62.92pt too wide) in paragraph at lines 379--380
+Overfull \hbox (62.92pt too wide) in paragraph at lines 410--411
 []\TU/lmr/m/n/10 Planteamiento
  []
 
 
-Overfull \hbox (15.31pt too wide) in paragraph at lines 379--380
+Overfull \hbox (15.31pt too wide) in paragraph at lines 410--411
 \TU/lmr/m/n/10 for-
  []
 
 
-Overfull \hbox (16.11pt too wide) in paragraph at lines 379--380
+Overfull \hbox (16.11pt too wide) in paragraph at lines 410--411
 \TU/lmr/m/n/10 mal 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 381--383
+Overfull \hbox (22.28pt too wide) in paragraph at lines 412--414
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 381--383
+Overfull \hbox (16.21pt too wide) in paragraph at lines 412--414
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 381--383
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 412--414
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 384--385
+Overfull \hbox (8.94pt too wide) in paragraph at lines 415--416
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 386--387
+Overfull \hbox (19.48pt too wide) in paragraph at lines 417--418
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 388--389
+Overfull \hbox (8.92pt too wide) in paragraph at lines 419--420
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 390--391
+Overfull \hbox (45.08pt too wide) in paragraph at lines 421--422
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 392--393
+Overfull \hbox (22.28pt too wide) in paragraph at lines 423--424
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.394 \subsection
+l.425 \subsection
                  {Implementación}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17390,52 +21318,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (69.44pt too wide) in paragraph at lines 394--395
+Overfull \hbox (69.44pt too wide) in paragraph at lines 425--426
 []\TU/lmr/m/n/10 Implementación 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 396--398
+Overfull \hbox (22.28pt too wide) in paragraph at lines 427--429
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 396--398
+Overfull \hbox (16.21pt too wide) in paragraph at lines 427--429
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 396--398
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 427--429
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 399--400
+Overfull \hbox (8.94pt too wide) in paragraph at lines 430--431
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 401--402
+Overfull \hbox (19.48pt too wide) in paragraph at lines 432--433
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 403--404
+Overfull \hbox (8.92pt too wide) in paragraph at lines 434--435
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 405--406
+Overfull \hbox (45.08pt too wide) in paragraph at lines 436--437
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 407--408
+Overfull \hbox (22.28pt too wide) in paragraph at lines 438--439
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.409 \subsection
+l.440 \subsection
                  {Refinamiento}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17444,52 +21372,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (57.64pt too wide) in paragraph at lines 409--410
+Overfull \hbox (57.64pt too wide) in paragraph at lines 440--441
 []\TU/lmr/m/n/10 Refinamiento 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 411--413
+Overfull \hbox (22.28pt too wide) in paragraph at lines 442--444
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 411--413
+Overfull \hbox (16.21pt too wide) in paragraph at lines 442--444
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 411--413
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 442--444
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 414--415
+Overfull \hbox (8.94pt too wide) in paragraph at lines 445--446
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 416--417
+Overfull \hbox (19.48pt too wide) in paragraph at lines 447--448
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 418--419
+Overfull \hbox (8.92pt too wide) in paragraph at lines 449--450
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 420--421
+Overfull \hbox (45.08pt too wide) in paragraph at lines 451--452
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 422--423
+Overfull \hbox (22.28pt too wide) in paragraph at lines 453--454
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.424 \subsection
+l.455 \subsection
                  {Resultado}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17498,52 +21426,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (43.53pt too wide) in paragraph at lines 424--425
+Overfull \hbox (43.53pt too wide) in paragraph at lines 455--456
 []\TU/lmr/m/n/10 Resultado 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 426--428
+Overfull \hbox (22.28pt too wide) in paragraph at lines 457--459
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 426--428
+Overfull \hbox (16.21pt too wide) in paragraph at lines 457--459
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 426--428
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 457--459
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 429--430
+Overfull \hbox (8.94pt too wide) in paragraph at lines 460--461
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 431--432
+Overfull \hbox (19.48pt too wide) in paragraph at lines 462--463
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 433--434
+Overfull \hbox (8.92pt too wide) in paragraph at lines 464--465
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 435--436
+Overfull \hbox (45.08pt too wide) in paragraph at lines 466--467
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 437--438
+Overfull \hbox (22.28pt too wide) in paragraph at lines 468--469
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.440 \section
+l.471 \section
               {Plasma}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17552,12 +21480,12 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (31.86pt too wide) in paragraph at lines 440--441
+Overfull \hbox (31.86pt too wide) in paragraph at lines 471--472
 []\TU/lmr/m/n/10 Plasma 
  []
 
 ! Undefined control sequence.
-l.442 \subsection
+l.473 \subsection
                  {Investigación inicial}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17566,62 +21494,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (56.72pt too wide) in paragraph at lines 442--443
+Overfull \hbox (56.72pt too wide) in paragraph at lines 473--474
 []\TU/lmr/m/n/10 Investigación
  []
 
 
-Overfull \hbox (14.45pt too wide) in paragraph at lines 442--443
+Overfull \hbox (14.45pt too wide) in paragraph at lines 473--474
 \TU/lmr/m/n/10 ini-
  []
 
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 442--443
+Overfull \hbox (15.0pt too wide) in paragraph at lines 473--474
 \TU/lmr/m/n/10 cial 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 444--446
+Overfull \hbox (22.28pt too wide) in paragraph at lines 475--477
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 444--446
+Overfull \hbox (16.21pt too wide) in paragraph at lines 475--477
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 444--446
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 475--477
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 447--448
+Overfull \hbox (8.94pt too wide) in paragraph at lines 478--479
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 449--450
+Overfull \hbox (19.48pt too wide) in paragraph at lines 480--481
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 451--452
+Overfull \hbox (8.92pt too wide) in paragraph at lines 482--483
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 453--454
+Overfull \hbox (45.08pt too wide) in paragraph at lines 484--485
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 455--456
+Overfull \hbox (22.28pt too wide) in paragraph at lines 486--487
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.457 \subsection
+l.488 \subsection
                  {Planteamiento formal}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17630,62 +21558,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (62.92pt too wide) in paragraph at lines 457--458
+Overfull \hbox (62.92pt too wide) in paragraph at lines 488--489
 []\TU/lmr/m/n/10 Planteamiento
  []
 
 
-Overfull \hbox (15.31pt too wide) in paragraph at lines 457--458
+Overfull \hbox (15.31pt too wide) in paragraph at lines 488--489
 \TU/lmr/m/n/10 for-
  []
 
 
-Overfull \hbox (16.11pt too wide) in paragraph at lines 457--458
+Overfull \hbox (16.11pt too wide) in paragraph at lines 488--489
 \TU/lmr/m/n/10 mal 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 459--461
+Overfull \hbox (22.28pt too wide) in paragraph at lines 490--492
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 459--461
+Overfull \hbox (16.21pt too wide) in paragraph at lines 490--492
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 459--461
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 490--492
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 462--463
+Overfull \hbox (8.94pt too wide) in paragraph at lines 493--494
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 464--465
+Overfull \hbox (19.48pt too wide) in paragraph at lines 495--496
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 466--467
+Overfull \hbox (8.92pt too wide) in paragraph at lines 497--498
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 468--469
+Overfull \hbox (45.08pt too wide) in paragraph at lines 499--500
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 470--471
+Overfull \hbox (22.28pt too wide) in paragraph at lines 501--502
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.472 \subsection
+l.503 \subsection
                  {Implementación}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17694,52 +21622,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (69.44pt too wide) in paragraph at lines 472--473
+Overfull \hbox (69.44pt too wide) in paragraph at lines 503--504
 []\TU/lmr/m/n/10 Implementación 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 474--476
+Overfull \hbox (22.28pt too wide) in paragraph at lines 505--507
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 474--476
+Overfull \hbox (16.21pt too wide) in paragraph at lines 505--507
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 474--476
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 505--507
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 477--478
+Overfull \hbox (8.94pt too wide) in paragraph at lines 508--509
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 479--480
+Overfull \hbox (19.48pt too wide) in paragraph at lines 510--511
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 481--482
+Overfull \hbox (8.92pt too wide) in paragraph at lines 512--513
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 483--484
+Overfull \hbox (45.08pt too wide) in paragraph at lines 514--515
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 485--486
+Overfull \hbox (22.28pt too wide) in paragraph at lines 516--517
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.487 \subsection
+l.518 \subsection
                  {Refinamiento}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17748,52 +21676,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (57.64pt too wide) in paragraph at lines 487--488
+Overfull \hbox (57.64pt too wide) in paragraph at lines 518--519
 []\TU/lmr/m/n/10 Refinamiento 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 489--491
+Overfull \hbox (22.28pt too wide) in paragraph at lines 520--522
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 489--491
+Overfull \hbox (16.21pt too wide) in paragraph at lines 520--522
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 489--491
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 520--522
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 492--493
+Overfull \hbox (8.94pt too wide) in paragraph at lines 523--524
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 494--495
+Overfull \hbox (19.48pt too wide) in paragraph at lines 525--526
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 496--497
+Overfull \hbox (8.92pt too wide) in paragraph at lines 527--528
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 498--499
+Overfull \hbox (45.08pt too wide) in paragraph at lines 529--530
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 500--501
+Overfull \hbox (22.28pt too wide) in paragraph at lines 531--532
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.502 \subsection
+l.533 \subsection
                  {Resultado}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17802,52 +21730,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (43.53pt too wide) in paragraph at lines 502--503
+Overfull \hbox (43.53pt too wide) in paragraph at lines 533--534
 []\TU/lmr/m/n/10 Resultado 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 504--506
+Overfull \hbox (22.28pt too wide) in paragraph at lines 535--537
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 504--506
+Overfull \hbox (16.21pt too wide) in paragraph at lines 535--537
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 504--506
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 535--537
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 507--508
+Overfull \hbox (8.94pt too wide) in paragraph at lines 538--539
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 509--510
+Overfull \hbox (19.48pt too wide) in paragraph at lines 540--541
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 511--512
+Overfull \hbox (8.92pt too wide) in paragraph at lines 542--543
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 513--514
+Overfull \hbox (45.08pt too wide) in paragraph at lines 544--545
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 515--516
+Overfull \hbox (22.28pt too wide) in paragraph at lines 546--547
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.518 \section
+l.549 \section
               {RotoZoom}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17856,12 +21784,12 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (45.97pt too wide) in paragraph at lines 518--519
+Overfull \hbox (45.97pt too wide) in paragraph at lines 549--550
 []\TU/lmr/m/n/10 RotoZoom 
  []
 
 ! Undefined control sequence.
-l.520 \subsection
+l.551 \subsection
                  {Investigación inicial}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17870,62 +21798,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (56.72pt too wide) in paragraph at lines 520--521
+Overfull \hbox (56.72pt too wide) in paragraph at lines 551--552
 []\TU/lmr/m/n/10 Investigación
  []
 
 
-Overfull \hbox (14.45pt too wide) in paragraph at lines 520--521
+Overfull \hbox (14.45pt too wide) in paragraph at lines 551--552
 \TU/lmr/m/n/10 ini-
  []
 
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 520--521
+Overfull \hbox (15.0pt too wide) in paragraph at lines 551--552
 \TU/lmr/m/n/10 cial 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 522--524
+Overfull \hbox (22.28pt too wide) in paragraph at lines 553--555
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 522--524
+Overfull \hbox (16.21pt too wide) in paragraph at lines 553--555
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 522--524
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 553--555
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 525--526
+Overfull \hbox (8.94pt too wide) in paragraph at lines 556--557
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 527--528
+Overfull \hbox (19.48pt too wide) in paragraph at lines 558--559
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 529--530
+Overfull \hbox (8.92pt too wide) in paragraph at lines 560--561
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 531--532
+Overfull \hbox (45.08pt too wide) in paragraph at lines 562--563
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 533--534
+Overfull \hbox (22.28pt too wide) in paragraph at lines 564--565
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.535 \subsection
+l.566 \subsection
                  {Planteamiento formal}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17934,62 +21862,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (62.92pt too wide) in paragraph at lines 535--536
+Overfull \hbox (62.92pt too wide) in paragraph at lines 566--567
 []\TU/lmr/m/n/10 Planteamiento
  []
 
 
-Overfull \hbox (15.31pt too wide) in paragraph at lines 535--536
+Overfull \hbox (15.31pt too wide) in paragraph at lines 566--567
 \TU/lmr/m/n/10 for-
  []
 
 
-Overfull \hbox (16.11pt too wide) in paragraph at lines 535--536
+Overfull \hbox (16.11pt too wide) in paragraph at lines 566--567
 \TU/lmr/m/n/10 mal 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 537--539
+Overfull \hbox (22.28pt too wide) in paragraph at lines 568--570
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 537--539
+Overfull \hbox (16.21pt too wide) in paragraph at lines 568--570
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 537--539
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 568--570
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 540--541
+Overfull \hbox (8.94pt too wide) in paragraph at lines 571--572
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 542--543
+Overfull \hbox (19.48pt too wide) in paragraph at lines 573--574
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 544--545
+Overfull \hbox (8.92pt too wide) in paragraph at lines 575--576
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 546--547
+Overfull \hbox (45.08pt too wide) in paragraph at lines 577--578
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 548--549
+Overfull \hbox (22.28pt too wide) in paragraph at lines 579--580
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.550 \subsection
+l.581 \subsection
                  {Implementación}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17998,52 +21926,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (69.44pt too wide) in paragraph at lines 550--551
+Overfull \hbox (69.44pt too wide) in paragraph at lines 581--582
 []\TU/lmr/m/n/10 Implementación 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 552--554
+Overfull \hbox (22.28pt too wide) in paragraph at lines 583--585
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 552--554
+Overfull \hbox (16.21pt too wide) in paragraph at lines 583--585
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 552--554
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 583--585
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 555--556
+Overfull \hbox (8.94pt too wide) in paragraph at lines 586--587
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 557--558
+Overfull \hbox (19.48pt too wide) in paragraph at lines 588--589
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 559--560
+Overfull \hbox (8.92pt too wide) in paragraph at lines 590--591
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 561--562
+Overfull \hbox (45.08pt too wide) in paragraph at lines 592--593
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 563--564
+Overfull \hbox (22.28pt too wide) in paragraph at lines 594--595
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.565 \subsection
+l.596 \subsection
                  {Refinamiento}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18052,52 +21980,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (57.64pt too wide) in paragraph at lines 565--566
+Overfull \hbox (57.64pt too wide) in paragraph at lines 596--597
 []\TU/lmr/m/n/10 Refinamiento 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 567--569
+Overfull \hbox (22.28pt too wide) in paragraph at lines 598--600
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 567--569
+Overfull \hbox (16.21pt too wide) in paragraph at lines 598--600
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 567--569
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 598--600
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 570--571
+Overfull \hbox (8.94pt too wide) in paragraph at lines 601--602
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 572--573
+Overfull \hbox (19.48pt too wide) in paragraph at lines 603--604
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 574--575
+Overfull \hbox (8.92pt too wide) in paragraph at lines 605--606
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 576--577
+Overfull \hbox (45.08pt too wide) in paragraph at lines 607--608
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 578--579
+Overfull \hbox (22.28pt too wide) in paragraph at lines 609--610
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.580 \subsection
+l.611 \subsection
                  {Resultado}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18106,52 +22034,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (43.53pt too wide) in paragraph at lines 580--581
+Overfull \hbox (43.53pt too wide) in paragraph at lines 611--612
 []\TU/lmr/m/n/10 Resultado 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 582--584
+Overfull \hbox (22.28pt too wide) in paragraph at lines 613--615
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 582--584
+Overfull \hbox (16.21pt too wide) in paragraph at lines 613--615
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 582--584
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 613--615
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 585--586
+Overfull \hbox (8.94pt too wide) in paragraph at lines 616--617
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 587--588
+Overfull \hbox (19.48pt too wide) in paragraph at lines 618--619
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 589--590
+Overfull \hbox (8.92pt too wide) in paragraph at lines 620--621
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 591--592
+Overfull \hbox (45.08pt too wide) in paragraph at lines 622--623
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 593--594
+Overfull \hbox (22.28pt too wide) in paragraph at lines 624--625
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.596 \section
+l.627 \section
               {Deformaciones de imagen}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18160,32 +22088,32 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (63.55pt too wide) in paragraph at lines 596--597
+Overfull \hbox (63.55pt too wide) in paragraph at lines 627--628
 []\TU/lmr/m/n/10 Deformaciones
  []
 
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 596--597
+Overfull \hbox (10.0pt too wide) in paragraph at lines 627--628
 \TU/lmr/m/n/10 de
  []
 
 
-Overfull \hbox (14.44pt too wide) in paragraph at lines 596--597
+Overfull \hbox (14.44pt too wide) in paragraph at lines 627--628
 \TU/lmr/m/n/10 im-
  []
 
 
-Overfull \hbox (8.33pt too wide) in paragraph at lines 596--597
+Overfull \hbox (8.33pt too wide) in paragraph at lines 627--628
 \TU/lmr/m/n/10 a-
  []
 
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 596--597
+Overfull \hbox (15.0pt too wide) in paragraph at lines 627--628
 \TU/lmr/m/n/10 gen 
  []
 
 ! Undefined control sequence.
-l.598 \subsection
+l.629 \subsection
                  {Investigación inicial}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18194,62 +22122,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (56.72pt too wide) in paragraph at lines 598--599
+Overfull \hbox (56.72pt too wide) in paragraph at lines 629--630
 []\TU/lmr/m/n/10 Investigación
  []
 
 
-Overfull \hbox (14.45pt too wide) in paragraph at lines 598--599
+Overfull \hbox (14.45pt too wide) in paragraph at lines 629--630
 \TU/lmr/m/n/10 ini-
  []
 
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 598--599
+Overfull \hbox (15.0pt too wide) in paragraph at lines 629--630
 \TU/lmr/m/n/10 cial 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 600--602
+Overfull \hbox (22.28pt too wide) in paragraph at lines 631--633
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 600--602
+Overfull \hbox (16.21pt too wide) in paragraph at lines 631--633
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 600--602
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 631--633
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 603--604
+Overfull \hbox (8.94pt too wide) in paragraph at lines 634--635
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 605--606
+Overfull \hbox (19.48pt too wide) in paragraph at lines 636--637
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 607--608
+Overfull \hbox (8.92pt too wide) in paragraph at lines 638--639
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 609--610
+Overfull \hbox (45.08pt too wide) in paragraph at lines 640--641
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 611--612
+Overfull \hbox (22.28pt too wide) in paragraph at lines 642--643
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.613 \subsection
+l.644 \subsection
                  {Planteamiento formal}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18258,62 +22186,62 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (62.92pt too wide) in paragraph at lines 613--614
+Overfull \hbox (62.92pt too wide) in paragraph at lines 644--645
 []\TU/lmr/m/n/10 Planteamiento
  []
 
 
-Overfull \hbox (15.31pt too wide) in paragraph at lines 613--614
+Overfull \hbox (15.31pt too wide) in paragraph at lines 644--645
 \TU/lmr/m/n/10 for-
  []
 
 
-Overfull \hbox (16.11pt too wide) in paragraph at lines 613--614
+Overfull \hbox (16.11pt too wide) in paragraph at lines 644--645
 \TU/lmr/m/n/10 mal 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 615--617
+Overfull \hbox (22.28pt too wide) in paragraph at lines 646--648
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 615--617
+Overfull \hbox (16.21pt too wide) in paragraph at lines 646--648
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 615--617
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 646--648
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 618--619
+Overfull \hbox (8.94pt too wide) in paragraph at lines 649--650
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 620--621
+Overfull \hbox (19.48pt too wide) in paragraph at lines 651--652
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 622--623
+Overfull \hbox (8.92pt too wide) in paragraph at lines 653--654
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 624--625
+Overfull \hbox (45.08pt too wide) in paragraph at lines 655--656
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 626--627
+Overfull \hbox (22.28pt too wide) in paragraph at lines 657--658
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.628 \subsection
+l.659 \subsection
                  {Implementación}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18322,52 +22250,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (69.44pt too wide) in paragraph at lines 628--629
+Overfull \hbox (69.44pt too wide) in paragraph at lines 659--660
 []\TU/lmr/m/n/10 Implementación 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 630--632
+Overfull \hbox (22.28pt too wide) in paragraph at lines 661--663
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 630--632
+Overfull \hbox (16.21pt too wide) in paragraph at lines 661--663
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 630--632
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 661--663
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 633--634
+Overfull \hbox (8.94pt too wide) in paragraph at lines 664--665
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 635--636
+Overfull \hbox (19.48pt too wide) in paragraph at lines 666--667
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 637--638
+Overfull \hbox (8.92pt too wide) in paragraph at lines 668--669
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 639--640
+Overfull \hbox (45.08pt too wide) in paragraph at lines 670--671
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 641--642
+Overfull \hbox (22.28pt too wide) in paragraph at lines 672--673
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.643 \subsection
+l.674 \subsection
                  {Refinamiento}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18376,52 +22304,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (57.64pt too wide) in paragraph at lines 643--644
+Overfull \hbox (57.64pt too wide) in paragraph at lines 674--675
 []\TU/lmr/m/n/10 Refinamiento 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 645--647
+Overfull \hbox (22.28pt too wide) in paragraph at lines 676--678
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 645--647
+Overfull \hbox (16.21pt too wide) in paragraph at lines 676--678
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 645--647
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 676--678
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 648--649
+Overfull \hbox (8.94pt too wide) in paragraph at lines 679--680
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 650--651
+Overfull \hbox (19.48pt too wide) in paragraph at lines 681--682
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 652--653
+Overfull \hbox (8.92pt too wide) in paragraph at lines 683--684
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 654--655
+Overfull \hbox (45.08pt too wide) in paragraph at lines 685--686
 []\TU/lmr/m/n/10 ergregearg 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 656--657
+Overfull \hbox (22.28pt too wide) in paragraph at lines 687--688
 []\TU/lmr/m/n/10 rgerg 
  []
 
 ! Undefined control sequence.
-l.658 \subsection
+l.689 \subsection
                  {Resultado}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18430,42 +22358,42 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (43.53pt too wide) in paragraph at lines 658--659
+Overfull \hbox (43.53pt too wide) in paragraph at lines 689--690
 []\TU/lmr/m/n/10 Resultado 
  []
 
 
-Overfull \hbox (22.28pt too wide) in paragraph at lines 660--662
+Overfull \hbox (22.28pt too wide) in paragraph at lines 691--693
 []\TU/lmr/m/n/10 rgerg
  []
 
 
-Overfull \hbox (16.21pt too wide) in paragraph at lines 660--662
+Overfull \hbox (16.21pt too wide) in paragraph at lines 691--693
 \TU/lmr/m/n/10 sgs-
  []
 
 
-Overfull \hbox (28.68001pt too wide) in paragraph at lines 660--662
+Overfull \hbox (28.68001pt too wide) in paragraph at lines 691--693
 \TU/lmr/m/n/10 dgsfdh 
  []
 
 
-Overfull \hbox (8.94pt too wide) in paragraph at lines 663--664
+Overfull \hbox (8.94pt too wide) in paragraph at lines 694--695
 []\TU/lmr/m/n/10 sg 
  []
 
 
-Overfull \hbox (19.48pt too wide) in paragraph at lines 665--666
+Overfull \hbox (19.48pt too wide) in paragraph at lines 696--697
 []\TU/lmr/m/n/10 drga 
  []
 
 
-Overfull \hbox (8.92pt too wide) in paragraph at lines 667--668
+Overfull \hbox (8.92pt too wide) in paragraph at lines 698--699
 []\TU/lmr/m/n/10 rg 
  []
 
 
-Overfull \hbox (45.08pt too wide) in paragraph at lines 669--670
+Overfull \hbox (45.08pt too wide) in paragraph at lines 700--701
 []\TU/lmr/m/n/10 ergregearg 
  []
 
@@ -18477,10 +22405,10 @@ Overfull \hbox (45.08pt too wide) in paragraph at lines 669--670
 
  
 Here is how much of TeX's memory you used:
- 41 strings out of 427748
- 712 string characters out of 3147201
- 163491 words of memory out of 3000000
- 4168 multiletter control sequences out of 15000+200000
+ 43 strings out of 427748
+ 743 string characters out of 3147201
+ 186491 words of memory out of 3000000
+ 4170 multiletter control sequences out of 15000+200000
  3672 words of font info for 18 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  24i,11n,14p,860b,298s stack positions out of 5000i,500n,10000p,200000b,50000s

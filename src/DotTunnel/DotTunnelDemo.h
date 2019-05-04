@@ -50,6 +50,7 @@ class DotTunnelDemo : public ClassicDemoTemplate
     int maxCircleRadius;
     int dotSize;
     int circlesGapDistance;
+    int pointsPerCircle;
 
     float pathX, pathY;
     TurbulencePath *turbulencePath;
