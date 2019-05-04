@@ -283,7 +283,7 @@ void DotTunnelDemo::DrawCircle(const Circle &c)
 
 Una vez podemos dibujar círculos, llega el momento de poder gestionar una serie de círculos y su ciclo de vida (creación, actualizaciones periódicas con radio creciente y destrucción alcanzado un cierto tamaño).\\
 
-Para ello primero debemos preguntarnos, ¿cómo se comporta nuestro túnel? La respuesta es que para la estructura del túnel, lo que queremos es ir añadiendo nuevos círculos al principio del túnel y vamos eliminando los círculos que están al final del túnel cuando alcanzan cierto tamaño. Así pues, esta es una estructura FIFO (\emph{first-in, first-out}) o el primer elemento en crearse es el primer elemento en borrarse. Podríamos pensar que con usar un estructura de cola nos bastaría \lstinline{std::queue} \footnote{\url{https://en.cppreference.com/w/cpp/container/queue}}, sin embargo, una cola sólo permite crear un nuevo elemento al final de la estructura y borrarlo al principio, y además no permite el acceso a los elementos intermedios (que nosotros necesitamos para poder actualizarlos).\\
+Para ello primero debemos preguntarnos, ¿cómo se comporta nuestro túnel? La respuesta es que para la estructura del túnel, lo que queremos es ir añadiendo nuevos círculos al principio del túnel y vamos eliminando los círculos que están al final del túnel cuando alcanzan cierto tamaño. Así pues, esta es una estructura FIFO (\emph{first-in, first-out}) o el primer elemento en crearse es el primer elemento en borrarse. Podríamos pensar que con usar una estructura de cola (\lstinline{std::queue}\footnote{\url{https://en.cppreference.com/w/cpp/container/queue}}) nos bastaría, sin embargo, una cola sólo permite crear un nuevo elemento al final de la estructura y borrarlo al principio, y además no permite el acceso a los elementos intermedios (que nosotros necesitamos para poder actualizarlos).\\
 
 Por suerte, no obstante, hay una estructura similar que cumple todos los requisitos que necesitamos: \lstinline{std::deque}\footnote{\url{https://en.cppreference.com/w/cpp/container/deque}} (\emph{double-ended queue}). Aunque el nombre puede resultar algo extraño (cola con doble final), ¡esta estructura satisface coste constante para todas las operaciones que necesitamos! El coste de la inserción y borrado de elementos son constantes al principio y al final de la cola, y además el acceso aleatorio (acceso a un elemento cualquiera de la cola) es también constante. Por tanto, usaremos esta estructura para contener los círculos que formarán nuestro túnel.\\
 
@@ -301,7 +301,61 @@ void DotTunnelDemo::PopulateCircleQueue()
 }
 \end{lstlisting}
 
-Como podemos ver en el código [\ref{cod:populatecirclequeue}], usando esta estructura es muy sencillo añadir y eliminar elementos de nuestro túnel. La lógica que seguimos es: si el último círculo que ha sido añadido alcanza cierto tamaño, entonces añadimos un nuevo círculo al túnel. Del mismo modo, cuando el círculo que más tiempo lleva en la cola alcanza cierto tamaño, es eliminado. Cabe notar que para añadir nuevas circunferencias a la cola, se hace una copia de una instancia que creamos en la inicialización del programa, y que contiene los valores de creación de un círculo por defecto.\\
+Como podemos ver en el código [\ref{cod:populatecirclequeue}], usando esta estructura es muy sencillo añadir y eliminar elementos de nuestro túnel. La lógica que seguimos es: si el último círculo que ha sido añadido alcanza cierto tamaño, entonces añadimos un nuevo círculo al túnel. Del mismo modo, cuando el círculo que más tiempo lleva en la cola alcanza cierto tamaño, es eliminado. Cabe notar que para añadir nuevas circunferencias a la cola, se hace una copia de una instancia que creamos en la inicialización del programa, y que contiene los valores de creación de un círculo por defecto. Además, para que este código funcione correctamente, debe haber al menos un elemento previamente insertado en la cola, es decir, no puede estar vacía. Es por eso que durante la inicialización de la demo también se añade un círculo a la cola, copiado de la instancia por defecto.\\
+
+\begin{lstlisting}[style=C-color, caption={Actualización del túnel},label=cod:updatecirclequeue,escapechar=|]
+void DotTunnelDemo::UpdateCircleQueue(float deltaTime)
+{
+    for (auto c : circles)
+    {
+        EraseCircle(c);|\label{line:erasecircle}|
+    }
+
+    PopulateCircleQueue();
+
+    for (auto &c : circles)
+    {
+        UpdateCircle(c, deltaTime);|\label{line:updatecircle}|
+        DrawCircle(c);
+    }
+}
+\end{lstlisting}
+
+Una vez que podemos dibujar círculos [\ref{cod:drawcircle}] y tenemos una estructura que representa nuestro túnel sobre la que podemos insertar y eliminar elementos [\ref{cod:populatecirclequeue}], llega el momento de dibujar nuestro túnel en pantalla, el proceso es bastante sencillo [\ref{cod:updatecirclequeue}].\\
+
+Lo primero que hacemos es recorrer todos los círculos que conforman el túnel y borrarlos en pantalla, en la línea [\ref{line:erasecircle}]. Es importante notar que esta función no está eliminando los círculos de la cola, si no que simplemente \emph{borra en pantalla}. Internamente esta función llama a la función de dibujado [\ref{cod:drawcircle}] pero con una copia del círculo en color negro. Así, lo que hacemos al inicio de cada actualización es borrar los círculos \emph{que se dibujaron en el fotograma anterior}, previo a la actualización de los valores de los círculos. De este modo, en lugar de tener que poner a negro todos píxeles de la pantalla (que en alta definición son más de un millón), ponemos a negro sólo aquellos píxeles que fueron modificados en el fotograma anterior (que son cientos de píxeles, pero no miles o millones). Al borrar de este modo, se produce una gran optimización.\\
+
+Tras haber borrado la pantalla, llamamos a la función [\ref{cod:populatecirclequeue}], que puede añadir o eliminar círculos del túnel si se cumplen las condiciones necesarias.\\
+
+A continuación, actualizamos (línea [\ref{line:updatecircle}]) y redibujamos todos los círculos en pantalla. Actualmente, la actualización de un píxel es un proceso muy sencillo que consiste simplemente en ir aumentando el radio de cada círculo a lo largo del tiempo, en función de su radio anterior y una velocidad ajustable por el usuario (\lstinline{c.radius += c.radius * deltaTime * radiusVelocity;}).\{\\
+
+El resultado de todo lo aplicado hasta ahora se puede ver en la figura [\ref{fig:basicdottunnel}].\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=10cm]{archivos/basicdottunnel}
+	\caption{Túnel de puntos básico}
+	\label{fig:basicdottunnel}
+\end{figure}
+
+Ahora todo lo que nos queda por hacer es dotar de movimiento al túnel, es decir, que no sólo los círculos aumenten de radio, si no que su posición también varíe. No obstante, no es necesario modificar la posición de los círculos una vez han sido creados, basta con que el centro de cada círculo esté desplazado en cuanto a posición con respecto al círculo anterior en su momento de creación. En otras palabras, cada círculo se crea en una posición distinta con respecto al punto de creación del círculo anterior, pero el centro del círculo no se modifica posterior a su creación. Aunque pueda resultar curioso, no es necesario mover el centro del círculo una vez creado, basta con ir haciendo el radio progresivamente más grande para crear una sensación de movimiento convincente.\\
+
+Así pues, tan solo necesitamos crear cada círculo con una posición distinta pero coherente con respecto a la anterior, para dar sensación de continuidad. ¿Cómo podemos hacer esto?\\
+
+No podemos decidir las direcciones de forma aleatoria, pues de este modo el movimiento no parecerá coherente. Cabe la posibilidad, no obstante, de seguir direcciones que se deciden aleatoriamente cada cierto tiempo, pero que se mantienen fijas durante un intervalo. Si hacemos esto el movimiento tendría coherencia pero aún así parecería poco natural cada vez que cambiáramos de dirección, pudiéndose producir cambios de dirección bruscos. Una posibilidad ante esto es interpolar la dirección actual con la dirección futura, de modo que los cambios de dirección queden suavizados. Pero aun así surge un problema más, no podemos controlar si el túnel se sale de los límites de la pantalla. Podríamos hacer entonces que si el túnel está cerca del límite de la pantalla, la nueva dirección elegida fuera hacia el centro de la pantalla. Aunque esto podría causar sensación de que cuando el túnel se acerca al límite de la pantalla rebota... Podríamos seguir con este modelo, a partir de direcciones o movimientos aleatorios, pues es factible, pero el código y la cantidad de situaciones con las que hay que lidiar para que el resultado parezca natural aumenta en  complejidad por momentos.\\
+
+Fue por ello que cuando estaba pensando en cómo implementar este efecto, descarté esta opción. Pensando en otras opciones se me ocurrió la que sería la definitiva, construir un camino a partir de un punto que gira en torno a una "órbita" virtual que a su vez "orbita" en torno a otros puntos. Un poco de forma parecida a como orbitan los planetas, que si bien lo hacen bajo rutas perfectamente definidas, las combinaciones de órbitas a distintas velocidades dan resultado a trayectorias coherentes pero difíciles de predecir desde el punto de vista terráqueo [\ref{fig:cassini}].\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/cassini}
+	\caption{Órbitas de los planetas vistas desde la Tierra (por Giovanni Cassini) - Fuente: \href{https://es.wikipedia.org/wiki/Teoría_heliocéntrica\#/media/File:Cassini_apparent.jpg}{Wikipedia}}
+	\label{fig:cassini}
+\end{figure}
+
+Así, con el modelo geocéntrico en mente, me dispuse a crear una clase que fuera capaz de emular este tipo de movimiento: controlado pero difícil de predecir.\\
+
+me queda decir como hice el camino de turbulencia, luego toca explicar el refinamiento (color, opacidad, rotacion e input) y ya por ultimo queda mostrar los resultados, tras ello me pondré con los tests de rendimiento
 
 \subsection{Refinamiento}
 
@@ -333,8 +387,161 @@ ergregearg
 
 rgerg
 
-\section{Geometría}
+\section{RotoZoom}
 
+\subsection{Investigación inicial}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Planteamiento formal}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Implementación}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Refinamiento}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Resultado}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\section{Deformaciones de imagen}
+
+\subsection{Investigación inicial}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Planteamiento formal}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Implementación}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Refinamiento}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\subsection{Resultado}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\section{Plasma}
 
 \subsection{Investigación inicial}
 
@@ -490,163 +697,8 @@ ergregearg
 rgerg
 
 
-\section{Plasma}
+\section{Geometría}
 
-\subsection{Investigación inicial}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Planteamiento formal}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Implementación}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Refinamiento}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Resultado}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-
-\section{RotoZoom}
-
-\subsection{Investigación inicial}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Planteamiento formal}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Implementación}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Refinamiento}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-\subsection{Resultado}
-
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
-
-\section{Deformaciones de imagen}
 
 \subsection{Investigación inicial}
 
