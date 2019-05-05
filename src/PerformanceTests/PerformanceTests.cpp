@@ -11,10 +11,12 @@ int main()
     TestTemplate T("bin/PerformanceResults.txt");
 
     T.WriteMessageIntoScreenAndFile("----------------------------------------------------\n|");
-    T.WriteMessageIntoScreenAndFile("| Notice:  This is a 30 tests suite\n"
+    T.WriteMessageIntoScreenAndFile("| Notice:  This is a 37 tests suite\n"
                                     "|          Each Test is averaged over a total of 100 tests repeated\n"
                                     "|          Inside every test, each operation is reapeated 10000000 times\n"
                                     "|          in order to be measurable in time\n|");
+
+    /*
 
     T.ExecuteTest([]() {for (int j = 0; j < 10000000; j++); });
     T.WriteTestResultsIntoScreenAndFile("01", "Void For Loop with I++", T.CalculateAverageTime());
@@ -28,32 +30,6 @@ int main()
             i = j;
     } });
     T.WriteTestResultsIntoScreenAndFile("03", "Simple assignment (=)", T.CalculateAverageTime());
-    
-    {
-        int *k = new int[100000000];
-        T.CalculateAverageTime();
-        T.ExecuteTest([&k]() {
-        for(int j = 0; j < 10000; j++){
-            for(int i = 0; i < 10000; i++)
-            {
-                k[j * 10000 + i] = 100;
-            }
-        } });
-        T.WriteTestResultsIntoScreenAndFile("04", "Aligned memory access", T.CalculateAverageTime());
-        delete[] k;
-
-        k = new int[100000000];
-        T.CalculateAverageTime();
-        T.ExecuteTest([&k]() {
-        for(int i = 0; i < 10000; i++){
-            for(int j = 0; j < 10000; j++)
-            {
-                k[j * 10000 + i] = 100;
-            }
-        } });
-        T.WriteTestResultsIntoScreenAndFile("05", "Unaligned memory access", T.CalculateAverageTime());
-        delete[] k;
-    }
 
     int *k = new int[10000000];
     T.ExecuteTest([k, &i]() {
@@ -244,9 +220,93 @@ int main()
         for (int j = 0; j < 10000000; ++j) {
             i = cbrt(j);
     } });
-    T.WriteTestResultsIntoScreenAndFile("30", "Call cbrt()", T.CalculateAverageTime());
-    * /
-        T.WriteMessageIntoScreenAndFile("----------------------------------------------------");
+    T.WriteTestResultsIntoScreenAndFile("30", "Call cbrt()", T.CalculateAverageTime());*/
+
+    T.WriteMessageIntoScreenAndFile("----------------------------------------------------");
+
+    int *array0 = new int[1000000];
+    T.CalculateAverageTime();
+    T.ExecuteTest([&array0]() {
+        for(int j = 0; j < 1000; j++){
+            for(int i = 0; i < 1000; i++)
+            {
+                array0[j * 1000 + i] = 100;
+            }
+        } });
+    T.WriteTestResultsIntoScreenAndFile("31", "Aligned memory access - linear", T.CalculateAverageTime());
+    delete[] array0;
+
+    array0 = new int[100000];
+    T.CalculateAverageTime();
+    T.ExecuteTest([&array0]() {
+        for(int i = 0; i < 1000; i++){
+            for(int j = 0; j < 1000; j++)
+            {
+                array0[j * 10 + i] = 100;
+            }
+        } });
+    T.WriteTestResultsIntoScreenAndFile("32", "Unaligned memory access - from 10 to 10", T.CalculateAverageTime());
+    delete[] array0;
+
+    array0 = new int[1000000];
+    T.CalculateAverageTime();
+    T.ExecuteTest([&array0]() {
+        for(int i = 0; i < 1000; i++){
+            for(int j = 0; j < 1000; j++)
+            {
+                array0[j * 100 + i] = 100;
+            }
+        } });
+    T.WriteTestResultsIntoScreenAndFile("33", "Unaligned memory access - from 100 to 100", T.CalculateAverageTime());
+    delete[] array0;
+
+    array0 = new int[1000000];
+    T.CalculateAverageTime();
+    T.ExecuteTest([&array0]() {
+        for(int i = 0; i < 1000; i++){
+            for(int j = 0; j < 1000; j++)
+            {
+                array0[j * 1000 + i] = 100;
+            }
+        } });
+    T.WriteTestResultsIntoScreenAndFile("34", "Unaligned memory access - from 1000 to 1000", T.CalculateAverageTime());
+    delete[] array0;
+
+    array0 = new int[10000000];
+    T.CalculateAverageTime();
+    T.ExecuteTest([&array0]() {
+        for(int i = 0; i < 1000; i++){
+            for(int j = 0; j < 1000; j++)
+            {
+                array0[j * 10000 + i] = 100;
+            }
+        } });
+    T.WriteTestResultsIntoScreenAndFile("35", "Unaligned memory access - from 10000 to 10000", T.CalculateAverageTime());
+    delete[] array0;
+
+    T.WriteMessageIntoScreenAndFile("----------------------------------------------------");
+
+    struct structure 
+    {
+        int a;
+    };
+
+    structure st0;
+    structure* st1 = new structure;
+
+    T.ExecuteTest([&st0]() {
+        for (int j = 0; j < 10000000; ++j) {
+            st0.a = 100;
+    } });
+    T.WriteTestResultsIntoScreenAndFile("36", "Direct access", T.CalculateAverageTime());
+
+    T.ExecuteTest([&st1]() {
+        for (int j = 0; j < 10000000; ++j) {
+            st1->a = 100;
+    } });
+    T.WriteTestResultsIntoScreenAndFile("37", "Indirect access", T.CalculateAverageTime());
+
+    T.WriteMessageIntoScreenAndFile("----------------------------------------------------");
 
     return 0;
 }
