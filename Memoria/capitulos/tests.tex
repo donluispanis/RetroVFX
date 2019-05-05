@@ -1,6 +1,269 @@
 \chapter{Tests de rendimiento}
 
+\section{Planteamiento inicial}
+
+Siguiendo el carácter definido previamente, el objetivo de este trabajo es poder hacerlo todo desde cero, en la medida de lo que resulta posible o razonable.\\
+
+Es por ello, que siguiendo este mismo espíritu busqué crear mi propio marco de trabajo para ejecutar pequeños tests de rendimiento. Esto es todo lo que debería ser capaz de hacer mi herramienta:
+
+\begin{itemize}
+	\item Ser capaz de ejecutar un test provisto de forma externa
+	\item Ejecutar cada test múltiples veces, para poder obtener un abanico de tiempos de ejcución
+	\item Extraer una media de los resultados obtenidos en la medición
+	\item Mostrar los resultados obtenidos por terminal, así como almacenarlos en un fichero de texto
+\end{itemize}
+
+Al ser pocos los requerimientos de mi herramienta, el desarrollo de la misma debería ser breve y sencillo.\\
+
+Además, llegó también el momento de plantear el carácter los tests a realizar:
+
+\begin{itemize}
+	\item Medir el coste de la suma, resta, multiplicación, división y módulo para enteros de 32 bits
+	\item Medir el coste de la suma, resta, multiplicación, división y módulo para enteros de 64 bits
+	\item Medir el coste de la suma, resta, multiplicación y división para números en coma flotante de 32 bits
+	\item Medir el coste de la suma, resta, multiplicación y división para números en coma flotante de 64 bits
+	\item Medir el coste de llamar a una función generadora de números aleatorios, llamar una función de coseno, de arco coseno, de raíz cuadrada y de raíz cúbica en comparación al coste de llamar a una función vacía
+	\item Medir el coste de acceso aleatorio a memoria
+	\item Medir el coste de acceso directo o indirecto a memoria
+\end{itemize}
+
 \section{Implementación}
+
+Para inicializar la clase que manejará nuestros tests, debemos crearla pasándole por parámetro una cadena de caracteres que represente la ruta del fichero donde queremos que se guarde el resultado de nuestros tests. Tras mostrar por terminal un código de "bienvenida", abrimos el fichero con la ruta especificada y, a continuación, inicializamos dos \emph{buffers}. Será redirigiendo la salida de \lstinline{std::cout}\{ a cada uno de estos \emph{buffers} como conseguiremos escribir tanto en terminal como en fichero.
+
+\begin{lstlisting}[style=C-color, caption={Constructor de nuestra clase para manejar tests}, label=cod:testtemplate, escapechar=|]
+TestTemplate::TestTemplate(const char *logPath)
+{
+    std::cout << std::endl;
+    std::cout << "Running tests... this may take a while" << std::endl;
+    std::cout << "Output will be stored in " << logPath << std::endl;
+    std::cout << std::endl;
+
+    file = std::ofstream(logPath);
+    writeToScreen = std::cout.rdbuf();
+    writeToFile = file.rdbuf();
+}
+\end{lstlisting}
+
+A continuación, llega el momento de crear un método que nos permita ejecutar nuestros tests, como podemos ver en el código [\ref{cod:executetest}]. Este método recibe una función por parámetro, que ejecutará internamente 100 veces el test pasado,  y almacenará el tiempo de cada ejecución en un vector.
+
+\begin{lstlisting}[style=C-color, caption={Método para ejecutar un test}, label=cod:executetest, escapechar=|]
+void TestTemplate::ExecuteTest(std::function<void(void)> test)
+{
+    timeCounts.clear();
+    std::chrono::duration<double> elapsedSeconds;
+
+    for (int i = 0; i < 100; i++)
+    {
+        time_point = std::chrono::system_clock::now();
+
+        test();
+
+        elapsedSeconds = std::chrono::system_clock::now() - time_point;
+        timeCounts.push_back(elapsedSeconds.count());
+    }
+}
+\end{lstlisting}
+
+Será entonces, tras haber ejecutado nuestro test, que podremos obtener el tiempo medio de ejecución con el siguiente código:
+
+\begin{lstlisting}[style=C-color, caption={Método para calcular la media del tiempo transcurrido}, label=cod:calculatetime, escapechar=|]
+double TestTemplate::CalculateAverageTime()
+{
+    double time = std::accumulate(timeCounts.begin(), timeCounts.end(), 0.0) / (double)timeCounts.size();
+    return time;
+}
+\end{lstlisting}
+
+Proveeremos además con un método [\ref{cod:writeresults}] que dado el nombre del test, una descripción del mismo y el tiempo que ha tardado en ejecutarse, escribe de forma fácilmente legible para el ojo humano los resultados de la ejecución. El resultado se escribe tanto en fichero como por terminal, redirigiendo la salida de texto.
+
+\begin{lstlisting}[style=C-color, caption={Método para calcular la media del tiempo transcurrido}, label=cod:writeresults]
+void TestTemplate::WriteTestResultsIntoScreenAndFile(const char *testName, const char *testDescription, double testTime)
+{
+    auto output = [](const char *testName, const char *testDescription, double testTime) {
+        std::cout << "| Test " << testName << ": " << testDescription << std::endl;
+        std::cout << "|          Time spent: " << testTime << " seconds" << std::endl;
+        std::cout << "|" << std::endl;
+    };
+
+    std::cout.rdbuf(writeToFile);
+    output(testName, testDescription, testTime);
+
+    std::cout.rdbuf(writeToScreen);
+    output(testName, testDescription, testTime);
+}
+\end{lstlisting}
+
+Tal vez lo mostrado hasta ahora pueda parecer un poco confuso, pero es al combinar todo este código para ejecutar un test cuando se ve la potencia de la clase que hemos creado, que nos permite manejar tests con facilidad, de forma legible y sencilla:
+
+\begin{lstlisting}[style=C-color, caption={Ejemplo de uso de test template}, label=cod:example]
+TestTemplate T("PerformanceResults.txt");
+
+T.ExecuteTest([]() {for (int j = 0; j < 10000000; j++); });
+T.WriteTestResultsIntoScreenAndFile("Loops", "Void For Loop executed 10000000 times", T.CalculateAverageTime());
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Resultado del test}, label=cod:exampleresult]
+| Test Loops: Void For Loop executed 10000000 times
+| Time spent: 0.0168712 seconds
+|
+\end{lstlisting}
+
+El test de ejemplo mostrado en el código [\ref{cod:example}] es bastante trivial, pues es un código que se limita a ejecutar un bucle. No obstante, se ejemplifica lo sencillo y limpio que se vuelve escribir un test, con un resultado también fácil de leer e interpretar [\ref{cod:exampleresult}].
+
 \section{Resultados}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}l|rrr|rrr|@{}}
+\cmidrule(l){2-7}
+                                     & \multicolumn{3}{c|}{Results (s)}                                                               & \multicolumn{3}{c|}{Relative results}                                                      \\ \cmidrule(l){2-7} 
+                                     & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} \\ \midrule
+\multicolumn{1}{|l|}{Sum}            & 0,0232331                    & 0,0286147                    & 0,0284548                    & 0,0                          & 0,0                          & 0,0                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Subtraction}    & 0,0232895                    & 0,0268971                    & 0,0278414                    & 0,0                          & -0,2                         & -0,1                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Multiplication} & 0,0236683                    & 0,0272116                    & 0,0274386                    & 0,1                          & -0,1                         & -0,1                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Division}       & 0,0353099                    & 0,0400042                    & 0,0391396                    & 2,7                          & 1,1                          & 1,0                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Modulo}         & 0,0361311                    & 0,0392958                    & 0,0451121                    & 2,9                          & 1,0                          & 1,6                          \\ \bottomrule
+\end{tabular}
+\caption{Operaciones con enteros de 32 bits}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}l|rrr|rrr|@{}}
+\cmidrule(l){2-7}
+                                     & \multicolumn{3}{c|}{Results (s)}                                                               & \multicolumn{3}{c|}{Relative results}                                                      \\ \cmidrule(l){2-7} 
+                                     & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} \\ \midrule
+\multicolumn{1}{|l|}{Sum}            & 0,0233056                    & 0,0234745                    & 0,0241097                    & 0,0                          & -0,5                         & -0,4                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Subtraction}    & 0,0234734                    & 0,0238337                    & 0,0256926                    & 0,1                          & -0,4                         & -0,3                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Multiplication} & 0,0240932                    & 0,0245130                    & 0,0265930                    & 0,2                          & -0,4                         & -0,2                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Division}       & 0,0457833                    & 0,0462163                    & 0,1060608                    & 5,1                          & 1,6                          & 7,6                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Modulo}         & 0,0392737                    & 0,0393487                    & 0,1016039                    & 3,6                          & 1,0                          & 7,2                          \\ \bottomrule
+\end{tabular}
+\caption{Operaciones con enteros de 64 bits}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}l|rrr|rrr|@{}}
+\cmidrule(l){2-7}
+                                     & \multicolumn{3}{c|}{Results (s)}                                                               & \multicolumn{3}{c|}{Relative results}                                                      \\ \cmidrule(l){2-7} 
+                                     & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} \\ \midrule
+\multicolumn{1}{|l|}{Sum}            & 0,0235983                    & 0,0247058                    & 0,0243978                    & 0,1                          & -0,4                         & -0,4                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Subtraction}    & 0,0236995                    & 0,0245818                    & 0,0247821                    & 0,1                          & -0,4                         & -0,4                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Multiplication} & 1,0653020                    & 0,0246152                    & 0,0242643                    & 233,6                        & -0,4                         & -0,4                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Division}       & 1,2454660                    & 0,0248546                    & 0,0251386                    & 273,9                        & -0,3                         & -0,3                         \\ \bottomrule
+\end{tabular}
+\caption{Operaciones en coma flotante con 32 bits}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}l|rrr|rrr|@{}}
+\cmidrule(l){2-7}
+                                     & \multicolumn{3}{c|}{Results (s)}                                                               & \multicolumn{3}{c|}{Relative results}                                                      \\ \cmidrule(l){2-7} 
+                                     & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} \\ \midrule
+\multicolumn{1}{|l|}{Sum}            & 0,0240914                    & 0,0250733                    & 0,0253800                    & 0,2                          & -0,3                         & -0,3                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Subtraction}    & 0,0239746                    & 0,0246671                    & 0,0253605                    & 0,2                          & -0,4                         & -0,3                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Multiplication} & 0,2191568                    & 0,0249607                    & 0,0251803                    & 43,9                         & -0,3                         & -0,3                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Division}       & 1,2480080                    & 0,0256489                    & 0,0261598                    & 274,5                        & -0,3                         & -0,2                         \\ \bottomrule
+\end{tabular}
+\caption{Operaciones en coma flotante con 64 bits}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}l|rrr|rrr|@{}}
+\cmidrule(l){2-7}
+                             & \multicolumn{3}{c|}{Results (s)}                                                               & \multicolumn{3}{c|}{Relative results}                                                      \\ \cmidrule(l){2-7} 
+                             & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} \\ \midrule
+\multicolumn{1}{|l|}{empty}  & 0,0244699                    & 0,0249656                    & 0,0242798                    & 0,3                          & -0,3                         & -0,4                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{rand()} & 0,1180654                    & 0,1169742                    & 0,0821240                    & 21,3                         & 8,2                          & 5,3                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{cos()}  & 0,6730564                    & 0,4900506                    & 0,2550030                    & 145,6                        & 42,7                         & 22,2                         \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{acos()} & 2,7986080                    & 0,3835644                    & 0,0584450                    & 622,0                        & 32,8                         & 2,9                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{sqrt()} & 0,3691394                    & 0,1106834                    & 0,0743690                    & 77,5                         & 7,6                          & 4,5                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{cbrt()} & 0,8855260                    & 0,5628924                    & 0,3532132                    & 193,3                        & 49,4                         & 31,8                         \\ \bottomrule
+\end{tabular}
+\caption{Llamadas a funciones matemáticas}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}l|rrr|rrr|@{}}
+\cmidrule(l){2-7}
+                                    & \multicolumn{3}{c|}{Results (s)}                                                               & \multicolumn{3}{c|}{Relative results}                                                      \\ \cmidrule(l){2-7} 
+                                    & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} \\ \midrule
+\multicolumn{1}{|l|}{Lineal access} & 0,0025534                    & 0,0024107                    & 0,0023643                    & 0,0                          & 0,0                          & 0,0                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Jumps 10}      & 0,0039727                    & 0,0039288                    & 0,0038412                    & 0,6                          & 0,6                          & 0,6                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Jumps 100}     & 0,0060442                    & 0,0061442                    & 0,0059900                    & 1,4                          & 1,5                          & 1,5                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Jumps 1000}    & 0,0063647                    & 0,0064300                    & 0,0058503                    & 1,5                          & 1,7                          & 1,5                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Jumps 10000}   & 0,0095576                    & 0,0096220                    & 0,0056557                    & 2,7                          & 3,0                          & 1,4                          \\ \bottomrule
+\end{tabular}
+\caption{Accesos a memoria}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}l|crr|crr|@{}}
+\cmidrule(l){2-7}
+                                      & \multicolumn{3}{c|}{Results (s)}                                                                & \multicolumn{3}{c|}{Relative results}                                                      \\ \cmidrule(l){2-7} 
+                                      & \multicolumn{1}{c|}{Win x86}  & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} & \multicolumn{1}{c|}{Win x86} & \multicolumn{1}{c|}{Win x64} & \multicolumn{1}{c|}{Lin x64} \\ \midrule
+\multicolumn{1}{|l|}{Direct access}   & \multicolumn{1}{r}{0,0166824} & 0,0169107                    & 0,0156102                    & \multicolumn{1}{r}{0,0}      & 0,0                          & 0,0                          \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{Indirect access} & \multicolumn{1}{r}{0,0220008} & 0,0223851                    & 0,0208514                    & \multicolumn{1}{r}{0,3}      & 0,3                          & 0,3                          \\ \bottomrule
+\end{tabular}
+\caption{Acceso a memoria directo e indirecto}
+\end{table}
+
+\section{Conclusiones}
+
+rgerg
+sgsdgsfdh
+
+sg
+
+drga
+
+rg
+
+ergregearg
+
+rgerg
+
 \section{Posibles mejoras}
-\section{Conclusión}
+
+Como se ha comentado previamente, haber creado nuestro propio entorno para ejecutar tests de rendimiento presenta tanto ventajas como desventajas. Es por ello que los tests desarrollados tienen validez en el entorno de desarrollo enmarcado, pero tienen una serie de limitaciones:
+
+\begin{itemize}
+	\item \textbf{Los tests han sido ejecutados bajo un solo hardware}: esto implica que los resultados obtenidos no pueden aplicarse de forma universal, si no tan solo para el hardware (y software) bajo el que han sido ejecutados. Los tests de rendimiento no eran el foco principal de este proyecto, y haber invertido tiempo en contrastar resultados en otras máquinas hubiera requerido una inversión demasiado grande. Su objetivo principal, que era otorgar una mayor comprensión de cómo funciona la maquina bajo la que se ejecutan, no obstante, han sido cumplidos con creces.
+	\item \textbf{Los tests han sido ejecutado solo bajo dos sistemas operativos distintos}: de forma paralela a lo explicado para el hardware, se aplica también al software, de forma que estos resultados no se pueden tomar como universales.
+	\item \textbf{Los tests son dependientes del sistema operativo}: el resultado de tiempo obtenido de los tests está condicionado por el sistema operativo, y cómo el mismo ha distribuido los recursos y los tiempos para la ejecución del programa. En otras palabras, los tests son \emph{subjetivos} al sistema operativo, pues dependen de los tiempos del sistema.
+	\item \textbf{Los tests son dependientes del compilador}: los tests son dependientes del compilador utilizado y las opciones de optimización especificadas. En nuestro caso, todos los tests han sido ejecutados sin optimización alguna, por lo que los resultados pueden variar al compilar con otras opciones o compiladores.
+\end{itemize}
+
+¿Hace todo lo listado anteriormente inválidos los tests realizados?\\
+
+En absoluto. Pero hace los resultados subjetivos. En otras palabras, los resultados obtenidos en esta máquina no deberían ser extrapolados de forma directa a cualquier otra (aunque puedan coincidir en muchos casos, no deben ser asumibles a cualquier sistema). Para tener unos tests más objetivos se podrían seguir varias estrategias:
+
+\begin{itemize}
+	\item \textbf{Distintos compiladores}: ejecutar un mismo set de tests en distintos compiladores y bajo distintas opciones de optimización (en modo depuración, sin optimizaciones y con un nivel de optimización, como mínimo).
+	\item \textbf{Distintos sistemas operativos}: ejecutar un mismo set de tests bajo los principales sistemas operativos y en diversas versiones o distribuciones de los mismos.
+	\item \textbf{Distintas arquitecturas}: ejecutar los tests bajo distintas arquitecturas de procesador (x86, x64). Actualmente los tests se han compilado para dos arquitecturas distintas en Windows, pero ejecutado bajo la misma.
+	\item \textbf{Usar parámetros de medición cuantificables, independientes del sistema operativo}: el tiempo de ejecución, como ya hemos visto, depende en gran medida del sistema operativo y de su sistema de tareas, basarse en otras medidas cuantificables y que sean independientes del sistema, como por ejemplo cantidad de instrucciones, pueden ayudar a obtener resultados más fácilmente cuantificables o extrapolables.
+\end{itemize} 
+
+Con todo lo dicho, llevar a cabo todas estas mediciones en si mismas puede conformar un estudio completo, ya no hablemos de la complejidad de crear un sistema capaz de llevar a cabo todas estas mediciones.\\
+
+Es por ello que se ha mantenido un ámbito más reducido y humilde para los resultados que se presentan en este trabajo, pues si bien estos resultados nos servirán de gran ayuda en el desempeño de las demos y optimizaciones para las mismas, un análisis de los tests en mayor detalle o profundidad está fuera del ámbito de este estudio.

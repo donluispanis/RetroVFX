@@ -16,8 +16,6 @@ int main()
                                     "|          Inside every test, each operation is reapeated 10000000 times\n"
                                     "|          in order to be measurable in time\n|");
 
-    /*
-
     T.ExecuteTest([]() {for (int j = 0; j < 10000000; j++); });
     T.WriteTestResultsIntoScreenAndFile("01", "Void For Loop with I++", T.CalculateAverageTime());
 
@@ -220,7 +218,7 @@ int main()
         for (int j = 0; j < 10000000; ++j) {
             i = cbrt(j);
     } });
-    T.WriteTestResultsIntoScreenAndFile("30", "Call cbrt()", T.CalculateAverageTime());*/
+    T.WriteTestResultsIntoScreenAndFile("30", "Call cbrt()", T.CalculateAverageTime());
 
     T.WriteMessageIntoScreenAndFile("----------------------------------------------------");
 
