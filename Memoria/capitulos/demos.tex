@@ -355,37 +355,159 @@ Fue por ello que cuando estaba pensando en cómo implementar este efecto, descar
 
 Así, con el modelo geocéntrico en mente, me dispuse a crear una clase que fuera capaz de emular este tipo de movimiento: controlado pero difícil de predecir.\\
 
-me queda decir como hice el camino de turbulencia, luego toca explicar el refinamiento (color, opacidad, rotacion e input) y ya por ultimo queda mostrar los resultados, tras ello me pondré con los tests de rendimiento
+Todo lo que necesitaba era un algoritmo que me devolviera un valor numérico entre -1 y 1 (al tener un rango controlado el túnel no podría salirse de pantalla) y se calculara como el resultado de la suma de distintos puntos rotando (o como la suma de ondas con distintas frecuencias, según el punto de vista). El resultado fue un algoritmo sencillo pero satisfactorio.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=6cm]{archivos/pathuml}
+	\caption{Estructura de cada órbita que determina el camino}
+	\label{fig:pathuml}
+\end{figure}
+
+Como podemos ver en la figura [\ref{fig:pathuml}], creamos una estructura sencilla que nos permite representar un punto orbitando. Un punto orbitando se ve definido por su radio de órbita, su fase (punto inicial en el que comienza a orbitar, la dirección en la que orbita -sentido horario o antihorario- y el avance o camino actual que el punto en órbita ha recorrido. Otras características como la velocidad de órbita se definen de forma global, y no por órbita, para nuestro ejemplo, aunque la velocidad de órbita viene condicionada por el radio de órbita.\\
+
+\begin{lstlisting}[style=C-color, caption={Creación de un camino de turbulencia},label=cod:createturbulencepath,escapechar=|]
+void TurbulencePath::CreateTurbulencePath(float pathVelocity, int pathRadius, int pathComplexity)
+{
+    this->pathVelocity = pathVelocity;
+    this->pathRadius = pathRadius;
+    this->pathComplexity = pathComplexity;
+
+    for(int i = 0; i < pathComplexity; i++)
+    {
+        paths.push_back(Path{ |\label{line:createpath}|
+                (pathRadius * 2) / (i + 2),
+                Fast::Rand() * 2 * Fast::PI,
+                i % 2 == 0 ? 1 : -1,
+                0});
+    }
+}
+\end{lstlisting}
+
+En el código [\ref{cod:createturbulencepath}] podemos ver cómo podemos inicializar lo que definí como "camino de turbulencia". Para crear un "camino de turbulencia" necesitamos especificar la velocidad global que tendrá el camino, el mayor radio posible que el camino pueda generar, en píxeles, y la complejidad del camino, que es equivalente a la cantidad de órbitas (o ondas) superpuestas que formarán nuestro camino. En la línea [\ref{line:createpath}] podemos ver cómo añadimos caminos, la cantidad que añadimos dependiendo de la complejidad del mismo. Además, el radio de cada órbita depende de su orden (órbita 0 tendrá radio 1 (\(\frac{2}{2}\)), órbita 1 tendrá \(\frac{2}{3}\) del radio, órbita 2 tendrá \(\frac{1}{2}\) (\(\frac{2}{4}\)) del radio...). A continuación definimos la fase de forma aleatoria, la dirección (positiva para órbitas de orden par, negativas para impares) y el avance inicial, que es obviamente 0.\\
+
+\begin{lstlisting}[style=C-color, caption={Actualización de un camino de turbulencia},label=cod:updateturbulencepath,escapechar=|]
+void TurbulencePath::UpdateTurbulencePath(float deltaTime, float &pathX, float &pathY)
+{
+    pathX = 0.f;
+    pathY = 0.f;
+
+    for (auto& path : paths)
+    {
+        path.advance += deltaTime * 0.1;
+        float waveFrequence = path.radius * pathVelocity;
+        pathX += cos(waveFrequence * path.advance + path.phase);
+        pathY += sin(waveFrequence * path.advance + path.phase);
+    }
+
+    pathX /= (float)pathComplexity; |\label{line:dividepath}|
+    pathY /= (float)pathComplexity;
+
+    pathX *= pathRadius; |\label{line:multiplypath}|
+    pathY *= pathRadius;
+}
+\end{lstlisting}
+
+Ahora llega el momento de ser capaces de actualizar nuestra estructura, como muestra el código [\ref{cod:updateturbulencepath}]. A esta función le pasamos el tiempo transcurrido desde el último fotograma y nos devuelve el punto actual en el que el camino se encuentra. Para ello, por cada camino, actualizamos el avance en función del tiempo y calculamos la frecuencia en función del radio y la velocidad del camino. Una vez hemos sumado todos los caminos, dividimos entre la complejidad (línea [\ref{line:dividepath}]) para normalizar el resultado (de este modo aseguramos que oscila entre -1 y 1). Tras ello, tan solo nos queda multiplicar el resultado normalizado por el radio del camino para obtener el punto en el que nos hallamos actualmente (línea [\ref{line:multiplypath}]).\\
+
+Una vez tenemos nuestro "camino de turbulencia" creado, tan solo tenemos que incorporarlo en nuestro código del túnel e ir actualizándolo periódicamente. Para ello, modificamos la función \lstinline{PopulateCircleQueue()} [\ref{cod:populatecirclequeue}] para que cada vez que añadamos un círculo, desplacemos su centro por la posición actual del "camino de turbulencia".\\
+
+Podemos ver el resultado en la figura [\ref{fig:tunnelwithturbulence}].
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=10cm]{archivos/tunnelwithturbulence}
+	\caption{Tunel básico siguiendo un camino}
+	\label{fig:tunnelwithturbulence}
+\end{figure}
 
 \subsection{Refinamiento}
 
-rgerg
-sgsdgsfdh
+Una vez tenemos nuestro efecto de túnel acabado, llega el momento de iterar sobre la idea para mejorar el resultado, tanto a nivel visual como de rendimiento. A continuación se exponen las medidas que se tomaron:
 
-sg
+\begin{itemize}
+	\item \textbf{Sustituir operaciones trigonométricas por tablas precalculadas}: como pudimos comprobar con los tests de rendimiento, las operaciones trigonométricas tienen un coste de computación alto. En esta demo hacemos un uso periódico de operaciones de seno y coseno, para calcular la posición de cada punto del túnel, así como para el camino de turbulencia. Si en lugar de usar funciones trigonométricas de forma directa, usamos tablas precalculadas, el coste de estas operaciones pasará a ser el de un acceso constante. No obstante, como todo, usar tablas precalculadas tiene también su coste. La principal ventaja de usar tablas precalculadas es la eficiencia, no obstante lo hacemos al coste de complejidad espacial (tenemos que guardar cada valor precalculado en memoria, y las tablas pueden llegar a ser bastante grandes), pérdida de precisión (al ser valores precalculados, solo podemos acceder a aquellos que hemos calculado, no siendo posible acceder a valores intermedios) y aumento en la complejidad del código (en lugar de pasar un valor en radianes a una función, debemos calcular a partir de un ángulo el índice de acceso a la tabla para el valor que queremos).
+	
+	Podría parecer, dadas las desventajas listadas, que no vale la pena esta optimización. Esto es siempre una cuestión de interpretación y de límites, y depende de la situación y del sistema en que nos encontremos. En nuestro caso concreto, la memoria no es un limitante (disponemos de gigabytes de memoria RAM) pero sin embargo la CPU sí lo es (tenemos que operar sobre grandes cantidades de valores en intervalos muy cortos de tiempo -cientos o miles de píxeles por fotograma-). Por tanto, vale la pena aumentar la complejidad del código a cambio de que sea notablemente más eficiente.
+	
+	Como podemos ver en el código [\ref{cod:generatesinetable}], crear una tabla precalculada es más bien sencillo. En este caso, por simplicidad se ha decidido que las tablas se calculan de forma dinámica al inicio de la ejecución de la aplicación, tomando solo así tiempo de cálculo durante la inicialización. No obstante, hubiera sido posible también implementar este mismo mecanismo mediante el uso de \emph{templates} y \emph{constexpr}\footnote{\url{https://en.cppreference.com/w/cpp/language/constexpr}}. De este modo se podría hacer que las tablas se calculasen en tiempo de compilación, embebiéndose la tabla precalculada en el propio código del programa, no tomando así ningún tiempo de cálculo en ejecución. Se ha decido crear las tablas de forma dinámica, no obstante, por simplicidad de código y reducción de los tiempos de compilación.
+	
+	Así pues, en el código [\ref{cod:generatesinetable}] vemos como para crear una tabla, tan sólo debemos pasarle un tamaño y nos devolverá una tabla del tamaño dado, conteniendo valores incrementales para el seno en una circunferencia completa (de 0 a \(2 \times \pi\) radianes). Hay que tener en cuenta que la precisión de la tabla es equivalente al tamaño de la misma (a mayor tamaño, mayor precisión, pero también ocupa más espacio en memoria y tarda más en calcularse).
+	
+	En la línea [\ref{line:drawcircle}] podemos ver el resultado de usar nuestras tablas precalculadas en lugar de operaciones trigonométricas de forma directa, como en [\ref{cod:drawcircle}]. Como podemos ver, la complejidad del código aumenta ligeramente, aunque eso sí, a cambio de poder obtener valores de operaciones complejas en tiempo constante. Para ello, necesitamos calcular un factor (línea [\ref{line:indexFactor}]) que nos permita marcar una correspondencia entre el ángulo que queremos y el índice que corresponde en la tabla. Luego, para acceder al valor del coseno (línea [\ref{line:cosinetable}]), multiplicamos el valor del ángulo que queremos por el factor calculado en la línea [\ref{line:indexFactor}]. Convertimos el resultado de esta operación en un entero (el acceso a memoria debe hacerse mediante un valor entero, pues la memoria es discreta, no se puede acceder a "medio bit"), lo que trunca el resultado y lleva a la consiguiente pérdida de precisión. A continuación hallamos el módulo en función del tamaño de la tabla. De este modo, si nos salimos del rango de la tabla, simplemente volvemos a inicio de la misma, de forma circular, por lo que no es posible de forma efectiva salirse de rango.
+	
+	De este modo, conseguimos una gran optimización (operaciones trigonométricas con coste constante equivalente a un acceso aleatorio). Esta optimización puede no hacerse tan evidente en tiempo de ejecución en esta demo, donde trabajamos con cientos o miles de píxeles, pero sin llegar al orden del millón, pero será crucial en futuras demos, para conseguir una tasa de actualización de fotogramas estable y fluida.
 
-drga
+	\item \textbf{Añadir colores al túnel}: añadir colorido al túnel es muy sencillo, y sin embargo, mejora notablemente el resultado final. Basta con añadir a nuestro modelo de círculo [\ref{fig:circleuml}] un campo para el color, de modo que en lugar de estar predefinido a blanco, el color con el que se dibuja cada círculo dependa del propio círculo. De este modo, podemos crear un degradado de color, como los que ya creamos para el efecto de fuego, y asignar un nuevo color a cada círculo que creamos, basándonos en los valores del degradado. Para esta demo en concreto, hemos decidido crear una gama de colores de efecto \emph{arcoiris}.
+	
+	\item \textbf{Fundido de entrada y de salida}: en el estado actual de la demo, cuando un círculo se crea aparece de golpe y cuando un círculo se elimina desaparece de golpe. Teniendo en cuenta que actualmente el túnel es fluido tanto a nivel de movimiento (gracias al "camino de turbulencia") como a nivel de color (gracias al uso de un degradado), que los círculos aparezcan y desaparezcan de golpe rompe esta fluidez. Esto es muy sencillo de solucionar, añadiendo un fundido de entrada (opacidad creciente) cuando añadimos un nuevo círculo al túnel y un fundido de salida (opacidad decreciente) cuando estamos cerca de eliminar un círculo. De este modo, basta con crear un método que cumpla la siguiente función:
+	
+	\begin{itemize}
+		\item Cuando un círculo se añade, el valor de la opacidad es 0, y crece gradualmente hasta uno conforme el radio del círculo incrementa
+		\item Durante todo el ciclo de vida del círculo la opacidad es 1
+		\item Cuando el radio del círculo se acerca al radio máximo (radio que una vez alcanzado, el círculo es eliminado) empezamos a decrementar el valor de la opacidad, de modo que sea 0 cuando el círculo sea eliminado.
+	\end{itemize}
+	
+	De este modo, tan solo tenemos que multiplicar el valor de la opacidad por el color del círculo para conseguir nuestros fundidos de entrada y de salida, suavizando así la creación y eliminación de los círculos.
+	
+	\item \textbf{Rotación}: actualmente todos los círculos tienen la misma fase inicial (0), de modo que están alineados. Modificando la fase inicial para que se incremente en función del valor del tiempo de vida el círculo, en la función \lstinline{UpdateCircle()}\{, conseguimos que los círculos dejen de estar alineados y tengan una rotación propia, lo que da un cierto efecto de succión o de torbellino al túnel, lo que favorece el resultado visual.
+	
+	\item \textbf{Control por parte del usuario}: podemos hacer que el túnel sea modificable por el usuario haciendo simplemente que varias variables que ya tenemos se vean alteradas por determinadas entradas de teclado, por ejemplo:
+	
+	\begin{itemize}
+		\item \textbf{Velocidad del túnel}: modificando la variable \emph{radiusVelocity}, que incrementa la velocidad de crecimiento de los círculos
+		\item \textbf{Tamaño de los puntos}: nuestra función para dibujar puntos tiene la capacidad para recibir un tamaño, tan solo debemos usar esto en nuestro favor para añadir una variable modificable que contenga el tamaño de los puntos
+		\item \textbf{Posición del centro del túnel}: si modificamos el centro del túnel, tenemos la sensación de poder \emph{controlar} el túnel.
+	\end{itemize}
+	
+	De este modo, podemos con modificaciones muy pequeñas hacer que nuestra demo sea ampliamente interactiva. Luego, basta con utilizar la funcionalidad para dibujar texto para comunicar las instrucciones de uso al usuario.
+	
+\end{itemize}
 
-rg
+\begin{lstlisting}[style=C-color, caption={Generación de tablas precalculadas y uso en código}, label=cod:generatesinetable, escapechar=|]
+float *Fast::GenerateSineTable(int size)
+{
+    float *sineTable = new float[size];
 
-ergregearg
+    for (int i = 0; i < size; i++)
+    {
+        float value = (i * 2 * Fast::PI) / size;
+        sineTable[i] = sin(value);
+    }
 
-rgerg
+    return sineTable;
+}
+
+void DotTunnelDemo::DrawCircle(const Circle &c)|\label{line:drawcircle}|
+{
+    const float increment = (2 * Fast::PI) / float(pointsPerCircle);
+    const int indexFactor = mathTableSize / (2 * Fast::PI);|\label{line:indexFactor}|
+    int x, y;
+
+    for (float angle = 0, n = 2 * Fast::PI; angle < n; angle += increment)
+    {
+        x = cosineTable[int(angle * indexFactor) % mathTableSize] * c.radius + c.x; |\label{line:cosinetable}|
+        y = sineTable[int(angle * indexFactor) % mathTableSize] * c.radius + c.y;
+        
+        RenderDot(x, y, Pixel(255), 1);
+    }
+}
+\end{lstlisting}
 
 \subsection{Resultado}
 
-rgerg
-sgsdgsfdh
+En la figura [\ref{fig:finaltunnel}] podemos ver el resultado final de nuestro túnel. Sigue un camino turbulento, se le aplica un degradado de color, los círculos tienen fundido de entrada y de salida y rotan, creando una sensación de vórtice.\\
 
-sg
+Además, el tamaño de los puntos, la posición del centro del túnel y la velocidad del mismo son controlables por el usuario (las instrucciones no se muestran en la figura para no añadir ruido visual al resultado).\\
+ 
+La demo además usa tablas precalculadas para evitar tener que realizar costosas operaciones trigonométricas (la diferencia en el resultado es apenas visible, aunque prestando atención es posible notar irregularidades entre la distancia de algunos puntos -este error se podría mitigar aumentando el tamaño de la tabla, y por tanto su resolución-). 
 
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{archivos/finaltunnel}
+	\caption{Túnel final}
+	\label{fig:finaltunnel}
+\end{figure}
 
 \section{RotoZoom}
 

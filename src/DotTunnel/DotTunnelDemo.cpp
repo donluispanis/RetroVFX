@@ -105,9 +105,9 @@ bool DotTunnelDemo::Update(float deltaTime)
     turbulencePath->UpdateTurbulencePath(deltaTime, pathX, pathY);
     UpdateInput(deltaTime);
 
-    RenderText("Keep pressed the arrow keys to control the tunnel", 5, 5, 2, Pixel(255));
-    RenderText("Keep pressed W/S to increase/decrease velocity", 5, 20, 2, Pixel(255));
-    RenderText("Tap A/D to increase/decrease dot size", 5, 35, 2, Pixel(255));
+    //RenderText("Keep pressed the arrow keys to control the tunnel", 5, 5, 2, Pixel(255));
+    //RenderText("Keep pressed W/S to increase/decrease velocity", 5, 20, 2, Pixel(255));
+    //RenderText("Tap A/D to increase/decrease dot size", 5, 35, 2, Pixel(255));
 
     return true;
 }
