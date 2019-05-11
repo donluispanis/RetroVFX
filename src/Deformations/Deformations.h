@@ -27,7 +27,6 @@ class Deformations : public ClassicDemoTemplate
     void UpdateInput();
     void UpdateCurrentModifier();
     void DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier);
-    void ClearScreenIfNeeded();
 
     //Modifiers
     int DefaultXModifier(int x, int y);

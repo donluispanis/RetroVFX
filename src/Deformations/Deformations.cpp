@@ -19,7 +19,7 @@ bool Deformations::Init()
     RegisterModifiers();
     RegisterInput();
 
-    BMP::OpenRGBImage("assets/img/tiger.bmp", texture, texWidth, texHeight);
+    BMP::OpenRGBImage("assets/img/lena.bmp", texture, texWidth, texHeight);
 
     return true;
 }
@@ -68,7 +68,6 @@ bool Deformations::Destroy()
 bool Deformations::Update(float deltaTime)
 {
     UpdateInput();
-    ClearScreenIfNeeded();
 
     for (int j = 0; j < height; j++)
     {
@@ -79,8 +78,8 @@ bool Deformations::Update(float deltaTime)
     }
 
     accumulatedTime += deltaTime;
-    RenderText("Tap space to change modifier", 5, 5, 2, Pixel(255));
-    RenderText(texts[currentModifierIndex], 5, 25, 4, Pixel(255, 255, 150));
+    RenderText("Tap space to change modifier", 5, 5, 3, Pixel(255, 255, 125));
+    RenderText(texts[currentModifierIndex], 5, 30, 4, Pixel(255, 255, 125));
 
     return true;
 }
@@ -106,31 +105,12 @@ void Deformations::UpdateCurrentModifier()
     currentModifier = modifiers[currentModifierIndex];
 }
 
-void Deformations::ClearScreenIfNeeded()
-{
-    if (currentModifierIndex == 5)
-    {
-        ClearScreen(0, 0, width, 100, Pixel(0));
-        ClearScreen(0, height - 100, width, height, Pixel(0));
-        ClearScreen(0, 100, 100, height - 100, Pixel(0));
-        ClearScreen(width - 100, 100, width, height - 100, Pixel(0));
-    }
-}
-
 void Deformations::DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier)
 {
-    int scaledX = int(x * texWidth / (float)width) % texWidth;
-    int scaledY = int(y * texHeight / (float)height) % texHeight;
+    int newX = (this->*xModifier)(x, y) % texWidth;
+    int newY = (this->*yModifier)(x, y) % texHeight;
 
-    int newX = (this->*xModifier)(x, y);
-    int newY = (this->*yModifier)(x, y);
-
-    if (IsPixelOutOfBounds(newX, newY))
-    {
-        return;
-    }
-
-    pixels[newY * width + newX] = texture[scaledY * texWidth + scaledX];
+    pixels[y * width + x] = texture[newY * texWidth + newX];
 }
 
 int Deformations::DefaultXModifier(int x, int y)
@@ -145,30 +125,30 @@ int Deformations::DefaultYModifier(int x, int y)
 
 int Deformations::TransversalWaveXModifier(int x, int y)
 {
-    return x + sineTable[(y * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20;
+    return x + sineTable[(y * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20 + texWidth;
 }
 
 int Deformations::TransversalWaveYModifier(int x, int y)
 {
-    return y + sineTable[(x * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20;
+    return y + sineTable[(x * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20 + texHeight;
 }
 
 int Deformations::LongitudinalWaveXModifier(int x, int y)
 {
-    return x + sineTable[(x * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20;
+    return x + sineTable[(x * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20 + texWidth;
 }
 
 int Deformations::LongitudinalWaveYModifier(int x, int y)
 {
-    return y + sineTable[(y * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20;
+    return y + sineTable[(y * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20 + texHeight;
 }
 
 int Deformations::FlagXModifier(int x, int y)
 {
-    return x + sineTable[(y + int(accumulatedTime * 600)) % mathTableSize] * 100;
+    return x + sineTable[(y + int(accumulatedTime * 600)) % mathTableSize] * 100 + texWidth;
 }
 
 int Deformations::FlagYModifier(int x, int y)
 {
-    return y + sineTable[(x + int(accumulatedTime * 600)) % mathTableSize] * 100;
+    return y + sineTable[(x + int(accumulatedTime * 600)) % mathTableSize] * 100 + texHeight;
 }
