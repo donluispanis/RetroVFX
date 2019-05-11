@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  7 MAY 2019 22:34
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  11 MAY 2019 20:26
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3873,17 +3873,138 @@ File: archivos/finaltunnel.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[68] [69] [70] [71] [72] [73]) (capitulos/demofinal.tex [74]
+
+Underfull \hbox (badness 10000) in paragraph at lines 516--517
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
+
+ []
+
+[68]
+File: archivos/second-reality-rotozoom.png Graphic file (type bmp)
+<archivos/second-reality-rotozoom.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 529--530
+
+ []
+
+[69]
+File: archivos/transform.png Graphic file (type bmp)
+<archivos/transform.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 538--539
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 548--549
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 550--551
+
+ []
+
+[70]
+File: archivos/bmpuml.eps Graphic file (type eps)
+<archivos/bmpuml.eps>
+
+Underfull \hbox (badness 10000) in paragraph at lines 591--592
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 593--594
+
+ []
+
+[71]
+Underfull \hbox (badness 10000) in paragraph at lines 625--626
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 641--642
+
+ []
+
+File: archivos/pixelalignment.png Graphic file (type bmp)
+<archivos/pixelalignment.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 650--651
+
+ []
+
+
+Underfull \vbox (badness 1028) has occurred while \output is active []
+
+ [72]
+Underfull \hbox (badness 10000) in paragraph at lines 652--653
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 654--655
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 670--671
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 672--673
+
+ []
+
+[73]
+Underfull \hbox (badness 10000) in paragraph at lines 674--675
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 676--677
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 678--679
+
+ []
+
+File: archivos/rotozoom1.png Graphic file (type bmp)
+<archivos/rotozoom1.png>
+
+Overfull \hbox (1.70905pt too wide) in paragraph at lines 686--688
+ [][] 
+ []
+
+File: archivos/rotozoom2.png Graphic file (type bmp)
+<archivos/rotozoom2.png>
+
+Overfull \hbox (1.70905pt too wide) in paragraph at lines 691--693
+ [][] 
+ []
+
+[74] [75] [76] [77]) (capitulos/demofinal.tex [78]
 chapter 8.
-) (capitulos/conclusiones.tex [75
+) (capitulos/conclusiones.tex [79
 
 
-] [76
+] [80
 
 
 ]
 chapter 9.
-) (TFG-TFM_EPS_UA.bbl [77] [78
+) (TFG-TFM_EPS_UA.bbl [81] [82
 
 
 ]
@@ -3894,7 +4015,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[79]
+[83]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 147.
  (TFG-TFM_EPS_UA.aux)
@@ -3904,12 +4025,12 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
  ) 
 Here is how much of TeX's memory you used:
- 64971 strings out of 427748
- 1455022 string characters out of 3147201
- 2148055 words of memory out of 3000000
- 67866 multiletter control sequences out of 15000+200000
+ 65047 strings out of 427748
+ 1456360 string characters out of 3147201
+ 2155187 words of memory out of 3000000
+ 67936 multiletter control sequences out of 15000+200000
  550493 words of font info for 132 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2024s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (103 pages).
+Output written on TFG-TFM_EPS_UA.pdf (107 pages).

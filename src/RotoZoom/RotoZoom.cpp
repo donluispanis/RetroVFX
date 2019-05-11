@@ -56,11 +56,11 @@ bool RotoZoom::Update(float deltaTime)
 {
     UpdatePath(deltaTime);
 
-    for (int i = 0; i < width; i++)
+    for (int j = 0; j < height; j++)
     {
-        for (int j = 0; j < height; j++)
+        for (int i = 0; i < width; i++)
         {
-            //We offset by 10000 units by default to avoid being close to the origin, where weird artifacts can happens
+            //We offset by 10000 units by default to avoid being close to the origin, where weird artifacts can happen
             DrawPixel(i, j, offsetX + 10000, offsetY + 10000, angle, scale);
         }
     }

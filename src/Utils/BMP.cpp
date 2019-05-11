@@ -13,9 +13,9 @@ void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
     height = CharToInt(imageBinary + 22); //Offset where height info is in BMP format
     image = new Pixel[width * height];
 
-    for (int i = 0; i < width; i++)
+    for (int j = 0; j < height; j++)
     {
-        for (int j = 0; j < height; j++)
+        for (int i = 0; i < width; i++)
         {
             //The first part of the index "(imageSize - (j + 1) * width * 3) + i * 3" draws the image inverted in the Y axis
             //The second part of the index "- ((width * 3) % 4) * j" adds the corresponding offset (in the BMP format, all

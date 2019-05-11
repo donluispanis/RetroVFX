@@ -513,78 +513,186 @@ La demo además usa tablas precalculadas para evitar tener que realizar costosas
 
 \subsection{Investigación inicial}
 
-rgerg
-sgsdgsfdh
+El efecto de \emph{RotoZoom} es otro de los grandes clásicos de la \emph{demoscene}, y su nombre es bastante autodescriptivo. El efecto de \emph{RotoZoom} consiste en una imagen que se rota y escala en tiempo real. Podemos ver un ejemplo del mismo en la famosa demo \emph{Second Reality} [\ref{fig:second-reality-rotozoom}].\\
 
-sg
+Existe amplia documentación para la implementación de este efecto, que además, es muy sencillo, pues se trata simplemente de transformaciones geométricas sencillas en el espacio 2D, dónde el grueso del algoritmo reside en transformar coordenadas en función de una rotación y escala variables.\\
 
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/second-reality-rotozoom}
+	\caption{Efecto de RotoZoom - Second Reality (by Future Crew) - Fuente: \href{https://www.youtube.com/watch?v=rFv7mHTf0nA&t=5m6s}{YouTube}}
+	\label{fig:second-reality-rotozoom}
+\end{figure}
 
 \subsection{Planteamiento formal}
 
-rgerg
-sgsdgsfdh
+En la figura [\ref{fig:transform}] podemos ver las tranformaciones necesarias en el espacio bidimensional para escalar, rotar y trasladar un vector o un punto. Además, se dan también las operaciones matématicas necesarias para hacerlo. Aparece para cada transformación, en rojo el vector inicial y en granate el vector transformado. El orden de las operaciones de escalado y rotación en el ejemplo son intercambiables, es decir, el resultado de la transformación no se verá alterado por qué operación se realice antes. La traslación, no obstante, siempre debe ser la última operación que se realice (ya que el escalado y la rotación son consistentes cuando se realizan en torno al origen, pero no son conmutativas si el centro se ve desplazado).\\
 
-sg
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=14cm]{archivos/transform}
+	\caption{Escalado, rotación y traslación en el espacio 2D}
+	\label{fig:transform}
+\end{figure}
 
-drga
+El algoritmo principal para realizar este efecto será, por tanto, sencillo. No obstante, debemos tener algo en cuenta. Este algoritmo lo aplicaremos sobre una \textbf{imagen} y actualmente, no tenemos modo alguno de cargar imágenes en nuestras demos, por lo que tendremos que añadir esta funcionalidad.\\
 
-rg
-
-ergregearg
-
-rgerg
+Por tanto, deberemos seguir los siguientes pasos:
+\begin{itemize}
+	\item Implementar un modo de cargar imágenes en nuestra demo
+	\item Realizar transformaciones geométricas sencillas para emular el efecto de rotación y escalado
+\end{itemize}
 
 \subsection{Implementación}
 
-rgerg
-sgsdgsfdh
+Lo primero que necesitamos hacer es tener un modo de cargar imágenes en nuestro sistema. Siguiendo con la filosofía de este trabajo, intentamos minimizar el uso de librerías externas al máximo, intentando implementar desde cero todo aquello que esté dentro de un ámbito razonable. La \emph{standard library} de C++ nos ofrece funcionalidades para manejar ficheros binarios, por lo que podremos usarlas para hacer nuestro trabajo más sencillo. No obstante, necesitaremos interpretar el fichero cargado en memoria para que una cadena de bytes en memoria pase a convertirse en una imagen que podemos manipular.\\
 
-sg
+Es por ello que lo primero que cabe preguntarse es: ¿qué formato de imagen debemos emplear? Para no salir del ámbito de este trabajo, debemos elegir un formato que sea sencillo de leer y manipular, y este es sin duda, BMP, un formato de imagen sin transparencia ni compresión. En Wikipedia se ofrece una explicación en profundidad del formato BMP \footnote{\url{https://en.wikipedia.org/wiki/BMP_file_format}}, que nos será muy útil para saber cómo interpretarlo.\\
 
-drga
+Estas son las consideraciones que tendremos en cuenta para nuestra cargar de imágenes en BMP, a partir de un archivo binario cargado en memoria:
 
-rg
+\begin{itemize}
+	\item Necesitamos saber la anchura de la imagen, que se puede encontrar en el byte 18 del fichero BMP y ocupa 4 bytes, en \emph{little-endian}
+	\item Necesitamos saber la altura de la imagen, que se puede encontrar en el byte 22 del fichero BMP y ocupa 4 bytes, en \emph{little-endian}
+	\item Asumimos que la profundidad de color será de 24 bits por píxel (1 byte por color)
+	\item Asumimos que no hay ningún tipo de compresión
+	\item En el formato BMP cada fila de la imagen está alineada a 32 bits
+	\item En el formato BMP, la imagen está guardada de abajo a arriba y de izquierda a derecha (es decir, por filas, empezando en la inferior)
+\end{itemize}
 
-ergregearg
+%@startuml
+%
+%class FileLoader
+%{
+%  +OpenBinaryFile(in path, out file, out size)
+%  +CloseBinaryFile(in file)
+%}
+%
+%class BMP
+%{
+%  +OpenRGBImage(in path, out image, out width, out height)
+%  +CloseRGBImage(in image)
+%  -CharToInt(in pointerToCharArray)
+%}
+%
+%hide empty members
+%
+%BMP -> FileLoader : "uses"
+%
+%@enduml
 
-rgerg
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=14cm]{archivos/bmpuml}
+	\caption{Diagrama del sistema para cargar imágenes}
+	\label{fig:bmpuml}
+\end{figure}
+
+Como podemos ver en la figura [\ref{fig:bmpuml}], nos ayudaremos de una clase a la que hemos llamado \emph{FileLoader} a la que simplemente pasaremos una cadena de texto con la ubicación de la imagen que queremos abrir y nos devolverá una copia del fichero (como una cadena de bytes \lstinline{unsigned char *}\{) y el tamaño en bytes del mismo. Para realizar estas operaciones, nos ayudamos de la librería \emph{fstream} de la \emph{standard library}.\\
+
+Nuestra clase principal, \emph{BMP} [\ref{fig:bmpuml}], convertirá la cadena de bytes (\lstinline{unsigned char *}\{) que recibe del \emph{FileLoader} en una cadena de píxeles (\lstinline{Pixel *}\{) usable por nuestras demos.\\
+
+\begin{lstlisting}[style=C-color, caption={Código para cargar una imagen BMP en nuestro sistema}, label=cod:openrgbimage, escapechar=|]
+void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
+{
+    unsigned char *imageBinary = nullptr;
+    unsigned int imageSize;
+
+    FileLoader::OpenBinaryFile(path, imageBinary, imageSize);
+
+    width = CharToInt(imageBinary + 18);  //Offset where width info is in BMP format
+    height = CharToInt(imageBinary + 22); //Offset where height info is in BMP format
+    image = new Pixel[width * height]; |\label{line:pixeltexture}|
+
+    for (int j = 0; j < height; j++)
+    {
+        for (int i = 0; i < width; i++)
+        {
+            //The first part of the index "(imageSize - (j + 1) * width * 3) + i * 3" 
+            //draws the image inverted in the Y axis
+            //The second part of the index "- ((width * 3) % 4) * j" 
+            //adds the corresponding offset (in the BMP format
+            //All rows are 32 bit aligned)
+            int index = (imageSize - (j + 1) * width * 3) + i * 3 - ((width * 3) % 4) * j; |\label{line:bmpindex}|
+            image[j * width + i] = Pixel(imageBinary[index + 2], imageBinary[index + 1], imageBinary[index]);
+        }
+    }
+
+    FileLoader::CloseBinaryFile(imageBinary);
+}
+\end{lstlisting}
+
+Aunque el código [\ref{cod:openrgbimage}] pueda parecer algo complejo, en realidad es bastante sencillo. Una vez tenemos un puntero a nuestro archivo binario, que sabemos que será un fichero BMP, lo primero que hacemos es obtener la altura y anchura de la imagen a leer. Como sabemos la posición en la que se encuentran la anchura y la altura, dado que vienen especificadas por el formato, tan solo tenemos que acceder directamente a la posición donde se encuentran los bytes que nos interesan e interpretarlos. Es por ello que necesitamos una función que sea capaz de, a partir de una dirección de memoria dada, leer 4 bytes que representan un entero de 32 bits en \emph{little-endian}\footnote{\url{https://en.wikipedia.org/wiki/Endianness\#Little-endian}} y devolver como resultado un entero [\ref{cod:chartoint}]. Logramos este resultado mediante el uso de operaciones a nivel de bit, creando una correspondencia byte a byte entre nuestra cadena de bytes y nuestro entero.\\
+
+\begin{lstlisting}[style=C-color, caption={Código para convertir una cadena de 4 bytes en un entero de 32 bits}, label=cod:chartoint]
+int BMP::CharToInt(unsigned char *p)
+{
+    int number = 0;
+
+    number = p[0];
+    number = number | p[1] << 8;
+    number = number | p[2] << 16;
+    number = number | p[3] << 24;
+
+    return number;
+}
+\end{lstlisting}
+
+Una vez hemos obtenido de las cabeceras de nuestro fichero BMP la anchura y altura de la imagen a procesar, en píxeles, podemos calcular el tamaño de nuestra textura e inicializar una textura formada por nuestros píxeles, como podemos ver en la línea [\ref{line:pixeltexture}]. Ahora, debemos rellenar nuestra recién creada textura de un modo que sea fácilmente manipulable en nuestro sistema. Para ello, tenemos que tener en cuenta que el formato BMP incluye la información fila a fila de abajo arriba, por lo que nosotros tendremos que invertirla, para poder tratar nuestra imagen de forma más cómoda, de arriba abajo. Además, tenemos que tener en cuenta que los píxeles están alineados a 32 bits por cada fila. Como podemos ver en la figura [\ref{fig:pixelalignment}], en una imagen de 5x4 píxeles, el formato BMP incluiría un byte extra por fila, de modo que las filas estén siempre alineadas a 32 bits. En la figura [\ref{fig:pixelalignment}], cada celda representa un byte, cada grupo de color (gris o blanco) representa un píxel (tres bytes) y el color rojo representa los bytes añadidos al final de cada fila para que la memoria esté alineada a 32 bits (4 bytes).\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{archivos/pixelalignment}
+	\caption{Representación de los píxeles para una imagen 5x4 en BMP}
+	\label{fig:pixelalignment}
+\end{figure}
+
+Es por ello que si bien rellenamos nuestra textura de arriba abajo, de izquierda a derecha y de forma lineal, en la línea [\ref{line:bmpindex}] calculamos un índice que accede a nuestro fichero BMP de abajo arriba, de izquierda a derecha y saltando al final de cada  fila (evitando introducir datos basura que se usan para mantener el alineamiento por fila).\\
+
+Tras ello, nos aseguramos de liberar la memoria correspondiente y ¡ya hemos convertido nuestra imagen BMP a un formato manejable en nuestras demos!\\
+
+Ahora tan solo queda implementar el algoritmo de \emph{RotoZoom}, lo cual resulta bastante trivial, como podemos ver en el código [\ref{cod:drawrotozoom}]. Para hallar la posición de la textura que corresponde a nuestro píxel, aplicamos primero una rotación, tras ello un escalado y por último, sumamos un desplazamiento. Cabe denotar que para mantener la coherencia de los resultados, nos quedamos con el valor absoluto de la transformación y le aplicamos el módulo en función del tamaño de la textura, para evitar que nuestro píxel se salga de los límites de la textura.\\
+
+\begin{lstlisting}[style=C-color, caption={Dibujar un píxel cuya textura se desplaza en función de un ángulo, una escala y una traslación}, label=cod:drawrotozoom]
+void RotoZoom::DrawPixel(int x, int y, int offsetX, int offsetY, int angle, float scale)
+{
+    int texX = Fast::Abs(int((x * cos(angle) - y * sin(angle)) * scale + offsetX)) % texWidth;
+    int texY = Fast::Abs(int((y * cos(angle) + x * sin(angle)) * scale + offsetY)) % texHeight;
+
+    pixels[y * width + x] = texture[texY * texWidth + texX];
+}
+\end{lstlisting}
+
+Una vez aplicada esta transformación, ¡nuestro efecto de \emph{RotoZoom} está acabado! Y con una tasa de fotogramas de nada más y nada menos que \textbf{5 fotogramas por segundo}...
 
 \subsection{Refinamiento}
 
-rgerg
-sgsdgsfdh
+Como vimos en los tests de rendimiento y como hemos mencionado en el análisis de la demo del Túnel de puntos, las operaciones con funciones matemáticas son costosas. \textbf{Muy costosas}. Si operamos tan solo con unos pocos píxeles no hay problema, pero si debemos iterar sobre cada uno de los píxeles en pantalla, que en nuestro caso son más de un millón... resulta inviable.\\
 
-sg
+El primer cambio que podemos hacer, si nos fijamos en el código [\ref{cod:drawrotozoom}], es extraer el resultado del seno y el coseno a una variable, ya que se realiza la misma operación dos veces. Únicamente hacer esto ya duplicará la velocidad de fotogramas, a 10 fotogramas por segundo, lo cual sigue siendo inaceptable.\\
 
-drga
+Por suerte, y con previsión, ya hemos implementado un método para generar tablas precalculadas [\ref{cod:generatesinetable}]. Si en lugar de usar funciones matemáticas usamos valores precalculados, nuestra tasa de fotogramas aumenta a \textbf{28 por segundo} en modo \emph{debug} y \textbf{40 fotogramas por segundo} en modo \emph{release}, las cuales ya se pueden considerar tasas de fotogramas aceptables, dado que el ojo humano percibe continuidad a partir de algo más de 12 fotogramas por segundo\footnote{\url{https://es.wikipedia.org/wiki/Fotogramas_por_segundo}}.\\
 
-rg
+Ahora que tenemos una tasa de fotogramas adecuada y estable, llega el momento de crear una sensación de movimiento que parezca aleatorio pero continuo y fluido... por suerte, este también es un problema que se repite, pues es el mismo problema que teníamos con la ruta que debía seguir el "túnel de puntos". Así que podemos reutilizar la solución, ajustando valores. Así pues, creamos un "camino de turbulencia" que controlará los valores \emph{x} e \emph{y} de nuestra traslación y otro que controlará los valores del ángulo y la escala.\\
 
-ergregearg
-
-rgerg
+De este modo, las transformaciones que aplicamos sobre nuestros píxeles tendrán un efecto continuo y fluido, pero con una ruta impredecible.\\
 
 \subsection{Resultado}
 
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/rotozoom1}
+		\label{fig:rotozoom1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/rotozoom2}
+		\label{fig:rotozoom2}
+	\end{subfigure}
+	\caption{RotoZoom en distintos estados}
+\end{figure}
 
 \section{Deformaciones de imagen}
 
