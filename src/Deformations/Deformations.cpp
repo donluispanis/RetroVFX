@@ -34,17 +34,19 @@ void Deformations::InitMath()
 void Deformations::RegisterModifiers()
 {
     modifiers.push_back(std::pair<delegate, delegate>(&Deformations::DefaultXModifier, &Deformations::DefaultYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::DefaultXModifier, &Deformations::WaveYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::WaveXModifier, &Deformations::DefaultYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::WaveXModifier, &Deformations::WaveYModifier));
-    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::MosaicXModifier, &Deformations::MosaicYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::DefaultXModifier, &Deformations::TransversalWaveYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::LongitudinalWaveXModifier, &Deformations::DefaultYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::TransversalWaveXModifier, &Deformations::TransversalWaveYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::LongitudinalWaveXModifier, &Deformations::LongitudinalWaveYModifier));
+    modifiers.push_back(std::pair<delegate, delegate>(&Deformations::FlagXModifier, &Deformations::FlagYModifier));
 
     texts.push_back("1. Raw image");
-    texts.push_back("2. Horizontal wave");
-    texts.push_back("3. Vertical wave");
+    texts.push_back("2. Transversal wave");
+    texts.push_back("3. Longitudinal wave");
     texts.push_back("4. Diamond");
     texts.push_back("5. Mosaic");
-    
+    texts.push_back("6. Flag");
+
     currentModifierIndex = 0;
     currentModifier = modifiers[currentModifierIndex];
 }
@@ -66,10 +68,11 @@ bool Deformations::Destroy()
 bool Deformations::Update(float deltaTime)
 {
     UpdateInput();
+    ClearScreenIfNeeded();
 
-    for (int i = 0; i < width; i++)
+    for (int j = 0; j < height; j++)
     {
-        for (int j = 0; j < height; j++)
+        for (int i = 0; i < width; i++)
         {
             DrawPixel(i, j, deltaTime, currentModifier.first, currentModifier.second);
         }
@@ -85,7 +88,7 @@ bool Deformations::Update(float deltaTime)
 void Deformations::UpdateInput()
 {
     bool changeCurrentModifier = windowManager->IsKeyPressed((int)Key::SPACE);
-    if(changeCurrentModifier)
+    if (changeCurrentModifier)
     {
         UpdateCurrentModifier();
     }
@@ -95,12 +98,23 @@ void Deformations::UpdateCurrentModifier()
 {
     currentModifierIndex++;
 
-    if(currentModifierIndex == modifiers.size())
+    if (currentModifierIndex == modifiers.size())
     {
         currentModifierIndex = 0;
     }
 
     currentModifier = modifiers[currentModifierIndex];
+}
+
+void Deformations::ClearScreenIfNeeded()
+{
+    if (currentModifierIndex == 5)
+    {
+        ClearScreen(0, 0, width, 100, Pixel(0));
+        ClearScreen(0, height - 100, width, height, Pixel(0));
+        ClearScreen(0, 100, 100, height - 100, Pixel(0));
+        ClearScreen(width - 100, 100, width, height - 100, Pixel(0));
+    }
 }
 
 void Deformations::DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier)
@@ -129,22 +143,32 @@ int Deformations::DefaultYModifier(int x, int y)
     return y;
 }
 
-int Deformations::MosaicXModifier(int x, int y)
-{
-    return x + sineTable[(x * 20 + int(500 * accumulatedTime)) % mathTableSize ] * 20;
-}
-
-int Deformations::MosaicYModifier(int x, int y)
-{
-    return y + sineTable[(y * 20 + int(500 * accumulatedTime)) % mathTableSize ] * 20;
-}
-
-int Deformations::WaveXModifier(int x, int y)
+int Deformations::TransversalWaveXModifier(int x, int y)
 {
     return x + sineTable[(y * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20;
 }
 
-int Deformations::WaveYModifier(int x, int y)
+int Deformations::TransversalWaveYModifier(int x, int y)
 {
     return y + sineTable[(x * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20;
+}
+
+int Deformations::LongitudinalWaveXModifier(int x, int y)
+{
+    return x + sineTable[(x * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20;
+}
+
+int Deformations::LongitudinalWaveYModifier(int x, int y)
+{
+    return y + sineTable[(y * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20;
+}
+
+int Deformations::FlagXModifier(int x, int y)
+{
+    return x + sineTable[(y + int(accumulatedTime * 600)) % mathTableSize] * 100;
+}
+
+int Deformations::FlagYModifier(int x, int y)
+{
+    return y + sineTable[(x + int(accumulatedTime * 600)) % mathTableSize] * 100;
 }

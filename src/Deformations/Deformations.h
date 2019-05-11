@@ -27,14 +27,17 @@ class Deformations : public ClassicDemoTemplate
     void UpdateInput();
     void UpdateCurrentModifier();
     void DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier);
+    void ClearScreenIfNeeded();
 
     //Modifiers
     int DefaultXModifier(int x, int y);
     int DefaultYModifier(int x, int y);
-    int WaveXModifier(int x, int y);
-    int WaveYModifier(int x, int y);
-    int MosaicXModifier(int x, int y);
-    int MosaicYModifier(int x, int y);
+    int TransversalWaveXModifier(int x, int y);
+    int TransversalWaveYModifier(int x, int y);
+    int LongitudinalWaveXModifier(int x, int y);
+    int LongitudinalWaveYModifier(int x, int y);
+    int FlagXModifier(int x, int y);
+    int FlagYModifier(int x, int y);
 
     Pixel *pixels;
     int width, height;
