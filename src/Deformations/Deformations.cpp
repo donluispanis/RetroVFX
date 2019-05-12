@@ -21,6 +21,9 @@ bool Deformations::Init()
 
     BMP::OpenRGBImage("assets/img/lena.bmp", texture, texWidth, texHeight);
 
+    offsetX = texWidth;
+    offsetY = texHeight;
+
     return true;
 }
 
@@ -107,8 +110,8 @@ void Deformations::UpdateCurrentModifier()
 
 void Deformations::DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier)
 {
-    int newX = (this->*xModifier)(x, y) % texWidth;
-    int newY = (this->*yModifier)(x, y) % texHeight;
+    int newX = (this->*xModifier)(x + offsetX, y + offsetY) % texWidth;
+    int newY = (this->*yModifier)(x + offsetX, y + offsetY) % texHeight;
 
     pixels[y * width + x] = texture[newY * texWidth + newX];
 }
@@ -125,30 +128,30 @@ int Deformations::DefaultYModifier(int x, int y)
 
 int Deformations::TransversalWaveXModifier(int x, int y)
 {
-    return x + sineTable[(y * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20 + texWidth;
+    return x + 20 * sineTable[(y * 20 + int(accumulatedTime * 400)) % mathTableSize];
 }
 
 int Deformations::TransversalWaveYModifier(int x, int y)
 {
-    return y + sineTable[(x * 20 + int(accumulatedTime * 400)) % mathTableSize] * 20 + texHeight;
+    return y + 20 * sineTable[(x * 20 + int(accumulatedTime * 400)) % mathTableSize];
 }
 
 int Deformations::LongitudinalWaveXModifier(int x, int y)
 {
-    return x + sineTable[(x * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20 + texWidth;
+    return x + 20 * sineTable[(x * 20 + int(accumulatedTime * 400)) % mathTableSize];
 }
 
 int Deformations::LongitudinalWaveYModifier(int x, int y)
 {
-    return y + sineTable[(y * 20 + int(500 * accumulatedTime)) % mathTableSize] * 20 + texHeight;
+    return y + 20 * sineTable[(y * 20 + int(accumulatedTime * 400)) % mathTableSize];
 }
 
 int Deformations::FlagXModifier(int x, int y)
 {
-    return x + sineTable[(y + int(accumulatedTime * 600)) % mathTableSize] * 100 + texWidth;
+    return x + 100 * sineTable[(y + int(accumulatedTime * 600)) % mathTableSize];
 }
 
 int Deformations::FlagYModifier(int x, int y)
 {
-    return y + sineTable[(x + int(accumulatedTime * 600)) % mathTableSize] * 100 + texHeight;
+    return y + 100 * sineTable[(x + int(accumulatedTime * 600)) % mathTableSize];
 }

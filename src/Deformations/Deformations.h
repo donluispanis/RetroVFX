@@ -48,6 +48,7 @@ class Deformations : public ClassicDemoTemplate
 
     int texWidth, texHeight;
     Pixel *texture;
+    int offsetX, offsetY;
 
     std::vector<std::pair<delegate, delegate>> modifiers;
     std::pair<delegate, delegate> currentModifier;
