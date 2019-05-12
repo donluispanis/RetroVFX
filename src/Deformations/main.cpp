@@ -4,7 +4,7 @@ int main()
 {
 
     Deformations d;
-    if (!d.Construct("RotoZoom", 1280, 720, false))
+    if (!d.Construct("Deformations", 1280, 720, false))
         return -1;
 
     d.Run();

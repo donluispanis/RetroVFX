@@ -698,69 +698,137 @@ De este modo, las transformaciones que aplicamos sobre nuestros píxeles tendrá
 
 \subsection{Investigación inicial}
 
-Las deformaciones de imagen son un efecto muy socorrido en el mundo de la \emph{demoscene} y de formas muy distintas. Efectos de lupa y/o deformaciones de lente, estiramientos, efectos de muelle o rebote, deformaciones de texturas en espiral, en túnel...\\
+Las deformaciones de imagen son un efecto muy socorrido en el mundo de la \emph{demoscene} y de formas muy distintas. Efectos de lupa y/o deformaciones de lente, estiramientos, efectos de muelle o rebote, torsiones, espirales, en túnel...\\
 
-Sólo implementar todas las diferentes propuestas y efectos de deformaciones de imagen podría llevar su propia investigación y trabajo. 
+Sólo implementar todas las diferentes propuestas y efectos de deformaciones de imagen podría llevar su propia investigación y trabajo. No obstante, el denominador común de muchas de estas transformaciones es que usan operaciones trigonométricas, y al final no dejan de ser combinaciones  distintas de senos y cosenos a los que se aplican distintos parámetros.\\
+
+Es por ello que para las deformaciones de imagen, nos centraremos en las deformaciones de onda, pues muchos de los efectos que podemos encontrar en demos parten de estas mismas bases matemáticas.\\
 
 \subsection{Planteamiento formal}
 
-rgerg
-sgsdgsfdh
+En la figura [\ref{fig:wavefunction}] podemos ver la ecuación de la onda, donde \(A\) es la amplitud de la onda, lo que en nuestra demo se traducirá en la altura máxima y mínima de nuestra onda, en píxeles. \(f\) se corresponde con la frecuencia de la onda (cuántas veces por segundo se completa un ciclo de onda), \(\lambda\) es la longitud de onda (distancia entre dos crestas consecutivas de la onda), \(t\) es el tiempo transcurrido y \(\phi\) es la fase inicial (o desplazamiento inicial con respecto al origen).\\
 
-sg
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm]{archivos/wave}
+	\resizebox{6cm}{!}{\(A \sin{(2 \pi v t + \phi)}, v = f \lambda\)}
+	\caption{Representación gráfica de la onda y su ecuación}
+	\label{fig:wavefunction}
+\end{figure}
 
-drga
+Además, podemos distinguir dos tipos distintos de onda, dependiendo de su forma de movimiento. Una \textbf{onda transversal} es aquella en la que la dirección de movimiento es perpendicular a la dirección de oscilación\footnote{\url{https://es.wikipedia.org/wiki/Onda_transversal}} mientras que una \textbf{onda longitudinal} es aquella en la que la dirección de movimiento es paralela a la dirección de oscilación\footnote{\url{https://es.wikipedia.org/wiki/Onda_longitudinal}}. Por ejemplo, un muelle es un ejemplo de onda longitudinal, pues oscila (rebota) en la misma dirección en la que se mueve, mientras que las ondas que se producen al lanzar una piedra en el agua son un buen ejemplo de onda transversal (pues mientras que el agua oscila de arriba abajo, la onda avanza en línea recta, perpendicular a su oscilación).\\
 
-rg
+En la figura [\ref{fig:transversalwave}] podemos ver la fórmula de la onda transversal. Tiene sentido que el avance de esta onda sea perpendicular a su dirección de oscilación, dado que como se muestra en la figura, el valor de \(y\) depende de \(x\), por lo que el valor en el eje \(y\) depende del valor en el eje perpendicular al mismo. Esto mismo se extrapola a la figura [\ref{fig:longitudinalwave}], dónde el avance de la onda en \(y\) depende de \(y\), por lo que la dirección de propagación coincide con la dirección de oscilación.\\
 
-ergregearg
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\resizebox{4cm}{!}{\(y = A \sin{(2 \pi \frac{x}{\lambda} + \phi)}\)}
+		\caption{Onda transversal}
+		\label{fig:transversalwave}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\resizebox{4cm}{!}{\(y = A \sin{(2 \pi \frac{y}{\lambda} + \phi)}\)}
+		\caption{Onda longitudinal}
+		\label{fig:longitudinalwave}
+	\end{subfigure}
+\end{figure}
 
-rgerg
+Con todo lo visto, para poder crear nuestra demo de deformaciones de imagen necesitaremos:
+
+\begin{itemize}
+	\item Implementar un modo de aplicar deformaciones a nuestra imagen 
+	\item Implementar un sistema que permita manejar con facilidad distintas ondas	
+	\item Implementar distintos tipos de ondas, con distintos parámetros
+\end{itemize}
 
 \subsection{Implementación}
 
-rgerg
-sgsdgsfdh
+Como podemos ver en el código [\ref{cod:drawdeformation}], empezamos por definir una función delegada que nos devuelva un valor entero en función del valor de entrada, que serán las coordenadas \emph{x} e \emph{y}. De este modo, podemos definir nuestro comportamiento de deformación encapsulado en sus propios métodos, generando un código más fácil de mantener y un programa fácilmente modificable en tiempo de ejecución.\\
 
-sg
+\begin{lstlisting}[style=C-color, caption={Dibujado de un pixel aplicando una función que modifica el acceso a textura}, label=cod:drawdeformation]
+typedef int (Deformations::*delegate)(int, int);
 
-drga
+void Deformations::DrawPixel(int x, int y, float deltaTime, delegate xModifier, delegate yModifier)
+{
+    int newX = (this->*xModifier)(x, y) % texWidth;
+    int newY = (this->*yModifier)(x, y) % texHeight;
 
-rg
+    pixels[y * width + x] = texture[newY * texWidth + newX];
+}
+\end{lstlisting}
 
-ergregearg
+Tras ello, definimos diversos métodos que apliquen nuestras funciones de onda, tanto para \emph{x} como para \emph{y}. En el código [\ref{cod:xmodifiers}] podemos ver los modificadores que definimos para \emph{x}. Definimos así un método por defecto que simplemente devuelve la variable sin modificar (por si no queremos aplicar deformación en absoluto o queremos no aplicar transformación en un eje). Tras ello, definimos un método para generar ondas transversales (como podemos ver, la \emph{x} depende de la \emph{y}) y un método para generar ondas longitudinales (donde \emph{x} depende de sí misma). La variable \emph{k} corresponde al número de ondas (\(k = \frac{2 \pi}{\lambda}\)). Además, en nuestro caso sumamos una fase inicial variable, que depende del tiempo (multiplicado por una constante definida por el usuario), de modo que se aplique un desplazamiento incremental a la deformación, generando sensación de movimiento.\\
 
-rgerg
+\begin{lstlisting}[style=C-color, caption={Funciones de deformación en X}, label=cod:xmodifiers]
+int Deformations::DefaultXModifier(int x, int y)
+{
+    return x;
+}
 
-\subsection{Refinamiento}
+int Deformations::TransversalWaveXModifier(int x, int y)
+{
+    return x + amplitude * sineTable[(y * k + int(accumulatedTime * c)) % mathTableSize];
+}
 
-rgerg
-sgsdgsfdh
+int Deformations::LongitudinalWaveXModifier(int x, int y)
+{
+    return x + amplitude * sineTable[(x * k + int(accumulatedTime * c)) % mathTableSize];
+}
 
-sg
+int Deformations::FlagXModifier(int x, int y)
+{
+    return x + bigAmplitude * sineTable[(y + int(accumulatedTime * c)) % mathTableSize];
+}
+\end{lstlisting}
 
-drga
+Como podemos ver, ahora usamos tablas precalculadas desde el principio, pues ya hemos demostrado en la demo anterior que la única forma de obtener una tasa de fotogramas estable y aceptable es mediante el uso de tablas precalculadas. Calculamos el módulo en función del tamaño de la tabla para asegurarnos de no salirnos de los límites de la misma.\\
 
-rg
+Como podemos ver en el código [\ref{cod:xmodifiers}], tenemos un último método al que hemos llamado \emph{FlagModifier}. Esta función ha sido nombrada por el resultado visual que produce, en lugar de haberse elegido su nombre por el tipo de onda que es. Usamos como modificador una onda transversal con una amplitud grande y una longitud de onda también grande (\emph{k} se omite, por lo que \(k = 1\), lo que implica que \(\lambda = 2 \pi\)). Esto produce, al aplicarse sobre la imagen, un efecto similar a una bandera ondeando, de ahí el nombre.\\
 
-ergregearg
-
-rgerg
+Una vez hemos definido nuestras funciones de deformación para \emph{x} e \emph{y}, y habiendo ajustado sus valores, podemos combinarlas y usarlas libremente para crear distintos efectos visuales. Para ello, definimos un vector de pares de modificadores (\lstinline{std::vector<std::pair<delegate, delegate>>}\{. Aunque esta expresión parece algo compleja, es realidad su uso es muy sencillo: al tener un vector de pares de modificadores, podemos añadir fácilmente pares de modificadores y alternarlos. De este modo, podemos aplicar modificadores para \emph{x} e \emph{y} y cambiarlos con facilidad en tiempo de ejecución, aplicando simplemente el siguiente par en el vector.\\
 
 \subsection{Resultado}
 
-rgerg
-sgsdgsfdh
+Podemos apreciar los resfultados de aplicar y combinar las distintas deformaciones a partir de la figura [\ref{fig:alldeformations}].
 
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/deformation1}
+		\caption{Sin modificar}
+		\label{fig:alldeformations}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/deformation2}
+		\caption{Onda transversal en x}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/deformation3}
+		\caption{Onda longitudinal en x}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/deformation4}
+		\caption{Transversal en x e y}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/deformation5}
+		\caption{Mosaico (longitudinal en x e y)}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/deformation6}
+		\caption{Efecto de bandera}
+	\end{subfigure}
+	\label{fig:alldeformations}
+\end{figure}
 
 \section{Plasma}
 
