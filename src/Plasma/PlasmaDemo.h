@@ -29,7 +29,7 @@ class PlasmaDemo : public ClassicDemoTemplate
     IWindowManager* windowManager;
 
     int mathTableSize;
-    float *sineTable, *cosineTable, *sqrtTable;
+    float *sineTable;
 
     Pixel *colourMap;
     int colourMapSize;

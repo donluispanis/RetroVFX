@@ -13,7 +13,7 @@ bool PlasmaDemo::Init()
     width = windowManager->GetWidth();
     height = windowManager->GetHeight();
 
-    accumulatedTime = 0.f;
+    accumulatedTime = 10.f;
     scale = 5;
 
     InitMath();
@@ -27,8 +27,6 @@ void PlasmaDemo::InitMath()
 {
     mathTableSize = 1024;
     sineTable = Fast::GenerateSineTable(mathTableSize);
-    cosineTable = Fast::GenerateCosineTable(mathTableSize);
-    sqrtTable = Fast::GenerateSqrtTable(width * height);
 }
 
 void PlasmaDemo::InitColours()
@@ -54,8 +52,6 @@ bool PlasmaDemo::Destroy()
     delete[] colourMap;
 
     Fast::DeleteMathTable(sineTable);
-    Fast::DeleteMathTable(cosineTable);
-    Fast::DeleteMathTable(sqrtTable);
 
     return true;
 }
@@ -86,11 +82,13 @@ bool PlasmaDemo::Update(float deltaTime)
         for (int j = 0; j < height; j++)
         {
             float value = 0;
-            
-            value += sineTable[int((j * i) / (j + i + 1.f) * scale + accumulatedTime * 166) % mathTableSize];
-            value += sineTable[int(sqrtTable[i * j] * scale + accumulatedTime * 133) % mathTableSize];
-            value += sineTable[int(sqrtTable[(width - i) * (height - j)] * scale + accumulatedTime * 100) % mathTableSize];
-            value += sineTable[int(sqrtTable[(i) * (height - j)] * scale + accumulatedTime * 66) % mathTableSize];
+            int width_i = width - i;
+            int height_j = height - j;
+
+            value += sineTable[int((j * i) / (j + i + 1) * scale + accumulatedTime * 191) % mathTableSize];
+            value += sineTable[int((width_i * j) / (width_i + j + 1)* scale + accumulatedTime * 157) % mathTableSize];
+            value += sineTable[int((width_i * height_j) / (width_i + height_j + 1) * scale + accumulatedTime * 113) % mathTableSize];
+            value += sineTable[int((i * height_j) / (i + height_j + 1) * scale + accumulatedTime * 67) % mathTableSize];
             value *= 0.25f;
 
             int index = Fast::Abs((int)(value * (colourMapSize - 1)));

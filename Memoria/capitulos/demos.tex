@@ -792,21 +792,23 @@ Una vez hemos definido nuestras funciones de deformación para \emph{x} e \emph{
 
 \subsection{Resultado}
 
-Podemos apreciar los resfultados de aplicar y combinar las distintas deformaciones a partir de la figura [\ref{fig:alldeformations}].
+Podemos apreciar los resultados de aplicar y combinar las distintas deformaciones en la figura [\ref{fig:alldeformations}].
 
-\begin{figure}[h]
+\begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=7.5cm]{archivos/deformation1}
 		\caption{Sin modificar}
-		\label{fig:alldeformations}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=7.5cm]{archivos/deformation2}
 		\caption{Onda transversal en x}
 	\end{subfigure}
+\end{figure}
+\begin{figure}\ContinuedFloat
+	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=7.5cm]{archivos/deformation3}
@@ -817,6 +819,9 @@ Podemos apreciar los resfultados de aplicar y combinar las distintas deformacion
 		\includegraphics[width=7.5cm]{archivos/deformation4}
 		\caption{Transversal en x e y}
 	\end{subfigure}
+\end{figure}
+\begin{figure}\ContinuedFloat
+	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=7.5cm]{archivos/deformation5}
@@ -827,6 +832,7 @@ Podemos apreciar los resfultados de aplicar y combinar las distintas deformacion
 		\includegraphics[width=7.5cm]{archivos/deformation6}
 		\caption{Efecto de bandera}
 	\end{subfigure}
+	\caption{Distintos efectos de deformación a partir de ondas}
 	\label{fig:alldeformations}
 \end{figure}
 
@@ -834,79 +840,96 @@ Podemos apreciar los resfultados de aplicar y combinar las distintas deformacion
 
 \subsection{Investigación inicial}
 
-rgerg
-sgsdgsfdh
+El efecto de plasma es otro de los grandes clásicos de la \emph{demoscene}, como el que podemos ver en la figura [\ref{fig:plasma}]. Este efecto existe bien documentado y podemos encontrar múltiples explicaciones y formas de implementarlo.\\
 
-sg
+Un tutorial en detalle, muy bien explicado y documentado es el que podemos encontrar en la página de \textbf{Lode's Computer Graphics Tutorial}\footnote{\url{https://lodev.org/cgtutor/plasma.html}}. Este efecto es tan popular que cuenta incluso con su propia página de Wikipedia\footnote{\url{https://en.wikipedia.org/wiki/Plasma_effect}} e incluso en Rosetta Code\footnote{\url{https://rosettacode.org/wiki/Plasma_effect}} podemos encontrar el código para este efecto implementado en más de 20 lenguajes de programación distintos. También podemos encontrar el código para implementar el efecto de Plasma por GPU en Bidouille.org\footnote{\url{https://www.bidouille.org/prog/plasma}}.\\
 
-drga
-
-rg
-
-ergregearg
-
-rgerg
+Como podemos ver, este no es para nada un efecto desconocido o poco documentado, si no que más bien tenemos que, ante tanta información y tantas implementaciones posibles, elegir la que más se adecue al ámbito de este proyecto.
 
 \subsection{Planteamiento formal}
 
-rgerg
-sgsdgsfdh
+Existen dos principales acercamientos a la implementación del efecto de plasma: combinación de ondas o generación de ruido.\\
 
-sg
+Ambos acercamientos son válidos, e incluso se pueden combinar para producir resultados intermedios. El acercamiento por combinación de ondas se basa en la suma o superposición de distintas funciones de onda, con distintas frecuencias, longitudes de onda y amplitudes, asignando color en función del resultado de la combinación. El acercamiento por generación de ruido se basa, por otro lado, en la generación de un ruido que tenga coherencia local, como por ejemplo el ruido Perlin\footnote{\url{https://en.wikipedia.org/wiki/Perlin_noise}}.\\
 
-drga
+Los resultados de generación de ruido mediante Perlin u otros algoritmos de generación de ruido (fractal, simplex...), no obstante, suelen dar resultados más similares a nubes o turbulencias que a plasma, y suelen requerir de niveles bajos de detalle (pocas iteraciones, si se trata de un algoritmo iterativo) o de suavizados posteriores (calculando valores medios o con efectos de desenfoque) para ser suficientemente convincentes. Además de esto, a la hora de animarlos, el movimiento no resulta tan natural como en el uso de ondas, dado que aunque el ruido tenga coherencia local, sigue existiendo un factor de aleatoriedad que puede romper la coherencia del movimiento.\\
 
-rg
+Es por ello que se opta por implementar un efecto de plasma mediante la combinación de ondas. Estos serán los pasos a seguir:
 
-ergregearg
-
-rgerg
+\begin{itemize}
+	\item Hallar una combinación de ondas que produzca el efecto deseado
+	\item Aplicar un degradado de color dado el resultado de la combinación
+\end{itemize}
 
 \subsection{Implementación}
 
-rgerg
-sgsdgsfdh
+En el código [\ref{cod:multiwave}] se muestra una versión simplificada del código para generar ondas, de modo que sea más fácil de leer (dado que el código real emplea tablas precalculadas y guarda cada operación que se repite más de una vez en variables temporales).\\
 
-sg
+\begin{lstlisting}[style=C-color, caption={Combinación de distintas ondas}, label=cod:multiwave, escapechar=|]
+value += sin((j * i) / (j + i + 1) * scale + accumulatedTime * 191);|\label{line:plasma1}|
+value += sin(((width - i) * j) / ((width - i) + j + 1)* scale + accumulatedTime * 157);|\label{line:plasma2}|
+value += sin((i * (height - j)) / (i + (height - j) + 1) * scale + accumulatedTime * 113);|\label{line:plasma3}|
+value += sin(((width - i) * (height - j)) / ((width - i) + (height - j) + 1) * scale + accumulatedTime * 67);|\label{line:plasma4}|
+\end{lstlisting}
 
-drga
+Podemos comparar este código con el resultado de la figura [\ref{fig:allwaves}], donde se muestra el resultado que genera cada línea de código, la onda en que resulta de forma separada.\\
 
-rg
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/plasma1}
+		\caption{Línea [\ref{line:plasma1}]}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/plasma2}
+		\caption{Línea [\ref{line:plasma2}]}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/plasma4}
+		\caption{Línea [\ref{line:plasma3}]}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6cm]{archivos/plasma3}
+		\caption{Línea [\ref{line:plasma4}]}
+	\end{subfigure}
+	\caption{Cada una de las ondas que son sumadas (con su correspondencia a línea de código)}
+	\label{fig:allwaves}
+\end{figure}
 
-ergregearg
+Si nos fijamos en el código y en las imágenes, podemos ver que todo lo que hacemos es crear cuatro ondas, yendo cada una hacia una de las esquinas de la pantalla y que están desfasadas entre ellas. Los números elegidos para la fase no son aleatorios, pues todos ellos son números primos. Esto es importante, pues si la fase de alguna onda es múltiplo de otra, se pueden producir formas forzadas o bucles que rompan con la sensación de aleatoriedad y continuidad, dado que su desfase es proporcional. Es por ello que el mejor modo de asegurar que no se produzcan estos \emph{acoples} entre las ondas es multiplicando la fase por números primos, de modo que las fases de las ondas no tengan múltiplos comunes y por tanto no puedan acoplarse o dar sensación de periodicidad.\\  
 
-rgerg
+Una vez hemos sumado nuestras ondas, dividimos entre 4 para normalizar el resultado (entre -1 y 1) y a continuación convertimos este intervalo en un valor entero que oscile entre 0 y 255. De este modo obtenemos un índice con el que acceder a un color específico dentro del degradado de colores que hayamos definido previamente.\\
 
-\subsection{Refinamiento}
+El resultado de esta combinación de ondas resulta en un efecto bastante convincente, como podemos ver en la figura [\ref{fig:whiteplasma}].\\
 
-rgerg
-sgsdgsfdh
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/whiteplasma}
+	\caption{Efecto de plasma}
+	\label{fig:whiteplasma}
+\end{figure}
 
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
+Ahora tan sólo nos queda añadir la capacidad de cambiar de degradado de color, como hemos hecho ya en otras demos, para conseguir así un resultado más convincente o visualmente impactante.
 
 \subsection{Resultado}
 
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/redplasma}
+		\caption{Efecto lámpara de lava}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{archivos/greenplasma}
+		\caption{Efecto eléctrico}
+	\end{subfigure}
+\end{figure}
 
 \section{Planos infinitos}
 
