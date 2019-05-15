@@ -15,7 +15,7 @@ bool PlanesDemo::Init()
     height = windowManager->GetHeight();
     texture = nullptr;
 
-    BMP::OpenRGBImage("assets/img/groundsoil.bmp", texture, texWidth, texHeight);
+    BMP::OpenRGBImage("assets/img/lena.bmp", texture, texWidth, texHeight);
     texSize = texHeight * texWidth;
 
     cameraAngle = 0.f;

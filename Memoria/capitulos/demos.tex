@@ -935,63 +935,82 @@ Ahora tan sólo nos queda añadir la capacidad de cambiar de degradado de color,
 
 \subsection{Investigación inicial}
 
-rgerg
-sgsdgsfdh
+El efecto de planos infinitos es muy conocido en la \emph{demoscene}, pero es especialmente popular y conocido en el mundo del videojuego, donde fue popularizado por Nintendo como el famoso Modo 7 \footnote{\url{https://en.wikipedia.org/wiki/Mode_7}} que incluía la SNES. Este era un modo gráfico de esta consola que permitía realizar transformaciones afines, mediante las que se lograba el efecto de planos infinitos.\\
 
-sg
+Este efecto básicamente consistía el uso de una textura bidimensional que se transformaba para dar efecto de profundidad o tridimensionalidad, como podemos ver en la figura [\ref{fig:mode7}].\\
 
-drga
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/mode7}
+	\caption{Modo 7 (efecto de planos infinitos) en la SNES - Fuente: \href{https://en.wikipedia.org/wiki/Mode_7\#/media/File:Mode_7_Test-0000.png}{Wikipedia (por Anomie)}}
+	\label{fig:mode7}
+\end{figure}
 
-rg
+Gracias a este efecto fueron posibles juegos como el primer \emph{Mario Kart}\footnote{\url{https://en.wikipedia.org/wiki/Super_Mario_Kart}}, donde la pista o el circuito no eran más que una textura 2D de grandes dimensiones transformada, para que pareciera un plano o un circuito 3D.\\
 
-ergregearg
-
-rgerg
+Este efecto está muy bien documentado y se puede encontrar su explicación formal tanto en Wikipedia como numerosos tutoriales que ofrecen distintos acercamientos, como este tutorial de \emph{One Lone Coder}\footnote{\url{https://www.youtube.com/watch?v=ybLZyY655iY&t=646s}} en que ofrece una explicación formal y da su propio planteamiento para implementar este modo o este otro tutorial en Coranac.com\footnote{\url{https://www.coranac.com/tonc/text/mode7.htm}} dónde se nos ofrecen tres implementaciones distintas, con distintos acercamientos, y se hace una reflexión sobre los resultados obtenidos.
 
 \subsection{Planteamiento formal}
 
-rgerg
-sgsdgsfdh
+El efecto de planos infinitos está muy bien documentado, bajo distintos acercamientos, uno de los cuales es el Modo 7, aunque también existen otras formas de causar un efecto similar.\\
 
-sg
+Siguiendo el espíritu de este trabajo, intentaremos implementar el efecto de planos infinitos sin usar código de referencia, simplemente usando el material visual disponible para intentar deducir cómo podríamos implementar este efecto. En la figura [\ref{fig:planes}], de creación propia, vemos un posible acercamiento a este efecto, que es el que seguiremos e intentaremos implementar.\\
 
-drga
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{archivos/planes}
+	\caption{Nuestro acercamiento a los planos infinitos}
+	\label{fig:planes}
+\end{figure}
 
-rg
+En esta figura [\ref{fig:planes}], el cuadro negro representa la pantalla o la parte visible de la textura, la línea roja representa la línea del horizonte, punto a partir del cual no se muestra nuestra textura en pantalla.\\
 
-ergregearg
+Para facilitar la visualización del contenido, la parte de la textura fuera de pantalla se ha oscurecido y la parte de la textura en pantalla pero tras la linea del horizonte se ha aclarado, de modo que la porción visible destaque. Además, se ha rellanado el espacio en de pantalla adyacente a nuestra textura con un verde más oscuro, para completar la imagen y facilitar su visualización.\\
 
-rgerg
+Como vemos, partimos de una textura bidimensional, plana. A continuación, estiramos la textura en su parte baja y la apretamos en la parte alta. Dicho de un mejor modo: hacemos nuestra textura depender de la altura, de modo que a mayor altura, más se estreche y viceversa. Ya solo con esto, nuestra imagen gana sensación de profundidad y tridimensionalidad. Pero además, queremos ser capaces de moverla. Para ello, una vez que nuestra textura ha sido convenientemente deformada, rotamos la imagen usando la fórmula mostrada en la figura [\ref{fig:transform}].\\
+
+Una vez que nuestra textura ha sido deformada y rotada como queremos, podemos desplazarla, de modo que así, es pantalla, dará sensación de movimiento y avance. Realmente, todo lo que hacemos es aplicarle las transformaciones 2D que ya vimos con el RotoZoom pero con un contexto y un fin distintos.
 
 \subsection{Implementación}
 
-rgerg
-sgsdgsfdh
+\begin{lstlisting}[style=C-color, caption={Código para generar un efecto básico de planos infinitos, con escalado, rotación y translación}, label=cod:infiniteplanes, escapechar=|]
+for (int j = 0, nh = height / 2; j < nh; j++)
+{
+    for (int i = -width / 2, nw = width / 2; i < nw; i++)
+    {
+        Point2D projectedPoint(i / (float)j, fieldOfView / (float)j);
+        projectedPoint *= textureScale;
+        
+        Point2D rotatedPoint(projectedPoint.X * cosine - projectedPoint.Y * sine,
+                                projectedPoint.X * sine + projectedPoint.Y * cosine);
+                             
+        Pixel colour = texture[Fast::Abs((int(rotatedPoint.Y + cameraPosition.Y) % texHeight) * texWidth +
+                                            int(rotatedPoint.X + cameraPosition.X) % texWidth)];
+                                         
+        pixels[(j + nh) * width + (i + nw)] = colour;|\label{line:planesaccess}|
+    }
+}
+\end{lstlisting}
 
-sg
+Como podemos ver en el código, recorremos media pantalla en altura, desde 0 hasta la mitad de la pantalla, y desde \(-x \div 2\) hasta \(+x \div 2\), recorriendo así toda la anchura de la pantalla. Esta decisión no es aleatoria, pues como vemos más adelante, en la línea [\ref{line:planesaccess} sumamos la mitad de la altura y la anchura, desplazando las coordenadas \emph{i} y \emph{j}. Hacemos esto por conveniencia, pues nos facilita los cálculos, ya que para transformar nuestra textura lo hacemos con respecto al origen de la pantalla (el \emph{(0, 0)} equivale a la esquina superior izquierda) y luego desplazamos el resultado obtenido, como podemos ver en la figura [\ref{fig:desplazamiento}. Recordemos que el orden de las transformaciones no es conmutativo, por lo que primero debemos escalar y rotar con respecto al origen, dejando el desplazamiento como el último paso. De lo contrario, obtendríamos resultados incoherentes.\\
 
-drga
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/desplazamiento}
+	\caption{Posición relativa de la textura antes y después de ser transformada}
+	\label{fig:desplazamiento}
+\end{figure}
 
-rg
+Con esta forma de recorrer nuestra textura, nos aseguramos de operar con respecto al origen, y trasladamos los resultados obtenidos posteriormente.\\
 
-ergregearg
-
-rgerg
+Dentro del bucle, empezamos por la primera transformación (equivalente a estirar la textura en la parte inferior y estrechar en la superior). Para obtener este efecto, basta con dividir 
 
 \subsection{Refinamiento}
 
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{itemize}
+	\item \textbf{Opacidad}
+	\item \textbf{Relieve}
+\end{itemize}
 
 \subsection{Resultado}
 
