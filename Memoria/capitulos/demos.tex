@@ -978,8 +978,8 @@ for (int j = 0, nh = height / 2; j < nh; j++)
 {
     for (int i = -width / 2, nw = width / 2; i < nw; i++)
     {
-        Point2D projectedPoint(i / (float)j, fieldOfView / (float)j);
-        projectedPoint *= textureScale;
+        Point2D projectedPoint(i / (float)j, fieldOfView / (float)j);|\label{line:planesproject}|
+        projectedPoint *= textureScale;|\label{line:planesscale}|
         
         Point2D rotatedPoint(projectedPoint.X * cosine - projectedPoint.Y * sine,
                                 projectedPoint.X * sine + projectedPoint.Y * cosine);
@@ -992,7 +992,7 @@ for (int j = 0, nh = height / 2; j < nh; j++)
 }
 \end{lstlisting}
 
-Como podemos ver en el código, recorremos media pantalla en altura, desde 0 hasta la mitad de la pantalla, y desde \(-x \div 2\) hasta \(+x \div 2\), recorriendo así toda la anchura de la pantalla. Esta decisión no es aleatoria, pues como vemos más adelante, en la línea [\ref{line:planesaccess} sumamos la mitad de la altura y la anchura, desplazando las coordenadas \emph{i} y \emph{j}. Hacemos esto por conveniencia, pues nos facilita los cálculos, ya que para transformar nuestra textura lo hacemos con respecto al origen de la pantalla (el \emph{(0, 0)} equivale a la esquina superior izquierda) y luego desplazamos el resultado obtenido, como podemos ver en la figura [\ref{fig:desplazamiento}. Recordemos que el orden de las transformaciones no es conmutativo, por lo que primero debemos escalar y rotar con respecto al origen, dejando el desplazamiento como el último paso. De lo contrario, obtendríamos resultados incoherentes.\\
+Como podemos ver en el código, recorremos media pantalla en altura, desde 0 hasta la mitad de la pantalla, y desde \(-x \div 2\) hasta \(+x \div 2\), recorriendo así toda la anchura de la pantalla. Esta decisión no es aleatoria, pues como vemos más adelante, en la línea [\ref{line:planesaccess}] sumamos la mitad de la altura y la anchura, desplazando las coordenadas \emph{i} y \emph{j}. Hacemos esto por conveniencia, pues nos facilita los cálculos, ya que para transformar nuestra textura lo hacemos con respecto al origen de la pantalla (el \emph{(0, 0)} equivale a la esquina superior izquierda) y luego desplazamos el resultado obtenido, como podemos ver en la figura [\ref{fig:desplazamiento}].\\
 
 \begin{figure}[h]
 	\centering
@@ -1001,32 +1001,57 @@ Como podemos ver en el código, recorremos media pantalla en altura, desde 0 has
 	\label{fig:desplazamiento}
 \end{figure}
 
-Con esta forma de recorrer nuestra textura, nos aseguramos de operar con respecto al origen, y trasladamos los resultados obtenidos posteriormente.\\
+Esto es importante también porque además de facilitar los cálculos, operar con la coordenada horizontal de la textura centrada en el origen es el equivalente a situar nuestra "cámara", es decir, nuestro punto de vista en el origen. Si hacemos los cálculos de este modo, el punto de fuga del resultado obtenido se situará en el centro de la pantalla (ya que calculamos con respecto al origen -punto de fuga- y luego desplazamos el resultado). Esto da un resultado mucho más realista, pues en nuestra visión el punto de fuga siempre tiende hacia el centro. Podemos ver una demostración visual en la figura [\ref{fig:planes1}].\\
 
-Dentro del bucle, empezamos por la primera transformación (equivalente a estirar la textura en la parte inferior y estrechar en la superior). Para obtener este efecto, basta con dividir 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=14cm]{archivos/planes1}
+	\caption{A la izquierda el punto de fuga está en el 0 de las coordenadas horizontales, a la derecha está en el centro}
+	\label{fig:planes1}
+\end{figure}
+
+En la figura [\ref{fig:planes1}], la imagen de la izquierda se obtiene iterando de 0 a la anchura de la pantalla en la coordenada horizontal. Como el origen está al inicio de la pantalla, todo se siente desplazado hacia la izquierda, de forma poco natural. En la imagen de la derecha, iteramos desde \(-anchura \div 2\) hasta  \(+anchura \div 2\) y luego desplazamos el resultado en \(anchura \div 2\), situando de este modo el punto de fuga en el centro del imagen, tal y como se da en nuestra visión, en el mundo real.\\
+
+Dentro del bucle, empezamos por la primera transformación (equivalente a estirar la textura en la parte inferior y estrechar en la superior, como veíamos en la figura [\ref{fig:planes}]). Para obtener este efecto, basta con dividir basándonos en la altura, como podemos ver en la línea [\ref{line:planesproject}]. A mayor sea la altura (recordemos que el eje Y está invertido en una pantalla, por lo que mayor altura es más hacia abajo), menor será nuestra el índice con el que accederemos a nuestra textura. Esto causa que a mayor sea la altura, menor es la distancia entre los accesos a la textura y por tanto la textura tiene una apariencia más grande. Es por esto que a menos altura (más arriba), la textura se percibirá más comprimida y a mayor altura (más abajo) los accesos a memoria serán más contiguos y por tanto la imagen resultante se percibirá más grande. Podemos ver este efecto claramente en la figura [\ref{fig:planes1}].\\
+
+Además, como podemos ver en la línea [\ref{line:planesproject}], nuestra variable horizontal depende de la vertical (\emph{i} depende de \emph{j}), y para la coordenada vertical del punto que creamos, usamos una variable definida por el usuario y que también se ve afectada por la altura (que equivale a la distancia desde el observador, es decir, más arriba en pantalla implica menor altura y más distancia desde el observador si en lugar de una textura plana se tratase de un espacio tridimensional real). A esta variable la llamamos \emph{field of view}, o campo de visión, y su modificación modifica el ángulo o la amplitud con la que vemos en pantalla, como podemos ver en la figura [\ref{fig:planes2}].
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=14cm]{archivos/planes2}
+	\caption{De izquierda a derecha, de mayor a menor campo de visión}
+	\label{fig:planes2}
+\end{figure}
+
+A continuación, escalamos nuestra textura por un factor, como podemos ver en la línea [\ref{line:planesscale}]. Esto variará el tamaño de nuestra textura en pantalla, y por tanto, también el número de repeticiones de la misma. A menor sea la escala, menor será la textura y más repeticiones se darán de la misma para llenar la pantalla.\\
+
+Tras el escalado, rotamos nuestra textura en función de un ángulo que se corresponderá con el giro de cámara, aplicando la fórmula matemática ya vista en la figura [\ref{fig:transform}], y a continuación sumamos el desplazamiento, que se corresponderá con la posición de la cámara en la escena. Tras ello, aplicamos el módulo para asegurarnos que si se sobrepasan los límites de nuestra textura, se produzca un acceso cíclico a la misma, y no se den errores de acceso. Nos aseguramos además de que el resultado obtenido sea positivo (calculando el valor absoluto) para evitar así accesos negativos que puedan hacer fallar nuestra aplicación. Una vez hemos calculado las coordenadas de la textura que se corresponden con las coordenadas en pantalla, y una vez que hemos obtenido el color al que se asocian nuestras coordenadas de textura, asignamos el color.\\
+
+Con esto, obtenemos una escena que produce la sensación de planos infinitos y por la que nos podemos mover como si se tratase de un videojuego en primera persona (pues podemos modificar la rotación, escala y traslación, que en nuestra escena es el equivalente a mover la cámara).\\
+
+Podemos ver además que para esta demo hemos creado una estructura a la que hemos denomidado \lstinline{Pixel2D}\{. Esta es una estructura sencilla que simplemente nos permite almacenar dos coordenadas en coma flotante con precisión simple (\emph{x} e \emph{y}) y nos da facilidades para operar con las mismas (suma y resta de puntos, multiplicación por un escalar...).
 
 \subsection{Refinamiento}
 
 \begin{itemize}
-	\item \textbf{Opacidad}
-	\item \textbf{Relieve}
+	\item \textbf{Fundido a negro}: actualmente, la línea del horizonte pasa directamente de tener color a un horizonte negro. Este cambio puede resultado algo brusco. Si creamos una variable de opacidad que dependa de la altura, de modo que a menor sea la altura menos sea la opacidad (es decir, a más lejos esté la cámara del observador, más oscuro se vea) conseguiremos un efecto mucho menos brusco y mucho más ambiental. 
+	\item \textbf{Relieve}: un pequeño añadido que me pareció que podría ser curioso de implementar consiste en una falsa sensación de relieve que dependa del brillo del color. Para hacer esto, lo que hacemos es desplazar el dibujado de nuestra textura en un factor variable que dependa del brillo del color que aplicamos, de modo que los colores más oscuros se pinten más abajo y los colores más claros más arriba en pantalla, dando así una cierta sensación de relieve o terreno, sumando a la sensación de tridimensionalidad. Como podemos ver en el código [\ref{cod:displacement}], empezamos por calcular la percepción del brillo en base al color, tal y como es percibido por el ojo humano\footnote{\url{https://en.wikipedia.org/wiki/Relative_luminance}} y a continuación multiplicamos por 0.004 (equivalente de dividir por 256) para normalizar el resultado. Tras ello, calculamos el desplazamiento de la textura en función del nivel de desplazamiento (decidido por el usuario), el brillo relativo del color y la distancia al observador. Aplicamos este desplazamiento al asignar el color en pantalla.
 \end{itemize}
+
+\begin{lstlisting}[style=C-color, caption={Código para calcular el desplamiento de la textura}, label=cod:displacement]
+float colourBrightness = ((colour.R * 0.3) + (colour.G * 0.59) + (colour.B * 0.11)) * 0.004f; // * 1 / 256
+int textureDesplacement = (bumpLevel * colourBrightness) * distanceFactor;
+pixels[(j - textureDesplacement + nh) * width + (i + nw)] = colour;
+\end{lstlisting}
 
 \subsection{Resultado}
 
-rgerg
-sgsdgsfdh
-
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
-
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{archivos/planes3}
+	\caption{Resultado final, con efectos de niebla y relieve aplicados}
+	\label{fig:planes3}
+\end{figure}
 
 \section{Geometría}
 
