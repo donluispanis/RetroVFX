@@ -51,3 +51,12 @@ Point3D Point3D::operator*(const float f) noexcept
             this->Y * f,
             this->Z * f));
 }
+
+Point3D Point3D::inverse()
+{
+    return std::move(
+        Point3D(
+            1 / this->X,
+            1 / this->Y,
+            1 / this->Z));
+}

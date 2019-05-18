@@ -184,20 +184,19 @@ void GeometryDemo::RenderInstructions()
 
 void GeometryDemo::UndoObjectTransformations()
 {
-    TranslateObject(objects[objectsIndex], Point3D(-transformations[0].X, -transformations[0].Y, -transformations[0].Z));
+    TranslateObject(objects[objectsIndex], -transformations[0]);
     Rotate3DObjectAroundXAxis(objects[objectsIndex], transformations[1].Z);
     Rotate3DObjectAroundYAxis(objects[objectsIndex], transformations[1].X);
     Rotate3DObjectAroundZAxis(objects[objectsIndex], transformations[1].Y);
-    ScaleObject(objects[objectsIndex], Point3D(1 / transformations[2].X, 1 / transformations[2].Y, 1 / transformations[2].Z));
+    ScaleObject(objects[objectsIndex], transformations[2].inverse());
 }
 
 void GeometryDemo::Generate2DProjection(Object3D &object)
 {
     object.projectedPoints.clear();
 
-    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
+    for (Point3D p : object.points)
     {
-        Point3D p = object.points[i];
         object.projectedPoints.push_back({p.X, p.Y});
     }
 }
@@ -210,39 +209,37 @@ void GeometryDemo::GeneratePerspectiveProjection(Object3D &object)
 
     object.projectedPoints.clear();
 
-    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
+    for (const Point3D &p : object.points)
     {
-        Point3D p = object.points[i];
         float depth = (p.Z != 0.f) ? (p.Z * depthFactor) : 1.f; //Depth can't be 0
 
-        object.projectedPoints.push_back({((p.X - halftWidth) / depth) + halftWidth, ((p.Y - halftHeight) / depth) + halftHeight});
+        object.projectedPoints.push_back({((p.X - halftWidth) / depth) + halftWidth,
+                                          ((p.Y - halftHeight) / depth) + halftHeight});
         //Move points to the origin, then apply depth by dividing and then move points back to where they were
     }
 }
 
 void GeometryDemo::TranslateObject(Object3D &object, Point3D offset)
 {
-    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
+    for (Point3D &p : object.points)
     {
-        object.points[i] += offset;
+        p += offset;
     }
 }
 
 void GeometryDemo::ScaleObject(Object3D &object, Point3D scale)
 {
-    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
+    for (Point3D &p : object.points)
     {
-        object.points[i] *= scale;
+        p *= scale;
     }
 }
 
 void GeometryDemo::Rotate3DObjectAroundXAxis(Object3D &object, float angle)
 {
-    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
+    for (Point3D &p : object.points)
     {
-        Point3D p = object.points[i];
-
-        object.points[i] = Point3D(
+        p = Point3D(
             p.X,
             p.Y * cosf(angle) - p.Z * sinf(angle),
             p.Y * sinf(angle) + p.Z * cosf(angle));
@@ -251,11 +248,9 @@ void GeometryDemo::Rotate3DObjectAroundXAxis(Object3D &object, float angle)
 
 void GeometryDemo::Rotate3DObjectAroundYAxis(Object3D &object, float angle)
 {
-    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
+    for (Point3D &p : object.points)
     {
-        Point3D p = object.points[i];
-
-        object.points[i] = Point3D(
+        p = Point3D(
             p.X * cosf(angle) + p.Z * sinf(angle),
             p.Y,
             -p.X * sinf(angle) + p.Z * cosf(angle));
@@ -264,11 +259,9 @@ void GeometryDemo::Rotate3DObjectAroundYAxis(Object3D &object, float angle)
 
 void GeometryDemo::Rotate3DObjectAroundZAxis(Object3D &object, float angle)
 {
-    for (unsigned int i = 0, n = object.points.size(); i < n; i++)
+    for (Point3D &p : object.points)
     {
-        Point3D p = object.points[i];
-
-        object.points[i] = Point3D(
+        p = Point3D(
             p.X * cosf(angle) - p.Y * sinf(angle),
             p.X * sinf(angle) + p.Y * cosf(angle),
             p.Z);
@@ -277,9 +270,8 @@ void GeometryDemo::Rotate3DObjectAroundZAxis(Object3D &object, float angle)
 
 void GeometryDemo::RenderObject(Object3D object, const Pixel &colour)
 {
-    for (int i = 0, n = object.indexes.size(); i < n; i++)
+    for (const Point2D &indexPair : object.indexes)
     {
-        Point2D indexPair = object.indexes[i];
         Point2D startPoint = object.projectedPoints[indexPair.X];
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 

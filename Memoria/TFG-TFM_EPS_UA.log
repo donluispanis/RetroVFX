@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  16 MAY 2019 20:24
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  18 MAY 2019 17:13
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -4268,39 +4268,165 @@ Underfull \hbox (badness 10000) in paragraph at lines 1030--1031
 File: archivos/planes3.png Graphic file (type bmp)
 <archivos/planes3.png>
 
+Underfull \hbox (badness 10000) in paragraph at lines 1061--1062
+
+ []
+
+
 Underfull \vbox (badness 2735) has occurred while \output is active []
 
- [87])
-(capitulos/demofinal.tex [88]
+ [87]
+Underfull \hbox (badness 10000) in paragraph at lines 1063--1064
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1066
+
+ []
+
+[88] [89]
+Underfull \hbox (badness 10000) in paragraph at lines 1083--1084
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1085--1086
+
+ []
+
+File: archivos/projection.png Graphic file (type bmp)
+<archivos/projection.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 1094--1095
+
+ []
+
+[90]
+File: archivos/pointandobject.eps Graphic file (type eps)
+<archivos/pointandobject.eps>
+
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1104
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1105--1106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1121--1122
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [91]
+Underfull \hbox (badness 10000) in paragraph at lines 1123--1124
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1160--1161
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1162--1163
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [92]
+Underfull \hbox (badness 10000) in paragraph at lines 1191--1192
+
+ []
+
+File: archivos/flatcube.png Graphic file (type bmp)
+<archivos/flatcube.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[93] [94]
+File: archivos/cube.png Graphic file (type bmp)
+<archivos/cube.png>
+File: archivos/pyramid.png Graphic file (type bmp)
+<archivos/pyramid.png>
+File: archivos/star.png Graphic file (type bmp)
+<archivos/star.png>
+File: archivos/geometry.png Graphic file (type bmp)
+<archivos/geometry.png>
+) (capitulos/demofinal.tex [95] [96
+
+
+]
 chapter 8.
-) (capitulos/conclusiones.tex [89
-
-
-] [90
+) (capitulos/conclusiones.tex [97] [98
 
 
 ]
 chapter 9.
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+[99]
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--27
+
+ []
+
 )
-
-Package natbib Warning: Citation `Alfonso2010a' on page 91 undefined on input l
-ine 123.
-
-No file TFG-TFM_EPS_UA.bbl.
-
-Package natbib Warning: There were undefined citations.
-
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[91]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 147.
+[100]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 146.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 146.
  (TFG-TFM_EPS_UA.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 147.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 147.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 146.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 146.
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
 
@@ -4309,12 +4435,12 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 65215 strings out of 427748
- 1459532 string characters out of 3147201
- 2157473 words of memory out of 3000000
- 68086 multiletter control sequences out of 15000+200000
+ 65310 strings out of 427748
+ 1461179 string characters out of 3147201
+ 2161191 words of memory out of 3000000
+ 68177 multiletter control sequences out of 15000+200000
  550493 words of font info for 132 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2024s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (115 pages).
+Output written on TFG-TFM_EPS_UA.pdf (124 pages).

@@ -186,7 +186,7 @@ A continuación se presenta el resultado final del efecto de fuego: un fuego din
 	\end{subfigure}
 \end{figure}
 
-\section{Túnel de puntos}
+\section{Túnel de puntos} \label{sec:dottunnel}
 
 \subsection{Investigación inicial}
 
@@ -1058,75 +1058,188 @@ pixels[(j - textureDesplacement + nh) * width + (i + nw)] = colour;
 
 \subsection{Investigación inicial}
 
-rgerg
-sgsdgsfdh
+De cara a la demo de geometría, lo tenía claro: quería realizarla desde 0, basándome puramente en el planteamiento matemático, y tratando de desarrollar un solución lo más simple pero efectiva posible.\\
 
-sg
+Para poder realizar una demo completa es necesario un motor gráfico que nos permita gestionar cámaras, múltiples instancias de objetos, orden de dibujado y optimizaciones para no dibujar objetos fuera de pantalla, no dibujar objetos que son tapados por otros objetos, etc...\\
 
-drga
+Implementar todas estas características parecía a todas luces inviable, pues desarrollar un motor gráfico complejo conlleva su propio trabajo e investigación, y se sale del ámbito de este proyecto. Es por ello que se optó por un planteamiento basado puramente en la matemática y abogando por la simplicidad.\\
 
-rg
-
-ergregearg
-
-rgerg
+No obstante, y a modo de nota, dejo apuntados dos grandes canales de referencia para la implementación de un motor gráfico completo partiendo desde cero, siendo uno el ya varias veces mencionado en este trabajo \emph{One Lone Coder}\footnote{\url{https://www.youtube.com/watch?v=ih20l3pJoeU}} y otro la lista de reproducción de \emph{Chili Tomato Noodle}\footnote{\url{https://www.youtube.com/watch?v=uehGqieEbus&list=PLqCJpWy5Fohe8ucwhksiv9hTF5sfid8lA}}.
 
 \subsection{Planteamiento formal}
 
-rgerg
-sgsdgsfdh
+Como ya hemos dicho, no vamos a implementar un motor gráfico completo, si no que vamos a tratar de implementar el motor más sencillo posible a partir de pura deducción matemática. Es por ello que vamos a sacrificar cierta flexibilidad, a cambio de una mayor sencillez:
 
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{itemize}
+	\item \textbf{Evitaremos el uso de matrices}: los motores gráficos actuales usan matrices 4x4 para el cálculo de coordenadas. Esto es muy útil pues permite un sistema de coordenadas y transformaciones homogéneas\footnote{\url{https://en.wikipedia.org/wiki/Homogeneous_coordinates}}, lo que significa que el estado de transformación de cualquier objeto (escala, rotación y traslación) puede ser guardado y/o acumulado en una sola matriz, haciendo así que aplicar transformaciones geométricas sea un proceso fácilmente automatizable y mantenible. Esto viene al coste, no obstante, de tener que gestionar multiplicaciones de matrices, operación que no es trivial, pues para multiplicar una matriz 4x4 por otra, es necesario multiplicar los 16 elementos que forman una matriz por los 16 de la otra, lo que equivale a 256 multiplicaciones. El uso de matrices aporta flexibilidad, mantenibilidad y un modelo matemático único y sólido, pero lo hace al coste de eficiencia (la multiplicación de matrices no es trivial) y de complejidad (manipular matrices requiere una base matemática sólida).
+	\item \textbf{Cámara fija en el origen}: nuestra cámara se mantendrá fija en el origen de las coordenadas y no podremos desplazarla. Normalmente para desplazar la cámara en un motor gráfico convencional, lo que se hace realmente es trasladar el \emph{mundo} con respecto a la cámara, que se mantiene siempre en el origen. Para hacer esto, se suele hallar la matriz inversa\footnote{\url{https://en.wikipedia.org/wiki/Invertible_matrix}} de la transformación de la cámara y multiplicar cada elemento en escena por la misma, para así desplazarlo en función del "movimiento" de la cámara, que se mantiene estática en el origen. Por supuesto, esta operación se puede realizar sin usar matrices, simplemente transformando cada objeto con la transformación inversa que se aplica a la cámara (si la cámara se desplaza hacia la derecha, en lugar de mover la cámara, la mantenemos en el origen y movemos nuestros objetos en escena hacia la izquierda). Sin embargo, esto aporta una complejidad añadida y una cantidad de cálculo extra que no resulta excesivamente práctica de cara al resultado final, que no se verá excesivamente impactado por tener una cámara fija.
+	\item \textbf{Orden de dibujado dependiente del orden de los vértices}: usualmente, para evitar que objetos que están "virtualmente al fondo" se dibujen por encima de los que están "más adelante" en pantalla, se utilizan \emph{buffers} de profundidad, también conocidos como \emph{z-buffer}\footnote{\url{https://en.wikipedia.org/wiki/Z-buffering}}. Estos \emph{buffers} funcionan a nivel de píxel, y se aseguran que solo se pinte en pantalla el píxel que más cercano está al observador (si dos objetos, una verde y uno azul, se superponen en un mismo píxel, el color final del píxel dependerá de qué objeto está delante, y no de qué vertice se dibujó primero). No obstante, mantener un \emph{buffer} de profundidad aumenta la complejidad tanto espacial como temporal de la solución, y resulta poco práctico cuando sólo vamos a tener unos pocos objetos sencillos en pantalla.
+	\item \textbf{Pintaremos únicamente el \emph{wireframe} de los objetos}: sólo dibujaremos las aristas de los objetos, pero no los dibujaremos como objetos sólidos ni les aplicaremos textura. Esta decisión se toma no tanto por cuestión de complejidad de implementación como por cuestión de eficiencia. En primer lugar, si nuestros objetos son sólidos, entonces se hace mucho más necesario tener un \emph{buffer} de profundidad. Que las aristas de un objecto cualquiera intersecten con si mismas no supone un problema grave, y apenas suele ser perceptible, pero si la parte trasera del cubo se dibuja por encima de la delantera, se producen defectos visuales serios. Pero más allá de esto, dibujar tan sólo las aristas de nuestro objeto implica tener que pintar unos pocos píxeles (se dibujan líneas, únicamente), mientras que hacer nuestros objetos sólidos implica tener que rellenar todo el espacio que ocupa el objeto, teniendo que pintar una gran cantidad de píxeles. Si a esto le sumásemos aplicar una textura al objeto (operación relativamente sencilla, pues consiste en un \emph{mapping} entre la posición en el espacio del objeto y el acceso a la textura, consistiendo en una simple transformación), nos topamos con un coste temporal para nada trivial. La diferencia para dibujar un objeto pasa a ser de pintar unas pocas líneas en cualquier orden a tener que pintar todo el espacio que ocupa el objeto píxel a píxel y asegurar por píxel que se pinta el color de la cara que está más al frente y que esté correctamente \emph{mapeado} a la textura que corresponde al objeto. Recordemos que estamos en CPU, no nos podemos permitir toda esta cantidad de cálculo a altas resoluciones de pantalla. Es por algo, al fin y al cabo, que se crearon la unidades gráficas (GPU) para manejar las operaciones con gráficos (operaciones sencillas a nivel matemático -pues suelen ser sumar, restas, multiplicaciones y divisiones- pero con gran carga computacional -pues hay que realizar miles o millones de ellas por fotograma-).
+	\item \textbf{No dejaremos de pintar objetos por estar fuera de pantalla o ser tapados por otros objetos}: técnicas como el \emph{clipping}\footnote{\url{https://en.wikipedia.org/wiki/Clipping_(computer_graphics)}} o el \emph{culling}\footnote{\url{https://en.wikipedia.org/wiki/Back-face_culling}} evitan el pintado de objetos o partes del objeto que están fuera de pantalla o que no son visibles. Estas técnicas de optimización tienen sentido absoluto cuando pintamos una gran cantidad de caras sólidas con texturas, pues el coste de pintar una cara no es para nada trivial, y es mucho menor el coste de calcular qué caras u objetos deben ser pintados que pintarlo todo a fuerza bruta. En nuestra demo, sin embargo, pintaremos pocos objetos, que rara vez se saldrán de pantalla y que no serán objetos sólidos, por lo que aplicar técnicas de optimización de este estilo sólo aumentará la complejidad del código sin ofrecer ganancias reales.
+\end{itemize}
 
 \subsection{Implementación}
 
-rgerg
-sgsdgsfdh
+Para poder dibujar un objeto tridimensional en una pantalla bidimensional, debemos encontrar un modo de representar el objeto y dibujarlo. Para ello, necesitamos almacenar los puntos que forman nuestro objeto y la relación entre ellos (qué pares de puntos están conectados formando aristas). Además, necesitamos encontrar un modo de proyectar nuestros puntos tridimensionales contra un plano, que se corresponderá a nuestra pantalla, de modo que podamos ver una representación 2D de nuestro objeto tridimensional.\\
 
-sg
+En la figura [\ref{fig:projection}] podemos ver un ejemplo de proyección paralela, donde se trazan líneas paralelas desde cada punto del objeto y se calcula su intersección con respecto a un plano bidimesional. Luego, los puntos resultado de la intersección se unen entre sí, siendo las líneas resultantes las aristas proyectadas de nuestro objeto tridimensional. Como veremos más adelante, a nivel de implementación, la proyección paralela es muy sencilla de realizar.\\
 
-drga
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=7cm]{archivos/projection}
+	\caption{Cubo 3D que se proyecta contra el plano (proyección paralela)}
+	\label{fig:projection}
+\end{figure}
 
-rg
+Así pues, empezamos por crear dos nuevas estructuras, como podemos ver en la figura [\ref{fig:pointandobject}]. Son el punto 3D, muy similar al punto 2D previamente creado, pero con una dimensión extra, y el objeto 3D. Un objeto 3D consiste en una serie de puntos que representan la posición en el espacio 3D de los vértices del objeto a representar y un conjunto de pares de índices. Cada índice referencia la posición de uno de los vértices en la lista de puntos. De este modo, cada par de índices representa una arista de nuestro objeto a dibujar. Adicionalmente se incluye un conjunto de puntos 2D al que llamamos \emph{projectedPoints}. Este vector se corresponde con el vector de vértices, y contiene los puntos tridimensionales una vez que son proyectados contra la pantalla, y por tanto convertidos al espacio 2D.\\
 
-ergregearg
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{archivos/pointandobject}
+	\caption{Estructura básica de Point3D y Object3D}
+	\label{fig:pointandobject}
+\end{figure}
 
-rgerg
+Una vez tenemos un modo de representar nuestros objetos, es necesario hallar una forma de proyectarlos. Como hemos anticipado, la proyección de un objeto con respecto al plano \(z = 0\) es extremadamente sencillo. Este es el plano que tiene su centro en el origen de coordenadas y se extiende infinitamente en \emph{x} e \emph{y}. La intersección de cualquier línea perpendicular a este plano con el mismo será equivalente a un punto de las características \emph{(x, y, 0)}, dado que \emph{z} siempre equivale a 0. Como para hallar nuestra proyección paralela lo que hacemos es hallar el punto de intersección de una recta perpendicular al plano de proyección que pasa por un vértice de nuestro objeto a proyectar, este punto de intersección siempre será del tipo \emph{(x, y, 0)}. O en otras palabras, para obtener nuestro punto proyectado con respecto a \(z = 0\), ¡todo lo que tenemos que hacer es tomar las coordenadas \emph{x} e \emph{y} e  ignorar el valor de \emph{z}!\\
+
+Una vez tenemos una forma de representar un objeto 3D y una forma extremadamente sencilla de proyectarlo, llega el momento de dibujarlo. Como podemos ver en el código [\ref{cod:renderobject}], todo lo que tenemos que hacer es recorrer todos los pares de índices y por cada par, obtener el punto de inicio y final de la arista proyectada. A continuación, dibujamos una línea que vaya de un punto al otro y ¡ya podemos dibujar figuras tridimensionales en pantalla!\\
+
+
+\begin{lstlisting}[style=C-color, caption={Código para dibujar un objeto 3D}, label=cod:renderobject]
+void GeometryDemo::RenderObject(Object3D object, const Pixel &colour)
+{
+    for (const Point2D& indexPair : object.indexes)
+    {
+        Point2D startPoint = object.projectedPoints[indexPair.X];
+        Point2D endPoint = object.projectedPoints[indexPair.Y];
+
+        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, colour, 1);
+    }
+}
+\end{lstlisting}
+
+Una vez podemos crear, proyectar y dibujar nuestro objeto, todo lo que nos falta es añadir la capacidad de transformarlo. Todo lo que vimos y aplicamos para el espacio 2D es también extensible y aplicable al espacio 3D. De este modo, el orden de las transformaciones no es conmutativo, y empezaremos escalando y rotando siempre en el origen, para a continuación trasladar la figura. El escalado sigue siendo tan sencillo como en el espacio 2D, consiste simplemente en multiplicar cada coordenada por un factor de escalado, y lo mismo se aplica para la traslación, que consiste en sumar un desplazamiento a cada coordenada.\\
+
+El asunto cambia ligeramente para la rotación, sin embargo, y se vuelve algo más complejo. Si en el espacio 2D se rotaba con respecto a un punto (el origen), ahora, en el espacio 3D se rota con respecto a un eje (una línea) siendo estos los ejes \emph{x}, \emph{y}, \emph{z}. Por tanto, necesitamos tres funciones distintas, para rotar nuestros vértices respecto a cada uno de los ejes. Además, algo nuevo a tener en cuenta, ¡el orden de las rotaciones tampoco es conmutativo! Por tanto, el resultado de rotar primero en \emph{x} y luego en \emph{y} será distinto al de hacerlo primero en \emph{y} y luego en \emph{x}.\\
+
+\begin{lstlisting}[style=C-color, caption={Métodos para rotar en torno a los ejes, en el espacio 3D}, label=cod:rotatearoundaxes]
+void GeometryDemo::Rotate3DObjectAroundXAxis(Object3D &object, float angle)
+{
+    for (Point3D &p : object.points)
+    {
+        p = Point3D(
+            p.X,
+            p.Y * cosf(angle) - p.Z * sinf(angle),
+            p.Y * sinf(angle) + p.Z * cosf(angle));
+    }
+}
+
+void GeometryDemo::Rotate3DObjectAroundYAxis(Object3D &object, float angle)
+{
+    for (Point3D &p : object.points)
+    {
+        p = Point3D(
+            p.X * cosf(angle) + p.Z * sinf(angle),
+            p.Y,
+            -p.X * sinf(angle) + p.Z * cosf(angle));
+    }
+}
+
+void GeometryDemo::Rotate3DObjectAroundZAxis(Object3D &object, float angle)
+{
+    for (Point3D &p : object.points)
+    {
+        p = Point3D(
+            p.X * cosf(angle) - p.Y * sinf(angle),
+            p.X * sinf(angle) + p.Y * cosf(angle),
+            p.Z);
+    }
+}
+\end{lstlisting}
+
+Recapitulando... ahora podemos crear nuestro objeto, proyectarlo, dibujarlo y transformalo. No obstante, hay una cosa a tener en cuenta, para rotar nuestro objeto de forma coherente, siempre tiene que estar situado en el origen, pero si lo trasladamos, ¿entonces cómo podemos lograr que rote de forma coherente en el siguiente fotograma?\\
+
+La respuesta es sencilla, antes de dibujar, aplicamos las transformaciones al objeto, y tras dibujar, deshacemos las transformaciones que hemos aplicado, de modo que el objeto vuelva a situarse en el origen. De este modo, nuestro objeto siempre estará virtualmente situado en el origen, y sólo lo moveremos en el paso previo al dibujado, para volver a dejarlo en su posición inicial tras el mismo. Deshacer las transformaciones aplicadas es sencillo, si movimos nuestro objeto en 10 unidades en \emph{x}, ahora lo movemos en -10 unidades y así vuelve al origen. Si escalamos por 2, ahora escalamos por la inversa, \(\frac{1}{2}\), para obtener la escala natural (1) y si rotamos en 90º en torno a \emph{x}, ahora rotamos -90º en torno a \emph{x}. Eso sí, algo muy importante a tener en cuenta: debemos deshacer nuestras transformaciones en el orden inverso del que las hicimos. En otras palabra, si para aplicar transformaciones escalamos, rotamos y trasladamos, para desahcerlas, trasladamos, rotamos y escalamos.\\
+
+\begin{lstlisting}[style=C-color, caption={Ciclo de actualización de un objeto en pantalla}, label=cod:update]
+bool GeometryDemo::Update(float deltaTime)
+{
+	// Clear screen
+    EraseObject(objects[objectsIndex]);
+    
+    // Apply transformations
+    ScaleObject(objects[objectsIndex], transformations[2]);
+    Rotate3DObjectAroundZAxis(objects[objectsIndex], transformations[1].Y);
+    Rotate3DObjectAroundYAxis(objects[objectsIndex], transformations[1].X);
+    Rotate3DObjectAroundXAxis(objects[objectsIndex], transformations[1].Z);
+    TranslateObject(objects[objectsIndex], transformations[0]);
+    
+    //Draw object
+    RenderObject(objects[objectsIndex], Pixel(255));
+    
+    // Undo transformations
+    TranslateObject(objects[objectsIndex], -transformations[0]);
+    Rotate3DObjectAroundXAxis(objects[objectsIndex], -transformations[1].Z);
+    Rotate3DObjectAroundYAxis(objects[objectsIndex], -transformations[1].X);
+    Rotate3DObjectAroundZAxis(objects[objectsIndex], -transformations[1].Y);
+    ScaleObject(objects[objectsIndex], transformations[2].inverse());
+
+    return true;
+}
+\end{lstlisting}
+
+Ahora sí, ya tenemos todo lo que hace falta para dibujar un objeto y transformarlo libremente. Solo necesitamos definir los vértices y aristas de un objeto de nuestra inicialización y ya estamos listos para dibujarlo y transformalo, como podemos ver en la figura [\ref{fig:flatcube}].\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/flatcube}
+	\caption{Cubo 3D con proyección paralela}
+	\label{fig:flatcube}
+\end{figure}
 
 \subsection{Refinamiento}
 
-rgerg
-sgsdgsfdh
+\begin{itemize}
+	\item \textbf{Proyección cónica}: si bien la proyección paralela es muy simple de calcular en nuestra demo, también resulta poco natural, dado que no se ajusta a la forma en la que percibimos los objetos en la realidad. Es por ello que implementamos también un proyección cónica\footnote{\url{https://es.wikipedia.org/wiki/Proyección_cónica}} muy sencilla, pero que es más cercana a la perspectiva con la que vemos en el mundo real. Para ello, haremos que el valor de las coordenadas \emph{x} e \emph{y} dependan del valor de la coordenada \emph{z}. A mayor sea \emph{z} y el objeto más lejos se encuentre, lo dibujaremos más pequeño y a menor sea \emph{z} (más cerca del origen, punto donde se sitúa la cámara), más grande se percibirá el objeto. Podemos ver un ejemplo simplificado en el código [\ref{cod:conicalperspective}]. Multiplicamos la coordenada \emph{z} por un factor definido por el usuario, para poder controlar así la fuerza de la proyección. Hay que tener en cuenta que hay que comprobar siempre que \emph{z} no sea 0, pues la división por 0 no está definida. Esta comprobación se ha omitido en el ejemplo para hacerlo más sencillo. A continuación, dividimos nuestras coordenadas \emph{x} e \emph{y} por la profundidad calculada. Si nos fijamos, no obstante, antes de realizar el cálculo, añadimos la mitad de la anchura y la altura y tras el cálculo las sustraemos. Esta operación se realiza para situar el punto de fuga de la perspectiva en el centro. Si no hiciéramos esto, los objetos, al alejarse, tenderían hacia la posición (0,0) en lugar de tender hacia el centro de la pantalla. Esto provocaría una sensación extraña, ya que veríamos los objetos alejándose hacia la esquina superior izquierda de la pantalla, lo que resulta antinatural. Este es el mismo artefacto que explicamos en la demo anterior, y mostramos en la figura [\ref{fig:planes1}].
+	\item \textbf{Múltiples objetos}: para desarrollar la demo, añadimos la inicialización de un cubo, una figura sencilla con la que podíamos jugar libremente. Llega el momento de añadir algo más de variedad, por lo que añadimos además una pirámide y una estrella. El resultado se muestra en la figura [\ref{fig:models}].
+	\item \textbf{Control del objeto}: como veíamos en el código [\ref{cod:update}], almacenamos nuestras transformaciones de traslación, rotación y escalado en un vector de \emph{Point3D} denominado \emph{transformations}. Esto nos permite manipular de un modo similar cada tipo de transformación, con lo si definimos controles para alterar las coordenadas \emph{x}, \emph{y} y \emph{z}, basta con cambiar el índice en nuestro vector de transformaciones para modificar posición, rotación o escala. Además, aprovechando que tenemos dos métodos distintos para calcular nuestra proyección, también es útil definir un control de usuario para alternarlo, así como también dar facilidad para cambiar el objeto a dibujar (almacenando nuestros objetos en un vector). En el resultado final [\ref{fig:geometry}] se muestran también las instrucciones para manipular la demo.
+\end{itemize}
 
-sg
+\begin{lstlisting}[style=C-color, caption={Cálculo de la perspectiva cónica}, label=cod:conicalperspective]
+for(const Point3D& p : object.points)
+{
+    float depth = p.Z * depthFactor;
+    
+    object.projectedPoints.push_back({((p.X - halftWidth) / depth) + halftWidth,
+                                     ((p.Y - halftHeight) / depth) + halftHeight});
+}
+\end{lstlisting}
 
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/cube}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/pyramid}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/star}
+	\end{subfigure}
+	\caption{Distintos modelos en perspectiva}
+	\label{fig:models}
+\end{figure}
 
 \subsection{Resultado}
 
-rgerg
-sgsdgsfdh
+En la figura [\ref{fig:geometry}] podemos ver un ejemplo del resultado final, donde hemos cambiado a la figura de la pirámide y la hemos rotado y escalado a voluntad. Además, tenemos disponibles las opciones adicionales para cambiar modelo y perspectiva.
 
-sg
-
-drga
-
-rg
-
-ergregearg
-
-rgerg
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{archivos/geometry}
+	\caption{Pirámide rotada y escalada}
+	\label{fig:geometry}
+\end{figure}
