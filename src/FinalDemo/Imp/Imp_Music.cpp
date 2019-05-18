@@ -15,9 +15,9 @@ struct Envelope
 
 struct Note
 {
-    float (*generateWave)(int frequency, long int currentCount);
+    float (*generateWave)(float frequency, long int currentCount);
     Envelope envelope;
-    int frequency = 440;
+    float frequency = 440.f;
     float volume = 1.f;
     float position = 0.5f; // 0 = left, 1 = right, 0.5 = center
     float lifetime = 0.f;
@@ -30,12 +30,38 @@ std::vector<Note> notes;
 //=============================================================================
 //      INSTRUMENTS
 //=============================================================================
-float CreateArmonicSound(int frequency, long int currentCount)
+float CreateArmonicSound(float frequency, long int currentCount)
 {
-    return GetSawtoothWaveValue(frequency * 0.5, currentCount) * 0.4f +
+    return GetSawtoothWaveValue(frequency * 0.5f, currentCount) * 0.4f +
            GetSquaredWaveValue(frequency, currentCount) * 0.4 +
-           GetSquaredWaveValue(frequency * 2, currentCount) * 0.15 +
+           GetSquaredWaveValue(frequency * 2.f, currentCount) * 0.15 +
            GetNoiseValue() * 0.05;
+}
+
+float CreateFluteSound(float frequency, long int currentCount)
+{
+    return (GetSineWaveValue(frequency, currentCount) * 0.4f +
+           GetSineWaveValue(frequency * 2, currentCount) * 0.1f +
+           GetSineWaveValue(frequency * 3, currentCount) * 0.15f +
+           GetSineWaveValue(frequency * 4, currentCount) * 0.05f +
+           GetSineWaveValue(frequency * 5, currentCount) * 0.2f +
+           GetSineWaveValue(frequency * 6.3, currentCount) * 0.05f +
+           GetSineWaveValue(frequency * 7.3, currentCount) * 0.05f +
+           GetSineWaveValue(frequency * 8.3, currentCount) * 0.05f +
+           GetSineWaveValue(frequency * 10, currentCount) * 0.05f +
+           GetNoiseValue() * 0.1) * (0.95 + 0.05 * GetSineWaveValue(5, currentCount));
+}
+
+float CreateSeaWavesSound(float frequency, long int currentCount)
+{
+    return GetLowPassNoiseValue(0.1f) * 
+           GetSineWaveValue(frequency, currentCount) * 0.9 +
+           GetLowPassNoiseValue(0.1f) * 0.1;
+}
+
+float CreateDrumSound(float frequency, long int currentCount)
+{
+    return GetNoiseValue();
 }
 
 //=============================================================================
@@ -56,25 +82,91 @@ void FinalDemo::CloseAudio()
     Pa_Terminate();
 }
 
+#include <iostream>
+
 void FinalDemo::UpdateSound(float deltaTime)
 {
     static bool fire = false;
     static bool fire1 = false;
+    static bool geometry = false;
+    static float generalVolume = 1.f;
 
-    const Envelope env = {2.f, 0.f, 0.f, 1.f, 1.f, 0.5f};
-    const Note note = {CreateArmonicSound, env, 200};
+    const Envelope fireEnv = {2.f, 0.f, 0.f, 1.f, 1.f, 0.5f};
+    const Envelope seaEnv = {2.f, 0.f, 20.f, 7.f, 1.f, 1.f};
+    const Envelope drumEnv = {0.f, 0.f, 0.f, 0.1f, 1.f, 1.f};
+    const Envelope snareEnv = {0.05f, 0.f, 0.f, 0.05f, 1.f, 1.f};
+    const Envelope fluteEnv = {0.125f, 0.f, 0.25f, 0.25f, 1.f, 1.f};
+
+    const Note fireNote = {CreateArmonicSound, fireEnv, 200.f, 0.6f * generalVolume};
+    const Note seaNote = {CreateSeaWavesSound, seaEnv, 0.03f, 0.6f * generalVolume};
+    const Note drumNote = {CreateDrumSound, drumEnv, 0.f, 0.6f * generalVolume};
+    const Note snareNote = {CreateDrumSound, snareEnv, 0.f, 0.6f * generalVolume};
+    const Note fluteNote = {CreateFluteSound, fluteEnv, 440.f, 0.6f * generalVolume};
 
     if (accumulatedTime > START_FIRE && !fire)
     {
-        notes.push_back(note);
+        notes.push_back(fireNote);
         fire = true;
     }
     if (accumulatedTime > START_FIRE + 1.5f && !fire1)
     {
-        Note aux = Note(note);
+        Note aux = Note(fireNote);
         aux.frequency = 222;
         notes.push_back(aux);
         fire1 = true;
+    }
+    if (accumulatedTime > START_GEOMETRY + 2.f && !geometry)
+    {
+        notes.push_back(seaNote);
+        geometry = true;
+    }
+    if(accumulatedTime > START_GEOMETRY + 16.f && accumulatedTime < START_GEOMETRY + 23.f)
+    {
+        notes[0].frequency += 0.08 * deltaTime;
+    }
+    if(accumulatedTime > START_GEOMETRY + 23.f && accumulatedTime < START_GEOMETRY + 23.1f)
+    {
+        notes[0].frequency = 0.6;
+    }
+
+    if(accumulatedTime > START_GEOMETRY + 30.f && accumulatedTime < START_GEOMETRY + 50.f)
+    {
+        static float accumulator = 0.f;
+        accumulator += deltaTime;
+
+        if(accumulator > 1.f)
+        {
+            notes.push_back(drumNote);
+            accumulator = 0.f;
+        }
+    }
+    if(accumulatedTime > START_GEOMETRY + 33.5f && accumulatedTime < START_GEOMETRY + 50.f)
+    {
+        static float accumulator = 0.f;
+        accumulator += deltaTime;
+        
+        if(accumulator > 1.f)
+        {
+            notes.push_back(snareNote);
+            accumulator = 0.f;
+        }
+    }
+    if(accumulatedTime > START_GEOMETRY + 35.f && accumulatedTime < START_GEOMETRY + 39.f)
+    {
+        static float accumulator = 0.f;
+        static float lastFrequency = fluteNote.frequency;
+        static float tone = 1.059463;
+        accumulator += deltaTime;
+        
+        if(accumulator > 0.5f)
+        {
+            Note aux = fluteNote;
+            aux.frequency = lastFrequency * tone;
+            lastFrequency = aux.frequency;
+            notes.push_back(aux);
+            accumulator = 0.f;
+            std::cout << aux.frequency << std::endl;
+        }
     }
 
     UpdateEnvelopes(deltaTime);

@@ -41,6 +41,7 @@ void UpdateNotes(long int currentCount)
 float GetLeftValue()
 {
     float sum = 0.f;
+
     for (auto& note : notes)
     {
         float leftAmplitude = 1.f;
@@ -52,12 +53,13 @@ float GetLeftValue()
         sum += note.resultingSound * leftAmplitude;
     }
 
-    return sum / (float)notes.size();
+    return sum;
 }
 
 float GetRightValue()
 {
     float sum = 0.f;
+
     for (auto& note : notes)
     {
         float rightAmplitude = 1.f;
@@ -69,7 +71,7 @@ float GetRightValue()
         sum += note.resultingSound * rightAmplitude;
     }
 
-    return sum / (float)notes.size();
+    return sum;
 }
 
 void UpdateEnvelopes(float deltaTime)
@@ -117,7 +119,7 @@ void RemoveDeadNotes()
     }
 }
 
-float GetSquaredWaveValue(int frequency, long int currentCount)
+float GetSquaredWaveValue(float frequency, long int currentCount)
 {
     int steps = SAMPLE_RATE / frequency;
     if (currentCount % steps < steps * 0.5)
@@ -127,14 +129,14 @@ float GetSquaredWaveValue(int frequency, long int currentCount)
     return -1.f;
 }
 
-float GetSawtoothWaveValue(int frequency, long int currentCount)
+float GetSawtoothWaveValue(float frequency, long int currentCount)
 {
     int steps = SAMPLE_RATE / frequency;
     float percentage = currentCount % steps / float(steps);
     return percentage * 2 - 1.f;
 }
 
-float GetTriangleWaveValue(int frequency, long int currentCount)
+float GetTriangleWaveValue(float frequency, long int currentCount)
 {
     int steps = SAMPLE_RATE / frequency;
     float percentage = currentCount % steps / float(steps);
@@ -145,7 +147,7 @@ float GetTriangleWaveValue(int frequency, long int currentCount)
     return (1 - percentage) * 4 - 2.f;
 }
 
-float GetSineWaveValue(int frequency, long int currentCount)
+float GetSineWaveValue(float frequency, long int currentCount)
 {
     int steps = SAMPLE_RATE / frequency;
     float percentage = currentCount % steps / float(steps);

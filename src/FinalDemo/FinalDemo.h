@@ -104,9 +104,9 @@ const int FRAMES_PER_BUFFER = 256;
 const int INPUT_CHANNELS = 0;
 const int OUTPUT_CHANNELS = 2;
 
-float GetSquaredWaveValue(int frequency, long int currentCount);
-float GetSawtoothWaveValue(int frequency, long int currentCount);
-float GetTriangleWaveValue(int frequency, long int currentCount);
-float GetSineWaveValue(int frequency, long int currentCount);
+float GetSquaredWaveValue(float frequency, long int currentCount);
+float GetSawtoothWaveValue(float frequency, long int currentCount);
+float GetTriangleWaveValue(float frequency, long int currentCount);
+float GetSineWaveValue(float frequency, long int currentCount);
 float GetNoiseValue();
 float GetLowPassNoiseValue(float intensity);

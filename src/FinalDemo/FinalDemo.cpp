@@ -18,9 +18,7 @@ bool FinalDemo::Init()
 
     accumulatedTime = 0;
 
-#ifdef _WIN32
     InitAudio();
-#endif
 
     return true;
 }
@@ -30,10 +28,7 @@ bool FinalDemo::Destroy()
     CloseFire();
     CloseGeometry();
 
-#ifdef _WIN32
     CloseAudio();
-#endif
-
     return true;
 }
 
@@ -54,9 +49,7 @@ bool FinalDemo::Update(float deltaTime)
         RenderText("CONTINUARA", 100, height / 2, 10, Pixel(255));
     }
 
-#ifdef _WIN32
     UpdateSound(deltaTime);
-#endif
 
     return true;
 }
