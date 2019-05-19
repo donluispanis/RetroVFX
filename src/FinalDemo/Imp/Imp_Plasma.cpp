@@ -25,22 +25,28 @@ void FinalDemo::UpdatePlasma(float deltaTime)
 
     if (accumulatedTime < START_PLASMA + 10.f)
     {
-        static float opacity = 1.f;
+        static float t = 0.f;
+        static Pixel textColour = Pixel(255);
 
         if (accumulatedTime > START_PLASMA + 9.f)
         {
-            opacity -= deltaTime;
+            t += deltaTime;
+
+            if (t > 1.f)
+            {
+                t = 1.f;
+            }
         }
 
-        RenderText("did you", 25, 67, textSize, Pixel(255) * opacity);
-        RenderText("ask for", 25, 284, textSize, Pixel(255) * opacity);
-        RenderText("plasma?", 40, 500, textSize, Pixel(255) * opacity);
+        RenderText("did you", 25, 67, textSize, textColour);
+        RenderText("ask for", 25, 284, textSize, textColour);
+        RenderText("plasma?", 40, 500, textSize, textColour);
 
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                if (pixels[j * width + i] == Pixel(255))
+                if (pixels[j * width + i] == textColour)
                 {
                     float value = 0;
                     int width_i = width - i;
@@ -54,7 +60,7 @@ void FinalDemo::UpdatePlasma(float deltaTime)
 
                     int index = Fast::Abs((int)(value * (plasmaColourMapSize - 1)));
 
-                    pixels[j * width + i] = plasmaColourMap[index];
+                    pixels[j * width + i] = plasmaColourMap[index] * (1.f - t) + textColour * t;
                 }
             }
         }
@@ -62,31 +68,29 @@ void FinalDemo::UpdatePlasma(float deltaTime)
     else
     {
         static float opacity = 0.f;
-        static float textOpacity = 0.f;
+        static Pixel textColour = Pixel(255);
+        static bool clearScreen = false;
 
-        if (opacity < 1.f)
+        if (!clearScreen)
+        {
+            ClearScreen(Pixel(0));
+            clearScreen = true;
+        }
+
+        if (opacity < 0.8f)
         {
             opacity += deltaTime * 0.1f;
         }
-        else
-        {
-            opacity = 1.f;
-        }
 
-        if (textOpacity < 1.f)
-        {
-            textOpacity += deltaTime;
-        }
-
-        RenderText("did you", 25, 67, textSize, Pixel(125, 125, 124) * textOpacity);
-        RenderText(" meant ", 25, 284, textSize, Pixel(125, 125, 124) * textOpacity);
-        RenderText(" lava? ", 40, 500, textSize, Pixel(125, 125, 124) * textOpacity);
+        RenderText("cause i", 25, 67, textSize, textColour);
+        RenderText("ask for", 25, 284, textSize, textColour);
+        RenderText(" lava! ", 40, 500, textSize, textColour);
 
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                if (pixels[j * width + i] != Pixel(125, 125, 124) * textOpacity)
+                if (pixels[j * width + i] != textColour)
                 {
                     float value = 0;
                     int width_i = width - i;

@@ -67,6 +67,8 @@ void GLFWWindowManager::CreateForcedFullscreenWindow(const int width, const int 
 
     const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     window = glfwCreateWindow(mode->width, mode->height, name, glfwGetPrimaryMonitor(), NULL);
+
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
 
 void GLFWWindowManager::CreateFullscreenWindow()
@@ -75,6 +77,8 @@ void GLFWWindowManager::CreateFullscreenWindow()
     width = mode->width;
     height = mode->height;
     window = glfwCreateWindow(width, height, name, glfwGetPrimaryMonitor(), NULL);
+
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
 
 void GLFWWindowManager::CreateRegularWindow(const int width, const int height)

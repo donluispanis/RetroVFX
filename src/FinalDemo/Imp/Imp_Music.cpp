@@ -89,7 +89,7 @@ void FinalDemo::UpdateSound(float deltaTime)
     static bool fire = false;
     static bool fire1 = false;
     static bool geometry = false;
-    static float generalVolume = 1.f;
+    static float generalVolume = 0.5f;
 
     const Envelope fireEnv = {2.f, 0.f, 0.f, 1.f, 1.f, 0.5f};
     const Envelope seaEnv = {2.f, 0.f, 20.f, 7.f, 1.f, 1.f};
