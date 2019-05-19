@@ -10,11 +10,11 @@ struct IWindowManager;
 
 class FinalDemo : public ClassicDemoTemplate
 {
-  public:
+public:
     FinalDemo(){};
     virtual ~FinalDemo(){};
 
-  private:
+private:
     virtual bool Init() override;
     virtual bool Update(float deltaTime) override;
     virtual bool Destroy() override;
@@ -61,7 +61,7 @@ class FinalDemo : public ClassicDemoTemplate
 
     bool renderLines = true;
 
-    Point3D colourDeformator = Point3D(1.f,1.f,1.f);
+    Point3D colourDeformator = Point3D(1.f, 1.f, 1.f);
 
     //Fire
     void InitFire();
@@ -71,7 +71,7 @@ class FinalDemo : public ClassicDemoTemplate
     void InitSmallFireText(int size, int value);
     void DrawBigFireText();
     void DrawSmallFireText();
-    void DrawCharacterOnFireMap(unsigned char* map, int width, unsigned char value, int x, int y, char character, int scale);
+    void DrawCharacterOnFireMap(unsigned char *map, int width, unsigned char value, int x, int y, char character, int scale);
 
     unsigned char *screenMapping;
     unsigned char *fireMapping;
@@ -106,6 +106,12 @@ class FinalDemo : public ClassicDemoTemplate
     void InitPlanes();
     void UpdatePlanes(float deltaTime);
     void ClosePlanes();
+
+    Pixel *texture;
+    int texWidth, texHeight;
+
+    void DrawCharacterOnPlanesMap(Pixel *map, int width, const Pixel &colour, int x, int y, char character, int scale);
+    void DrawCharactersOnPlanesMap(Pixel *map, int width, const Pixel &colour, int x, int y, const char *characters, int scale);
 
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;

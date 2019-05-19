@@ -38,7 +38,7 @@ void FinalDemo::UpdatePlasma(float deltaTime)
             }
         }
 
-        RenderText("did you", 25, 67, textSize, textColour);
+        RenderText("did you", 24, 68, textSize, textColour);
         RenderText("ask for", 25, 284, textSize, textColour);
         RenderText("plasma?", 40, 500, textSize, textColour);
 
