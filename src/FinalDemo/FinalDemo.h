@@ -102,14 +102,21 @@ class FinalDemo : public ClassicDemoTemplate
     Pixel *plasmaColourMap;
     Pixel *lavaColourMap;
 
+    //Planes
+    void InitPlanes();
+    void UpdatePlanes(float deltaTime);
+    void ClosePlanes();
+
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;
     const float DURATION_GEOMETRY = 75.0f;
+    const float DURATION_PLASMA = 20.0f;
+    const float DURATION_PLANES = 20.0f;
+
     const float START_FIRE = 20.f;
     const float START_GEOMETRY = START_FIRE + DURATION_FIRE;
-
-
-    const float START_PLASMA = 0.f; //START_GEOMETRY + DURATION_GEOMETRY;
+    const float START_PLASMA = 0;
+    const float START_PLANES = 0;
 };
 
 //SOUND

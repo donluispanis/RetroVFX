@@ -42,9 +42,9 @@ void FinalDemo::UpdatePlasma(float deltaTime)
         RenderText("ask for", 25, 284, textSize, textColour);
         RenderText("plasma?", 40, 500, textSize, textColour);
 
-        for (int i = 0; i < width; i++)
+        for (int j = 0; j < height; j++)
         {
-            for (int j = 0; j < height; j++)
+            for (int i = 0; i < width; i++)
             {
                 if (pixels[j * width + i] == textColour)
                 {
@@ -82,13 +82,13 @@ void FinalDemo::UpdatePlasma(float deltaTime)
             opacity += deltaTime * 0.1f;
         }
 
-        RenderText("cause i", 25, 67, textSize, textColour);
-        RenderText("ask for", 25, 284, textSize, textColour);
-        RenderText(" lava! ", 40, 500, textSize, textColour);
+        RenderText("did you", 24, 68, textSize, textColour);
+        RenderText(" mean ", 100, 284, textSize, textColour);
+        RenderText(" lava? ", 40, 500, textSize, textColour);
 
-        for (int i = 0; i < width; i++)
+        for (int j = 0; j < height; j += 2)
         {
-            for (int j = 0; j < height; j++)
+            for (int i = 0; i < width; i += 2)
             {
                 if (pixels[j * width + i] != textColour)
                 {
@@ -104,7 +104,13 @@ void FinalDemo::UpdatePlasma(float deltaTime)
 
                     int index = Fast::Abs((int)(value * (plasmaColourMapSize - 1)));
 
-                    pixels[j * width + i] = lavaColourMap[index] * opacity;
+                    const Pixel colour = lavaColourMap[index] * opacity;
+                    const int height1 = j * width + i;
+                    const int height2 = (j + 1) * width + i;
+                    pixels[height1] = colour;
+                    pixels[height1 + 1] = colour;
+                    pixels[height2] = colour;
+                    pixels[height2 + 1] = colour;
                 }
             }
         }

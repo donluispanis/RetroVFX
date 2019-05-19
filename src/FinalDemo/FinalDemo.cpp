@@ -5,6 +5,7 @@
 #include "Imp/Imp_Fire.cpp"
 #include "Imp/Imp_Geometry.cpp"
 #include "Imp/Imp_Plasma.cpp"
+#include "Imp/Imp_Planes.cpp"
 
 bool FinalDemo::Init()
 {
