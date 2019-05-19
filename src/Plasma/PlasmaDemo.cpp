@@ -66,10 +66,6 @@ void PlasmaDemo::SwitchColour()
     }
 
     ColourStamp::GenerateGradient(colours[currentColour], colourMap, colourMapSize);
-
-    for (int i = 0; i < colourMapSize; i++)
-    {
-    }
 }
 
 bool PlasmaDemo::Update(float deltaTime)

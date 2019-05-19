@@ -90,12 +90,26 @@ class FinalDemo : public ClassicDemoTemplate
     int smallFireCharSize;
     int smallFireTextStart;
 
+    //Plasma
+    void InitPlasma();
+    void UpdatePlasma(float deltaTime);
+    void ClosePlasma();
+
+    const int mathTableSize = 1024;
+    float *sineTable;
+
+    const int plasmaColourMapSize = 256;
+    Pixel *plasmaColourMap;
+    Pixel *lavaColourMap;
+
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;
     const float DURATION_GEOMETRY = 75.0f;
-    const float START_FIRE = 0.f;
-    const float START_GEOMETRY = DURATION_FIRE;
-    const float START_TEXT = DURATION_FIRE + DURATION_GEOMETRY;
+    const float START_FIRE = 20.f;
+    const float START_GEOMETRY = START_FIRE + DURATION_FIRE;
+
+
+    const float START_PLASMA = 0.f; //START_GEOMETRY + DURATION_GEOMETRY;
 };
 
 //SOUND

@@ -4,6 +4,7 @@
 #include "Imp/Imp_Audio.cpp"
 #include "Imp/Imp_Fire.cpp"
 #include "Imp/Imp_Geometry.cpp"
+#include "Imp/Imp_Plasma.cpp"
 
 bool FinalDemo::Init()
 {
@@ -15,6 +16,7 @@ bool FinalDemo::Init()
 
     InitFire();
     InitGeometry();
+    InitPlasma();
 
     accumulatedTime = 0;
 
@@ -27,6 +29,7 @@ bool FinalDemo::Destroy()
 {
     CloseFire();
     CloseGeometry();
+    ClosePlasma();
 
     CloseAudio();
     return true;
@@ -44,9 +47,9 @@ bool FinalDemo::Update(float deltaTime)
     {
         UpdateGeometry(deltaTime);
     }
-    if(accumulatedTime > START_TEXT)
+    if(accumulatedTime > START_PLASMA)
     {
-        RenderText("CONTINUARA", 100, height / 2, 10, Pixel(255));
+        UpdatePlasma(deltaTime);
     }
 
     UpdateSound(deltaTime);

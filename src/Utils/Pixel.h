@@ -9,7 +9,9 @@ struct Pixel
     Pixel();
     Pixel(unsigned char i);
     Pixel(unsigned char r, unsigned char g, unsigned char b);
-    Pixel operator+(const Pixel &p) const;
-    Pixel operator-(const Pixel &p) const;
-    Pixel operator*(const float f) const;
+    Pixel operator+(const Pixel &p) const noexcept;
+    Pixel operator-(const Pixel &p) const noexcept;
+    Pixel operator*(const float f) const noexcept;
+    bool operator==(const Pixel &p) const noexcept;
+    bool operator!=(const Pixel &p) const noexcept;
 };
