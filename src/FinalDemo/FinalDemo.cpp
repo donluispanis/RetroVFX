@@ -6,6 +6,7 @@
 #include "Imp/Imp_Geometry.cpp"
 #include "Imp/Imp_Plasma.cpp"
 #include "Imp/Imp_Planes.cpp"
+#include "Imp/Imp_Ending.cpp"
 
 bool FinalDemo::Init()
 {
@@ -18,6 +19,8 @@ bool FinalDemo::Init()
     InitFire();
     InitGeometry();
     InitPlasma();
+    InitPlanes();
+    InitEnding();
 
     accumulatedTime = 0;
 
@@ -31,10 +34,14 @@ bool FinalDemo::Destroy()
     CloseFire();
     CloseGeometry();
     ClosePlasma();
+    ClosePlanes();
+    CloseEnding();
 
     CloseAudio();
     return true;
 }
+
+#include <iostream>
 
 bool FinalDemo::Update(float deltaTime)
 {
@@ -48,9 +55,21 @@ bool FinalDemo::Update(float deltaTime)
     {
         UpdateGeometry(deltaTime);
     }
-    if(accumulatedTime > START_PLASMA)
+    if(accumulatedTime > START_PLASMA && accumulatedTime < DURATION_PLASMA + START_PLASMA)
     {
         UpdatePlasma(deltaTime);
+    }
+    if(accumulatedTime > START_PLANES && accumulatedTime < DURATION_PLANES + START_PLANES)
+    {
+        UpdatePlanes(deltaTime);
+    }
+    if(accumulatedTime > START_ENDING && accumulatedTime < DURATION_ENDING + START_ENDING)
+    {
+        UpdateEnding(deltaTime);
+    }
+    if(accumulatedTime > DURATION_TOTAL)
+    {
+        return false;
     }
 
     UpdateSound(deltaTime);

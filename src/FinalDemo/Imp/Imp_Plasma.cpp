@@ -68,7 +68,7 @@ void FinalDemo::UpdatePlasma(float deltaTime)
     else
     {
         static float opacity = 0.f;
-        static Pixel textColour = Pixel(255);
+        static Pixel textColour = Pixel(255,254,253);
         static bool clearScreen = false;
 
         if (!clearScreen)
@@ -85,6 +85,14 @@ void FinalDemo::UpdatePlasma(float deltaTime)
         RenderText("did you", 24, 68, textSize, textColour);
         RenderText(" mean ", 100, 284, textSize, textColour);
         RenderText(" lava? ", 40, 500, textSize, textColour);
+
+        static Pixel fadeOut(0);
+        if (accumulatedTime > START_PLASMA + 20.f)
+        {
+            static float accumulator = 0.f;
+            accumulator += deltaTime;
+            fadeOut = Pixel(accumulator * 50);
+        }
 
         for (int j = 0; j < height; j += 2)
         {
@@ -107,10 +115,12 @@ void FinalDemo::UpdatePlasma(float deltaTime)
                     const Pixel colour = lavaColourMap[index] * opacity;
                     const int height1 = j * width + i;
                     const int height2 = (j + 1) * width + i;
-                    pixels[height1] = colour;
-                    pixels[height1 + 1] = colour;
-                    pixels[height2] = colour;
-                    pixels[height2 + 1] = colour;
+
+                    Pixel colour1 = colour + fadeOut;
+                    pixels[height1] = colour1;
+                    pixels[height1 + 1] = colour1;
+                    pixels[height2] = colour1;
+                    pixels[height2 + 1] = colour1;
                 }
             }
         }
