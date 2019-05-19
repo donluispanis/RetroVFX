@@ -13,7 +13,7 @@ class GLFWWindowManager : public IWindowManager
 {
   public:
     GLFWWindowManager();
-    virtual void CreateWindow(const char *name, const int width, const int height, const bool fullscreen) override;
+    virtual void CreateWindow(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen = false) override;
     virtual void DestroyWindow() override;
     virtual ~GLFWWindowManager() override;
 
@@ -35,7 +35,8 @@ class GLFWWindowManager : public IWindowManager
     virtual bool IsKeyUp(int key) override;
 
   private:
-    void CreateFullscrenWindow();
+    void CreateForcedFullscreenWindow(const int width, const int height);
+    void CreateFullscreenWindow();
     void CreateRegularWindow(const int width, const int height);
 
     void InitGLFW();

@@ -10,7 +10,7 @@ class ClassicDemoTemplate
     ClassicDemoTemplate();
     virtual ~ClassicDemoTemplate();
 
-    bool Construct(const char *name, const int width, const int height, const bool fullscreen);
+    bool Construct(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen = false);
     void Run();
     bool Close();
 

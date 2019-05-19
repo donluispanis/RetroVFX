@@ -21,16 +21,20 @@ GLFWWindowManager::~GLFWWindowManager()
     delete clock;
 }
 
-void GLFWWindowManager::CreateWindow(const char *name, const int width, const int height, const bool fullscreen)
+void GLFWWindowManager::CreateWindow(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen)
 {
     InitGLFW();
     SetOpenGLVersion();
 
     this->name = name;
 
-    if (fullscreen)
+    if (forceFullscreen)
     {
-        CreateFullscrenWindow();
+        CreateForcedFullscreenWindow(width, height);
+    }
+    else if (fullscreen)
+    {
+        CreateFullscreenWindow();
     }
     else
     {
@@ -56,7 +60,16 @@ void GLFWWindowManager::SetOpenGLVersion()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 }
 
-void GLFWWindowManager::CreateFullscrenWindow()
+void GLFWWindowManager::CreateForcedFullscreenWindow(const int width, const int height)
+{
+    this->width = width;
+    this->height = height;
+
+    const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    window = glfwCreateWindow(mode->width, mode->height, name, glfwGetPrimaryMonitor(), NULL);
+}
+
+void GLFWWindowManager::CreateFullscreenWindow()
 {
     const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     width = mode->width;

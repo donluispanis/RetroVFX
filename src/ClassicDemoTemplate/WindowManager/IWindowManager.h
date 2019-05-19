@@ -5,7 +5,7 @@ struct Pixel;
 class IWindowManager
 {
   public:
-    virtual void CreateWindow(const char *name, const int width, const int height, const bool fullscreen) = 0;
+    virtual void CreateWindow(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen = false) = 0;
     virtual void DestroyWindow() = 0;
     virtual ~IWindowManager() = 0;
 

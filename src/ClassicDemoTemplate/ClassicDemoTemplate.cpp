@@ -15,10 +15,10 @@ ClassicDemoTemplate::~ClassicDemoTemplate()
 }
 
 //Window, Engine and OpenGL initialization
-bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen)
+bool ClassicDemoTemplate::Construct(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen)
 {
     windowManager = new GLFWWindowManager();
-    windowManager->CreateWindow(name, width, height, fullscreen);
+    windowManager->CreateWindow(name, width, height, fullscreen, forceFullscreen);
 
     this->width = windowManager->GetWidth();
     this->height = windowManager->GetHeight();
