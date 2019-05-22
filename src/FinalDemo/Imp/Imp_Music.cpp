@@ -1,5 +1,5 @@
 #include "Imp_Includes.h"
-
+#include <deque>
 void UpdateEnvelopes(float deltaTime);
 void RemoveDeadNotes();
 static int audioCallback(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *);
@@ -64,6 +64,19 @@ float CreateDrumSound(float frequency, long int currentCount)
     return GetNoiseValue();
 }
 
+float CreateSynthSound(float frequency, long int currentCount)
+{
+    const float LFO = GetSineWaveValue(2, currentCount);
+    return GetTriangleWaveValue(frequency * 1.0, currentCount) * (0.45 + 0.1 * LFO) * 0.6 +
+           GetTriangleWaveValue(frequency * 1.3333, currentCount) * (0.45 + 0.1 * LFO) * 0.1 +
+           GetTriangleWaveValue(frequency * 1.6666, currentCount) * (0.45 + 0.1 * LFO) * 0.1 +
+           GetTriangleWaveValue(frequency * 2.0, currentCount) * (0.45 + 0.1 * LFO * 2.f) * 0.1 +
+           GetTriangleWaveValue(frequency * 2.6666, currentCount) * (0.45 + 0.1 * LFO * -1.f) * 0.1 +
+           GetTriangleWaveValue(frequency * 4.0, currentCount) * (0.45 + 0.1 * LFO) * 0.1 +
+           GetTriangleWaveValue(frequency * 5.3333, currentCount) * (0.45 + 0.1 * LFO * 2.f) * 0.1 +
+           GetTriangleWaveValue(frequency * 6.6666, currentCount) * (0.45 + 0.1 * LFO * -1.f) * 0.1;
+}
+
 //=============================================================================
 //      SOUND MANIPULATION
 //=============================================================================
@@ -87,20 +100,22 @@ void FinalDemo::UpdateSound(float deltaTime)
     static bool fire = false;
     static bool fire1 = false;
     static bool geometry = false;
-    static float generalVolume = 0.2f;
+    static float generalVolume = 1.f;
 
     const Envelope fireEnv = {2.f, 0.f, 0.f, 1.f, 1.f, 0.5f};
     const Envelope seaEnv = {2.f, 0.f, 20.f, 7.f, 1.f, 1.f};
     const Envelope drumEnv = {0.f, 0.f, 0.f, 0.1f, 1.f, 1.f};
-    const Envelope snareEnv = {0.05f, 0.f, 0.f, 0.05f, 1.f, 1.f};
+    const Envelope snareEnv = {0.f, 0.f, 0.f, 0.3f, 1.f, 0.5f};
     const Envelope fluteEnv = {0.125f, 0.f, 0.25f, 0.125f, 1.f, 1.f};
     const Envelope fluteEnv1 = {0.125f, 0.f, 0.75f, 0.125f, 1.f, 1.f};
+    const Envelope synthEnv = {1.f, 1.f, 1.f, 2.f, 1.f, 0.7f};
 
     const Note fireNote = {CreateArmonicSound, fireEnv, 200.f, 0.6f * generalVolume};
-    const Note seaNote = {CreateSeaWavesSound, seaEnv, 0.03f, 0.6f * generalVolume};
+    const Note seaNote = {CreateSeaWavesSound, seaEnv, 0.08f, 0.6f * generalVolume};
     const Note drumNote = {CreateDrumSound, drumEnv, 0.f, 0.6f * generalVolume};
     const Note snareNote = {CreateDrumSound, snareEnv, 0.f, 0.6f * generalVolume};
     const Note fluteNote = {CreateFluteSound, fluteEnv, 440.f, 0.6f * generalVolume};
+    const Note synthNote = {CreateSynthSound, synthEnv, 440.f, 1.f * generalVolume};
 
     if (accumulatedTime > START_FIRE && !fire)
     {
@@ -152,36 +167,92 @@ void FinalDemo::UpdateSound(float deltaTime)
     }
     if (accumulatedTime > START_GEOMETRY + 35.f && accumulatedTime < START_ENDING)
     {
-        static float accumulator = 0.f;
+        static float accumulator0 = 0.f;
         static float accumulator1 = 0.66f;
-        static float lastFrequency = fluteNote.frequency;
-        static float tone = 1.059463;
-        accumulator += deltaTime;
+        static float accumulator2 = 3.66f;
+        static int counter = 0;
+        static int counter1 = 0;
+        accumulator0 += deltaTime;
         accumulator1 += deltaTime;
-
-        if (accumulator > 0.33f)
+        accumulator2 += deltaTime;
+        static float lastFrequency = 523;
+        static float lastFrequency1 = 261;
+        static std::deque<float> frequencies2 = {
+            261,
+            392,
+            440,
+            349,
+            261,
+            392,
+            440,
+            349,
+            261,
+            392,
+            440,
+            349,
+            261,
+            392,
+            440,
+            349,
+            261 * 1.5,
+            392 * 1.5,
+            440 * 1.5,
+            349 * 1.5,
+            261 * 1.5,
+            392 * 1.5,
+            440 * 1.5,
+            349 * 1.5,
+            261 * 1.5,
+            392 * 1.5,
+            440 * 1.5,
+            349 * 1.5,
+            261 * 1.5,
+            392 * 1.5,
+            440 * 1.5,
+            349 * 1.5,
+            261 * 1.5,
+            392 * 1.5,
+            440 * 1.5,
+            349 * 1.5,
+        };
+        if (accumulator0 > 0.33f)
         {
-            Note aux = fluteNote;
-            if (Fast::Rand() % 2 == 0)
-            {
-                aux.frequency = lastFrequency * pow(tone, Fast::Rand() % 3);
-            }
-            else
-            {
-                aux.frequency = lastFrequency / pow(tone, Fast::Rand() % 3);
-            }
-
-            lastFrequency = aux.frequency;
-            notes.push_back(aux);
-            accumulator = 0.f;
+            //if (counter % 3 != 1)
+            //{
+            //    Note aux = fluteNote;
+            //    aux.frequency = lastFrequency;
+//
+            //    notes.push_back(aux);
+//
+            //    accumulator0 = 0.f;
+            //}
+//
+            //counter++;
         }
         if (accumulator1 > 1.f)
         {
-            Note aux = fluteNote;
-            aux.frequency = lastFrequency * 0.5;
-            aux.envelope = fluteEnv1;
+            //Note aux = fluteNote;
+            //aux.frequency = lastFrequency1 * 2 + (counter1 % 3) * 0.3333f;
+            //aux.envelope = fluteEnv1;
+            //lastFrequency = aux.frequency;
+//
+            //notes.push_back(aux);
+//
+            //counter++;
+            //accumulator1 = 0.f;
+        }
+        if (accumulator2 > 4.f)
+        {
+            Note aux = synthNote;
+            aux.frequency = frequencies2.front();
+            aux.frequency = frequencies2.front() * 0.33;
+            aux.frequency = frequencies2.front() * 0.66;
+            lastFrequency1 = aux.frequency;
+
             notes.push_back(aux);
-            accumulator1 = 0.f;
+
+            frequencies2.pop_front();
+            accumulator2 = 0.f;
         }
     }
 
