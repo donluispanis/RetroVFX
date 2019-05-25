@@ -9,6 +9,12 @@ void FinalDemo::InitPlasma()
 
     lavaColourMap = new Pixel[plasmaColourMapSize];
     ColourStamp::GenerateGradient(ColourStampGradients::FIRE, lavaColourMap, plasmaColourMapSize);
+
+    plasmaTexture = new Pixel[(width / 2) * (height / 2)];
+    for (int i = 0, n = (width / 2) * (height / 2); i < n; i++)
+    {
+        plasmaTexture[i] = Pixel(0);
+    }
 }
 
 void FinalDemo::ClosePlasma()
@@ -17,10 +23,11 @@ void FinalDemo::ClosePlasma()
     delete[] lavaColourMap;
     Fast::DeleteMathTable(sineTable);
 }
+#include <iostream>
 
 void FinalDemo::UpdatePlasma(float deltaTime)
 {
-    static const int textSize = 30;
+    static const int textSize = 15;
     static const int scale = 5;
 
     if (accumulatedTime < START_PLASMA + 10.f)
@@ -38,19 +45,18 @@ void FinalDemo::UpdatePlasma(float deltaTime)
             }
         }
 
-        RenderText("did you", 24, 68, textSize, textColour);
-        RenderText("ask for", 25, 284, textSize, textColour);
-        RenderText("plasma?", 40, 500, textSize, textColour);
-
-        for (int j = 0; j < height; j++)
+        DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 12, 34, "did you", textSize);
+        DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 12, 142, "ask for", textSize);
+        DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 20, 250, "plasma?", textSize);
+        for (int j = 0, nh = height / 2; j < nh; j++)
         {
-            for (int i = 0; i < width; i++)
+            for (int i = 0, nw = width / 2; i < nw; i++)
             {
-                if (pixels[j * width + i] == textColour)
+                if (plasmaTexture[j * nw + i] == textColour)
                 {
                     float value = 0;
-                    int width_i = width - i;
-                    int height_j = height - j;
+                    int width_i = width - i * 2;
+                    int height_j = height - j * 2;
 
                     value += sineTable[int((j * i) / (j + i + 1) * scale + accumulatedTime * 191) % mathTableSize];
                     value += sineTable[int((width_i * j) / (width_i + j + 1) * scale + accumulatedTime * 157) % mathTableSize];
@@ -59,16 +65,30 @@ void FinalDemo::UpdatePlasma(float deltaTime)
                     value *= 0.25f;
 
                     int index = Fast::Abs((int)(value * (plasmaColourMapSize - 1)));
-
-                    pixels[j * width + i] = plasmaColourMap[index] * (1.f - t) + textColour * t;
+                    Pixel c = plasmaColourMap[index] * (1.f - t) + textColour * t;
+                    plasmaTexture[j * nw + i] = c;
                 }
+            }
+        }
+
+        for (int j = 0, nh = height; j < nh; j += 2)
+        {
+            int aux = j * width;
+            int aux1 = (j + 1) * width;
+            for (int i = 0, nw = width; i < nw; i += 2)
+            {
+                const Pixel colour = plasmaTexture[(j / 2) * (width / 2) + i / 2];
+                pixels[aux + i] = colour;
+                pixels[aux + i + 1] = colour;
+                pixels[aux1 + i] = colour;
+                pixels[aux1 + i + 1] = colour;
             }
         }
     }
     else
     {
         static float opacity = 0.f;
-        static Pixel textColour = Pixel(255,254,253);
+        static Pixel textColour = Pixel(255, 254, 253);
         static bool clearScreen = false;
 
         if (!clearScreen)
@@ -82,9 +102,9 @@ void FinalDemo::UpdatePlasma(float deltaTime)
             opacity += deltaTime * 0.1f;
         }
 
-        RenderText("did you", 24, 68, textSize, textColour);
-        RenderText(" mean ", 100, 284, textSize, textColour);
-        RenderText(" lava? ", 40, 500, textSize, textColour);
+        RenderText("did you", 24, 68, textSize * 2, textColour);
+        RenderText(" mean ", 100, 284, textSize * 2, textColour);
+        RenderText(" lava? ", 40, 500, textSize * 2, textColour);
 
         static Pixel fadeOut(0);
         if (accumulatedTime > START_PLASMA + 20.f)

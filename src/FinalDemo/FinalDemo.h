@@ -3,10 +3,13 @@
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
 #include "../Utils/Object3D.h"
 #include "../Utils/ColourStamp.h"
+#include "../DotTunnel/Circle.h"
+#include <deque>
 #include <portaudio/portaudio.h>
 
 struct Pixel;
 struct IWindowManager;
+struct TurbulencePath;
 
 class FinalDemo : public ClassicDemoTemplate
 {
@@ -97,10 +100,13 @@ private:
 
     const int mathTableSize = 1024;
     float *sineTable;
+    float *cosineTable;
 
     const int plasmaColourMapSize = 256;
     Pixel *plasmaColourMap;
     Pixel *lavaColourMap;
+
+    Pixel *plasmaTexture;
 
     //Planes
     void InitPlanes();
@@ -110,8 +116,8 @@ private:
     Pixel *texture;
     int texWidth, texHeight;
 
-    void DrawCharacterOnPlanesMap(Pixel *map, int width, const Pixel &colour, int x, int y, char character, int scale);
-    void DrawCharactersOnPlanesMap(Pixel *map, int width, const Pixel &colour, int x, int y, const char *characters, int scale);
+    void DrawCharacterOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, char character, int scale);
+    void DrawCharactersOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, const char *characters, int scale);
     void UpdatePath(float deltaTime);
 
     Point2D cameraPosition;
@@ -122,20 +128,51 @@ private:
     void InitEnding();
     void UpdateEnding(float deltatime);
     void CloseEnding();
+    void DrawCircle(const Circle &c);
+    float CalculateOpacity(const float radius);
+    void UpdateCircle(Circle &c, float deltaTime);
+    void EraseCircle(const Circle &circle);
+    void AddCircle();
+    void UpdateCircleQueue(float deltaTime);
+    void PopulateCircleQueue();
 
     Point2D start, end;
+    Point2D tunnelCenter;
+    Point2D initialTunnelCenter;
+    TurbulencePath *turbulencePath;
+
+    std::deque<Circle> circles;
+    int circleCount;
+    Circle defaultCircle;
+    int maxCircleRadius;
+    int dotSize;
+    int circlesGapDistance;
+    int pointsPerCircle;
+
+    float radiusVelocity;
+    float rotationVelocity;
+    float defaultRotationVelocity;
+    
+    int tunnelColourMapSize;
+    Pixel *tunnelColourMap;
+    int tunnelCurrentColour; 
+
+    bool drawTunnel = false;
+    bool eraseText = false;
+    float transitionAdvance = 0.f;
+    float globalEndingOpacity = 1.f;
 
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;
     const float DURATION_GEOMETRY = 75.0f;
     const float DURATION_PLASMA = 25.0f;
     const float DURATION_PLANES = 42.0f;
-    const float DURATION_ENDING = 20.0f;
+    const float DURATION_ENDING = 40.0f;
     const float DURATION_TOTAL = DURATION_FIRE + DURATION_GEOMETRY + DURATION_PLASMA + DURATION_PLANES + DURATION_ENDING;
 
-    const float START_FIRE = 10.f;
+    const float START_FIRE = 40.f;
     const float START_GEOMETRY = START_FIRE + DURATION_FIRE;
-    const float START_PLASMA = START_GEOMETRY + DURATION_GEOMETRY;
+    const float START_PLASMA = 0;//START_GEOMETRY + DURATION_GEOMETRY;
     const float START_PLANES = START_PLASMA + DURATION_PLASMA;
     const float START_ENDING = START_PLANES + DURATION_PLANES;
 };
@@ -152,3 +189,4 @@ float GetTriangleWaveValue(float frequency, long int currentCount);
 float GetSineWaveValue(float frequency, long int currentCount);
 float GetNoiseValue();
 float GetLowPassNoiseValue(float intensity);
+float GetHighPassNoiseValue(float intensity);

@@ -166,3 +166,17 @@ float GetLowPassNoiseValue(float intensity)
     oldValue = newValue;
     return newValue;
 }
+
+float GetHighPassNoiseValue(float intensity)
+{
+    static float oldValueY = 0.f;
+    static float oldValueX = 0.f;
+    
+    float newValueX = GetNoiseValue();
+    float newValueY = intensity * oldValueY + intensity * (newValueX - oldValueX);
+
+    oldValueX = newValueX;
+    oldValueY = newValueY;
+
+    return newValueY;
+}

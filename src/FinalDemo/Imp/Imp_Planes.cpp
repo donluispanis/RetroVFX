@@ -1,5 +1,4 @@
 #include "Imp_Includes.h"
-#include <deque>
 
 struct waypoint
 {
@@ -20,11 +19,11 @@ void FinalDemo::InitPlanes()
         auxTexture[i] = Pixel(255);
     }
 
-    DrawCharactersOnPlanesMap(auxTexture, texWidth, Pixel(0), 10, 1900, "a cpu is so slow...", 1);
-    DrawCharactersOnPlanesMap(auxTexture, texWidth, Pixel(0), 1000, 1400, "a cpu is not for graphics...", 1);
-    DrawCharactersOnPlanesMap(auxTexture, texWidth, Pixel(0), 1500, 1000, "wait... am i dreaming?", 1);
-    DrawCharactersOnPlanesMap(auxTexture, texWidth, Pixel(0), 500, 800, "is this heaven?", 1);
-    DrawCharactersOnPlanesMap(auxTexture, texWidth, Pixel(0), 1500, 400, "can't be true...", 1);
+    DrawCharactersOnMap(auxTexture, texWidth, Pixel(0), 10, 1900, "a cpu is so slow...", 1);
+    DrawCharactersOnMap(auxTexture, texWidth, Pixel(0), 1000, 1400, "a cpu is not for graphics...", 1);
+    DrawCharactersOnMap(auxTexture, texWidth, Pixel(0), 1500, 1000, "wait... am i dreaming?", 1);
+    DrawCharactersOnMap(auxTexture, texWidth, Pixel(0), 500, 800, "is this heaven?", 1);
+    DrawCharactersOnMap(auxTexture, texWidth, Pixel(0), 1500, 400, "can't be true...", 1);
 
     for (int j = 0; j < texHeight; j++)
     {
@@ -147,7 +146,7 @@ void FinalDemo::UpdatePath(float deltaTime)
     textureScale = (1.f - t) * waypoints[0].scale + t * waypoints[1].scale;
 }
 
-void FinalDemo::DrawCharactersOnPlanesMap(Pixel *map, int width, const Pixel &colour, int x, int y, const char *characters, int scale)
+void FinalDemo::DrawCharactersOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, const char *characters, int scale)
 {
     std::string txt(characters);
     for (auto &c : txt)
@@ -157,12 +156,12 @@ void FinalDemo::DrawCharactersOnPlanesMap(Pixel *map, int width, const Pixel &co
 
     for (auto c : txt)
     {
-        DrawCharacterOnPlanesMap(map, width, colour, x, y, c, scale);
+        DrawCharacterOnMap(map, width, colour, x, y, c, scale);
         x += 6 * scale;
     }
 }
 
-void FinalDemo::DrawCharacterOnPlanesMap(Pixel *map, int width, const Pixel &colour, int x, int y, char character, int scale)
+void FinalDemo::DrawCharacterOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, char character, int scale)
 {
     if (character < 0 || character == ' ')
     {

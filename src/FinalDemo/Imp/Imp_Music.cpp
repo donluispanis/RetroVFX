@@ -77,6 +77,13 @@ float CreateSynthSound(float frequency, long int currentCount)
            GetTriangleWaveValue(frequency * 6.6666, currentCount) * (0.45 + 0.1 * LFO * -1.f) * 0.1;
 }
 
+float CreateLaserSound(float frequency, long int currentCount)
+{
+    return (GetSawtoothWaveValue(frequency, currentCount) * 0.5f +
+    GetSawtoothWaveValue(frequency, currentCount) * 0.5f * GetHighPassNoiseValue(0.05)) * 0.5 +
+    GetHighPassNoiseValue(0.05) * 0.5;
+}
+
 //=============================================================================
 //      SOUND MANIPULATION
 //=============================================================================
@@ -109,6 +116,7 @@ void FinalDemo::UpdateSound(float deltaTime)
     const Envelope fluteEnv = {0.125f, 0.f, 0.25f, 0.125f, 1.f, 1.f};
     const Envelope fluteEnv1 = {0.125f, 0.f, 0.75f, 0.125f, 1.f, 1.f};
     const Envelope synthEnv = {1.f, 1.f, 1.f, 2.f, 1.f, 0.7f};
+    const Envelope laserEnv = {0.0f, 0.f, 0.0f, 0.2f, 1.f, 1.0f};
 
     const Note fireNote = {CreateArmonicSound, fireEnv, 200.f, 0.6f * generalVolume};
     const Note seaNote = {CreateSeaWavesSound, seaEnv, 0.08f, 0.6f * generalVolume};
@@ -116,6 +124,7 @@ void FinalDemo::UpdateSound(float deltaTime)
     const Note snareNote = {CreateDrumSound, snareEnv, 0.f, 0.6f * generalVolume};
     const Note fluteNote = {CreateFluteSound, fluteEnv, 440.f, 0.6f * generalVolume};
     const Note synthNote = {CreateSynthSound, synthEnv, 440.f, 1.f * generalVolume};
+    const Note laserNote = {CreateLaserSound, laserEnv, 440.f, 0.6f * generalVolume};
 
     if (accumulatedTime > START_FIRE && !fire)
     {
@@ -221,12 +230,12 @@ void FinalDemo::UpdateSound(float deltaTime)
             //{
             //    Note aux = fluteNote;
             //    aux.frequency = lastFrequency;
-//
+            //
             //    notes.push_back(aux);
-//
+            //
             //    accumulator0 = 0.f;
             //}
-//
+            //
             //counter++;
         }
         if (accumulator1 > 1.f)
@@ -235,9 +244,9 @@ void FinalDemo::UpdateSound(float deltaTime)
             //aux.frequency = lastFrequency1 * 2 + (counter1 % 3) * 0.3333f;
             //aux.envelope = fluteEnv1;
             //lastFrequency = aux.frequency;
-//
+            //
             //notes.push_back(aux);
-//
+            //
             //counter++;
             //accumulator1 = 0.f;
         }
