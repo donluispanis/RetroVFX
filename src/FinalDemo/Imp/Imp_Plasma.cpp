@@ -158,7 +158,7 @@ void FinalDemo::UpdatePlasma(float deltaTime)
     }
     if (accumulatedTime > START_PLASMA + 13.f)
     {
-        plasmaAngle += deltaTime * 150;
+        plasmaAngle += deltaTime * 200;
         scaleModifier *= 0.992f;
     }
     if (accumulatedTime >= START_PLASMA + 28.f)

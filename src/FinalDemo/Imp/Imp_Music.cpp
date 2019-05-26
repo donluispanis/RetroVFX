@@ -77,11 +77,26 @@ float CreateSynthSound(float frequency, long int currentCount)
            GetTriangleWaveValue(frequency * 6.6666, currentCount) * (0.45 + 0.1 * LFO * -1.f) * 0.1;
 }
 
+static float mask[12] = {0.01f, 0.025f, 0.05f, 0.075f, 0.14f, 0.2f, 0.2f, 0.14f, 0.075f, 0.05f, 0.025f, 0.01f};
+
+void RotateMask()
+{
+    const float lastNote = mask[11];
+    for (int i = 10; i == 0; i--)
+    {
+        float a = mask[i + 1];
+        float b = mask[i];
+        mask[i + 1] = mask[i];
+    }
+    mask[0] = lastNote;
+}
+
 float CreateLaserSound(float frequency, long int currentCount)
 {
     return (GetSawtoothWaveValue(frequency, currentCount) * 0.5f +
-    GetSawtoothWaveValue(frequency, currentCount) * 0.5f * GetHighPassNoiseValue(0.05)) * 0.5 +
-    GetHighPassNoiseValue(0.05) * 0.5;
+            GetSawtoothWaveValue(frequency, currentCount) * 0.5f * GetHighPassNoiseValue(0.05)) *
+               0.5 +
+           GetHighPassNoiseValue(0.05) * 0.5;
 }
 
 //=============================================================================
@@ -125,6 +140,47 @@ void FinalDemo::UpdateSound(float deltaTime)
     const Note fluteNote = {CreateFluteSound, fluteEnv, 440.f, 0.6f * generalVolume};
     const Note synthNote = {CreateSynthSound, synthEnv, 440.f, 1.f * generalVolume};
     const Note laserNote = {CreateLaserSound, laserEnv, 440.f, 0.6f * generalVolume};
+
+    if (accumulatedTime > START_PLASMA + 13.f && accumulatedTime < 30.f)
+    {
+        static float accumulator = 0.7f;
+        static float maxAccumulator = 0.6f;
+        static float volume = 1.f;
+
+        accumulator += deltaTime;
+        maxAccumulator = 0.8 - 0.8 * ((accumulatedTime - START_PLASMA - 13.f) / 15.f);
+
+        if (accumulatedTime > START_PLASMA + 28.f)
+        {
+            volume -= deltaTime * 0.75f;
+
+            if (volume < 0.f)
+            {
+                volume = 0.f;
+            }
+        }
+
+        if (accumulator >= maxAccumulator)
+        {
+            accumulator = 0.f;
+
+            static float baseFrequency = 261.63 * 0.125;
+            const static float incrementer = 1.059463f;
+
+            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 1, mask[1] * volume});
+            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 2, mask[3] * volume});
+            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 4, mask[5] * volume});
+            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 6, mask[7] * volume});
+            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 8, mask[9] * volume});
+            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 10, mask[11] * volume});
+
+            baseFrequency *= incrementer;
+            if (baseFrequency >= 523.f)
+            {
+                baseFrequency = 261.63f;
+            }
+        }
+    }
 
     if (accumulatedTime > START_FIRE && !fire)
     {
