@@ -122,6 +122,9 @@ void FinalDemo::UpdateSound(float deltaTime)
     static bool fire = false;
     static bool fire1 = false;
     static bool geometry = false;
+    static bool geometry1 = false;
+    static bool geometry2 = false;
+    static bool plasma = false;
     static float generalVolume = 1.f;
 
     const Envelope fireEnv = {2.f, 0.f, 0.f, 1.f, 1.f, 0.5f};
@@ -134,14 +137,49 @@ void FinalDemo::UpdateSound(float deltaTime)
     const Envelope laserEnv = {0.0f, 0.f, 0.0f, 0.2f, 1.f, 1.0f};
 
     const Note fireNote = {CreateArmonicSound, fireEnv, 200.f, 0.6f * generalVolume};
-    const Note seaNote = {CreateSeaWavesSound, seaEnv, 0.08f, 0.6f * generalVolume};
+    const Note seaNote = {CreateSeaWavesSound, seaEnv, 0.07f, 0.6f * generalVolume};
     const Note drumNote = {CreateDrumSound, drumEnv, 0.f, 0.6f * generalVolume};
     const Note snareNote = {CreateDrumSound, snareEnv, 0.f, 0.6f * generalVolume};
     const Note fluteNote = {CreateFluteSound, fluteEnv, 440.f, 0.6f * generalVolume};
     const Note synthNote = {CreateSynthSound, synthEnv, 440.f, 1.f * generalVolume};
     const Note laserNote = {CreateLaserSound, laserEnv, 440.f, 0.6f * generalVolume};
 
-    if (accumulatedTime > START_PLASMA + 13.f && accumulatedTime < 30.f)
+    if (accumulatedTime > START_PLASMA && !plasma)
+    {
+        Note auxNote = fireNote;
+        auxNote.frequency = 200.f;
+        auxNote.envelope.attack = 4.f;
+        auxNote.envelope.release = 2.f;
+        auxNote.envelope.sustainAmplitude = 1.f;
+        notes.push_back(auxNote);
+        plasma = true;
+    }
+    if (accumulatedTime > START_PLASMA && accumulatedTime < START_PLASMA + 13.f)
+    {
+        static float accumulator0 = 0.8f;
+        static float accumulator1 = 0.6f;
+        static float accumulator2 = 0.3f;
+        accumulator0 += deltaTime;
+        accumulator1 += deltaTime;
+        accumulator2 += deltaTime;
+
+        if (accumulator0 > 1.f)
+        {
+            notes.push_back(drumNote);
+            accumulator0 = 0.f;
+        }
+        if (accumulator1 > 1.f)
+        {
+            notes.push_back(drumNote);
+            accumulator1 = 0.f;
+        }
+        if (accumulator2 > 1.f)
+        {
+            notes.push_back(snareNote);
+            accumulator2 = 0.f;
+        }
+    }
+    if (accumulatedTime > START_PLASMA + 13.f && accumulatedTime < START_PLASMA + 30.f)
     {
         static float accumulator = 0.7f;
         static float maxAccumulator = 0.6f;
@@ -207,29 +245,67 @@ void FinalDemo::UpdateSound(float deltaTime)
     {
         notes[0].frequency = 0.6;
     }
-
-    if (accumulatedTime > START_GEOMETRY + 30.f && accumulatedTime < START_GEOMETRY + 50.f)
+    if (accumulatedTime > START_GEOMETRY + 30.f)
     {
-        static float accumulator = 0.f;
-        accumulator += deltaTime;
-
-        if (accumulator > 1.f)
+        if (!geometry1)
         {
-            notes.push_back(drumNote);
+            Note auxNote = synthNote;
+            auxNote.envelope.sustain = 6.f;
+            notes.push_back(auxNote);
+            geometry1 = true;
+        }
+
+        static Note &note = notes[notes.size() - 1];
+        note.frequency = note.frequency + cos(accumulatedTime);
+    }
+    if (accumulatedTime > START_GEOMETRY + 40.f && accumulatedTime < START_GEOMETRY + 53.f)
+    {
+        static float accumulator = 0.7f;
+        static float maxAccumulator = 0.6f;
+        static float volume = 1.f;
+
+        accumulator += deltaTime;
+        maxAccumulator = 0.5 - 0.4 * ((accumulatedTime - START_GEOMETRY - 40.f) / 13.f);
+
+        //if (accumulatedTime > START_PLASMA + 28.f)
+        //{
+        //    volume -= deltaTime * 0.75f;
+        //
+        //    if (volume < 0.f)
+        //    {
+        //        volume = 0.f;
+        //    }
+        //}
+        //
+        if (accumulator >= maxAccumulator)
+        {
             accumulator = 0.f;
+
+            static float baseFrequency = 523.f * 0.125;
+            const static float incrementer = 1.059463f;
+            Envelope auxEnv = laserEnv;
+            auxEnv.release = maxAccumulator;
+
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 1, mask[1] * volume});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 2, mask[3] * volume});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 4, mask[5] * volume});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 6, mask[7] * volume});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 8, mask[9] * volume});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 10, mask[11] * volume});
+
+            baseFrequency /= incrementer;
+            if (baseFrequency <= 261.f * 0.125)
+            {
+                baseFrequency = 523.f * 0.125;
+            }
         }
     }
-    if (accumulatedTime > START_GEOMETRY + 33.5f && accumulatedTime < START_GEOMETRY + 50.f)
+    if (accumulatedTime > START_GEOMETRY + 55.f && !geometry2)
     {
-        static float accumulator = 0.f;
-        accumulator += deltaTime;
-
-        if (accumulator > 1.f)
-        {
-            notes.push_back(snareNote);
-            accumulator = 0.f;
-        }
+        geometry2 = true;
+        notes.push_back({CreateDrumSound, {0.1f, 0.f,0.f,2.f,1.f,1.f}});
     }
+    /*
     if (accumulatedTime > START_GEOMETRY + 35.f && accumulatedTime < START_ENDING)
     {
         static float accumulator = 3.66f;
@@ -239,38 +315,6 @@ void FinalDemo::UpdateSound(float deltaTime)
             392,
             440,
             349,
-            261,
-            392,
-            440,
-            349,
-            261,
-            392,
-            440,
-            349,
-            261,
-            392,
-            440,
-            349,
-            261 * 1.5,
-            392 * 1.5,
-            440 * 1.5,
-            349 * 1.5,
-            261 * 1.5,
-            392 * 1.5,
-            440 * 1.5,
-            349 * 1.5,
-            261 * 1.5,
-            392 * 1.5,
-            440 * 1.5,
-            349 * 1.5,
-            261 * 1.5,
-            392 * 1.5,
-            440 * 1.5,
-            349 * 1.5,
-            261 * 1.5,
-            392 * 1.5,
-            440 * 1.5,
-            349 * 1.5,
         };
         if (accumulator > 4.f)
         {
@@ -281,7 +325,7 @@ void FinalDemo::UpdateSound(float deltaTime)
             frequencies.pop_front();
             accumulator = 0.f;
         }
-    }
+    }*/
 
     UpdateEnvelopes(deltaTime);
     RemoveDeadNotes();

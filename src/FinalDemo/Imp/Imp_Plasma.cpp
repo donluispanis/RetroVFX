@@ -152,6 +152,7 @@ void FinalDemo::UpdatePlasma(float deltaTime)
             plasmaDisplacement.Y = 0.f;
         }
     }
+    
     if (accumulatedTime > START_PLASMA + 6.f && amplitude < 50.f)
     {
         amplitude += deltaTime * 20;
