@@ -1,14 +1,13 @@
 #include "Imp_Includes.h"
 
+Point2D plasmaDisplacement;
+
 void FinalDemo::InitPlasma()
 {
     sineTable = Fast::GenerateSineTable(mathTableSize);
 
     plasmaColourMap = new Pixel[plasmaColourMapSize];
     ColourStamp::GenerateGradient(ColourStampGradients::PLASMA, plasmaColourMap, plasmaColourMapSize);
-
-    lavaColourMap = new Pixel[plasmaColourMapSize];
-    ColourStamp::GenerateGradient(ColourStampGradients::FIRE, lavaColourMap, plasmaColourMapSize);
 
     plasmaTexture = new Pixel[(width / 2) * (height / 2)];
     for (int i = 0, n = (width / 2) * (height / 2); i < n; i++)
@@ -23,7 +22,6 @@ void FinalDemo::InitPlasma()
 void FinalDemo::ClosePlasma()
 {
     delete[] plasmaColourMap;
-    delete[] lavaColourMap;
     Fast::DeleteMathTable(sineTable);
 }
 #include <iostream>
@@ -98,8 +96,8 @@ void FinalDemo::UpdatePlasma(float deltaTime)
                 float sine = sineTable[plasmaAngle % mathTableSize];
                 float cosine = cosineTable[plasmaAngle % mathTableSize];
 
-                int texX = Fast::Abs(int((i * cosine - j * sine) / plasmaScale + plasmaOffset.X));
-                int texY = Fast::Abs(int((j * cosine + i * sine) / plasmaScale + plasmaOffset.Y));
+                int texX = Fast::Abs(int((i * cosine - j * sine) / plasmaScale));
+                int texY = Fast::Abs(int((j * cosine + i * sine) / plasmaScale));
 
                 if (IsPixelOutOfBounds(i + plasmaDisplacement.X + 1, j + plasmaDisplacement.Y + 1))
                 {
@@ -127,8 +125,8 @@ void FinalDemo::UpdatePlasma(float deltaTime)
 
                 float auxScale = plasmaScale * scaleModifier;
 
-                int texX = Fast::Abs(int((newX * cosine - newY * sine) / auxScale + plasmaOffset.X) % plasmaTexWidth);
-                int texY = Fast::Abs(int((newY * cosine + newX * sine) / auxScale + plasmaOffset.Y) % plasmaTexHeight);
+                int texX = Fast::Abs(int((newX * cosine - newY * sine) / auxScale + width) % plasmaTexWidth);
+                int texY = Fast::Abs(int((newY * cosine + newX * sine) / auxScale + height) % plasmaTexHeight);
 
                 const Pixel colour = plasmaTexture[texY * plasmaTexWidth + texX] + Pixel(fColour);
 
@@ -157,8 +155,6 @@ void FinalDemo::UpdatePlasma(float deltaTime)
     if (accumulatedTime > START_PLASMA + 6.f && amplitude < 50.f)
     {
         amplitude += deltaTime * 20;
-        plasmaOffset.X = width;
-        plasmaOffset.Y = height;
     }
     if (accumulatedTime > START_PLASMA + 13.f)
     {

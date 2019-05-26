@@ -176,17 +176,9 @@ void FinalDemo::UpdateSound(float deltaTime)
     }
     if (accumulatedTime > START_GEOMETRY + 35.f && accumulatedTime < START_ENDING)
     {
-        static float accumulator0 = 0.f;
-        static float accumulator1 = 0.66f;
-        static float accumulator2 = 3.66f;
-        static int counter = 0;
-        static int counter1 = 0;
-        accumulator0 += deltaTime;
-        accumulator1 += deltaTime;
-        accumulator2 += deltaTime;
-        static float lastFrequency = 523;
-        static float lastFrequency1 = 261;
-        static std::deque<float> frequencies2 = {
+        static float accumulator = 3.66f;
+        accumulator += deltaTime;
+        static std::deque<float> frequencies = {
             261,
             392,
             440,
@@ -224,44 +216,14 @@ void FinalDemo::UpdateSound(float deltaTime)
             440 * 1.5,
             349 * 1.5,
         };
-        if (accumulator0 > 0.33f)
-        {
-            //if (counter % 3 != 1)
-            //{
-            //    Note aux = fluteNote;
-            //    aux.frequency = lastFrequency;
-            //
-            //    notes.push_back(aux);
-            //
-            //    accumulator0 = 0.f;
-            //}
-            //
-            //counter++;
-        }
-        if (accumulator1 > 1.f)
-        {
-            //Note aux = fluteNote;
-            //aux.frequency = lastFrequency1 * 2 + (counter1 % 3) * 0.3333f;
-            //aux.envelope = fluteEnv1;
-            //lastFrequency = aux.frequency;
-            //
-            //notes.push_back(aux);
-            //
-            //counter++;
-            //accumulator1 = 0.f;
-        }
-        if (accumulator2 > 4.f)
+        if (accumulator > 4.f)
         {
             Note aux = synthNote;
-            aux.frequency = frequencies2.front();
-            aux.frequency = frequencies2.front() * 0.33;
-            aux.frequency = frequencies2.front() * 0.66;
-            lastFrequency1 = aux.frequency;
-
+            aux.frequency = frequencies.front();
             notes.push_back(aux);
 
-            frequencies2.pop_front();
-            accumulator2 = 0.f;
+            frequencies.pop_front();
+            accumulator = 0.f;
         }
     }
 

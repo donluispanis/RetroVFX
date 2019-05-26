@@ -104,14 +104,11 @@ private:
 
     const int plasmaColourMapSize = 256;
     Pixel *plasmaColourMap;
-    Pixel *lavaColourMap;
 
     Pixel *plasmaTexture;
 
     int plasmaAngle = 0;
     float plasmaScale = 0.0001f;
-    Point2D plasmaOffset;
-    Point2D plasmaDisplacement;
 
     //Planes
     void InitPlanes();
@@ -157,10 +154,10 @@ private:
     float radiusVelocity;
     float rotationVelocity;
     float defaultRotationVelocity;
-    
+
     int tunnelColourMapSize;
     Pixel *tunnelColourMap;
-    int tunnelCurrentColour; 
+    int tunnelCurrentColour;
 
     bool drawTunnel = false;
     bool eraseText = false;
