@@ -17,14 +17,14 @@ bool FinalDemo::Init()
     height = windowManager->GetHeight();
 
     InitFire();
-    InitGeometry();
-    InitPlasma();
-    InitPlanes();
-    InitEnding();
+    //InitGeometry();
+    //InitPlasma();
+    //InitPlanes();
+    //InitEnding();
 
     accumulatedTime = 0;
 
-    InitAudio();
+    //InitAudio();
 
     return true;
 }
@@ -32,12 +32,12 @@ bool FinalDemo::Init()
 bool FinalDemo::Destroy()
 {
     CloseFire();
-    CloseGeometry();
-    ClosePlasma();
-    ClosePlanes();
-    CloseEnding();
+    //CloseGeometry();
+    //ClosePlasma();
+    //ClosePlanes();
+    //CloseEnding();
 
-    CloseAudio();
+    //CloseAudio();
     return true;
 }
 
@@ -72,7 +72,7 @@ bool FinalDemo::Update(float deltaTime)
         return false;
     }
 
-    UpdateSound(deltaTime);
+    //UpdateSound(deltaTime);
 
     return true;
 }

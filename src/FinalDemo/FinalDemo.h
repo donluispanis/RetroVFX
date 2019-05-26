@@ -108,6 +108,11 @@ private:
 
     Pixel *plasmaTexture;
 
+    int plasmaAngle = 0;
+    float plasmaScale = 0.0001f;
+    Point2D plasmaOffset;
+    Point2D plasmaDisplacement;
+
     //Planes
     void InitPlanes();
     void UpdatePlanes(float deltaTime);
@@ -165,14 +170,14 @@ private:
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;
     const float DURATION_GEOMETRY = 75.0f;
-    const float DURATION_PLASMA = 25.0f;
+    const float DURATION_PLASMA = 30.0f;
     const float DURATION_PLANES = 42.0f;
     const float DURATION_ENDING = 40.0f;
     const float DURATION_TOTAL = DURATION_FIRE + DURATION_GEOMETRY + DURATION_PLASMA + DURATION_PLANES + DURATION_ENDING;
 
-    const float START_FIRE = 40.f;
+    const float START_FIRE = 0.f;
     const float START_GEOMETRY = START_FIRE + DURATION_FIRE;
-    const float START_PLASMA = 0;//START_GEOMETRY + DURATION_GEOMETRY;
+    const float START_PLASMA = START_GEOMETRY + DURATION_GEOMETRY;
     const float START_PLANES = START_PLASMA + DURATION_PLASMA;
     const float START_ENDING = START_PLANES + DURATION_PLANES;
 };
