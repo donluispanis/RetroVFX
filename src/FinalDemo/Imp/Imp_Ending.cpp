@@ -67,7 +67,6 @@ void FinalDemo::UpdateEnding(float deltaTime)
     else
     {
         static const int halfWidth = width / 2;
-        bool toggle = false;
 
         if (eraseText)
         {
@@ -104,7 +103,7 @@ void FinalDemo::UpdateEnding(float deltaTime)
     }
     UpdateCircleQueue(deltaTime);
 
-    if (accumulator > -0.1f)
+    if (accumulatedTime >= START_ENDING + 25.f)
     {
         eraseText = true;
 
@@ -122,9 +121,9 @@ void FinalDemo::UpdateEnding(float deltaTime)
         opacity += 0.5 * deltaTime;
     }
 
-    if(accumulatedTime > START_ENDING + 33.f)
+    if(accumulatedTime > START_ENDING + 35.f)
     {
-        globalEndingOpacity -= deltaTime * 0.2;
+        globalEndingOpacity -= deltaTime * 0.25;
         if(globalEndingOpacity < 0.f)
         {
             globalEndingOpacity = 0.f;
