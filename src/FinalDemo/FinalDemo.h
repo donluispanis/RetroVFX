@@ -163,6 +163,7 @@ private:
     bool eraseText = false;
     float transitionAdvance = 0.f;
     float globalEndingOpacity = 1.f;
+    bool tunnelBeat = false;
 
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;
@@ -170,10 +171,10 @@ private:
     const float DURATION_PLASMA = 30.0f;
     const float DURATION_PLANES = 42.0f;
     const float DURATION_ENDING = 40.0f;
-    const float DURATION_TOTAL = DURATION_FIRE + DURATION_GEOMETRY + DURATION_PLASMA + DURATION_PLANES + DURATION_ENDING;
+    const float DURATION_TOTAL = DURATION_FIRE + DURATION_GEOMETRY + DURATION_PLASMA + DURATION_PLANES + DURATION_ENDING + 10.f;
 
-    const float START_FIRE = 60.f;
-    const float START_GEOMETRY = 0;//START_FIRE + DURATION_FIRE;
+    const float START_FIRE = 10.f;
+    const float START_GEOMETRY = START_FIRE + DURATION_FIRE;
     const float START_PLASMA = START_GEOMETRY + DURATION_GEOMETRY;
     const float START_PLANES = START_PLASMA + DURATION_PLASMA;
     const float START_ENDING = START_PLANES + DURATION_PLANES;

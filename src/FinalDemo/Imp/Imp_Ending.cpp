@@ -92,6 +92,7 @@ void FinalDemo::UpdateEnding(float deltaTime)
 
             if (accumulator >= 1.f)
             {
+                tunnelBeat = true;
                 radiusVelocity = 2.f;
                 accumulator = 0.f;
             }

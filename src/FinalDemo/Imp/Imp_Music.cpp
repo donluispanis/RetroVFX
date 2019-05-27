@@ -1,5 +1,14 @@
 #include "Imp_Includes.h"
 #include <deque>
+
+#define DO 261.626f
+#define RE 293.665f
+#define MI 329.628f
+#define FA 349.228f
+#define SOL 391.995f
+#define LA 440.f
+#define SI 493.883f
+
 void UpdateEnvelopes(float deltaTime);
 void RemoveDeadNotes();
 static int audioCallback(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo *, PaStreamCallbackFlags, void *);
@@ -144,82 +153,6 @@ void FinalDemo::UpdateSound(float deltaTime)
     const Note synthNote = {CreateSynthSound, synthEnv, 440.f, 1.f * generalVolume};
     const Note laserNote = {CreateLaserSound, laserEnv, 440.f, 0.6f * generalVolume};
 
-    if (accumulatedTime > START_PLASMA && !plasma)
-    {
-        Note auxNote = fireNote;
-        auxNote.frequency = 200.f;
-        auxNote.envelope.attack = 4.f;
-        auxNote.envelope.release = 2.f;
-        auxNote.envelope.sustainAmplitude = 1.f;
-        notes.push_back(auxNote);
-        plasma = true;
-    }
-    if (accumulatedTime > START_PLASMA && accumulatedTime < START_PLASMA + 13.f)
-    {
-        static float accumulator0 = 0.8f;
-        static float accumulator1 = 0.6f;
-        static float accumulator2 = 0.3f;
-        accumulator0 += deltaTime;
-        accumulator1 += deltaTime;
-        accumulator2 += deltaTime;
-
-        if (accumulator0 > 1.f)
-        {
-            notes.push_back(drumNote);
-            accumulator0 = 0.f;
-        }
-        if (accumulator1 > 1.f)
-        {
-            notes.push_back(drumNote);
-            accumulator1 = 0.f;
-        }
-        if (accumulator2 > 1.f)
-        {
-            notes.push_back(snareNote);
-            accumulator2 = 0.f;
-        }
-    }
-    if (accumulatedTime > START_PLASMA + 13.f && accumulatedTime < START_PLASMA + 30.f)
-    {
-        static float accumulator = 0.7f;
-        static float maxAccumulator = 0.6f;
-        static float volume = 1.f;
-
-        accumulator += deltaTime;
-        maxAccumulator = 0.8 - 0.8 * ((accumulatedTime - START_PLASMA - 13.f) / 15.f);
-
-        if (accumulatedTime > START_PLASMA + 28.f)
-        {
-            volume -= deltaTime * 0.75f;
-
-            if (volume < 0.f)
-            {
-                volume = 0.f;
-            }
-        }
-
-        if (accumulator >= maxAccumulator)
-        {
-            accumulator = 0.f;
-
-            static float baseFrequency = 261.63 * 0.125;
-            const static float incrementer = 1.059463f;
-
-            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 1, mask[1] * volume});
-            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 2, mask[3] * volume});
-            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 4, mask[5] * volume});
-            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 6, mask[7] * volume});
-            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 8, mask[9] * volume});
-            notes.push_back({CreateLaserSound, laserEnv, baseFrequency * 10, mask[11] * volume});
-
-            baseFrequency *= incrementer;
-            if (baseFrequency >= 523.f)
-            {
-                baseFrequency = 261.63f;
-            }
-        }
-    }
-
     if (accumulatedTime > START_FIRE && !fire)
     {
         notes.push_back(fireNote);
@@ -258,25 +191,14 @@ void FinalDemo::UpdateSound(float deltaTime)
         static Note &note = notes[notes.size() - 1];
         note.frequency = note.frequency + cos(accumulatedTime);
     }
-    if (accumulatedTime > START_GEOMETRY + 40.f && accumulatedTime < START_GEOMETRY + 53.f)
+    if (accumulatedTime > START_GEOMETRY + 39.f && accumulatedTime < START_GEOMETRY + 55.f)
     {
         static float accumulator = 0.7f;
         static float maxAccumulator = 0.6f;
         static float volume = 1.f;
 
         accumulator += deltaTime;
-        maxAccumulator = 0.5 - 0.4 * ((accumulatedTime - START_GEOMETRY - 40.f) / 13.f);
-
-        //if (accumulatedTime > START_PLASMA + 28.f)
-        //{
-        //    volume -= deltaTime * 0.75f;
-        //
-        //    if (volume < 0.f)
-        //    {
-        //        volume = 0.f;
-        //    }
-        //}
-        //
+        maxAccumulator = 0.5 - 0.3 * ((accumulatedTime - START_GEOMETRY - 40.f) / 13.f);
         if (accumulator >= maxAccumulator)
         {
             accumulator = 0.f;
@@ -300,32 +222,238 @@ void FinalDemo::UpdateSound(float deltaTime)
             }
         }
     }
-    if (accumulatedTime > START_GEOMETRY + 55.f && !geometry2)
+    if (accumulatedTime > START_GEOMETRY + 55.f && accumulatedTime < START_PLASMA)
     {
-        geometry2 = true;
-        notes.push_back({CreateDrumSound, {0.1f, 0.f,0.f,2.f,1.f,1.f}});
-    }
-    /*
-    if (accumulatedTime > START_GEOMETRY + 35.f && accumulatedTime < START_ENDING)
-    {
-        static float accumulator = 3.66f;
+        static float accumulator = 4.5f;
         accumulator += deltaTime;
-        static std::deque<float> frequencies = {
-            261,
-            392,
-            440,
-            349,
-        };
+        static std::deque<float> frequencies = {DO, RE, MI, RE};
         if (accumulator > 4.f)
         {
             Note aux = synthNote;
             aux.frequency = frequencies.front();
+
+            if (frequencies.size() == 1)
+            {
+                aux.envelope.sustain = 2.f;
+                aux.envelope.release = 3.f;
+            }
+
             notes.push_back(aux);
 
             frequencies.pop_front();
             accumulator = 0.f;
         }
-    }*/
+    }
+    if (accumulatedTime > START_PLASMA && !plasma)
+    {
+        Note auxNote = fireNote;
+        auxNote.frequency = 200.f;
+        auxNote.envelope.attack = 4.f;
+        auxNote.envelope.release = 2.f;
+        auxNote.envelope.sustainAmplitude = 1.f;
+        notes.push_back(auxNote);
+        plasma = true;
+    }
+    if (accumulatedTime > START_PLASMA && accumulatedTime < START_PLASMA + 13.f)
+    {
+        static float accumulator0 = 0.9f;
+        static float accumulator1 = 0.6f;
+        static float accumulator2 = 0.3f;
+        static float volume = 0.25f;
+        accumulator0 += deltaTime;
+        accumulator1 += deltaTime;
+        accumulator2 += deltaTime;
+
+        if (accumulatedTime > START_PLASMA + 8.f)
+        {
+            volume -= deltaTime * 0.04;
+        }
+
+        if (accumulator0 > 1.f)
+        {
+            Note aux = drumNote;
+            aux.volume = volume;
+            notes.push_back(aux);
+            accumulator0 = 0.f;
+        }
+        if (accumulator1 > 1.f)
+        {
+            Note aux = drumNote;
+            aux.volume = volume;
+            notes.push_back(aux);
+            accumulator1 = 0.f;
+        }
+        if (accumulator2 > 1.f)
+        {
+            Note aux = snareNote;
+            aux.volume = volume;
+            notes.push_back(aux);
+            accumulator2 = 0.f;
+        }
+    }
+    static std::deque<float> plasmaFrequencies = {DO, SI, DO, SI, DO, LA, DO, LA, RE, SI,
+                                                  RE, SI, RE, LA, RE, LA, MI, LA, MI, LA,
+                                                  FA, LA, FA, LA, FA, SOL, FA, SOL, LA, LA,
+                                                  SOL, FA, MI, RE, DO, SI * 0.5, LA * 0.5, SOL * 0.5, FA * 0.5, MI * 0.5};
+    if (accumulatedTime > START_PLASMA + 5.1f && plasmaFrequencies.size() > 0)
+    {
+        static float accumulator = 1.f;
+        static int counter = 11;
+        accumulator += deltaTime;
+
+        if (accumulator > 0.33)
+        {
+            Note aux = laserNote;
+            aux.frequency = plasmaFrequencies.front();
+            if (plasmaFrequencies.size() < 11)
+            {
+                counter--;
+                aux.volume = counter * 0.05;
+            }
+            else
+            {
+                aux.volume = 0.5f;
+            }
+            notes.push_back(aux);
+
+            plasmaFrequencies.pop_front();
+            accumulator = 0.f;
+        }
+    }
+    if (accumulatedTime > START_PLASMA + 13.f && accumulatedTime < START_PLASMA + 30.f)
+    {
+        static float accumulator = 0.7f;
+        static float maxAccumulator = 0.6f;
+        static float volume = 1.f;
+
+        accumulator += deltaTime;
+        maxAccumulator = 0.8 - 0.8 * ((accumulatedTime - START_PLASMA - 13.f) / 15.f);
+
+        if (accumulatedTime > START_PLASMA + 28.f)
+        {
+            volume -= deltaTime * 0.75f;
+
+            if (volume < 0.f)
+            {
+                volume = 0.f;
+            }
+        }
+
+        if (accumulator >= maxAccumulator)
+        {
+            accumulator = 0.f;
+
+            static float baseFrequency = 261.63 * 0.125;
+            const static float incrementer = 1.059463f;
+
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 1, mask[1] * volume});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 2, mask[3] * volume});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 4, mask[5] * volume});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 6, mask[7] * volume});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 8, mask[9] * volume});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 10, mask[11] * volume});
+
+            baseFrequency *= incrementer;
+            if (baseFrequency >= 523.f)
+            {
+                baseFrequency = 261.63f;
+            }
+        }
+    }
+    static std::deque<float> planesFrequencies = {DO, SOL, LA, FA,
+                                                  DO, MI, SOL, SI, LA, DO * 2, FA, LA,
+                                                  DO, MI, SOL, SOL, SI, RE * 2, LA, DO * 2, MI * 2, FA, LA, DO * 2};
+    if (accumulatedTime > START_PLANES && planesFrequencies.size() > 0)
+    {
+        static float accumulator = 4.f;
+        accumulator += deltaTime;
+
+        if (accumulator >= 3.5f)
+        {
+            Note aux = synthNote;
+            aux.frequency = planesFrequencies.front();
+            aux.volume = 0.2f;
+            notes.push_back(aux);
+
+            if (planesFrequencies.size() < 21)
+            {
+                planesFrequencies.pop_front();
+                aux.volume = 0.3f;
+                aux.frequency = planesFrequencies.front();
+                notes.push_back(aux);
+            }
+
+            if (planesFrequencies.size() < 13)
+            {
+                planesFrequencies.pop_front();
+                aux.volume = 0.4f;
+                aux.frequency = planesFrequencies.front();
+                notes.push_back(aux);
+            }
+
+            planesFrequencies.pop_front();
+            accumulator = 0.f;
+        }
+    }
+    if (accumulatedTime > START_ENDING + 8.f)
+    {
+        static std::deque<float> frequencies = {DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA};
+        static float accumulator = 1.f;
+        static float accumulator1 = 0.95f;
+        static float volume = 0.4f;
+        accumulator += deltaTime;
+        accumulator1 += deltaTime;
+
+
+        if (accumulatedTime > START_ENDING + 30.f)
+        {
+            volume -= deltaTime * 0.11f;
+            if (volume < 0.f)
+            {
+                volume = 0.f;
+            }
+        }
+
+        if (accumulator > 0.25f)
+        {
+            Note aux = laserNote;
+            aux.volume = volume;
+            aux.frequency = frequencies.front();
+            notes.push_back(aux);
+            frequencies.pop_front();
+            accumulator = 0.f;
+        }
+        if (tunnelBeat && accumulator1 > 1.f)
+        {
+            Note aux = drumNote;
+            aux.volume = volume;
+            notes.push_back(aux);
+            accumulator1 = 0.f;
+        }
+    }
 
     UpdateEnvelopes(deltaTime);
     RemoveDeadNotes();
