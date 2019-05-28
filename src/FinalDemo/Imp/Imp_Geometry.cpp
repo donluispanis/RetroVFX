@@ -71,16 +71,22 @@ void FinalDemo::UpdateGeometry(float deltaTime)
     }
     if (accumulatedTime > START_GEOMETRY + 50.f && accumulatedTime < START_GEOMETRY + 53.f)
     {
-        for (auto &point : grid.points)
+        static const std::vector<Point3D> pointsCopy(grid.points);
+        static float factor = 1.f;
+        factor -= 0.3 * deltaTime;
+
+        for (unsigned int i = 0; i < grid.points.size(); i++)
         {
-            point *= Point3D(0.99, 0.99, 0.99);
+            grid.points[i] = Point3D(factor, factor, factor) * pointsCopy[i];
         }
     }
+    
     if (accumulatedTime > START_GEOMETRY + 53.f && accumulatedTime < START_GEOMETRY + 55.f)
     {
-        for (auto &point : grid.points)
+        static const std::vector<Point3D> pointsCopy(grid.points);
+        for (unsigned int i = 0; i < grid.points.size(); i++)
         {
-            point *= Point3D(0.95, 0.95, 0.95);
+            grid.points[i] = pointsCopy[i];
         }
     }
     if (accumulatedTime > START_GEOMETRY + 53.f && renderLines)
@@ -89,10 +95,26 @@ void FinalDemo::UpdateGeometry(float deltaTime)
     }
     if (accumulatedTime > START_GEOMETRY + 55.f && accumulatedTime < START_GEOMETRY + 60.f )
     {
-        for (auto &point : grid.points)
+        static const std::vector<Point3D> pointsCopy(grid.points);
+        static float factor = 1.f;
+        if(accumulatedTime < START_GEOMETRY + 56.f)
         {
-            point *= Point3D(1.01, 1.01, 1.01);
+            factor += 20 * deltaTime;
         }
+        else if(accumulatedTime < START_GEOMETRY + 58.5f)
+        {
+            factor += deltaTime * 2;
+        }
+        else
+        {
+            factor -= 7.5f * deltaTime;
+        }
+
+        for (unsigned int i = 0; i < grid.points.size(); i++)
+        {
+            grid.points[i] = Point3D(factor, factor, factor) * pointsCopy[i];
+        }
+
         phaseVelocity -= deltaTime * 5;
     }
     if (accumulatedTime > START_GEOMETRY + 70.f && colourOpacityOut > 0.f)

@@ -43,6 +43,14 @@ void Point3D::operator*=(const Point3D &p) noexcept
     this->Z *= p.Z;
 }
 
+Point3D Point3D::operator*(const Point3D &p) noexcept
+{
+    return std::move(
+        Point3D(this->X *= p.X,
+                this->Y *= p.Y,
+                this->Z *= p.Z));
+}
+
 Point3D Point3D::operator*(const float f) noexcept
 {
     return std::move(

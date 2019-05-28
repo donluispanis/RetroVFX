@@ -173,7 +173,7 @@ void FinalDemo::UpdateSound(float deltaTime)
         }
 
         static Note &note = notes[notes.size() - 1];
-        note.frequency = note.frequency + cos(accumulatedTime);
+        note.frequency = note.frequency + cos(accumulatedTime) * 0.5f;
     }
     if (accumulatedTime > START_GEOMETRY + 39.f && accumulatedTime < START_GEOMETRY + 55.f)
     {
