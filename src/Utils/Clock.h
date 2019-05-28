@@ -1,8 +1,6 @@
 #pragma once
 
-#include <chrono>
-
-using TimePoint = std::chrono::system_clock::time_point;
+#include <ctime>
 
 class Clock
 {
@@ -12,5 +10,5 @@ class Clock
     double GetElapsedTime();
 
   private:
-    TimePoint oldTimePoint;
+    std::clock_t oldTimePoint = std::clock();
 };
