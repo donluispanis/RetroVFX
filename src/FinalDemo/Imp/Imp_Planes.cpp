@@ -174,6 +174,11 @@ void FinalDemo::DrawCharacterOnMap(Pixel *map, int width, const Pixel &colour, i
     {
         for (int j = y; j < y + 5 * scale; j++)
         {
+            if(scale <= 0.f)
+            {
+                scale = 0.001f;
+            }
+
             int offsetX = (i - x) / scale;
             int offsetY = (j - y) / scale;
 

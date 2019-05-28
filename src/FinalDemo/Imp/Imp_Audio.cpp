@@ -86,10 +86,21 @@ void UpdateEnvelopes(float deltaTime)
         if (life < env.attack)
         {
             note.currentEnvelopeValue = env.peakAmplitude * (life / env.attack);
+
+            if(env.attack == 0.f)
+            {
+                note.currentEnvelopeValue = 0.f;
+            }
         }
         else if (life < env.attack + env.decay)
         {
             float t = (life - env.attack) / env.decay;
+
+            if(env.decay == 0.f)
+            {
+                t = 0.f;
+            }
+
             note.currentEnvelopeValue = t * env.peakAmplitude + (1 - t) * env.sustainAmplitude;
         }
         else if (life < env.attack + env.decay + env.sustain)
@@ -99,6 +110,11 @@ void UpdateEnvelopes(float deltaTime)
         else if (life < env.attack + env.decay + env.sustain + env.release)
         {
             note.currentEnvelopeValue = (((env.attack + env.decay + env.sustain + env.release) - life) / env.release) * env.sustainAmplitude;
+
+            if(env.release == 0.f)
+            {
+                note.currentEnvelopeValue = 0.f;
+            }
         }
         else
         {
@@ -121,6 +137,11 @@ void RemoveDeadNotes()
 
 float GetSquaredWaveValue(float frequency, long int currentCount)
 {
+    if(frequency == 0.f || currentCount == 0)
+    {
+        return 0.f;
+    }
+    
     int steps = SAMPLE_RATE / frequency;
     if (currentCount % steps < steps * 0.5)
     {
@@ -132,6 +153,12 @@ float GetSquaredWaveValue(float frequency, long int currentCount)
 float GetSawtoothWaveValue(float frequency, long int currentCount)
 {
     int steps = SAMPLE_RATE / frequency;
+
+    if(frequency == 0.f || currentCount == 0 || steps == 0.f)
+    {
+        return 0.f;
+    }
+    
     float percentage = currentCount % steps / float(steps);
     return percentage * 2 - 1.f;
 }
@@ -139,6 +166,12 @@ float GetSawtoothWaveValue(float frequency, long int currentCount)
 float GetTriangleWaveValue(float frequency, long int currentCount)
 {
     int steps = SAMPLE_RATE / frequency;
+
+    if(frequency == 0.f || currentCount == 0 || steps == 0.f)
+    {
+        return 0.f;
+    }
+    
     float percentage = currentCount % steps / float(steps);
     if (percentage < 0.5f)
     {
@@ -150,6 +183,12 @@ float GetTriangleWaveValue(float frequency, long int currentCount)
 float GetSineWaveValue(float frequency, long int currentCount)
 {
     int steps = SAMPLE_RATE / frequency;
+
+    if(frequency == 0.f || currentCount == 0 || steps == 0.f)
+    {
+        return 0.f;
+    }
+
     float percentage = currentCount % steps / float(steps);
     return sin(2 * Fast::PI * percentage);
 }

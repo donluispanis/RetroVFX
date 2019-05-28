@@ -1,6 +1,10 @@
 #pragma once
 
-#include <ctime>
+#include <chrono>
+
+using TimePoint = std::chrono::steady_clock::time_point;
+using SteadyClock = std::chrono::steady_clock;
+using Duration = std::chrono::duration<double>;
 
 class Clock
 {
@@ -10,5 +14,5 @@ class Clock
     double GetElapsedTime();
 
   private:
-    std::clock_t oldTimePoint = std::clock();
+    TimePoint oldTimePoint = SteadyClock::now();
 };

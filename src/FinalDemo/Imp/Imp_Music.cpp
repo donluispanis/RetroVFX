@@ -88,18 +88,6 @@ float CreateSynthSound(float frequency, long int currentCount)
 
 static float mask[12] = {0.01f, 0.025f, 0.05f, 0.075f, 0.14f, 0.2f, 0.2f, 0.14f, 0.075f, 0.05f, 0.025f, 0.01f};
 
-void RotateMask()
-{
-    const float lastNote = mask[11];
-    for (int i = 10; i == 0; i--)
-    {
-        float a = mask[i + 1];
-        float b = mask[i];
-        mask[i + 1] = mask[i];
-    }
-    mask[0] = lastNote;
-}
-
 float CreateLaserSound(float frequency, long int currentCount)
 {
     return (GetSawtoothWaveValue(frequency, currentCount) * 0.5f +
@@ -132,7 +120,6 @@ void FinalDemo::UpdateSound(float deltaTime)
     static bool fire1 = false;
     static bool geometry = false;
     static bool geometry1 = false;
-    static bool geometry2 = false;
     static bool plasma = false;
     static float generalVolume = 1.f;
 
@@ -140,8 +127,6 @@ void FinalDemo::UpdateSound(float deltaTime)
     const Envelope seaEnv = {2.f, 0.f, 20.f, 7.f, 1.f, 1.f};
     const Envelope drumEnv = {0.f, 0.f, 0.f, 0.1f, 1.f, 1.f};
     const Envelope snareEnv = {0.f, 0.f, 0.f, 0.3f, 1.f, 0.5f};
-    const Envelope fluteEnv = {0.125f, 0.f, 0.25f, 0.125f, 1.f, 1.f};
-    const Envelope fluteEnv1 = {0.125f, 0.f, 0.75f, 0.125f, 1.f, 1.f};
     const Envelope synthEnv = {1.f, 1.f, 1.f, 2.f, 1.f, 0.7f};
     const Envelope laserEnv = {0.0f, 0.f, 0.0f, 0.2f, 1.f, 1.0f};
 
@@ -149,7 +134,6 @@ void FinalDemo::UpdateSound(float deltaTime)
     const Note seaNote = {CreateSeaWavesSound, seaEnv, 0.07f, 0.6f * generalVolume};
     const Note drumNote = {CreateDrumSound, drumEnv, 0.f, 0.6f * generalVolume};
     const Note snareNote = {CreateDrumSound, snareEnv, 0.f, 0.6f * generalVolume};
-    const Note fluteNote = {CreateFluteSound, fluteEnv, 440.f, 0.6f * generalVolume};
     const Note synthNote = {CreateSynthSound, synthEnv, 440.f, 1.f * generalVolume};
     const Note laserNote = {CreateLaserSound, laserEnv, 440.f, 0.6f * generalVolume};
 
@@ -199,6 +183,12 @@ void FinalDemo::UpdateSound(float deltaTime)
 
         accumulator += deltaTime;
         maxAccumulator = 0.5 - 0.3 * ((accumulatedTime - START_GEOMETRY - 40.f) / 13.f);
+
+        if(maxAccumulator <= 0.f)
+        {
+            maxAccumulator = 0.001f;
+        }
+
         if (accumulator >= maxAccumulator)
         {
             accumulator = 0.f;
@@ -222,17 +212,17 @@ void FinalDemo::UpdateSound(float deltaTime)
             }
         }
     }
-    if (accumulatedTime > START_GEOMETRY + 55.f && accumulatedTime < START_PLASMA)
+    static std::deque<float> geometryFrequencies = {DO, RE, MI, RE};
+    if (accumulatedTime > START_GEOMETRY + 55.f && accumulatedTime < START_PLASMA && geometryFrequencies.size() > 0)
     {
         static float accumulator = 4.5f;
         accumulator += deltaTime;
-        static std::deque<float> frequencies = {DO, RE, MI, RE};
         if (accumulator > 4.f)
         {
             Note aux = synthNote;
-            aux.frequency = frequencies.front();
+            aux.frequency = geometryFrequencies.front();
 
-            if (frequencies.size() == 1)
+            if (geometryFrequencies.size() == 1)
             {
                 aux.envelope.sustain = 2.f;
                 aux.envelope.release = 3.f;
@@ -240,7 +230,7 @@ void FinalDemo::UpdateSound(float deltaTime)
 
             notes.push_back(aux);
 
-            frequencies.pop_front();
+            geometryFrequencies.pop_front();
             accumulator = 0.f;
         }
     }
@@ -267,6 +257,10 @@ void FinalDemo::UpdateSound(float deltaTime)
         if (accumulatedTime > START_PLASMA + 8.f)
         {
             volume -= deltaTime * 0.04;
+            if(volume < 0.f)
+            {
+                volume = 0.f;
+            }
         }
 
         if (accumulator0 > 1.f)
@@ -314,6 +308,11 @@ void FinalDemo::UpdateSound(float deltaTime)
             {
                 aux.volume = 0.5f;
             }
+            if(aux.volume < 0.f)
+            {
+                aux.volume = 0.f;
+            }
+
             notes.push_back(aux);
 
             plasmaFrequencies.pop_front();
@@ -328,6 +327,11 @@ void FinalDemo::UpdateSound(float deltaTime)
 
         accumulator += deltaTime;
         maxAccumulator = 0.8 - 0.8 * ((accumulatedTime - START_PLASMA - 13.f) / 15.f);
+
+        if(maxAccumulator <= 0.f)
+        {
+            maxAccumulator = 0.001f;
+        }
 
         if (accumulatedTime > START_PLASMA + 28.f)
         {
@@ -428,9 +432,9 @@ void FinalDemo::UpdateSound(float deltaTime)
         accumulator1 += deltaTime;
 
 
-        if (accumulatedTime > START_ENDING + 30.f)
+        if (accumulatedTime > START_ENDING + 35.f)
         {
-            volume -= deltaTime * 0.11f;
+            volume -= deltaTime * 0.25f;
             if (volume < 0.f)
             {
                 volume = 0.f;

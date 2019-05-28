@@ -41,8 +41,6 @@ bool FinalDemo::Destroy()
     return true;
 }
 
-#include <iostream>
-
 bool FinalDemo::Update(float deltaTime)
 {
     accumulatedTime += deltaTime;

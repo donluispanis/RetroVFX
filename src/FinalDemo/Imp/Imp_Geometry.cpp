@@ -99,6 +99,10 @@ void FinalDemo::UpdateGeometry(float deltaTime)
     {
         colourOpacityOut -= 0.3 * deltaTime;
     }
+    else if(colourOpacityOut < 0.f)
+    {
+        colourOpacityOut = 0.f;
+    }
 }
 
 void FinalDemo::ApplyObjectTransformations(float deltaTime)
@@ -221,6 +225,11 @@ void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float
         {
             int index = j * vertexPerWidth + i;
             float wave = sin((j + phase) / wavelength);
+
+            if(wavelength == 0.f)
+            {
+                wave = 0.f;
+            }
 
             grid.points[index].Y += amplitude * wave;
             grid.colours.push_back((Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f)) * colourOpacityIn);

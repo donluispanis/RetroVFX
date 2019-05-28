@@ -7,11 +7,11 @@ Clock::Clock()
 
 void Clock::Reset()
 {
-    oldTimePoint = std::clock();
+    oldTimePoint = SteadyClock::now();
 }
 
 double Clock::GetElapsedTime()
 {
-    double deltaTime = (std::clock() - oldTimePoint) / (double)CLOCKS_PER_SEC;
-    return deltaTime;
+    Duration elapsedTime = std::chrono::duration_cast<Duration>(SteadyClock::now() - oldTimePoint);
+    return elapsedTime.count();
 }

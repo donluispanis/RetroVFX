@@ -24,7 +24,6 @@ void FinalDemo::ClosePlasma()
     delete[] plasmaColourMap;
     Fast::DeleteMathTable(sineTable);
 }
-#include <iostream>
 
 void FinalDemo::UpdatePlasma(float deltaTime)
 {
@@ -96,6 +95,11 @@ void FinalDemo::UpdatePlasma(float deltaTime)
                 float sine = sineTable[plasmaAngle % mathTableSize];
                 float cosine = cosineTable[plasmaAngle % mathTableSize];
 
+                if(plasmaScale <= 0.f)
+                {
+                    plasmaScale = 0.001f;
+                }
+
                 int texX = Fast::Abs(int((i * cosine - j * sine) / plasmaScale));
                 int texY = Fast::Abs(int((j * cosine + i * sine) / plasmaScale));
 
@@ -124,6 +128,11 @@ void FinalDemo::UpdatePlasma(float deltaTime)
                 float cosine = cosineTable[plasmaAngle % mathTableSize];
 
                 float auxScale = plasmaScale * scaleModifier;
+
+                if(auxScale <= 0.f)
+                {
+                    auxScale = 0.001f;
+                }
 
                 int texX = Fast::Abs(int((newX * cosine - newY * sine) / auxScale + width) % plasmaTexWidth);
                 int texY = Fast::Abs(int((newY * cosine + newX * sine) / auxScale + height) % plasmaTexHeight);

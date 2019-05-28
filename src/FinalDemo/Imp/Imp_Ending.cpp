@@ -99,6 +99,11 @@ void FinalDemo::UpdateEnding(float deltaTime)
             if (radiusVelocity > 1.f)
             {
                 radiusVelocity -= deltaTime;
+
+                if(radiusVelocity <= 0.f)
+                {
+                    radiusVelocity = 0.001f;
+                }
             }
         }
     }
@@ -108,6 +113,7 @@ void FinalDemo::UpdateEnding(float deltaTime)
     {
         eraseText = true;
 
+        opacity += 0.5 * deltaTime;
         if (opacity > 1.f)
         {
             opacity = 1.f;
@@ -119,12 +125,12 @@ void FinalDemo::UpdateEnding(float deltaTime)
         RenderText("Developed by", 280 + auxX, 235 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
         RenderText("Luis gonzalez aracil", 40 + auxX, 335 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
         RenderText("(c) 2018", 400 + auxX, 435 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
-        opacity += 0.5 * deltaTime;
     }
 
     if(accumulatedTime > START_ENDING + 35.f)
     {
         globalEndingOpacity -= deltaTime * 0.25;
+        
         if(globalEndingOpacity < 0.f)
         {
             globalEndingOpacity = 0.f;
@@ -198,11 +204,21 @@ float FinalDemo::CalculateOpacity(const float radius)
     if (radius < defaultCircle.radius * fadeIn)
     {
         opacity = 1 / (defaultCircle.radius * fadeIn - radius + 1); //Starts at 0 and goes up to 1
+
+        if(defaultCircle.radius * fadeIn - radius + 1 == 0.f)
+        {
+            opacity = 0.f;
+        }
     }
 
     if (radius > maxCircleRadius * fadeOut)
     {
         opacity = (maxCircleRadius - radius) / (maxCircleRadius - maxCircleRadius * fadeOut); //Starts at 1 and goes down to 0
+
+        if(maxCircleRadius - maxCircleRadius * fadeOut == 0.f)
+        {
+            opacity = 0.f;
+        }
     }
 
     if (opacity < 0.f)

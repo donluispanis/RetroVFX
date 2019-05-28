@@ -1,0 +1,31 @@
+----------------------------------------------------
+|
+| Notice:  This is a 37 tests suite
+|          Each Test is averaged over a total of 100 tests repeated
+|          Inside every test, each operation is reapeated 10000000 times
+|          in order to be measurable in time
+|
+----------------------------------------------------
+| Test 31: Aligned memory access - linear
+|          Time spent: 0.00235105 seconds
+|
+| Test 32: Unaligned memory access - from 10 to 10
+|          Time spent: 0.00403802 seconds
+|
+| Test 33: Unaligned memory access - from 100 to 100
+|          Time spent: 0.00611312 seconds
+|
+| Test 34: Unaligned memory access - from 1000 to 1000
+|          Time spent: 0.00573688 seconds
+|
+| Test 35: Unaligned memory access - from 10000 to 10000
+|          Time spent: 0.00553308 seconds
+|
+----------------------------------------------------
+| Test 36: Direct access
+|          Time spent: 0.0156009 seconds
+|
+| Test 37: Indirect access
+|          Time spent: 0.0207892 seconds
+|
+----------------------------------------------------
