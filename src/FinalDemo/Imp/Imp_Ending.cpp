@@ -46,7 +46,7 @@ void FinalDemo::UpdateEnding(float deltaTime)
     static float opacity = 0.f;
     static int auxX, auxY;
 
-    if (Fast::Abs(start.X - end.X) > 3.f)
+    if (start.X < end.X)
     {
         RenderLine(start.X, start.Y, end.X, end.Y, Pixel(255), 4);
 
@@ -99,14 +99,10 @@ void FinalDemo::UpdateEnding(float deltaTime)
             if (radiusVelocity > 1.f)
             {
                 radiusVelocity -= deltaTime;
-
-                if(radiusVelocity <= 0.f)
-                {
-                    radiusVelocity = 0.001f;
-                }
             }
         }
     }
+
     UpdateCircleQueue(deltaTime);
 
     if (accumulatedTime >= START_ENDING + 25.f)
@@ -204,21 +200,11 @@ float FinalDemo::CalculateOpacity(const float radius)
     if (radius < defaultCircle.radius * fadeIn)
     {
         opacity = 1 / (defaultCircle.radius * fadeIn - radius + 1); //Starts at 0 and goes up to 1
-
-        if(defaultCircle.radius * fadeIn - radius + 1 == 0.f)
-        {
-            opacity = 0.f;
-        }
     }
 
     if (radius > maxCircleRadius * fadeOut)
     {
         opacity = (maxCircleRadius - radius) / (maxCircleRadius - maxCircleRadius * fadeOut); //Starts at 1 and goes down to 0
-
-        if(maxCircleRadius - maxCircleRadius * fadeOut == 0.f)
-        {
-            opacity = 0.f;
-        }
     }
 
     if (opacity < 0.f)

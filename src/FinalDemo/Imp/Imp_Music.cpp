@@ -47,20 +47,6 @@ float CreateArmonicSound(float frequency, long int currentCount)
            GetNoiseValue() * 0.05;
 }
 
-float CreateFluteSound(float frequency, long int currentCount)
-{
-    return (GetSineWaveValue(frequency, currentCount) * 0.4f +
-            GetSineWaveValue(frequency * 2, currentCount) * 0.1f +
-            GetSineWaveValue(frequency * 3, currentCount) * 0.15f +
-            GetSineWaveValue(frequency * 4, currentCount) * 0.05f +
-            GetSineWaveValue(frequency * 5, currentCount) * 0.2f +
-            GetSineWaveValue(frequency * 6.3, currentCount) * 0.05f +
-            GetSineWaveValue(frequency * 7.3, currentCount) * 0.05f +
-            GetSineWaveValue(frequency * 8.3, currentCount) * 0.05f +
-            GetSineWaveValue(frequency * 10, currentCount) * 0.05f) *
-           (0.92 + 0.08 * GetSineWaveValue(10, currentCount));
-}
-
 float CreateSeaWavesSound(float frequency, long int currentCount)
 {
     return GetLowPassNoiseValue(0.1f) *
@@ -168,12 +154,14 @@ void FinalDemo::UpdateSound(float deltaTime)
         {
             Note auxNote = synthNote;
             auxNote.envelope.sustain = 6.f;
+            auxNote.frequency = 220.f;
             notes.push_back(auxNote);
             geometry1 = true;
         }
 
         static Note &note = notes[notes.size() - 1];
         note.frequency = note.frequency + cos(accumulatedTime) * 0.5f;
+        note.position = 0.5f + cos(accumulatedTime) * 0.5f;
     }
     if (accumulatedTime > START_GEOMETRY + 39.f && accumulatedTime < START_GEOMETRY + 55.f)
     {
@@ -184,7 +172,7 @@ void FinalDemo::UpdateSound(float deltaTime)
         accumulator += deltaTime;
         maxAccumulator = 0.5 - 0.3 * ((accumulatedTime - START_GEOMETRY - 40.f) / 13.f);
 
-        if(maxAccumulator <= 0.f)
+        if (maxAccumulator <= 0.f)
         {
             maxAccumulator = 0.001f;
         }
@@ -198,12 +186,12 @@ void FinalDemo::UpdateSound(float deltaTime)
             Envelope auxEnv = laserEnv;
             auxEnv.release = maxAccumulator;
 
-            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 1, mask[1] * volume});
-            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 2, mask[3] * volume});
-            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 4, mask[5] * volume});
-            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 6, mask[7] * volume});
-            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 8, mask[9] * volume});
-            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 10, mask[11] * volume});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 1, mask[1] * volume, 0.3f});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 2, mask[3] * volume, 0.7f});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 4, mask[5] * volume, 0.3f});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 6, mask[7] * volume, 0.7f});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 8, mask[9] * volume, 0.3f});
+            notes.push_back({CreateLaserSound, auxEnv, baseFrequency * 10, mask[11] * volume, 0.7f});
 
             baseFrequency /= incrementer;
             if (baseFrequency <= 261.f * 0.125)
@@ -257,7 +245,7 @@ void FinalDemo::UpdateSound(float deltaTime)
         if (accumulatedTime > START_PLASMA + 8.f)
         {
             volume -= deltaTime * 0.04;
-            if(volume < 0.f)
+            if (volume < 0.f)
             {
                 volume = 0.f;
             }
@@ -267,6 +255,7 @@ void FinalDemo::UpdateSound(float deltaTime)
         {
             Note aux = drumNote;
             aux.volume = volume;
+            aux.position = 0.3f;
             notes.push_back(aux);
             accumulator0 = 0.f;
         }
@@ -274,6 +263,7 @@ void FinalDemo::UpdateSound(float deltaTime)
         {
             Note aux = drumNote;
             aux.volume = volume;
+            aux.position = 0.3f;
             notes.push_back(aux);
             accumulator1 = 0.f;
         }
@@ -281,6 +271,7 @@ void FinalDemo::UpdateSound(float deltaTime)
         {
             Note aux = snareNote;
             aux.volume = volume;
+            aux.position = 0.7f;
             notes.push_back(aux);
             accumulator2 = 0.f;
         }
@@ -302,13 +293,14 @@ void FinalDemo::UpdateSound(float deltaTime)
             if (plasmaFrequencies.size() < 11)
             {
                 counter--;
+                aux.position = 0.5f - counter * 0.04f;
                 aux.volume = counter * 0.05;
             }
             else
             {
                 aux.volume = 0.5f;
             }
-            if(aux.volume < 0.f)
+            if (aux.volume < 0.f)
             {
                 aux.volume = 0.f;
             }
@@ -328,7 +320,7 @@ void FinalDemo::UpdateSound(float deltaTime)
         accumulator += deltaTime;
         maxAccumulator = 0.8 - 0.8 * ((accumulatedTime - START_PLASMA - 13.f) / 15.f);
 
-        if(maxAccumulator <= 0.f)
+        if (maxAccumulator <= 0.f)
         {
             maxAccumulator = 0.001f;
         }
@@ -350,12 +342,12 @@ void FinalDemo::UpdateSound(float deltaTime)
             static float baseFrequency = 261.63 * 0.125;
             const static float incrementer = 1.059463f;
 
-            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 1, mask[1] * volume});
-            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 2, mask[3] * volume});
-            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 4, mask[5] * volume});
-            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 6, mask[7] * volume});
-            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 8, mask[9] * volume});
-            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 10, mask[11] * volume});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 1, mask[1] * volume, 0.3f});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 2, mask[3] * volume, 0.7f});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 4, mask[5] * volume, 0.3f});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 6, mask[7] * volume, 0.7f});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 8, mask[9] * volume, 0.3f});
+            notes.push_back({GetSineWaveValue, laserEnv, baseFrequency * 10, mask[11] * volume, 0.7f});
 
             baseFrequency *= incrementer;
             if (baseFrequency >= 523.f)
@@ -384,6 +376,7 @@ void FinalDemo::UpdateSound(float deltaTime)
                 planesFrequencies.pop_front();
                 aux.volume = 0.3f;
                 aux.frequency = planesFrequencies.front();
+                aux.position = 0.3f;
                 notes.push_back(aux);
             }
 
@@ -392,6 +385,7 @@ void FinalDemo::UpdateSound(float deltaTime)
                 planesFrequencies.pop_front();
                 aux.volume = 0.4f;
                 aux.frequency = planesFrequencies.front();
+                aux.position = 0.7f;
                 notes.push_back(aux);
             }
 
@@ -427,10 +421,12 @@ void FinalDemo::UpdateSound(float deltaTime)
                                                 RE, SOL, RE, SOL, MI, LA, MI, LA};
         static float accumulator = 1.f;
         static float accumulator1 = 0.95f;
+        static float accumulator2 = 0.f;
         static float volume = 0.4f;
+        static bool lastBeat = false;
         accumulator += deltaTime;
         accumulator1 += deltaTime;
-
+        accumulator2 += deltaTime * Fast::PI * 0.5f;
 
         if (accumulatedTime > START_ENDING + 35.f)
         {
@@ -443,9 +439,13 @@ void FinalDemo::UpdateSound(float deltaTime)
 
         if (accumulator > 0.25f)
         {
+            static float position = 0.5f;
+            position = 0.5f + cos(accumulator2) * 0.5f;
+
             Note aux = laserNote;
             aux.volume = volume;
             aux.frequency = frequencies.front();
+            aux.position = position;
             notes.push_back(aux);
             frequencies.pop_front();
             accumulator = 0.f;
@@ -454,6 +454,17 @@ void FinalDemo::UpdateSound(float deltaTime)
         {
             Note aux = drumNote;
             aux.volume = volume;
+            if (lastBeat)
+            {
+                aux.position = 0.2f;
+                lastBeat = false;
+            }
+            else
+            {
+                aux.position = 0.8f;
+                lastBeat = true;
+            }
+
             notes.push_back(aux);
             accumulator1 = 0.f;
         }
