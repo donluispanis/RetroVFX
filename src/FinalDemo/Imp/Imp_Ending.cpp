@@ -61,6 +61,7 @@ void Imp_Ending::InitTurbulencePath()
 void Imp_Ending::CloseEnding()
 {
     delete[] tunnelColourMap;
+    delete[] turbulencePath;
 }
 
 void Imp_Ending::UpdateEnding(float deltaTime, float accumulatedTime, float startTime, bool &tunnelBeat)
@@ -87,12 +88,12 @@ void Imp_Ending::UpdateEnding(float deltaTime, float accumulatedTime, float star
 
     if (accumulatedTime >= startTime + 25.f)
     {
-		DrawText(deltaTime);
+        DrawText(deltaTime);
     }
 
     if (accumulatedTime > startTime + 35.f)
     {
-		FadeOut(deltaTime);
+        FadeOut(deltaTime);
     }
 }
 
@@ -155,30 +156,30 @@ void Imp_Ending::UpdateTunnel(float deltaTime, bool &tunnelBeat)
 
 void Imp_Ending::DrawText(float deltaTime)
 {
-	eraseText = true;
+    eraseText = true;
 
-	opacity += 0.5 * deltaTime;
-	if (opacity > 1.f)
-	{
-		opacity = 1.f;
-	}
+    opacity += 0.5 * deltaTime;
+    if (opacity > 1.f)
+    {
+        opacity = 1.f;
+    }
 
-	textDisplacementX = tunnelCenter.X * 0.2f;
-	textDisplacementY = tunnelCenter.Y * 0.2f;
+    textDisplacementX = tunnelCenter.X * 0.2f;
+    textDisplacementY = tunnelCenter.Y * 0.2f;
 
-	engine->RenderText("Developed by", 280 + textDisplacementX, 235 + textDisplacementY, 10, Pixel(255) * opacity * globalEndingOpacity);
-	engine->RenderText("Luis gonzalez aracil", 40 + textDisplacementX, 335 + textDisplacementY, 10, Pixel(255) * opacity * globalEndingOpacity);
-	engine->RenderText("(c) 2018", 400 + textDisplacementX, 435 + textDisplacementY, 10, Pixel(255) * opacity * globalEndingOpacity);
+    engine->RenderText("Developed by", 280 + textDisplacementX, 235 + textDisplacementY, 10, Pixel(255) * opacity * globalEndingOpacity);
+    engine->RenderText("Luis gonzalez aracil", 40 + textDisplacementX, 335 + textDisplacementY, 10, Pixel(255) * opacity * globalEndingOpacity);
+    engine->RenderText("(c) 2018", 400 + textDisplacementX, 435 + textDisplacementY, 10, Pixel(255) * opacity * globalEndingOpacity);
 }
 
 void Imp_Ending::FadeOut(float deltaTime)
 {
-	globalEndingOpacity -= deltaTime * 0.25;
+    globalEndingOpacity -= deltaTime * 0.25;
 
-	if (globalEndingOpacity < 0.f)
-	{
-		globalEndingOpacity = 0.f;
-	}
+    if (globalEndingOpacity < 0.f)
+    {
+        globalEndingOpacity = 0.f;
+    }
 }
 
 void Imp_Ending::AddCircle()

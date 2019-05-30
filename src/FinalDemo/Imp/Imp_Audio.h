@@ -2,6 +2,7 @@
 
 #include <portaudio/portaudio.h>
 #include <vector>
+#include <deque>
 
 #define DO 261.626f
 #define RE 293.665f
@@ -52,8 +53,36 @@ private:
     static float GetRightValue();
     static void UpdateNotes(long int currentCount);
 
+    void InitNotes();
+
+    void UpdateFireSound(float accumulatedTime);
+    void UpdateWavesSound(float accumulatedTime, float deltaTime);
+    void UpdateTransitioningSphereSound(float accumulatedTime);
+    void UpdateIncresingSpherePhaseSound(float accumulatedTime, float deltaTime);
+    void UpdateScaleChangingSphereSound(float accumulatedTime, float deltaTime);
+    void UpdatePlasmaIntroSound(float accumulatedTime);
+    void UpdatePlasmaDrums(float accumulatedTime, float deltaTime);
+    void UpdatePlasmaMelody(float accumulatedTime, float deltaTime);
+    void UpdatePlasmaRotozoomSound(float accumulatedTime, float deltaTime);
+    void UpdatePlanesSound(float accumulatedTime, float deltaTime);
+    void UpdateEndingSound(float accumulatedTime, float deltaTime, bool tunnelBeat);
+
     PaStream *stream;
     static std::vector<Note> notes;
 
     int START_FIRE, START_GEOMETRY, START_PLASMA, START_PLANES, START_ENDING;
+
+    bool fire = false;
+    bool fire1 = false;
+    bool geometry = false;
+    bool geometry1 = false;
+    bool plasma = false;
+    float generalVolume = 1.f;
+
+    std::deque<float> plasmaFrequencies;
+    std::deque<float> planesFrequencies;
+    std::deque<float> frequencies;
+
+    Envelope fireEnv, seaEnv, drumEnv, snareEnv, synthEnv, laserEnv;
+    Note fireNote, seaNote, drumNote, snareNote, synthNote, laserNote;
 };
