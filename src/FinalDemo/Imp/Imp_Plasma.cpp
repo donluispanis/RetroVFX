@@ -37,39 +37,39 @@ void Imp_Plasma::ClosePlasma()
 
 void Imp_Plasma::UpdatePlasma(float deltaTime, float accumulatedTime, float startTime)
 {
-    DrawText(textColour, textSize);
-    ApplyPlasmaTextureOnText(accumulatedTime, startTime, deltaTime, textColour, scale, t);
+    DrawText();
+    ApplyPlasmaTextureOnText(accumulatedTime, startTime, deltaTime);
 
     for (int j = 0, nh = height; j < nh; j += 2)
     {
-        int aux = (j + (int)plasmaDisplacement.Y) * width;
-        int aux1 = (j + 1 + (int)plasmaDisplacement.Y) * width;
+        int indexY = (j + (int)plasmaDisplacement.Y) * width;
+        int indexY1 = (j + 1 + (int)plasmaDisplacement.Y) * width;
         for (int i = 0, nw = width; i < nw; i += 2)
         {
             if (accumulatedTime < startTime + 6.f)
             {
-                ApplyTextureScaling(i, j, plasmaTexWidth, plasmaTexHeight, aux, aux1);
+                ApplyTextureScaling(i, j, indexY, indexY1);
             }
             else
             {
-                ApplyTextureDeformation(i, amplitude, j, accumulatedTime, scaleModifier, plasmaTexWidth, plasmaTexHeight, fColour, aux, aux1);
+                ApplyTextureDeformation(i, j, accumulatedTime, indexY, indexY1);
             }
         }
     }
 
-    UpdateTexturePosition(deltaTime, plasmaTexWidth, plasmaTexHeight);
-    UpdateTextureDeformation(accumulatedTime, startTime, amplitude, deltaTime, scaleModifier);
-    ApplyFadeOut(accumulatedTime, startTime, fColour, deltaTime);
+    UpdateTexturePosition(deltaTime);
+    UpdateTextureDeformation(accumulatedTime, startTime, deltaTime);
+    ApplyFadeOut(accumulatedTime, startTime, deltaTime);
 }
 
-void Imp_Plasma::DrawText(Pixel &textColour, const int &textSize)
+void Imp_Plasma::DrawText()
 {
     engine->DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 12, 34, "did you", textSize);
     engine->DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 12, 142, "ask for", textSize);
     engine->DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 20, 250, "plasma?", textSize);
 }
 
-void Imp_Plasma::ApplyPlasmaTextureOnText(float accumulatedTime, float startTime, float deltaTime, Pixel &textColour, const int &scale, float t)
+void Imp_Plasma::ApplyPlasmaTextureOnText(float accumulatedTime, float startTime, float deltaTime)
 {
     if (accumulatedTime > startTime + 4.f)
     {
@@ -113,7 +113,7 @@ void Imp_Plasma::ApplyPlasmaTextureOnText(float accumulatedTime, float startTime
     }
 }
 
-void Imp_Plasma::ApplyTextureScaling(int i, int j, const int &plasmaTexWidth, const int &plasmaTexHeight, int aux, int aux1)
+void Imp_Plasma::ApplyTextureScaling(int i, int j, int indexY, int indexY1)
 {
     float sine = sineTable[plasmaAngle % mathTableSize];
     float cosine = cosineTable[plasmaAngle % mathTableSize];
@@ -137,13 +137,13 @@ void Imp_Plasma::ApplyTextureScaling(int i, int j, const int &plasmaTexWidth, co
     }
 
     const Pixel colour = plasmaTexture[texY * plasmaTexWidth + texX];
-    pixels[aux + i + (int)plasmaDisplacement.X] = colour;
-    pixels[aux + i + 1 + (int)plasmaDisplacement.X] = colour;
-    pixels[aux1 + i + (int)plasmaDisplacement.X] = colour;
-    pixels[aux1 + i + 1 + (int)plasmaDisplacement.X] = colour;
+    pixels[indexY + i + (int)plasmaDisplacement.X] = colour;
+    pixels[indexY + i + 1 + (int)plasmaDisplacement.X] = colour;
+    pixels[indexY1 + i + (int)plasmaDisplacement.X] = colour;
+    pixels[indexY1 + i + 1 + (int)plasmaDisplacement.X] = colour;
 }
 
-void Imp_Plasma::ApplyTextureDeformation(int i, float amplitude, int j, float accumulatedTime, float scaleModifier, const int &plasmaTexWidth, const int &plasmaTexHeight, float fColour, int aux, int aux1)
+void Imp_Plasma::ApplyTextureDeformation(int i, int j, float accumulatedTime, int indexY, int indexY1)
 {
     int newX = int(i * 0.5f + amplitude * sineTable[int(j * 0.5f + int(accumulatedTime * 300)) % mathTableSize]);
     int newY = int(j * 0.5f + amplitude * sineTable[int(i * 0.5f + int(accumulatedTime * 300)) % mathTableSize]);
@@ -163,13 +163,13 @@ void Imp_Plasma::ApplyTextureDeformation(int i, float amplitude, int j, float ac
 
     const Pixel colour = plasmaTexture[texY * plasmaTexWidth + texX] + Pixel(fColour);
 
-    pixels[aux + i] = colour;
-    pixels[aux + i + 1] = colour;
-    pixels[aux1 + i] = colour;
-    pixels[aux1 + i + 1] = colour;
+    pixels[indexY + i] = colour;
+    pixels[indexY + i + 1] = colour;
+    pixels[indexY1 + i] = colour;
+    pixels[indexY1 + i + 1] = colour;
 }
 
-void Imp_Plasma::UpdateTexturePosition(float deltaTime, const int &plasmaTexWidth, const int &plasmaTexHeight)
+void Imp_Plasma::UpdateTexturePosition(float deltaTime)
 {
     if (plasmaScale < 2.f)
     {
@@ -187,7 +187,7 @@ void Imp_Plasma::UpdateTexturePosition(float deltaTime, const int &plasmaTexWidt
     }
 }
 
-void Imp_Plasma::UpdateTextureDeformation(float accumulatedTime, float startTime, float &amplitude, float deltaTime, float &scaleModifier)
+void Imp_Plasma::UpdateTextureDeformation(float accumulatedTime, float startTime, float deltaTime)
 {
     if (accumulatedTime > startTime + 6.f && amplitude < 50.f)
     {
@@ -200,7 +200,7 @@ void Imp_Plasma::UpdateTextureDeformation(float accumulatedTime, float startTime
     }
 }
 
-void Imp_Plasma::ApplyFadeOut(float accumulatedTime, float startTime, float &fColour, float deltaTime)
+void Imp_Plasma::ApplyFadeOut(float accumulatedTime, float startTime, float deltaTime)
 {
     if (accumulatedTime >= startTime + 28.f)
     {

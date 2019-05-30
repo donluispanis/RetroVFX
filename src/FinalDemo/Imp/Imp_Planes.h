@@ -19,16 +19,23 @@ private:
         float x, y, ang, scale, time;
     };
 
+    void InitialiseTexture();
+    void InitialiseWaypoints();
+    bool ClearScreenCloseToHorizon(int i, int j, int nw, int totalHeight, int totalHeight1, float accumulatedTime, float startTime);
+    bool IsPointOutOfBounds(Point2D &rotatedPoint);
+    void UpdatePath(float deltaTime);
+
     Pixel *texture;
     int texWidth, texHeight;
-
-    void UpdatePath(float deltaTime);
 
     Point2D cameraPosition;
     float cameraAngle = 0.f;
     float textureScale = 20.f;
 
     std::deque<waypoint> waypoints;
+
+    bool clearScreen = false;
+    const int fieldOfView = 500;
 
     int width, height;
     Pixel *pixels;

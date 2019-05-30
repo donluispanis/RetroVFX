@@ -13,13 +13,13 @@ public:
     void ClosePlasma();
 
 private:
-    void DrawText(Pixel &, const int &);
-    void ApplyPlasmaTextureOnText(float, float, float, Pixel &, const int &, float);
-    void ApplyTextureScaling(int, int, const int &, const int &, int, int);
-    void ApplyTextureDeformation(int, float, int, float, float, const int &, const int &, float, int, int);
-    void UpdateTexturePosition(float, const int &, const int &);
-    void UpdateTextureDeformation(float, float, float &, float, float &);
-    void ApplyFadeOut(float, float, float &, float);
+    void DrawText();
+    void ApplyPlasmaTextureOnText(float accumulatedTime, float startTime, float deltaTime);
+    void ApplyTextureScaling(int i, int j, int indexY, int indexY1);
+    void ApplyTextureDeformation(int i, int j, float accumulatedTime, int indexY, int indexY1);
+    void UpdateTexturePosition(float deltaTime);
+    void UpdateTextureDeformation(float accumulatedTime, float startTime, float deltaTime);
+    void ApplyFadeOut(float accumulatedTime, float startTime, float deltaTime);
 
     const int mathTableSize = 1024;
     float *sineTable;
