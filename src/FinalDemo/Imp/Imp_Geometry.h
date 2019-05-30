@@ -7,11 +7,18 @@ struct FinalDemo;
 class Imp_Geometry
 {
 public:
-    void InitGeometry(int width, int height, FinalDemo* engine);
+    void InitGeometry(int width, int height, FinalDemo *engine);
     void UpdateGeometry(float deltaTime, float accumulatedTime, float startTime);
     void CloseGeometry();
 
 private:
+    void UpdateFadeIn(float accumulatedTime, float startTime, float deltaTime);
+    void GenerateWaves(float accumulatedTime, float startTime, float deltaTime);
+    void InterpolateToSphere(float accumulatedTime, float startTime);
+    void IncreasePhase(float accumulatedTime, float startTime, float deltaTime);
+    void DecreaseSphereSize(float accumulatedTime, float startTime, float deltaTime);
+    void IncreaseSphereSize(float accumulatedTime, float startTime, float deltaTime);
+
     void GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance);
     void GenerateSphere(int gridSize, float radius);
     void GeneratePerspectiveProjection(Object3D &object);
@@ -22,6 +29,7 @@ private:
     void ApplyObjectTransformations(float deltaTime);
     void UndoObjectTransformations(float deltaTime);
     Point3D GetPointInSphereFromPlane(const int gridX, const int gridY, const int gridSize, const float radius);
+    float CalculateQuadrant(int posX, int posY, int halfGrid);
 
     Object3D grid;
     Object3D sphere;
@@ -42,5 +50,5 @@ private:
     Point3D colourDeformator = Point3D(1.f, 1.f, 1.f);
 
     int width, height;
-    FinalDemo* engine;
+    FinalDemo *engine;
 };

@@ -29,109 +29,138 @@ void Imp_Geometry::UpdateGeometry(float deltaTime, float accumulatedTime, float 
     RenderObject(grid);
     UndoObjectTransformations(deltaTime);
 
-    if (accumulatedTime > startTime + 2.0f && colourOpacityIn < 1.f)
-    {
-        colourOpacityIn += 0.2 * deltaTime;
-    }
+	UpdateFadeIn(accumulatedTime, startTime, deltaTime);
+	GenerateWaves(accumulatedTime, startTime, deltaTime);
+	InterpolateToSphere(accumulatedTime, startTime);
+	IncreasePhase(accumulatedTime, startTime, deltaTime);
+	DecreaseSphereSize(accumulatedTime, startTime, deltaTime);
+	IncreaseSphereSize(accumulatedTime, startTime, deltaTime);
+}
 
-    if (accumulatedTime > startTime + 15.f && accumulatedTime < startTime + 20.f)
-    {
-        waveAmplitudeVelocity += 20 * deltaTime;
-        waveAmplitude += waveAmplitudeVelocity * deltaTime;
-        phaseVelocity += deltaTime * 5;
-    }
-    if (accumulatedTime > startTime + 20.f && accumulatedTime < startTime + 25.f)
-    {
-        waveAmplitudeVelocity -= 50 * deltaTime;
-        waveAmplitude += waveAmplitudeVelocity * deltaTime;
-        phaseVelocity -= deltaTime * 5;
-    }
-    if (accumulatedTime > startTime + 25.f && waveAmplitude > 0.f)
-    {
-        waveAmplitude -= 30 * deltaTime;
-    }
-    if (accumulatedTime > startTime + 26.f && waveAmplitude <= 0.f)
-    {
-        float t = 0.f;
-        if (t < 1.f)
-        {
-            t += 0.01;
-        }
+void Imp_Geometry::UpdateFadeIn(float accumulatedTime, float startTime, float deltaTime)
+{
+	if (accumulatedTime > startTime + 2.0f && colourOpacityIn < 1.f)
+	{
+		colourOpacityIn += 0.2 * deltaTime;
+	}
+}
 
-        Point3D position2(width / 2, height / 2, 0.f);
+void Imp_Geometry::GenerateWaves(float accumulatedTime, float startTime, float deltaTime)
+{
+	if (accumulatedTime > startTime + 15.f && accumulatedTime < startTime + 20.f)
+	{
+		waveAmplitudeVelocity += 20 * deltaTime;
+		waveAmplitude += waveAmplitudeVelocity * deltaTime;
+		phaseVelocity += deltaTime * 5;
+	}
+	if (accumulatedTime > startTime + 20.f && accumulatedTime < startTime + 25.f)
+	{
+		waveAmplitudeVelocity -= 50 * deltaTime;
+		waveAmplitude += waveAmplitudeVelocity * deltaTime;
+		phaseVelocity -= deltaTime * 5;
+	}
+	if (accumulatedTime > startTime + 25.f && waveAmplitude > 0.f)
+	{
+		waveAmplitude -= 30 * deltaTime;
+	}
+}
 
-        position = position * (1.f - t) + position2 * t;
+void Imp_Geometry::InterpolateToSphere(float accumulatedTime, float startTime)
+{
+	if (accumulatedTime > startTime + 26.f && waveAmplitude <= 0.f)
+	{
+		float t = 0.f;
+		if (t < 1.f)
+		{
+			t += 0.01;
+		}
 
-        for (int j = 0; j < vertexPerWidth; j++)
-        {
-            for (int i = 0; i < vertexPerWidth; i++)
-            {
-                grid.points[j * vertexPerWidth + i] =
-                    grid.points[j * vertexPerWidth + i] * (1.f - t) +
-                    sphere.points[j * vertexPerWidth + i] * t;
-            }
-        }
-    }
-    if (accumulatedTime > startTime + 40.f && accumulatedTime < startTime + 55.f)
-    {
-        phaseVelocity += deltaTime * 3;
-    }
-    if (accumulatedTime > startTime + 50.f && accumulatedTime < startTime + 53.f)
-    {
-        static const std::vector<Point3D> pointsCopy(grid.points);
-        static float factor = 1.f;
-        factor -= 0.3 * deltaTime;
+		Point3D position2(width / 2, height / 2, 0.f);
 
-        for (unsigned int i = 0; i < grid.points.size(); i++)
-        {
-            grid.points[i] = Point3D(factor, factor, factor) * pointsCopy[i];
-        }
-    }
-    
-    if (accumulatedTime > startTime + 53.f && accumulatedTime < startTime + 55.f)
-    {
-        static const std::vector<Point3D> pointsCopy(grid.points);
-        for (unsigned int i = 0; i < grid.points.size(); i++)
-        {
-            grid.points[i] = pointsCopy[i];
-        }
-    }
-    if (accumulatedTime > startTime + 53.f && renderLines)
-    {
-        renderLines = false;
-    }
-    if (accumulatedTime > startTime + 55.f && accumulatedTime < startTime + 60.f )
-    {
-        static const std::vector<Point3D> pointsCopy(grid.points);
-        static float factor = 1.f;
-        if(accumulatedTime < startTime + 56.f)
-        {
-            factor += 20 * deltaTime;
-        }
-        else if(accumulatedTime < startTime + 58.5f)
-        {
-            factor += deltaTime * 2;
-        }
-        else
-        {
-            factor -= 7.5f * deltaTime;
-        }
+		position = position * (1.f - t) + position2 * t;
 
-        for (unsigned int i = 0; i < grid.points.size(); i++)
-        {
-            grid.points[i] = Point3D(factor, factor, factor) * pointsCopy[i];
-        }
+		for (int j = 0; j < vertexPerWidth; j++)
+		{
+			for (int i = 0; i < vertexPerWidth; i++)
+			{
+				grid.points[j * vertexPerWidth + i] =
+					grid.points[j * vertexPerWidth + i] * (1.f - t) +
+					sphere.points[j * vertexPerWidth + i] * t;
+			}
+		}
+	}
+}
 
-        phaseVelocity -= deltaTime * 5;
-    }
-    if (accumulatedTime > startTime + 70.f && colourOpacityOut > 0.f)
-    {
-        colourOpacityOut -= 0.3 * deltaTime;
-    }
-    else if(colourOpacityOut < 0.f)
-    {
-        colourOpacityOut = 0.f;
-    }
+void Imp_Geometry::IncreasePhase(float accumulatedTime, float startTime, float deltaTime)
+{
+	if (accumulatedTime > startTime + 40.f && accumulatedTime < startTime + 55.f)
+	{
+		phaseVelocity += deltaTime * 3;
+	}
+}
+
+void Imp_Geometry::DecreaseSphereSize(float accumulatedTime, float startTime, float deltaTime)
+{
+	if (accumulatedTime > startTime + 50.f && accumulatedTime < startTime + 53.f)
+	{
+		static const std::vector<Point3D> pointsCopy(grid.points);
+		static float factor = 1.f;
+		factor -= 0.3 * deltaTime;
+
+		for (unsigned int i = 0; i < grid.points.size(); i++)
+		{
+			grid.points[i] = Point3D(factor, factor, factor) * pointsCopy[i];
+		}
+	}
+
+	if (accumulatedTime > startTime + 53.f && accumulatedTime < startTime + 55.f)
+	{
+		static const std::vector<Point3D> pointsCopy(grid.points);
+		for (unsigned int i = 0; i < grid.points.size(); i++)
+		{
+			grid.points[i] = pointsCopy[i];
+		}
+	}
+	if (accumulatedTime > startTime + 53.f && renderLines)
+	{
+		renderLines = false;
+	}
+}
+
+void Imp_Geometry::IncreaseSphereSize(float accumulatedTime, float startTime, float deltaTime)
+{
+	if (accumulatedTime > startTime + 55.f && accumulatedTime < startTime + 60.f)
+	{
+		static const std::vector<Point3D> pointsCopy(grid.points);
+		static float factor = 1.f;
+		if (accumulatedTime < startTime + 56.f)
+		{
+			factor += 20 * deltaTime;
+		}
+		else if (accumulatedTime < startTime + 58.5f)
+		{
+			factor += deltaTime * 2;
+		}
+		else
+		{
+			factor -= 7.5f * deltaTime;
+		}
+
+		for (unsigned int i = 0; i < grid.points.size(); i++)
+		{
+			grid.points[i] = Point3D(factor, factor, factor) * pointsCopy[i];
+		}
+
+		phaseVelocity -= deltaTime * 5;
+	}
+	if (accumulatedTime > startTime + 70.f && colourOpacityOut > 0.f)
+	{
+		colourOpacityOut -= 0.3 * deltaTime;
+	}
+	else if (colourOpacityOut < 0.f)
+	{
+		colourOpacityOut = 0.f;
+	}
 }
 
 void Imp_Geometry::ApplyObjectTransformations(float deltaTime)
@@ -266,31 +295,6 @@ void Imp_Geometry::ApplyWaveTransformation(Object3D &object, float amplitude, fl
     }
 }
 
-float CalculateQuadrant(int posX, int posY, int halfGrid)
-{
-    const float quarterCircle = Fast::PI / 2.f;
-    float quadrant;
-
-    if (posX < halfGrid && posY < halfGrid)
-    {
-        quadrant = 0.f;
-    }
-    else if (posX >= halfGrid && posY < halfGrid)
-    {
-        quadrant = quarterCircle;
-    }
-    else if (posX >= halfGrid && posY >= halfGrid)
-    {
-        quadrant = Fast::PI;
-    }
-    else
-    {
-        quadrant = quarterCircle * 3.f;
-    }
-
-    return quadrant;
-}
-
 Point3D Imp_Geometry::GetPointInSphereFromPlane(const int posX, const int posY, const int gridSize, const float radius)
 {
     const int halfGrid = gridSize / 2;
@@ -331,4 +335,29 @@ Point3D Imp_Geometry::GetPointInSphereFromPlane(const int posX, const int posY, 
         Point3D p = Point3D(circleRadius * cos(angle), height, circleRadius * sin(angle));
         return p;
     }
+}
+
+float Imp_Geometry::CalculateQuadrant(int posX, int posY, int halfGrid)
+{
+    const float quarterCircle = Fast::PI / 2.f;
+    float quadrant;
+
+    if (posX < halfGrid && posY < halfGrid)
+    {
+        quadrant = 0.f;
+    }
+    else if (posX >= halfGrid && posY < halfGrid)
+    {
+        quadrant = quarterCircle;
+    }
+    else if (posX >= halfGrid && posY >= halfGrid)
+    {
+        quadrant = Fast::PI;
+    }
+    else
+    {
+        quadrant = quarterCircle * 3.f;
+    }
+
+    return quadrant;
 }

@@ -162,11 +162,6 @@ void Imp_Fire::DrawCharacterOnFireMap(unsigned char *map, int width, unsigned ch
     {
         for (int j = y; j < y + 5 * scale; j++)
         {
-            if(scale <= 0.f)
-            {
-                scale = 0.001f;
-            }
-            
             int offsetX = (i - x) / scale;
             int offsetY = (j - y) / scale;
 
