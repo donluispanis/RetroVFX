@@ -2,7 +2,7 @@
 .vscode
 .vs
 bin/obj
-bin/*.exe
+bin/
 *.s
 build.sh
 Memoria/Guia.pdf
