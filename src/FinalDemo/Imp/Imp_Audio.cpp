@@ -1,4 +1,4 @@
-#include "Imp_Includes.h"
+/*#include "Imp_Includes.h"
 #include "Imp_Music.cpp"
 
 void UpdateNotes(long int currentCount);
@@ -8,7 +8,7 @@ float GetRightValue();
 /* This routine will be called by the PortAudio engine when audio is needed.
 ** It may called at interrupt level on some machines so don't do anything
 ** that could mess up the system like calling malloc() or free().
-*/
+*//*
 static int audioCallback(const void *inputBuffer, void *outputBuffer,
                          unsigned long framesPerBuffer,
                          const PaStreamCallbackTimeInfo *timeInfo,
@@ -25,8 +25,8 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
         UpdateNotes(currentCount);
 
         *out++ = GetLeftValue();  /* left */
-        *out++ = GetRightValue(); /* rigth */
-    }
+       /* *out++ = GetRightValue(); /* rigth */
+    /*}
     return 0;
 }
 
@@ -218,4 +218,4 @@ float GetHighPassNoiseValue(float intensity)
     oldValueY = newValueY;
 
     return newValueY;
-}
+}*/

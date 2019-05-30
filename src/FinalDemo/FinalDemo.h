@@ -1,11 +1,12 @@
 #pragma once
 
 #include "../ClassicDemoTemplate/ClassicDemoTemplate.h"
-#include "../Utils/Object3D.h"
-#include "../Utils/ColourStamp.h"
-#include "../DotTunnel/Circle.h"
-#include <deque>
-#include <portaudio/portaudio.h>
+
+#include "Imp/Imp_Fire.h"
+#include "Imp/Imp_Geometry.h"
+#include "Imp/Imp_Plasma.h"
+#include "Imp/Imp_Planes.h"
+#include "Imp/Imp_Ending.h"
 
 struct Pixel;
 struct IWindowManager;
@@ -17,6 +18,9 @@ public:
     FinalDemo(){};
     virtual ~FinalDemo(){};
 
+    void DrawCharacterOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, char character, int scale);
+    void DrawCharactersOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, const char *characters, int scale);
+
 private:
     virtual bool Init() override;
     virtual bool Update(float deltaTime) override;
@@ -27,143 +31,8 @@ private:
     IWindowManager *windowManager;
     float accumulatedTime;
 
-    //Sound
-    void InitAudio();
-    void UpdateSound(float deltaTime);
-    void CloseAudio();
-    PaStream *stream;
-
-    //Geometry
-    void InitGeometry();
-    void UpdateGeometry(float deltaTime);
-    void CloseGeometry();
-    void GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance);
-    void GenerateSphere(int gridSize, float radius);
-    void GeneratePerspectiveProjection(Object3D &object);
-    void RenderObject(Object3D object);
-    void EraseObject(Object3D object);
-    void TranslateObject(Object3D &object, Point3D offset);
-    void ApplyWaveTransformation(Object3D &object, float amplitude, float wavelength, float deltaTime);
-    void ApplyObjectTransformations(float deltaTime);
-    void UndoObjectTransformations(float deltaTime);
-    Point3D GetPointInSphereFromPlane(const int gridX, const int gridY, const int gridSize, const float radius);
-
-    Object3D grid;
-    Object3D sphere;
-    const int vertexPerWidth = 30;
-    const int vertexPerDepth = 30;
-    const int vertexDistance = 250;
-    float phase = 0.f;
-    float phaseVelocity = 1.f;
-
-    float waveAmplitude = 0.f;
-    float waveAmplitudeVelocity = 0.f;
-    float colourOpacityIn = 0.f;
-    float colourOpacityOut = 1.f;
-    Point3D position;
-
-    bool renderLines = true;
-
-    Point3D colourDeformator = Point3D(1.f, 1.f, 1.f);
-
-    //Fire
-    void InitFire();
-    void UpdateFire(float deltaTime);
-    void CloseFire();
-    void InitBigFireText(int size, int value);
-    void InitSmallFireText(int size, int value);
-    void DrawBigFireText();
-    void DrawSmallFireText();
-    void DrawCharacterOnFireMap(unsigned char *map, int width, unsigned char value, int x, int y, char character, int scale);
-
-    unsigned char *screenMapping;
-    unsigned char *fireMapping;
-    Pixel *colourMap;
-    int colourMapSize = 256;
-
-    int bigFireScale;
-    int bigFireHeight;
-    int bigFireCharCount;
-    int bigFireCharSize;
-    int bigFireTextStart;
-
-    int smallFireScale;
-    int smallFireHeight;
-    int smallFireCharCount;
-    int smallFireCharSize;
-    int smallFireTextStart;
-
-    //Plasma
-    void InitPlasma();
-    void UpdatePlasma(float deltaTime);
-    void ClosePlasma();
-
     const int mathTableSize = 1024;
-    float *sineTable;
-    float *cosineTable;
-
-    const int plasmaColourMapSize = 256;
-    Pixel *plasmaColourMap;
-
-    Pixel *plasmaTexture;
-
-    int plasmaAngle = 0;
-    float plasmaScale = 0.0001f;
-
-    //Planes
-    void InitPlanes();
-    void UpdatePlanes(float deltaTime);
-    void ClosePlanes();
-
-    Pixel *texture;
-    int texWidth, texHeight;
-
-    void DrawCharacterOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, char character, int scale);
-    void DrawCharactersOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, const char *characters, int scale);
-    void UpdatePath(float deltaTime);
-
-    Point2D cameraPosition;
-    float cameraAngle = 0.f;
-    float textureScale = 20.f;
-
-    //Ending
-    void InitEnding();
-    void UpdateEnding(float deltatime);
-    void CloseEnding();
-    void DrawCircle(const Circle &c);
-    float CalculateOpacity(const float radius);
-    void UpdateCircle(Circle &c, float deltaTime);
-    void EraseCircle(const Circle &circle);
-    void AddCircle();
-    void UpdateCircleQueue(float deltaTime);
-    void PopulateCircleQueue();
-
-    Point2D start, end;
-    Point2D tunnelCenter;
-    Point2D initialTunnelCenter;
-    TurbulencePath *turbulencePath;
-
-    std::deque<Circle> circles;
-    int circleCount;
-    Circle defaultCircle;
-    int maxCircleRadius;
-    int dotSize;
-    int circlesGapDistance;
-    int pointsPerCircle;
-
-    float radiusVelocity;
-    float rotationVelocity;
-    float defaultRotationVelocity;
-
-    int tunnelColourMapSize;
-    Pixel *tunnelColourMap;
-    int tunnelCurrentColour;
-
-    bool drawTunnel = false;
-    bool eraseText = false;
-    float transitionAdvance = 0.f;
-    float globalEndingOpacity = 1.f;
-    bool tunnelBeat = false;
+    float* cosineTable, *sineTable;
 
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;
@@ -178,6 +47,13 @@ private:
     const float START_PLASMA = START_GEOMETRY + DURATION_GEOMETRY;
     const float START_PLANES = START_PLASMA + DURATION_PLASMA;
     const float START_ENDING = START_PLANES + DURATION_PLANES;
+
+    //Implementations
+    Imp_Fire fire;
+    Imp_Geometry geometry;
+    Imp_Plasma plasma;
+    Imp_Planes planes;
+    Imp_Ending ending;
 };
 
 //SOUND

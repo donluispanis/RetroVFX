@@ -1,10 +1,17 @@
-#include "Imp_Includes.h"
+#include "Imp_Plasma.h"
+#include "../../Utils/Fast.h"
+#include "../../Utils/ColourStamp.h"
+#include "../../Utils/ColourStampGradients.h"
+#include "../FinalDemo.h"
 
-Point2D plasmaDisplacement;
-
-void FinalDemo::InitPlasma()
+void Imp_Plasma::InitPlasma(int width, int height, Pixel *pixels, FinalDemo *engine, float *cosTable, float *sinTable)
 {
-    sineTable = Fast::GenerateSineTable(mathTableSize);
+    this->width = width;
+    this->height = height;
+    this->pixels = pixels;
+    this->engine = engine;
+    this->cosineTable = cosTable;
+    this->sineTable = sinTable;
 
     plasmaColourMap = new Pixel[plasmaColourMapSize];
     ColourStamp::GenerateGradient(ColourStampGradients::PLASMA, plasmaColourMap, plasmaColourMapSize);
@@ -19,13 +26,13 @@ void FinalDemo::InitPlasma()
     plasmaDisplacement.Y = height / 2;
 }
 
-void FinalDemo::ClosePlasma()
+void Imp_Plasma::ClosePlasma()
 {
     delete[] plasmaColourMap;
-    Fast::DeleteMathTable(sineTable);
+    delete[] plasmaTexture;
 }
 
-void FinalDemo::UpdatePlasma(float deltaTime)
+void Imp_Plasma::UpdatePlasma(float deltaTime, float accumulatedTime, float startTime)
 {
     static const int textSize = 15;
     static const int scale = 5;
@@ -33,11 +40,11 @@ void FinalDemo::UpdatePlasma(float deltaTime)
     static float t = 0.f;
     static Pixel textColour = Pixel(255);
 
-    DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 12, 34, "did you", textSize);
-    DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 12, 142, "ask for", textSize);
-    DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 20, 250, "plasma?", textSize);
+    engine->DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 12, 34, "did you", textSize);
+    engine->DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 12, 142, "ask for", textSize);
+    engine->DrawCharactersOnMap(plasmaTexture, width / 2, textColour, 20, 250, "plasma?", textSize);
 
-    if (accumulatedTime > START_PLASMA + 4.f)
+    if (accumulatedTime > startTime + 4.f)
     {
         static bool clearScreen = false;
         static float opacity = 1.f;
@@ -51,7 +58,7 @@ void FinalDemo::UpdatePlasma(float deltaTime)
         if (!clearScreen)
         {
             clearScreen = true;
-            ClearScreen(Pixel());
+            engine->ClearScreen(Pixel());
         }
 
         for (int j = 0, nh = height / 2; j < nh; j++)
@@ -90,12 +97,12 @@ void FinalDemo::UpdatePlasma(float deltaTime)
         int aux1 = (j + 1 + (int)plasmaDisplacement.Y) * width;
         for (int i = 0, nw = width; i < nw; i += 2)
         {
-            if (accumulatedTime < START_PLASMA + 6.f)
+            if (accumulatedTime < startTime + 6.f)
             {
                 float sine = sineTable[plasmaAngle % mathTableSize];
                 float cosine = cosineTable[plasmaAngle % mathTableSize];
 
-                if(plasmaScale <= 0.f)
+                if (plasmaScale <= 0.f)
                 {
                     plasmaScale = 0.001f;
                 }
@@ -103,7 +110,7 @@ void FinalDemo::UpdatePlasma(float deltaTime)
                 int texX = Fast::Abs(int((i * cosine - j * sine) / plasmaScale));
                 int texY = Fast::Abs(int((j * cosine + i * sine) / plasmaScale));
 
-                if (IsPixelOutOfBounds(i + plasmaDisplacement.X + 1, j + plasmaDisplacement.Y + 1))
+                if (engine->IsPixelOutOfBounds(i + plasmaDisplacement.X + 1, j + plasmaDisplacement.Y + 1))
                 {
                     continue;
                 }
@@ -129,7 +136,7 @@ void FinalDemo::UpdatePlasma(float deltaTime)
 
                 float auxScale = plasmaScale * scaleModifier;
 
-                if(auxScale <= 0.f)
+                if (auxScale <= 0.f)
                 {
                     auxScale = 0.001f;
                 }
@@ -161,17 +168,17 @@ void FinalDemo::UpdatePlasma(float deltaTime)
             plasmaDisplacement.Y = 0.f;
         }
     }
-    
-    if (accumulatedTime > START_PLASMA + 6.f && amplitude < 50.f)
+
+    if (accumulatedTime > startTime + 6.f && amplitude < 50.f)
     {
         amplitude += deltaTime * 20;
     }
-    if (accumulatedTime > START_PLASMA + 13.f)
+    if (accumulatedTime > startTime + 13.f)
     {
         plasmaAngle += deltaTime * 200;
         scaleModifier *= 0.992f;
     }
-    if (accumulatedTime >= START_PLASMA + 28.f)
+    if (accumulatedTime >= startTime + 28.f)
     {
         fColour += 255.f * deltaTime * 0.5;
         if (fColour > 255.f)

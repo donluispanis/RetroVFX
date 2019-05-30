@@ -1,12 +1,8 @@
 #include "FinalDemo.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
-
-#include "Imp/Imp_Audio.cpp"
-#include "Imp/Imp_Fire.cpp"
-#include "Imp/Imp_Geometry.cpp"
-#include "Imp/Imp_Plasma.cpp"
-#include "Imp/Imp_Planes.cpp"
-#include "Imp/Imp_Ending.cpp"
+#include "../ClassicDemoTemplate/Characters/Characters.h"
+#include "../Utils/Fast.h"
+#include <string>
 
 bool FinalDemo::Init()
 {
@@ -16,28 +12,33 @@ bool FinalDemo::Init()
     width = windowManager->GetWidth();
     height = windowManager->GetHeight();
 
-    InitFire();
-    InitGeometry();
-    InitPlasma();
-    InitPlanes();
-    InitEnding();
+    cosineTable = Fast::GenerateCosineTable(mathTableSize);
+    sineTable = Fast::GenerateSineTable(mathTableSize);
 
+    fire.InitFire(width, height, pixels);
+    geometry.InitGeometry(width, height, this);
+    plasma.InitPlasma(width, height, pixels, this, cosineTable, sineTable);
+    planes.InitPlanes(width, height, pixels, this);
+    ending.InitEnding(width, height, this, cosineTable, sineTable);
     accumulatedTime = 0;
 
-    InitAudio();
+    //InitAudio();
 
     return true;
 }
 
 bool FinalDemo::Destroy()
 {
-    CloseFire();
-    CloseGeometry();
-    ClosePlasma();
-    ClosePlanes();
-    CloseEnding();
+    fire.CloseFire();
+    geometry.CloseGeometry();
+    plasma.ClosePlasma();
+    planes.ClosePlanes();
+    ending.CloseEnding();
 
-    CloseAudio();
+    //CloseAudio();
+    Fast::DeleteMathTable(cosineTable);
+    Fast::DeleteMathTable(sineTable);
+
     return true;
 }
 
@@ -47,30 +48,74 @@ bool FinalDemo::Update(float deltaTime)
 
     if (accumulatedTime > START_FIRE && accumulatedTime < DURATION_FIRE + START_FIRE)
     {
-        UpdateFire(deltaTime);
+        fire.UpdateFire(deltaTime, accumulatedTime, START_FIRE);
     }
     if (accumulatedTime > START_GEOMETRY && accumulatedTime < DURATION_GEOMETRY + START_GEOMETRY)
     {
-        UpdateGeometry(deltaTime);
+        geometry.UpdateGeometry(deltaTime, accumulatedTime, START_GEOMETRY);
     }
     if(accumulatedTime > START_PLASMA && accumulatedTime < DURATION_PLASMA + START_PLASMA)
     {
-        UpdatePlasma(deltaTime);
+        plasma.UpdatePlasma(deltaTime, accumulatedTime, START_PLASMA);
     }
     if(accumulatedTime > START_PLANES && accumulatedTime < DURATION_PLANES + START_PLANES)
     {
-        UpdatePlanes(deltaTime);
+        planes.UpdatePlanes(deltaTime, accumulatedTime, START_PLANES);
     }
     if(accumulatedTime > START_ENDING && accumulatedTime < DURATION_ENDING + START_ENDING)
     {
-        UpdateEnding(deltaTime);
+        ending.UpdateEnding(deltaTime, accumulatedTime, START_ENDING);
     }
     if(accumulatedTime > DURATION_TOTAL)
     {
         return false;
     }
 
-    UpdateSound(deltaTime);
+    //UpdateSound(deltaTime);
 
     return true;
+}
+
+void FinalDemo::DrawCharactersOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, const char *characters, int scale)
+{
+    std::string txt(characters);
+    for (auto &c : txt)
+    {
+        c = toupper(c);
+    }
+
+    for (auto c : txt)
+    {
+        DrawCharacterOnMap(map, width, colour, x, y, c, scale);
+        x += 6 * scale;
+    }
+}
+
+void FinalDemo::DrawCharacterOnMap(Pixel *map, int width, const Pixel &colour, int x, int y, char character, int scale)
+{
+    if (character < 0 || character == ' ')
+    {
+        return;
+    }
+
+    const char *c = Characters::GetCharactersMap()[character];
+
+    for (int i = x; i < x + 5 * scale; i++)
+    {
+        for (int j = y; j < y + 5 * scale; j++)
+        {
+            if(scale <= 0.f)
+            {
+                scale = 0.001f;
+            }
+
+            int offsetX = (i - x) / scale;
+            int offsetY = (j - y) / scale;
+
+            if (c[offsetY * 5 + offsetX] != ' ')
+            {
+                map[j * width + i] = colour;
+            }
+        }
+    }
 }

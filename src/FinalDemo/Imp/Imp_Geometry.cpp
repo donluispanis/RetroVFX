@@ -1,7 +1,14 @@
-#include "Imp_Includes.h"
+#include "Imp_Geometry.h"
+#include "../../Utils/Fast.h"
+#include "../FinalDemo.h"
+#include <cmath>
 
-void FinalDemo::InitGeometry()
+void Imp_Geometry::InitGeometry(int width, int height, FinalDemo* engine)
 {
+    this->width = width;
+    this->height = height;
+    this->engine = engine;
+
     GenerateGrid(vertexPerWidth, vertexPerDepth, vertexDistance);
     GeneratePerspectiveProjection(grid);
     GenerateSphere(vertexPerWidth, 300.f);
@@ -10,11 +17,11 @@ void FinalDemo::InitGeometry()
     position = Point3D(width / 2 - (vertexPerWidth * vertexDistance) / 2, height * 0.75f, -550);
 }
 
-void FinalDemo::CloseGeometry()
+void Imp_Geometry::CloseGeometry()
 {
 }
 
-void FinalDemo::UpdateGeometry(float deltaTime)
+void Imp_Geometry::UpdateGeometry(float deltaTime, float accumulatedTime, float startTime)
 {
     EraseObject(grid);
     ApplyObjectTransformations(deltaTime);
@@ -22,28 +29,28 @@ void FinalDemo::UpdateGeometry(float deltaTime)
     RenderObject(grid);
     UndoObjectTransformations(deltaTime);
 
-    if (accumulatedTime > START_GEOMETRY + 2.0f && colourOpacityIn < 1.f)
+    if (accumulatedTime > startTime + 2.0f && colourOpacityIn < 1.f)
     {
         colourOpacityIn += 0.2 * deltaTime;
     }
 
-    if (accumulatedTime > START_GEOMETRY + 15.f && accumulatedTime < START_GEOMETRY + 20.f)
+    if (accumulatedTime > startTime + 15.f && accumulatedTime < startTime + 20.f)
     {
         waveAmplitudeVelocity += 20 * deltaTime;
         waveAmplitude += waveAmplitudeVelocity * deltaTime;
         phaseVelocity += deltaTime * 5;
     }
-    if (accumulatedTime > START_GEOMETRY + 20.f && accumulatedTime < START_GEOMETRY + 25.f)
+    if (accumulatedTime > startTime + 20.f && accumulatedTime < startTime + 25.f)
     {
         waveAmplitudeVelocity -= 50 * deltaTime;
         waveAmplitude += waveAmplitudeVelocity * deltaTime;
         phaseVelocity -= deltaTime * 5;
     }
-    if (accumulatedTime > START_GEOMETRY + 25.f && waveAmplitude > 0.f)
+    if (accumulatedTime > startTime + 25.f && waveAmplitude > 0.f)
     {
         waveAmplitude -= 30 * deltaTime;
     }
-    if (accumulatedTime > START_GEOMETRY + 26.f && waveAmplitude <= 0.f)
+    if (accumulatedTime > startTime + 26.f && waveAmplitude <= 0.f)
     {
         float t = 0.f;
         if (t < 1.f)
@@ -65,11 +72,11 @@ void FinalDemo::UpdateGeometry(float deltaTime)
             }
         }
     }
-    if (accumulatedTime > START_GEOMETRY + 40.f && accumulatedTime < START_GEOMETRY + 55.f)
+    if (accumulatedTime > startTime + 40.f && accumulatedTime < startTime + 55.f)
     {
         phaseVelocity += deltaTime * 3;
     }
-    if (accumulatedTime > START_GEOMETRY + 50.f && accumulatedTime < START_GEOMETRY + 53.f)
+    if (accumulatedTime > startTime + 50.f && accumulatedTime < startTime + 53.f)
     {
         static const std::vector<Point3D> pointsCopy(grid.points);
         static float factor = 1.f;
@@ -81,7 +88,7 @@ void FinalDemo::UpdateGeometry(float deltaTime)
         }
     }
     
-    if (accumulatedTime > START_GEOMETRY + 53.f && accumulatedTime < START_GEOMETRY + 55.f)
+    if (accumulatedTime > startTime + 53.f && accumulatedTime < startTime + 55.f)
     {
         static const std::vector<Point3D> pointsCopy(grid.points);
         for (unsigned int i = 0; i < grid.points.size(); i++)
@@ -89,19 +96,19 @@ void FinalDemo::UpdateGeometry(float deltaTime)
             grid.points[i] = pointsCopy[i];
         }
     }
-    if (accumulatedTime > START_GEOMETRY + 53.f && renderLines)
+    if (accumulatedTime > startTime + 53.f && renderLines)
     {
         renderLines = false;
     }
-    if (accumulatedTime > START_GEOMETRY + 55.f && accumulatedTime < START_GEOMETRY + 60.f )
+    if (accumulatedTime > startTime + 55.f && accumulatedTime < startTime + 60.f )
     {
         static const std::vector<Point3D> pointsCopy(grid.points);
         static float factor = 1.f;
-        if(accumulatedTime < START_GEOMETRY + 56.f)
+        if(accumulatedTime < startTime + 56.f)
         {
             factor += 20 * deltaTime;
         }
-        else if(accumulatedTime < START_GEOMETRY + 58.5f)
+        else if(accumulatedTime < startTime + 58.5f)
         {
             factor += deltaTime * 2;
         }
@@ -117,7 +124,7 @@ void FinalDemo::UpdateGeometry(float deltaTime)
 
         phaseVelocity -= deltaTime * 5;
     }
-    if (accumulatedTime > START_GEOMETRY + 70.f && colourOpacityOut > 0.f)
+    if (accumulatedTime > startTime + 70.f && colourOpacityOut > 0.f)
     {
         colourOpacityOut -= 0.3 * deltaTime;
     }
@@ -127,7 +134,7 @@ void FinalDemo::UpdateGeometry(float deltaTime)
     }
 }
 
-void FinalDemo::ApplyObjectTransformations(float deltaTime)
+void Imp_Geometry::ApplyObjectTransformations(float deltaTime)
 {
     phase += 1 * deltaTime * phaseVelocity;
 
@@ -135,13 +142,13 @@ void FinalDemo::ApplyObjectTransformations(float deltaTime)
     ApplyWaveTransformation(grid, waveAmplitude, 1.5, deltaTime);
 }
 
-void FinalDemo::UndoObjectTransformations(float deltaTime)
+void Imp_Geometry::UndoObjectTransformations(float deltaTime)
 {
     ApplyWaveTransformation(grid, -waveAmplitude, 1.5, deltaTime);
     TranslateObject(grid, -position);
 }
 
-void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance)
+void Imp_Geometry::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float vertexDistance)
 {
     const int size = vertexPerWidth * vertexPerDepth;
 
@@ -168,7 +175,7 @@ void FinalDemo::GenerateGrid(int vertexPerWidth, int vertexPerDepth, float verte
     }
 }
 
-void FinalDemo::GenerateSphere(int gridSize, float radius)
+void Imp_Geometry::GenerateSphere(int gridSize, float radius)
 {
     for (int j = 0; j < gridSize; j++)
     {
@@ -179,7 +186,7 @@ void FinalDemo::GenerateSphere(int gridSize, float radius)
     }
 }
 
-void FinalDemo::GeneratePerspectiveProjection(Object3D &object)
+void Imp_Geometry::GeneratePerspectiveProjection(Object3D &object)
 {
     const float depthFactor = 0.001;
     const int halftWidth = width / 2;
@@ -197,7 +204,7 @@ void FinalDemo::GeneratePerspectiveProjection(Object3D &object)
     }
 }
 
-void FinalDemo::RenderObject(Object3D object)
+void Imp_Geometry::RenderObject(Object3D object)
 {
     for (int i = 0, n = object.indexes.size(); i < n; i++)
     {
@@ -207,18 +214,18 @@ void FinalDemo::RenderObject(Object3D object)
 
         if (renderLines)
         {
-            RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, object.colours[indexPair.X], object.colours[indexPair.Y], 2);
+            engine->RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, object.colours[indexPair.X], object.colours[indexPair.Y], 2);
         }
         else
         {
-            RenderDot(startPoint.X, startPoint.Y, object.colours[indexPair.X] * colourOpacityOut, 2);
-            RenderDot(endPoint.X, endPoint.Y, object.colours[indexPair.Y] * colourOpacityOut, 2);
+            engine->RenderDot(startPoint.X, startPoint.Y, object.colours[indexPair.X] * colourOpacityOut, 2);
+            engine->RenderDot(endPoint.X, endPoint.Y, object.colours[indexPair.Y] * colourOpacityOut, 2);
         }
         
     }
 }
 
-void FinalDemo::EraseObject(Object3D object)
+void Imp_Geometry::EraseObject(Object3D object)
 {
     for (int i = 0, n = object.indexes.size(); i < n; i++)
     {
@@ -226,11 +233,11 @@ void FinalDemo::EraseObject(Object3D object)
         Point2D startPoint = object.projectedPoints[indexPair.X];
         Point2D endPoint = object.projectedPoints[indexPair.Y];
 
-        RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, Pixel(0), 2);
+        engine->RenderLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, Pixel(0), 2);
     }
 }
 
-void FinalDemo::TranslateObject(Object3D &object, Point3D offset)
+void Imp_Geometry::TranslateObject(Object3D &object, Point3D offset)
 {
     for (unsigned int i = 0, n = object.points.size(); i < n; i++)
     {
@@ -238,7 +245,7 @@ void FinalDemo::TranslateObject(Object3D &object, Point3D offset)
     }
 }
 
-void FinalDemo::ApplyWaveTransformation(Object3D &object, float amplitude, float wavelength, float deltaTime)
+void Imp_Geometry::ApplyWaveTransformation(Object3D &object, float amplitude, float wavelength, float deltaTime)
 {
     grid.colours.clear();
     for (float j = 0; j < vertexPerDepth; j++)
@@ -284,7 +291,7 @@ float CalculateQuadrant(int posX, int posY, int halfGrid)
     return quadrant;
 }
 
-Point3D FinalDemo::GetPointInSphereFromPlane(const int posX, const int posY, const int gridSize, const float radius)
+Point3D Imp_Geometry::GetPointInSphereFromPlane(const int posX, const int posY, const int gridSize, const float radius)
 {
     const int halfGrid = gridSize / 2;
 

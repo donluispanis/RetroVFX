@@ -158,6 +158,7 @@ finaldemo_lin: create_dir make_src make_finaldemo compile_finaldemo_lin
 
 make_finaldemo: 
 	@$(MAKE) --no-print-directory -s -C src/FinalDemo
+	@$(MAKE) --no-print-directory -s -C src/FinalDemo/Imp
 
 compile_finaldemo: TARGET := FinalDemo
 

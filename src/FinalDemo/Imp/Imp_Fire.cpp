@@ -1,9 +1,13 @@
+#include "Imp_Fire.h"
+#include "../../Utils/Fast.h"
 #include "../../Utils/ColourStampGradients.h"
 #include "../../ClassicDemoTemplate/Characters/Characters.h"
-#include "Imp_Includes.h"
 
-void FinalDemo::InitFire()
+void Imp_Fire::InitFire(int width, int height, Pixel* pixels)
 {
+    this->width = width;
+    this->height = height;
+    this->pixels = pixels;
     screenMapping = new unsigned char[width * height];
     fireMapping = new unsigned char[width * height];
     colourMap = new Pixel[colourMapSize];
@@ -16,27 +20,27 @@ void FinalDemo::InitFire()
     ColourStamp::GenerateGradient(ColourStampGradients::FIRE, colourMap, colourMapSize);
 }
 
-void FinalDemo::CloseFire()
+void Imp_Fire::CloseFire()
 {
     delete screenMapping;
     delete fireMapping;
     delete colourMap;
 }
 
-void FinalDemo::UpdateFire(float deltaTime)
+void Imp_Fire::UpdateFire(float deltaTime, float accumulatedTime, float startTime)
 {
     static float bigFireSize = 0;
 
-    if(accumulatedTime < 1.25f + START_FIRE)
+    if(accumulatedTime < 1.25f + startTime)
     {
         InitBigFireText(bigFireSize, 0);
         bigFireSize += deltaTime * 20;
     }
-    if(accumulatedTime > 2.f + START_FIRE)
+    if(accumulatedTime > 2.f + startTime)
     {
         InitSmallFireText(8, 1);
     }
-    if(accumulatedTime > 4.f + START_FIRE)
+    if(accumulatedTime > 4.f + startTime)
     {
         for(int i = 0; i < 256; i++)
         {
@@ -52,7 +56,7 @@ void FinalDemo::UpdateFire(float deltaTime)
     DrawSmallFireText();
 }
 
-void FinalDemo::InitBigFireText(int size, int value)
+void Imp_Fire::InitBigFireText(int size, int value)
 {
     bigFireScale = size;
     bigFireHeight = height * 0.4;
@@ -69,7 +73,7 @@ void FinalDemo::InitBigFireText(int size, int value)
     DrawCharacterOnFireMap(fireMapping, width, value, bigFireTextStart + bigFireCharSize * 6, bigFireHeight, 'U', bigFireScale);
 }
 
-void FinalDemo::InitSmallFireText(int size, int value)
+void Imp_Fire::InitSmallFireText(int size, int value)
 {
     smallFireScale = size;
     smallFireHeight = height * 0.7;
@@ -93,7 +97,7 @@ void FinalDemo::InitSmallFireText(int size, int value)
     DrawCharacterOnFireMap(fireMapping, width, value, smallFireTextStart + smallFireCharSize * 14, smallFireHeight, 'S', smallFireScale);
 }
 
-void FinalDemo::DrawBigFireText()
+void Imp_Fire::DrawBigFireText()
 {
     int initialX = width * 0.5f - bigFireCharSize * (bigFireCharCount * 0.5f);
     int initialY = bigFireHeight - bigFireCharSize;
@@ -119,7 +123,7 @@ void FinalDemo::DrawBigFireText()
     }
 }
 
-void FinalDemo::DrawSmallFireText()
+void Imp_Fire::DrawSmallFireText()
 {
     int initialX = width * 0.5f - smallFireCharSize * (smallFireCharCount * 0.5f);
     int initialY = smallFireHeight - smallFireCharSize;
@@ -145,7 +149,7 @@ void FinalDemo::DrawSmallFireText()
     }
 }
 
-void FinalDemo::DrawCharacterOnFireMap(unsigned char *map, int width, unsigned char value, int x, int y, char character, int scale)
+void Imp_Fire::DrawCharacterOnFireMap(unsigned char *map, int width, unsigned char value, int x, int y, char character, int scale)
 {
     if (character < 0 || character == ' ')
     {

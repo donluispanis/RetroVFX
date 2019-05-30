@@ -1,13 +1,20 @@
-#include "Imp_Includes.h"
+#include "Imp_Ending.h"
 #include "../../Utils/ColourStampGradients.h"
 #include "../../Utils/TurbulencePath.h"
+#include "../../Utils/Fast.h"
+#include "../FinalDemo.h"
+#include <cmath>
 
-void FinalDemo::InitEnding()
+void Imp_Ending::InitEnding(int width, int height, FinalDemo* engine, float* cosTable, float* sinTable)
 {
+    this->width = width;
+    this->height = height;
+    this->engine = engine;
+    this->cosineTable = cosTable;
+    this->sineTable = sinTable;
+
     start = {-200.f, height / 2 - 1.f};
     end = {width + 200.f, height / 2 - 1.f};
-
-    cosineTable = Fast::GenerateCosineTable(mathTableSize);
 
     maxCircleRadius = height;
     circleCount = 20;
@@ -34,13 +41,12 @@ void FinalDemo::InitEnding()
     AddCircle();
 }
 
-void FinalDemo::CloseEnding()
+void Imp_Ending::CloseEnding()
 {
-    Fast::DeleteMathTable(cosineTable);
     delete[] tunnelColourMap;
 }
 
-void FinalDemo::UpdateEnding(float deltaTime)
+void Imp_Ending::UpdateEnding(float deltaTime, float accumulatedTime, float startTime)
 {
     static float accumulator = -6.f;
     static float opacity = 0.f;
@@ -48,7 +54,7 @@ void FinalDemo::UpdateEnding(float deltaTime)
 
     if (start.X < end.X)
     {
-        RenderLine(start.X, start.Y, end.X, end.Y, Pixel(255), 4);
+        engine->RenderLine(start.X, start.Y, end.X, end.Y, Pixel(255), 4);
 
         static float rotation = 0.f;
         rotation += deltaTime * Fast::PI * 0.00025;
@@ -62,7 +68,7 @@ void FinalDemo::UpdateEnding(float deltaTime)
         start = start + Point2D(width / 2, height / 2);
         end = end + Point2D(width / 2, height / 2);
 
-        RenderLine(start.X, start.Y, end.X, end.Y, Pixel(0), 4);
+        engine->RenderLine(start.X, start.Y, end.X, end.Y, Pixel(0), 4);
     }
     else
     {
@@ -70,15 +76,15 @@ void FinalDemo::UpdateEnding(float deltaTime)
 
         if (eraseText)
         {
-            RenderText("Developed by", 280 + auxX, 235 + auxY, 10, Pixel(0));
-            RenderText("Luis gonzalez aracil", 40 + auxX, 335 + auxY, 10, Pixel(0));
-            RenderText("(c) 2018", 400 + auxX, 435 + auxY, 10, Pixel(0));
+            engine->RenderText("Developed by", 280 + auxX, 235 + auxY, 10, Pixel(0));
+            engine->RenderText("Luis gonzalez aracil", 40 + auxX, 335 + auxY, 10, Pixel(0));
+            engine->RenderText("(c) 2018", 400 + auxX, 435 + auxY, 10, Pixel(0));
         }
 
         if (transitionAdvance < halfWidth + 5)
         {
-            ClearScreen(halfWidth - transitionAdvance, 0, halfWidth, height, Pixel(0));
-            ClearScreen(halfWidth, 0, halfWidth + transitionAdvance, height, Pixel(0));
+            engine->ClearScreen(halfWidth - transitionAdvance, 0, halfWidth, height, Pixel(0));
+            engine->ClearScreen(halfWidth, 0, halfWidth + transitionAdvance, height, Pixel(0));
             transitionAdvance += 128 * deltaTime;
             drawTunnel = true;
         }
@@ -105,7 +111,7 @@ void FinalDemo::UpdateEnding(float deltaTime)
 
     UpdateCircleQueue(deltaTime);
 
-    if (accumulatedTime >= START_ENDING + 25.f)
+    if (accumulatedTime >= startTime + 25.f)
     {
         eraseText = true;
 
@@ -118,12 +124,12 @@ void FinalDemo::UpdateEnding(float deltaTime)
         auxX = tunnelCenter.X * 0.2f;
         auxY = tunnelCenter.Y * 0.2f;
 
-        RenderText("Developed by", 280 + auxX, 235 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
-        RenderText("Luis gonzalez aracil", 40 + auxX, 335 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
-        RenderText("(c) 2018", 400 + auxX, 435 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
+        engine->RenderText("Developed by", 280 + auxX, 235 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
+        engine->RenderText("Luis gonzalez aracil", 40 + auxX, 335 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
+        engine->RenderText("(c) 2018", 400 + auxX, 435 + auxY, 10, Pixel(255) * opacity * globalEndingOpacity);
     }
 
-    if(accumulatedTime > START_ENDING + 35.f)
+    if(accumulatedTime > startTime + 35.f)
     {
         globalEndingOpacity -= deltaTime * 0.25;
         
@@ -134,7 +140,7 @@ void FinalDemo::UpdateEnding(float deltaTime)
     }
 }
 
-void FinalDemo::AddCircle()
+void Imp_Ending::AddCircle()
 {
     circles.push_front(Circle{defaultCircle.x + int(tunnelCenter.X - initialTunnelCenter.X),
                               defaultCircle.y + int(tunnelCenter.Y - initialTunnelCenter.Y),
@@ -143,7 +149,7 @@ void FinalDemo::AddCircle()
                               tunnelColourMap[tunnelCurrentColour % tunnelColourMapSize]});
 }
 
-void FinalDemo::UpdateCircleQueue(float deltaTime)
+void Imp_Ending::UpdateCircleQueue(float deltaTime)
 {
     for (auto c : circles)
     {
@@ -159,7 +165,7 @@ void FinalDemo::UpdateCircleQueue(float deltaTime)
     }
 }
 
-void FinalDemo::PopulateCircleQueue()
+void Imp_Ending::PopulateCircleQueue()
 {
     if (circles.front().radius > defaultCircle.radius + (defaultCircle.radius * circlesGapDistance) / circleCount)
     {
@@ -172,7 +178,7 @@ void FinalDemo::PopulateCircleQueue()
     }
 }
 
-void FinalDemo::DrawCircle(const Circle &c)
+void Imp_Ending::DrawCircle(const Circle &c)
 {
     const float increment = (2 * Fast::PI) / float(pointsPerCircle);
     const int indexFactor = mathTableSize / (2 * Fast::PI);
@@ -187,12 +193,12 @@ void FinalDemo::DrawCircle(const Circle &c)
 
         if (drawTunnel && x > (width / 2 - transitionAdvance) && x < (width / 2 + transitionAdvance - dotSize))
         {
-            RenderDot(x, y, finalColour, dotSize);
+            engine->RenderDot(x, y, finalColour, dotSize);
         }
     }
 }
 
-float FinalDemo::CalculateOpacity(const float radius)
+float Imp_Ending::CalculateOpacity(const float radius)
 {
     float opacity = 1.f;
     float fadeIn = 1.3, fadeOut = 0.7;
@@ -215,13 +221,13 @@ float FinalDemo::CalculateOpacity(const float radius)
     return opacity;
 }
 
-void FinalDemo::UpdateCircle(Circle &c, float deltaTime)
+void Imp_Ending::UpdateCircle(Circle &c, float deltaTime)
 {
     c.radius += c.radius * deltaTime * radiusVelocity;
     c.rotation += deltaTime * rotationVelocity * 2;
 }
 
-void FinalDemo::EraseCircle(const Circle &circle)
+void Imp_Ending::EraseCircle(const Circle &circle)
 {
     Circle c = circle;
     c.colour = Pixel();
