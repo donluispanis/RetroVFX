@@ -7,6 +7,7 @@
 #include "Imp/Imp_Plasma.h"
 #include "Imp/Imp_Planes.h"
 #include "Imp/Imp_Ending.h"
+#include "Imp/Imp_Audio.h"
 
 struct Pixel;
 struct IWindowManager;
@@ -34,6 +35,8 @@ private:
     const int mathTableSize = 1024;
     float* cosineTable, *sineTable;
 
+    bool tunnelBeat = false;
+
     //TIMING VARIABLES
     const float DURATION_FIRE = 5.0f;
     const float DURATION_GEOMETRY = 75.0f;
@@ -54,18 +57,5 @@ private:
     Imp_Plasma plasma;
     Imp_Planes planes;
     Imp_Ending ending;
+    Imp_Audio audio;
 };
-
-//SOUND
-const int SAMPLE_RATE = 44100;
-const int FRAMES_PER_BUFFER = 256;
-const int INPUT_CHANNELS = 0;
-const int OUTPUT_CHANNELS = 2;
-
-float GetSquaredWaveValue(float frequency, long int currentCount);
-float GetSawtoothWaveValue(float frequency, long int currentCount);
-float GetTriangleWaveValue(float frequency, long int currentCount);
-float GetSineWaveValue(float frequency, long int currentCount);
-float GetNoiseValue();
-float GetLowPassNoiseValue(float intensity);
-float GetHighPassNoiseValue(float intensity);

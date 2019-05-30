@@ -46,7 +46,7 @@ void Imp_Ending::CloseEnding()
     delete[] tunnelColourMap;
 }
 
-void Imp_Ending::UpdateEnding(float deltaTime, float accumulatedTime, float startTime)
+void Imp_Ending::UpdateEnding(float deltaTime, float accumulatedTime, float startTime, bool& tunnelBeat)
 {
     static float accumulator = -6.f;
     static float opacity = 0.f;

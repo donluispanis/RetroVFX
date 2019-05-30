@@ -1,15 +1,32 @@
-/*#include "Imp_Includes.h"
-#include "Imp_Music.cpp"
+#include "Imp_Audio.h"
+#include "Sounds.h"
+#include "../../Utils/Fast.h"
+#include <deque>
+#include <cmath>
 
-void UpdateNotes(long int currentCount);
-float GetLeftValue();
-float GetRightValue();
+std::vector<Imp_Audio::Note> Imp_Audio::notes;
 
-/* This routine will be called by the PortAudio engine when audio is needed.
-** It may called at interrupt level on some machines so don't do anything
-** that could mess up the system like calling malloc() or free().
-*//*
-static int audioCallback(const void *inputBuffer, void *outputBuffer,
+void Imp_Audio::InitAudio(int startFire, int startGeometry, int startPlasma, int startPlanes, int startEnding)
+{
+    START_FIRE = startFire;
+    START_GEOMETRY = startGeometry;
+    START_PLASMA = startPlasma;
+    START_PLANES = startPlanes;
+    START_ENDING = startEnding;
+
+    Pa_Initialize();
+    Pa_OpenDefaultStream(&stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, AudioCallback, 0);
+    Pa_StartStream(stream);
+}
+
+void Imp_Audio::CloseAudio()
+{
+    Pa_StopStream(stream);
+    Pa_CloseStream(stream);
+    Pa_Terminate();
+}
+
+int Imp_Audio::AudioCallback(const void *inputBuffer, void *outputBuffer,
                          unsigned long framesPerBuffer,
                          const PaStreamCallbackTimeInfo *timeInfo,
                          PaStreamCallbackFlags statusFlags,
@@ -22,15 +39,15 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
     {
         currentCount++;
 
-        UpdateNotes(currentCount);
+        Imp_Audio::UpdateNotes(currentCount);
 
-        *out++ = GetLeftValue();  /* left */
-       /* *out++ = GetRightValue(); /* rigth */
-    /*}
+        *out++ = Imp_Audio::GetLeftValue();  /* left */
+        *out++ = Imp_Audio::GetRightValue(); /* rigth */
+    }
     return 0;
 }
 
-void UpdateNotes(long int currentCount)
+void Imp_Audio::UpdateNotes(long int currentCount)
 {
     for (auto& note : notes)
     {
@@ -38,7 +55,7 @@ void UpdateNotes(long int currentCount)
     }
 }
 
-float GetLeftValue()
+float Imp_Audio::GetLeftValue()
 {
     float sum = 0.f;
 
@@ -56,7 +73,7 @@ float GetLeftValue()
     return sum;
 }
 
-float GetRightValue()
+float Imp_Audio::GetRightValue()
 {
     float sum = 0.f;
 
@@ -74,7 +91,381 @@ float GetRightValue()
     return sum;
 }
 
-void UpdateEnvelopes(float deltaTime)
+void Imp_Audio::UpdateSound(float deltaTime, float accumulatedTime, bool tunnelBeat)
+{
+    static bool fire = false;
+    static bool fire1 = false;
+    static bool geometry = false;
+    static bool geometry1 = false;
+    static bool plasma = false;
+    static float generalVolume = 1.f;
+
+    const Envelope fireEnv = {2.f, 0.f, 0.f, 1.f, 1.f, 0.5f};
+    const Envelope seaEnv = {2.f, 0.f, 20.f, 7.f, 1.f, 1.f};
+    const Envelope drumEnv = {0.f, 0.f, 0.f, 0.1f, 1.f, 1.f};
+    const Envelope snareEnv = {0.f, 0.f, 0.f, 0.3f, 1.f, 0.5f};
+    const Envelope synthEnv = {1.f, 1.f, 1.f, 2.f, 1.f, 0.7f};
+    const Envelope laserEnv = {0.0f, 0.f, 0.0f, 0.2f, 1.f, 1.0f};
+
+    const Note fireNote = {Sounds::CreateArmonicSound, fireEnv, 200.f, 0.6f * generalVolume};
+    const Note seaNote = {Sounds::CreateSeaWavesSound, seaEnv, 0.07f, 0.6f * generalVolume};
+    const Note drumNote = {Sounds::CreateDrumSound, drumEnv, 0.f, 0.6f * generalVolume};
+    const Note snareNote = {Sounds::CreateDrumSound, snareEnv, 0.f, 0.6f * generalVolume};
+    const Note synthNote = {Sounds::CreateSynthSound, synthEnv, 440.f, 1.f * generalVolume};
+    const Note laserNote = {Sounds::CreateLaserSound, laserEnv, 440.f, 0.6f * generalVolume};
+
+    if (accumulatedTime > START_FIRE && !fire)
+    {
+        notes.push_back(fireNote);
+        fire = true;
+    }
+    if (accumulatedTime > START_FIRE + 1.5f && !fire1)
+    {
+        Note aux = Note(fireNote);
+        aux.frequency = 222;
+        notes.push_back(aux);
+        fire1 = true;
+    }
+    if (accumulatedTime > START_GEOMETRY + 2.f && !geometry)
+    {
+        notes.push_back(seaNote);
+        geometry = true;
+    }
+    if (accumulatedTime > START_GEOMETRY + 16.f && accumulatedTime < START_GEOMETRY + 23.f)
+    {
+        notes[0].frequency += 0.08 * deltaTime;
+    }
+    if (accumulatedTime > START_GEOMETRY + 23.f && accumulatedTime < START_GEOMETRY + 23.1f)
+    {
+        notes[0].frequency = 0.6;
+    }
+    if (accumulatedTime > START_GEOMETRY + 30.f)
+    {
+        if (!geometry1)
+        {
+            Note auxNote = synthNote;
+            auxNote.envelope.sustain = 6.f;
+            auxNote.frequency = 220.f;
+            notes.push_back(auxNote);
+            geometry1 = true;
+        }
+
+        static Note &note = notes[notes.size() - 1];
+        note.frequency = note.frequency + cos(accumulatedTime) * 0.5f;
+        note.position = 0.5f + cos(accumulatedTime) * 0.5f;
+    }
+    if (accumulatedTime > START_GEOMETRY + 39.f && accumulatedTime < START_GEOMETRY + 55.f)
+    {
+        static float accumulator = 0.7f;
+        static float maxAccumulator = 0.6f;
+        static float volume = 1.f;
+
+        accumulator += deltaTime;
+        maxAccumulator = 0.5 - 0.3 * ((accumulatedTime - START_GEOMETRY - 40.f) / 13.f);
+
+        if (maxAccumulator <= 0.f)
+        {
+            maxAccumulator = 0.001f;
+        }
+
+        if (accumulator >= maxAccumulator)
+        {
+            accumulator = 0.f;
+
+            static float baseFrequency = 523.f * 0.125;
+            const static float incrementer = 1.059463f;
+            Envelope auxEnv = laserEnv;
+            auxEnv.release = maxAccumulator;
+
+            notes.push_back({Sounds::CreateLaserSound, auxEnv, baseFrequency * 1, mask[1] * volume, 0.3f});
+            notes.push_back({Sounds::CreateLaserSound, auxEnv, baseFrequency * 2, mask[3] * volume, 0.7f});
+            notes.push_back({Sounds::CreateLaserSound, auxEnv, baseFrequency * 4, mask[5] * volume, 0.3f});
+            notes.push_back({Sounds::CreateLaserSound, auxEnv, baseFrequency * 6, mask[7] * volume, 0.7f});
+            notes.push_back({Sounds::CreateLaserSound, auxEnv, baseFrequency * 8, mask[9] * volume, 0.3f});
+            notes.push_back({Sounds::CreateLaserSound, auxEnv, baseFrequency * 10, mask[11] * volume, 0.7f});
+
+            baseFrequency /= incrementer;
+            if (baseFrequency <= 261.f * 0.125)
+            {
+                baseFrequency = 523.f * 0.125;
+            }
+        }
+    }
+    static std::deque<float> geometryFrequencies = {DO, RE, MI, RE};
+    if (accumulatedTime > START_GEOMETRY + 55.f && accumulatedTime < START_PLASMA && geometryFrequencies.size() > 0)
+    {
+        static float accumulator = 4.5f;
+        accumulator += deltaTime;
+        if (accumulator > 4.f)
+        {
+            Note aux = synthNote;
+            aux.frequency = geometryFrequencies.front();
+
+            if (geometryFrequencies.size() == 1)
+            {
+                aux.envelope.sustain = 2.f;
+                aux.envelope.release = 3.f;
+            }
+
+            notes.push_back(aux);
+
+            geometryFrequencies.pop_front();
+            accumulator = 0.f;
+        }
+    }
+    if (accumulatedTime > START_PLASMA && !plasma)
+    {
+        Note auxNote = fireNote;
+        auxNote.frequency = 200.f;
+        auxNote.envelope.attack = 4.f;
+        auxNote.envelope.release = 2.f;
+        auxNote.envelope.sustainAmplitude = 1.f;
+        notes.push_back(auxNote);
+        plasma = true;
+    }
+    if (accumulatedTime > START_PLASMA && accumulatedTime < START_PLASMA + 13.f)
+    {
+        static float accumulator0 = 0.9f;
+        static float accumulator1 = 0.6f;
+        static float accumulator2 = 0.3f;
+        static float volume = 0.25f;
+        accumulator0 += deltaTime;
+        accumulator1 += deltaTime;
+        accumulator2 += deltaTime;
+
+        if (accumulatedTime > START_PLASMA + 8.f)
+        {
+            volume -= deltaTime * 0.04;
+            if (volume < 0.f)
+            {
+                volume = 0.f;
+            }
+        }
+
+        if (accumulator0 > 1.f)
+        {
+            Note aux = drumNote;
+            aux.volume = volume;
+            aux.position = 0.3f;
+            notes.push_back(aux);
+            accumulator0 = 0.f;
+        }
+        if (accumulator1 > 1.f)
+        {
+            Note aux = drumNote;
+            aux.volume = volume;
+            aux.position = 0.3f;
+            notes.push_back(aux);
+            accumulator1 = 0.f;
+        }
+        if (accumulator2 > 1.f)
+        {
+            Note aux = snareNote;
+            aux.volume = volume;
+            aux.position = 0.7f;
+            notes.push_back(aux);
+            accumulator2 = 0.f;
+        }
+    }
+    static std::deque<float> plasmaFrequencies = {DO, SI, DO, SI, DO, LA, DO, LA, RE, SI,
+                                                  RE, SI, RE, LA, RE, LA, MI, LA, MI, LA,
+                                                  FA, LA, FA, LA, FA, SOL, FA, SOL, LA, LA,
+                                                  SOL, FA, MI, RE, DO, SI * 0.5, LA * 0.5, SOL * 0.5, FA * 0.5, MI * 0.5};
+    if (accumulatedTime > START_PLASMA + 5.1f && plasmaFrequencies.size() > 0)
+    {
+        static float accumulator = 1.f;
+        static int counter = 11;
+        accumulator += deltaTime;
+
+        if (accumulator > 0.33)
+        {
+            Note aux = laserNote;
+            aux.frequency = plasmaFrequencies.front();
+            if (plasmaFrequencies.size() < 11)
+            {
+                counter--;
+                aux.position = 0.5f - counter * 0.04f;
+                aux.volume = counter * 0.05;
+            }
+            else
+            {
+                aux.volume = 0.5f;
+            }
+            if (aux.volume < 0.f)
+            {
+                aux.volume = 0.f;
+            }
+
+            notes.push_back(aux);
+
+            plasmaFrequencies.pop_front();
+            accumulator = 0.f;
+        }
+    }
+    if (accumulatedTime > START_PLASMA + 13.f && accumulatedTime < START_PLASMA + 30.f)
+    {
+        static float accumulator = 0.7f;
+        static float maxAccumulator = 0.6f;
+        static float volume = 1.f;
+
+        accumulator += deltaTime;
+        maxAccumulator = 0.8 - 0.8 * ((accumulatedTime - START_PLASMA - 13.f) / 15.f);
+
+        if (maxAccumulator <= 0.f)
+        {
+            maxAccumulator = 0.001f;
+        }
+
+        if (accumulatedTime > START_PLASMA + 28.f)
+        {
+            volume -= deltaTime * 0.75f;
+
+            if (volume < 0.f)
+            {
+                volume = 0.f;
+            }
+        }
+
+        if (accumulator >= maxAccumulator)
+        {
+            accumulator = 0.f;
+
+            static float baseFrequency = 261.63 * 0.125;
+            const static float incrementer = 1.059463f;
+
+            notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 1, mask[1] * volume, 0.3f});
+            notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 2, mask[3] * volume, 0.7f});
+            notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 4, mask[5] * volume, 0.3f});
+            notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 6, mask[7] * volume, 0.7f});
+            notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 8, mask[9] * volume, 0.3f});
+            notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 10, mask[11] * volume, 0.7f});
+
+            baseFrequency *= incrementer;
+            if (baseFrequency >= 523.f)
+            {
+                baseFrequency = 261.63f;
+            }
+        }
+    }
+    static std::deque<float> planesFrequencies = {DO, SOL, LA, FA,
+                                                  DO, MI, SOL, SI, LA, DO * 2, FA, LA,
+                                                  DO, MI, SOL, SOL, SI, RE * 2, LA, DO * 2, MI * 2, FA, LA, DO * 2};
+    if (accumulatedTime > START_PLANES && planesFrequencies.size() > 0)
+    {
+        static float accumulator = 4.f;
+        accumulator += deltaTime;
+
+        if (accumulator >= 3.5f)
+        {
+            Note aux = synthNote;
+            aux.frequency = planesFrequencies.front();
+            aux.volume = 0.2f;
+            notes.push_back(aux);
+
+            if (planesFrequencies.size() < 21)
+            {
+                planesFrequencies.pop_front();
+                aux.volume = 0.3f;
+                aux.frequency = planesFrequencies.front();
+                aux.position = 0.3f;
+                notes.push_back(aux);
+            }
+
+            if (planesFrequencies.size() < 13)
+            {
+                planesFrequencies.pop_front();
+                aux.volume = 0.4f;
+                aux.frequency = planesFrequencies.front();
+                aux.position = 0.7f;
+                notes.push_back(aux);
+            }
+
+            planesFrequencies.pop_front();
+            accumulator = 0.f;
+        }
+    }
+    if (accumulatedTime > START_ENDING + 8.f)
+    {
+        static std::deque<float> frequencies = {DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA,
+                                                DO, SI, DO, SI, RE, LA, RE, LA,
+                                                DO, LA, DO, LA, RE, SI, RE, SI,
+                                                RE, LA, RE, LA, MI, SOL, MI, SOL,
+                                                RE, SOL, RE, SOL, MI, LA, MI, LA};
+        static float accumulator = 1.f;
+        static float accumulator1 = 0.95f;
+        static float accumulator2 = 0.f;
+        static float volume = 0.4f;
+        static bool lastBeat = false;
+        accumulator += deltaTime;
+        accumulator1 += deltaTime;
+        accumulator2 += deltaTime * Fast::PI * 0.5f;
+
+        if (accumulatedTime > START_ENDING + 35.f)
+        {
+            volume -= deltaTime * 0.25f;
+            if (volume < 0.f)
+            {
+                volume = 0.f;
+            }
+        }
+
+        if (accumulator > 0.25f)
+        {
+            static float position = 0.5f;
+            position = 0.5f + cos(accumulator2) * 0.5f;
+
+            Note aux = laserNote;
+            aux.volume = volume;
+            aux.frequency = frequencies.front();
+            aux.position = position;
+            notes.push_back(aux);
+            frequencies.pop_front();
+            accumulator = 0.f;
+        }
+        if (tunnelBeat && accumulator1 > 1.f)
+        {
+            Note aux = drumNote;
+            aux.volume = volume;
+            if (lastBeat)
+            {
+                aux.position = 0.2f;
+                lastBeat = false;
+            }
+            else
+            {
+                aux.position = 0.8f;
+                lastBeat = true;
+            }
+
+            notes.push_back(aux);
+            accumulator1 = 0.f;
+        }
+    }
+
+    UpdateEnvelopes(deltaTime);
+    RemoveDeadNotes();
+}
+
+void Imp_Audio::UpdateEnvelopes(float deltaTime)
 {
     for (auto& note : notes)
     {
@@ -123,7 +514,7 @@ void UpdateEnvelopes(float deltaTime)
     }
 }
 
-void RemoveDeadNotes()
+void Imp_Audio::RemoveDeadNotes()
 {
     for (unsigned int i = 0; i < notes.size(); i++)
     {
@@ -134,88 +525,3 @@ void RemoveDeadNotes()
         }
     }
 }
-
-float GetSquaredWaveValue(float frequency, long int currentCount)
-{
-    if(frequency == 0.f || currentCount == 0)
-    {
-        return 0.f;
-    }
-    
-    int steps = SAMPLE_RATE / frequency;
-    if (currentCount % steps < steps * 0.5)
-    {
-        return 1.f;
-    }
-    return -1.f;
-}
-
-float GetSawtoothWaveValue(float frequency, long int currentCount)
-{
-    int steps = SAMPLE_RATE / frequency;
-
-    if(frequency == 0.f || currentCount == 0 || steps == 0.f)
-    {
-        return 0.f;
-    }
-    
-    float percentage = currentCount % steps / float(steps);
-    return percentage * 2 - 1.f;
-}
-
-float GetTriangleWaveValue(float frequency, long int currentCount)
-{
-    int steps = SAMPLE_RATE / frequency;
-
-    if(frequency == 0.f || currentCount == 0 || steps == 0.f)
-    {
-        return 0.f;
-    }
-    
-    float percentage = currentCount % steps / float(steps);
-    if (percentage < 0.5f)
-    {
-        return percentage * 4 - 2.f;
-    }
-    return (1 - percentage) * 4 - 2.f;
-}
-
-float GetSineWaveValue(float frequency, long int currentCount)
-{
-    int steps = SAMPLE_RATE / frequency;
-
-    if(frequency == 0.f || currentCount == 0 || steps == 0.f)
-    {
-        return 0.f;
-    }
-
-    float percentage = currentCount % steps / float(steps);
-    return sin(2 * Fast::PI * percentage);
-}
-
-float GetNoiseValue()
-{
-    return (Fast::Rand() / float(ULONG_MAX)) * 2 - 1;
-}
-
-float GetLowPassNoiseValue(float intensity)
-{
-    static float oldValue = 0;
-    float newValue = intensity * GetNoiseValue() + (1 - intensity) * oldValue;
-    oldValue = newValue;
-    return newValue;
-}
-
-float GetHighPassNoiseValue(float intensity)
-{
-    static float oldValueY = 0.f;
-    static float oldValueX = 0.f;
-    
-    float newValueX = GetNoiseValue();
-    float newValueY = intensity * oldValueY + intensity * (newValueX - oldValueX);
-
-    oldValueX = newValueX;
-    oldValueY = newValueY;
-
-    return newValueY;
-}*/

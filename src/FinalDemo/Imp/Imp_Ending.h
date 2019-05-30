@@ -11,7 +11,7 @@ class Imp_Ending
 {
 public:
     void InitEnding(int width, int height, FinalDemo *engine, float *cosTable, float *sinTable);
-    void UpdateEnding(float deltaTime, float accumulatedTime, float startTime);
+    void UpdateEnding(float deltaTime, float accumulatedTime, float startTime, bool& tunnelBeat);
     void CloseEnding();
 
 private:
@@ -48,7 +48,6 @@ private:
     bool eraseText = false;
     float transitionAdvance = 0.f;
     float globalEndingOpacity = 1.f;
-    bool tunnelBeat = false;
 
     int width, height;
     FinalDemo *engine;

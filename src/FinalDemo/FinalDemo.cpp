@@ -20,9 +20,9 @@ bool FinalDemo::Init()
     plasma.InitPlasma(width, height, pixels, this, cosineTable, sineTable);
     planes.InitPlanes(width, height, pixels, this);
     ending.InitEnding(width, height, this, cosineTable, sineTable);
-    accumulatedTime = 0;
+    audio.InitAudio(START_FIRE, START_GEOMETRY, START_PLASMA, START_PLANES, START_ENDING);
 
-    //InitAudio();
+    accumulatedTime = 0;
 
     return true;
 }
@@ -34,8 +34,8 @@ bool FinalDemo::Destroy()
     plasma.ClosePlasma();
     planes.ClosePlanes();
     ending.CloseEnding();
+    audio.CloseAudio();
 
-    //CloseAudio();
     Fast::DeleteMathTable(cosineTable);
     Fast::DeleteMathTable(sineTable);
 
@@ -64,14 +64,14 @@ bool FinalDemo::Update(float deltaTime)
     }
     if(accumulatedTime > START_ENDING && accumulatedTime < DURATION_ENDING + START_ENDING)
     {
-        ending.UpdateEnding(deltaTime, accumulatedTime, START_ENDING);
+        ending.UpdateEnding(deltaTime, accumulatedTime, START_ENDING, tunnelBeat);
     }
     if(accumulatedTime > DURATION_TOTAL)
     {
         return false;
     }
 
-    //UpdateSound(deltaTime);
+    audio.UpdateSound(deltaTime, accumulatedTime, tunnelBeat);
 
     return true;
 }
