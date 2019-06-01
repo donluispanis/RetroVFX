@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  1 JUN 2019 09:56
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  1 JUN 2019 17:51
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2828,7 +2828,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--51
 
 
 ] [16]
-Overfull \hbox (1.09497pt too wide) detected at line 95
+Overfull \hbox (1.09497pt too wide) detected at line 96
  []\TU/lmss/bx/n/10.95 101
  []
 
@@ -4384,7 +4384,118 @@ File: archivos/geometry.png Graphic file (type bmp)
 
 ]
 chapter 8.
-) (capitulos/conclusiones.tex [99] [100
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+
+ []
+
+[99]
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--38
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
+
+ []
+
+[100]
+
+LaTeX Warning: Reference `cod:initialisePortAudio' on page 101 undefined on inp
+ut line 47.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 47--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
+
+ []
+
+
+LaTeX Warning: Reference `cod:initialisePortAudio' on page 101 undefined on inp
+ut line 51.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
+
+ []
+
+
+Underfull \vbox (badness 7722) has occurred while \output is active []
+
+ [101]
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+[102]
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
+
+ []
+
+
+LaTeX Warning: Reference `cod:audioCallback' on page 103 undefined on input lin
+e 84.
+
+) (capitulos/conclusiones.tex [103] [104
 
 
 ]
@@ -4414,7 +4525,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
 
-[101]
+[105]
 Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
@@ -4440,7 +4551,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[102]
+[106]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 146.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 146.
  (TFG-TFM_EPS_UA.aux)
@@ -4448,14 +4559,21 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 146.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 146.
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 65310 strings out of 427748
- 1461179 string characters out of 3147201
+ 65362 strings out of 427748
+ 1462082 string characters out of 3147201
  2160195 words of memory out of 3000000
- 68177 multiletter control sequences out of 15000+200000
+ 68229 multiletter control sequences out of 15000+200000
  550493 words of font info for 132 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2024s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (126 pages).
+Output written on TFG-TFM_EPS_UA.pdf (130 pages).

@@ -1,7 +1,91 @@
 \chapter{Demo final}
 
-\subsection{Investigación inicial}
-\subsection{Planteamiento formal}
-\subsection{Implementación}
-\subsection{Refinamiento}
-\subsection{Resultado}
+\section{Introducción}
+
+Hasta ahora hemos estado revisando algunos de los efectos gráficos más conocidos y comunes en el mundo de la \emph{demoscene}, analizándolos desde el punto de vista más analítico posible pero también intentando comprender su esencia y trasfondo.\\
+
+Los efectos gráficos son el pilar, la base, que construye el mundo de la \emph{demoscene}, pero un solo efecto no hace una demo, pues una demo consiste en un conjunto de efectos gráficos compilados en un solo ejecutable, normalmente acompañados además de música que se reproduce de forma sincronizada.\\
+
+Tras haber estudiado todos los efectos expuestos anteriormente, llega el momento de utilizar el conocimiento adquirido para intentar generar un obra, una \textbf{demo}, lo más interesante posible. Para ello, será necesario no sólo aplicar lo aprendido, si no también saber hacerlo de una forma que tenga una cierta coherencia en conjunto, de modo que resulte visualmente agradable. No hemos de olvidar que al fin y al cabo la \emph{demoscene} es tanto una práctica de ingeniería como de arte.\\
+
+Si bien en este trabajo para nada se aspira a lograr una obra de arte, sí que se perseguirá un cierto sentido estético a lo largo de la composición, de forma que la compilación de todas las demos anteriores resulte lo más coherente y orgánica posible.\\
+
+Como referencias a esta demo se pueden tomar todas aquellas que se han citado y mostrado previamente, pues esta demo pretende ser un humilde tributo y una humilde revisión de la cultura de la \emph{demoscene}, yendo a sus orígenes y efectos más clásicos y trayéndolos de vuelta a los computadores de hoy en día, ejecutando únicamente por CPU y en tiempo real.\\
+
+\section{Planteamiento inicial}
+
+Para desarrollar esta demo hay varias limitaciones o retos de base que nos debemos plantear. En primer lugar, la música juega un factor clave en las demos, y sin embargo hasta ahora no tenemos ningún mecanismo para generar sonido.\\
+
+Además, la demo se ejecutará exclusivamente en la CPU del ordenador, lo cual si bien resulta muy interesante, dado que pone en valor las capacidades de cómputo de un ordenador, también resulta un factor limitante, pues la manipulación de millones de píxeles por segundo no es una tarea trivial, y aún menos si hay operaciones matemáticas complejas de por medio. Es por ello que deberemos aplicar todo lo aprendido para tratar de optimizar y estirar el rendimiento al máximo, y cuando esto no sea posible, buscar otras opciones o caminos que enmascaren las limitaciones técnicas de la máquina.\\
+
+Por otro lado, los efectos gráficos que hemos mostrado hasta ahora son tan sólo muestras simplificadas de modo que resulten lo más explícitas y entendibles posible, pero ahora es el momento de buscar resultados más complejos o interesantes a partir de la base que ya ha sido planteada.\\
+
+Por último, los efectos gráficos creados hasta el momento son bastante distintos o inconexos entre sí, por lo que será importante encontrar un modo orgánico de generar transiciones entre los mismos o combinarlos de una forma coherente.\\
+
+A grandes rasgos, estas son las tareas necesarias para elaborar nuestra demo final:
+
+\begin{itemize}
+	\item Permitir la generación de sonido o música
+	\item Aplicar o combinar todos y cada uno de los efectos gráficos explicados anteriormente
+	\item Aplicar música a la demo coordinada con los efectos gráficos
+\end{itemize}
+
+\section{Generar sonido}
+
+Siguiendo con la dinámica general de este trabajo, la generación de sonido debería ser, en la medida de lo razonable, gestionada por nosotros. Mi idea inicial era la de usar una librería de sonido para la música del mismo modo que usamos OpenGL para los gráficos, es decir, usar una librería que actúe simplemente como envoltorio y nos genere una capa de abstracción con respecto al sistema operativo, pero una vez hecho esto, generar el sonido desde cero.\\
+
+Tras una breve investigación, las dos opciones más factibles parecían OpenAL\footnote{\url{https://www.openal.org}} y PortAudio\footnote{\url{http://www.portaudio.com}}. Si bien OpenAL es el equivalente directo de OpenGL pero para audio, PortAudio acabó siendo la librería elegida. OpenAL es una librería más estandarizada y potente, que permite generar sonido en 3D y tiene un modo de funcionamiento similar al de su casi homónimo OpenGL. Pero esta potencia viene al coste de una mayor complejidad de uso. PortAudio, en cambio, siendo una librería también de código abierto y multiplataforma, se centra en la simplicidad. Y por ello mismo se optó por ella, ya que parecía innecesario tener que aprender a manejar toda una librería potente y completa con el mero objetivo de usarla como una abstracción de cara al sistema operativo.\\
+
+Una vez tenemos la librería elegida, llega el momento de empezar a implementar nuestro sistema capaz de generar sonido. Todo lo que PortAudio necesita para empezar a funcionar es inicializar la librería y crear un flujo (\emph{stream}) de sonido, al que se le pasa una función delegada controlada por el usuario.\\
+
+\begin{lstlisting}[style=C-color, caption={Código necesario para inicializar PortAudio},label=cod:initialisePortAudio]
+Pa_Initialize();
+Pa_OpenDefaultStream(&stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, AudioCallback, 0);
+Pa_StartStream(stream);
+\end{lstlisting}
+
+Para entender no obstante, cómo funciona PortAudio y los parámetros que nos pide, debemos entender cómo funciona el audio por computador. Como podemos ver en el código [\ref{cod:initialisePortAudio}], una vez inicializamos la librería, abrimos un flujo de sonido. Para hacer esto, no obstante, debemos pasar una serie de parámetros significativos. El primero de ellos, \emph{stream}, se trata simplemente de una estructura del tipo \emph{PaStream}. Esto es un tipo definido por los creadores de la librería y del que realmente no tendremos que preocuparnos, pues es gestionado internamente y no tendremos que realizar ningún tipo de operación con el mismo. La función principal de este tipo es la gestión de distintos canales de entrada y salida de sonido. A continuación debemos indicar los canales de entrada y de salida. Un canal de entrada se corresponde con una fuente de entrada de sonido. Aunque un canal no se corresponde necesariamente a un dispositivo, normalmente un canal de entrada se corresponde con un único dispositivo de grabación. Si en nuestra demo necesitásemos grabar audio, necesitaríamos entonces al menos un canal de entrada. Un canal de salida se corresponde normalmente, aunque no de forma necesaria, con un solo dispositivo de reproducción de audio, o en otras palabras, con un altavoz. Como en nuestra demo no necesitaremos grabar audio pero sí queremos reproducir audio estéreo, necesitaremos pues definir dos canales de salida.\\
+
+Como nota, puntualizar que como se ha dicho anteriormente, un canal de entrada o salida no se corresponde necesariamente con un dispositivo físico. Esto es porque podemos por ejemplo definir dos canales de entrada que se correspondan con un único dispositivo de grabación, y sin embargo, dar a cada entrada de audio un tratamiento distinto. Por ejemplo, usar la entrada de un canal para generar eco y la del otro para generar distorsión, para posteriormente combinar los dos canales de entrada en un único canal de salida que tenga ambos efectos combinados. Del mismo modo, también es posible redirigir más de un canal al mismo dispositivo de reproducción. Por tanto, no existe una correspondencia directa entra canal y dispositivo, si bien es cierto que en muchos casos la suele haber.\\
+
+Volviendo al código en [\ref{cod:initialisePortAudio}], una vez hemos definido que queremos dos canales de salida, llega el momento de definir el formato de muestra. Esto es, definir qué formato tendrá una única muestra de sonido. El valor de una muestra representa el valor de la amplitud del sonido en un instante dado. El sonido de los primeros ordenadores, el tan conocido como \emph{música de 8bits}, tenía un formato de 8 bits interpretados como un entero por muestra. Esto quiere decir que la unidad mínima de sonido reproducible ocupaba 8 bits, y por tanto podía tener 256 valores distintos para la amplitud, que, para tratarse de sonido, podemos apreciar que es una resolución muy baja. De ahí que la música de 8 bits sonase robótica y poco orgánica, entre otras causas. De hecho, la música en 8 bits tan solo permitía 128 valores distintos, si tenemos en cuenta que en una onda que oscila en el origen, la mitad de los valores están por encima del cero y la otra mitad por debajo, por lo que de forma efectiva, contamos con 128 valores y su equivalente negativo. La música en 16 bits, que fue el siguiente paso, ya permitía definir más de 64000 valores distintos para la amplitud. Si escuchamos de hecho la diferencia entre la música de 16 bits y la música de 8 bits, se denota un cambio significativo. El formato que nosotros definimos en nuestra demo, no obstante, es el de un número en coma flotante de 32 bits. Nuestra amplitud máxima será 1 y nuestra amplitud mínima del sonido generado será -1. No obstante, como trataremos con números decimales, dispondremos de una gran resolución.\\
+
+A continuación, una vez definido el formato de muestra (cuántos bits por muestra y cómo se deben interpretar -entero, coma fija, coma flotante...-) definimos el ratio de muestra, comúnmente denominado como la \emph{frecuencia de muestreo}, o en otras palabras, cuántas muestras queremos por segundo. Tal y como indica el teorema del muestro de Nyquist\footnote{\url{https://es.wikipedia.org/wiki/Teorema_de_muestreo_de_Nyquist-Shannon}}, para generar un sonido a una frecuencia determinada, necesitamos al menos el doble de muestras por segundo que la frecuencia que se pretende muestrear. De media, el ser humano es capaz de percibir frecuencias de entre 20 y 20000 Hercios, de modo que si queremos tener la habilidad de generar cualquier frecuencia audible, necesitaremos al menos 400000 muestras por segundo. En nuestra demo definimos una frecuencia de muestreo de 44100 muestras por segundo. El motivo de la elección de este número se debe a motivos históricos, ya que era la frecuencia de muestreo de los CD, ligeramente superior al espectro de sonido audible por cuestiones de formato y conveniencia\footnote{\url{https://es.wikipedia.org/wiki/Frecuencia_de_muestreo}}.\\
+
+A continuación debemos definir la cantidad de muestras por \emph{buffer}. Como acabamos de explicar, para reproducir un sonido en cualquier frecuencia audible, es necesario contar con al menos 40000 muestras por segundo, y en nuestro caso definimos 44100 muestras de sonido por segundo. Pasar esta muestras sería extremadamente poco eficiente, por no decir imposible. La tarjeta de sonido es la encarga de generar y reproducir audio, de modo que cada vez que reproducimos audio, la CPU debe comunicarse con la tarjeta de sonido. 40000 accesos por segundo a la tarjeta de sonido para enviar un solo dato es una locura, y muy lento. Es por ello que se define un \emph{buffer}. Cuando la CPU le pasa datos a la tarjeta de sonido, no lo hace de uno en uno, si no que manda la información en bloques de datos, reduciendo así la cantidad de comunicaciones con la tarjeta de sonido, que son operaciones bloqueantes. Con este parámetro, podemos definir el tamaño de los bloques de datos que se le pasan a la tarjeta de sonido. Bloques muy pequeños implican muchos accesos a la tarjeta de sonido, bloques muy grandes implican una gran cantidad de datos que transferir y una tasa de actualización muy baja (dado que nuestra función delegada se encarga de generar un bloque de datos por llamada, contando con la información en el momento de llamada, por lo que si esta información se actualiza a mitad de la generación de un bloque, la actualización no se verá reflejada hasta la siguiente llamada a nuestra función). Por tanto, conviene elegir un tamaño de \emph{buffer} que resulte razonable, ni demasiado pequeño ni excesivo. En nuestra demo definimos un tamaño de 256 muestras por \emph{buffer}, lo que se traduce en unos 170 accesos a la tarjeta de sonido por segundo, y unas 170 llamadas a nuestra funci´´on delegada por segundo. Del mismo modo, el tamaño de cada \emph{buffer} será de 2KB (4 bytes -32 bits- por muestra, dos canales, 256 muestras por  canal por \emph{buffer}), un tamaño que no resulta trivial pero es muy pequeño.\\
+
+Tras ello, los siguientes dos parámetros que hemos de pasar son una función delegada a la que PortAudio llamará de forma interna para generar sonido y, de forma opcional, una estructura definida por el usuario. En nuestro caso, realizaremos todas las operaciones necesarias desde la función delegada, y tenemos todos los datos que necesitamos en nuestra clase. Podremos acceder a estos datos desde nuestra función delegada, ya que es un miembro estático de nuestra clase para reproducir audio. Por tanto, pasaremos un 0 (también sería posible y equivalente en este caso pasar un \emph{nullptr}) para indicar que no tenemos haremos uso de ninguna estructura de datos definida por el usuario.\\
+
+Llega ahora el momento de echar un vistazo a la función delegada que puede ser definida por el usuario:\\
+
+\begin{lstlisting}[style=C-color, caption={Función delegada que pasamos a PortAudio},label=cod:audioCallback]
+int Imp_Audio::AudioCallback(const void *inputBuffer, void *outputBuffer,
+                             unsigned long framesPerBuffer,
+                             const PaStreamCallbackTimeInfo *timeInfo,
+                             PaStreamCallbackFlags statusFlags,
+                             void *userData)
+{
+    float *out = (float *)outputBuffer;
+    static long int currentCount = 0;
+
+    for (unsigned long i = 0; i < framesPerBuffer; i++)
+    {
+        currentCount++;
+
+        Imp_Audio::UpdateNotes(currentCount);
+
+        *out++ = Imp_Audio::GetLeftValue();  /* left */
+        *out++ = Imp_Audio::GetRightValue(); /* rigth */
+    }
+    return 0;
+}
+\end{lstlisting}
+
+Aunque la cantidad de parámetros que recibe la función delegada puede abrumar a primera vista, la realidad es que apenas usamos unos pocos, como podemos ver en el código [\ref{cod:audioCallback}].
+
+
+\section{Crear la demo}
+
+\section{Crear la música}
+
+\section{Resultado}
