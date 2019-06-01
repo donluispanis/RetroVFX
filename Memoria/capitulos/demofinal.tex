@@ -32,7 +32,18 @@ A grandes rasgos, estas son las tareas necesarias para elaborar nuestra demo fin
 
 \section{Generar sonido}
 
-Siguiendo con la dinámica general de este trabajo, la generación de sonido debería ser, en la medida de lo razonable, gestionada por nosotros. Mi idea inicial era la de usar una librería de sonido para la música del mismo modo que usamos OpenGL para los gráficos, es decir, usar una librería que actúe simplemente como envoltorio y nos genere una capa de abstracción con respecto al sistema operativo, pero una vez hecho esto, generar el sonido desde cero.\\
+Antes de saltar a la implementación, conviene explicar muy brevemente como se representa el sonido de forma digital. Se asume, no obstante, que se conoce de forma básica el funcionamiento del sonido (física de ondas) y su representación matemática. Como ya sabemos, el sonido no es más que una vibración, una oscilación y por tanto, un movimiento ondulatorio. Si se requiere de un breve repaso sobre el funcionamiento de una onda, se puede encontrar en el planteamiento formal del efecto de deformaciones de imagen [\ref{sec:deformaciones}]\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm]{archivos/soundWave}
+	\caption{Onda sinusoidal y su discretización}
+	\label{fig:soundWave}
+\end{figure}
+
+Como podemos ver en la figura [\ref{fig:soundWave}], un sonido se puede representar como una onda (o una combinación de ondas). En el dominio analógico (en rojo), una onda es continua, sin embargo, en el dominio digital (en azul) solo se puede representar una cantidad discreta de valores de la onda, con la consiguiente pérdida de precisión. Es por ello, que para almacenar una onda en el dominio digital definimos una frecuencia de muestreo (equivalente a las líneas verticales de la imagen) y un formato o resolución de muestra (equivalente a las líneas horizontal en la imagen) de modo que cualquier valor intermedio, que no pueda ser representado, será aproximado al valor más cercano.\\
+
+Habiendo dejado esto claro, pasamos a intentar generar sonido por computador. Siguiendo con la dinámica general de este trabajo, la generación de sonido debería ser, en la medida de lo razonable, gestionada por nosotros. La idea inicial es la de usar una librería de sonido para la música del mismo modo que usamos OpenGL para los gráficos, es decir, usar una librería que actúe simplemente como envoltorio y nos genere una capa de abstracción con respecto al sistema operativo, pero una vez hecho esto, generar el sonido desde cero.\\
 
 Tras una breve investigación, las dos opciones más factibles parecían OpenAL\footnote{\url{https://www.openal.org}} y PortAudio\footnote{\url{http://www.portaudio.com}}. Si bien OpenAL es el equivalente directo de OpenGL pero para audio, PortAudio acabó siendo la librería elegida. OpenAL es una librería más estandarizada y potente, que permite generar sonido en 3D y tiene un modo de funcionamiento similar al de su casi homónimo OpenGL. Pero esta potencia viene al coste de una mayor complejidad de uso. PortAudio, en cambio, siendo una librería también de código abierto y multiplataforma, se centra en la simplicidad. Y por ello mismo se optó por ella, ya que parecía innecesario tener que aprender a manejar toda una librería potente y completa con el mero objetivo de usarla como una abstracción de cara al sistema operativo.\\
 
@@ -48,17 +59,17 @@ Para entender no obstante, cómo funciona PortAudio y los parámetros que nos pi
 
 Como nota, puntualizar que como se ha dicho anteriormente, un canal de entrada o salida no se corresponde necesariamente con un dispositivo físico. Esto es porque podemos por ejemplo definir dos canales de entrada que se correspondan con un único dispositivo de grabación, y sin embargo, dar a cada entrada de audio un tratamiento distinto. Por ejemplo, usar la entrada de un canal para generar eco y la del otro para generar distorsión, para posteriormente combinar los dos canales de entrada en un único canal de salida que tenga ambos efectos combinados. Del mismo modo, también es posible redirigir más de un canal al mismo dispositivo de reproducción. Por tanto, no existe una correspondencia directa entra canal y dispositivo, si bien es cierto que en muchos casos la suele haber.\\
 
-Volviendo al código en [\ref{cod:initialisePortAudio}], una vez hemos definido que queremos dos canales de salida, llega el momento de definir el formato de muestra. Esto es, definir qué formato tendrá una única muestra de sonido. El valor de una muestra representa el valor de la amplitud del sonido en un instante dado. El sonido de los primeros ordenadores, el tan conocido como \emph{música de 8bits}, tenía un formato de 8 bits interpretados como un entero por muestra. Esto quiere decir que la unidad mínima de sonido reproducible ocupaba 8 bits, y por tanto podía tener 256 valores distintos para la amplitud, que, para tratarse de sonido, podemos apreciar que es una resolución muy baja. De ahí que la música de 8 bits sonase robótica y poco orgánica, entre otras causas. De hecho, la música en 8 bits tan solo permitía 128 valores distintos, si tenemos en cuenta que en una onda que oscila en el origen, la mitad de los valores están por encima del cero y la otra mitad por debajo, por lo que de forma efectiva, contamos con 128 valores y su equivalente negativo. La música en 16 bits, que fue el siguiente paso, ya permitía definir más de 64000 valores distintos para la amplitud. Si escuchamos de hecho la diferencia entre la música de 16 bits y la música de 8 bits, se denota un cambio significativo. El formato que nosotros definimos en nuestra demo, no obstante, es el de un número en coma flotante de 32 bits. Nuestra amplitud máxima será 1 y nuestra amplitud mínima del sonido generado será -1. No obstante, como trataremos con números decimales, dispondremos de una gran resolución.\\
+Volviendo al código en [\ref{cod:initialisePortAudio}], una vez hemos definido que queremos dos canales de salida, llega el momento de definir el formato de muestra. Esto es, definir qué formato tendrá una única muestra de sonido. El valor de una muestra representa el valor de la amplitud del sonido en un instante dado. El sonido de los primeros ordenadores, el tan conocido como \emph{música de 8 bits}, tenía un formato de 8 bits interpretados como un entero por muestra. Esto quiere decir que la unidad mínima de sonido reproducible ocupaba 8 bits, y por tanto podía tener 256 valores distintos para la amplitud, que, para tratarse de sonido, podemos apreciar que es una resolución muy baja. De ahí que la música de 8 bits sonase robótica y poco orgánica, entre otras causas. De hecho, la música en 8 bits tan solo permitía 128 valores distintos, si tenemos en cuenta que en una onda que oscila en el origen, la mitad de los valores están por encima del cero y la otra mitad por debajo, por lo que de forma efectiva, contamos con 128 valores y su equivalente negativo. La música en 16 bits, que fue el siguiente paso, ya permitía definir más de 64000 valores distintos para la amplitud. Si escuchamos de hecho la diferencia entre la música de 16 bits y la música de 8 bits, se denota un cambio significativo. El formato que nosotros definimos en nuestra demo, no obstante, es el de un número en coma flotante de 32 bits. Nuestra amplitud máxima será 1 y nuestra amplitud mínima del sonido generado será -1. No obstante, como trataremos con números decimales, dispondremos de una gran resolución.\\
 
 A continuación, una vez definido el formato de muestra (cuántos bits por muestra y cómo se deben interpretar -entero, coma fija, coma flotante...-) definimos el ratio de muestra, comúnmente denominado como la \emph{frecuencia de muestreo}, o en otras palabras, cuántas muestras queremos por segundo. Tal y como indica el teorema del muestro de Nyquist\footnote{\url{https://es.wikipedia.org/wiki/Teorema_de_muestreo_de_Nyquist-Shannon}}, para generar un sonido a una frecuencia determinada, necesitamos al menos el doble de muestras por segundo que la frecuencia que se pretende muestrear. De media, el ser humano es capaz de percibir frecuencias de entre 20 y 20000 Hercios, de modo que si queremos tener la habilidad de generar cualquier frecuencia audible, necesitaremos al menos 400000 muestras por segundo. En nuestra demo definimos una frecuencia de muestreo de 44100 muestras por segundo. El motivo de la elección de este número se debe a motivos históricos, ya que era la frecuencia de muestreo de los CD, ligeramente superior al espectro de sonido audible por cuestiones de formato y conveniencia\footnote{\url{https://es.wikipedia.org/wiki/Frecuencia_de_muestreo}}.\\
 
-A continuación debemos definir la cantidad de muestras por \emph{buffer}. Como acabamos de explicar, para reproducir un sonido en cualquier frecuencia audible, es necesario contar con al menos 40000 muestras por segundo, y en nuestro caso definimos 44100 muestras de sonido por segundo. Pasar esta muestras sería extremadamente poco eficiente, por no decir imposible. La tarjeta de sonido es la encarga de generar y reproducir audio, de modo que cada vez que reproducimos audio, la CPU debe comunicarse con la tarjeta de sonido. 40000 accesos por segundo a la tarjeta de sonido para enviar un solo dato es una locura, y muy lento. Es por ello que se define un \emph{buffer}. Cuando la CPU le pasa datos a la tarjeta de sonido, no lo hace de uno en uno, si no que manda la información en bloques de datos, reduciendo así la cantidad de comunicaciones con la tarjeta de sonido, que son operaciones bloqueantes. Con este parámetro, podemos definir el tamaño de los bloques de datos que se le pasan a la tarjeta de sonido. Bloques muy pequeños implican muchos accesos a la tarjeta de sonido, bloques muy grandes implican una gran cantidad de datos que transferir y una tasa de actualización muy baja (dado que nuestra función delegada se encarga de generar un bloque de datos por llamada, contando con la información en el momento de llamada, por lo que si esta información se actualiza a mitad de la generación de un bloque, la actualización no se verá reflejada hasta la siguiente llamada a nuestra función). Por tanto, conviene elegir un tamaño de \emph{buffer} que resulte razonable, ni demasiado pequeño ni excesivo. En nuestra demo definimos un tamaño de 256 muestras por \emph{buffer}, lo que se traduce en unos 170 accesos a la tarjeta de sonido por segundo, y unas 170 llamadas a nuestra funci´´on delegada por segundo. Del mismo modo, el tamaño de cada \emph{buffer} será de 2KB (4 bytes -32 bits- por muestra, dos canales, 256 muestras por  canal por \emph{buffer}), un tamaño que no resulta trivial pero es muy pequeño.\\
+A continuación debemos definir la cantidad de muestras por \emph{buffer}. Como acabamos de explicar, para reproducir un sonido en cualquier frecuencia audible, es necesario contar con al menos 40000 muestras por segundo, y en nuestro caso definimos 44100 muestras de sonido por segundo. Pasar estas muestras una a una sería extremadamente poco eficiente, por no decir imposible. La tarjeta de sonido es la encargada de generar y reproducir audio, de modo que cada vez que reproducimos audio, la CPU debe comunicarse con la tarjeta de sonido. 40000 accesos por segundo a la tarjeta de sonido para enviar un solo dato es una locura, y muy lento. Es por ello que se define un \emph{buffer}. Cuando la CPU le pasa datos a la tarjeta de sonido, no lo hace de uno en uno, si no que manda la información en bloques de datos, reduciendo así la cantidad de comunicaciones con la tarjeta de sonido, que son operaciones bloqueantes. Con este parámetro, podemos definir el tamaño de los bloques de datos que se le pasan a la tarjeta de sonido. Bloques muy pequeños implican muchos accesos a la tarjeta de sonido, bloques muy grandes implican una gran cantidad de datos que transferir y una tasa de actualización muy baja (dado que nuestra función delegada se encarga de generar un bloque de datos por llamada, contando con la información en el momento de llamada, por lo que si esta información se actualiza a mitad de la generación de un bloque, la actualización no se verá reflejada hasta la siguiente llamada a nuestra función). Por tanto, conviene elegir un tamaño de \emph{buffer} que resulte razonable, ni demasiado pequeño, ni excesivo. En nuestra demo definimos un tamaño de 256 muestras por \emph{buffer}, lo que se traduce en unos 170 accesos a la tarjeta de sonido por segundo, y unas 170 llamadas a nuestra función delegada por segundo. Del mismo modo, el tamaño de cada \emph{buffer} será de 2KB (4 bytes -32 bits- por muestra, dos canales, 256 muestras por  canal por \emph{buffer}), un tamaño que no resulta trivial pero que es muy pequeño.\\
 
-Tras ello, los siguientes dos parámetros que hemos de pasar son una función delegada a la que PortAudio llamará de forma interna para generar sonido y, de forma opcional, una estructura definida por el usuario. En nuestro caso, realizaremos todas las operaciones necesarias desde la función delegada, y tenemos todos los datos que necesitamos en nuestra clase. Podremos acceder a estos datos desde nuestra función delegada, ya que es un miembro estático de nuestra clase para reproducir audio. Por tanto, pasaremos un 0 (también sería posible y equivalente en este caso pasar un \emph{nullptr}) para indicar que no tenemos haremos uso de ninguna estructura de datos definida por el usuario.\\
+Tras ello, los siguientes dos parámetros que hemos de pasar son una función delegada a la que PortAudio llamará de forma interna para generar sonido y, de forma opcional, una estructura definida por el usuario. En nuestro caso, realizaremos todas las operaciones necesarias desde la función delegada, y tenemos todos los datos que necesitamos en nuestra clase. Podremos acceder a estos datos desde nuestra función delegada, ya que es un miembro estático de nuestra clase para reproducir audio. Por tanto, pasaremos un 0 (también sería posible y equivalente en este caso pasar un \emph{nullptr}) para indicar que no haremos uso de ninguna estructura de datos definida por el usuario.\\
 
 Llega ahora el momento de echar un vistazo a la función delegada que puede ser definida por el usuario:\\
 
-\begin{lstlisting}[style=C-color, caption={Función delegada que pasamos a PortAudio},label=cod:audioCallback]
+\begin{lstlisting}[style=C-color, caption={Función delegada que pasamos a PortAudio},label=cod:audioCallback, escapechar=|]
 int Imp_Audio::AudioCallback(const void *inputBuffer, void *outputBuffer,
                              unsigned long framesPerBuffer,
                              const PaStreamCallbackTimeInfo *timeInfo,
@@ -74,18 +85,137 @@ int Imp_Audio::AudioCallback(const void *inputBuffer, void *outputBuffer,
 
         Imp_Audio::UpdateNotes(currentCount);
 
-        *out++ = Imp_Audio::GetLeftValue();  /* left */
-        *out++ = Imp_Audio::GetRightValue(); /* rigth */
+        *out++ = Imp_Audio::GetLeftValue();  /* left */ | \label{line:left}|
+        *out++ = Imp_Audio::GetRightValue(); /* rigth */| \label{line:right}|
     }
     return 0;
 }
 \end{lstlisting}
 
-Aunque la cantidad de parámetros que recibe la función delegada puede abrumar a primera vista, la realidad es que apenas usamos unos pocos, como podemos ver en el código [\ref{cod:audioCallback}].
+Aunque la cantidad de parámetros que recibe la función delegada puede abrumar a primera vista, la realidad es que apenas usamos unos pocos, como podemos ver en el código [\ref{cod:audioCallback}].\\
 
+No usamos el \emph{inputBuffer}, dado que no hemos definido ningún canal de entrada, del mismo modo que tampoco usamos las variables \emph{timeInfo}, \emph{statusFlags} o \emph{userData}, las dos primeras porque son variables que nos aportan información extra pero que no nos resultan especialmente relevantes y la última porque es el argumento que se corresponde con la estructura de datos definida por el usuario que en nuestro caso hemos decidido no definir. Por tanto, sólo estamos interesados en dos variables, el \emph{outputBuffer}, que se corresponde con el \emph{buffer} para la salida de datos, es decir, es el \emph{buffer} cuyos datos son pasados a la tarjeta de sonido para ser reproducidos por el ordenador y por otro lado, la variable \emph{framesPerBuffer}, que recordemos que habíamos definido previamente con el valor 256 y que nos indica por cada llamada a la función, cuántas muestras por canal debemos incluir en el \emph{buffer}. Si nos fijamos en las líneas [\ref{line:left}] y [\ref{line:right}], veremos que en estas líneas asignamos un valor a la posición actual del \emph{buffer} y a continuación la incrementamos. Como podemos recordar, hemos definido dos canales de salida de audio, dado que queremos audio estéreo. Esto implica, por tanto, que nuestro \emph{buffer} deberá ser rellenado con muestras para ambos canales. Estas muestras se leen de forma intercalada, de modo que si visualizamos nuestro \emph{buffer} como un \emph{array}, su primer valor se corresponderá con la primera muestra del canal izquierdo, su segundo valor con la primera muestra del canal derecho, su tercer valor con la segunda muestra del canal izquierdo, y así sucesivamente... Esto nos permite, de forma bastante sencilla, asignar valores a nuestros canales de salida de audio.\\
+
+Antes de continuar ahondando en el funcionamiento del sistema de sonido, vale la pena explicar su funcionamiento de forma genérica, a partir de lo previamente construido.\\
+
+En nuestro sistema, tenemos un vector estático de notas. Podemos ver la estructura de una nota en la figura [\ref{fig:note}]. Por cada muestra que añadimos al \emph{buffer} de salida, actualizamos los valores de todas las notas que se están reproduciendo actualmente, basándonos en la variable entera \emph{currentCount}, que se actualiza por iteración. De esta modo, usamos \emph{currentCount} para actualizar el valor de nuestras notas de forma muy similar a como usamos el valor de \emph{deltaTime} para actualizar nuestras demos. De hecho, ambas variables tienen una relación directa con el tiempo, ya que \emph{deltaTime} representa el tiempo transcurrido desde el fotograma anterior mientras que \emph{currentCount} representa el número de muestra que se está actualizando, y como sabemos, actualizamos 44100 muestras por segundo, por lo que cada 44100 actualizaciones de este valor, habrá transcurrido un segundo.\\
+
+Una vez actualizamos el valor de nuestras notas, llega el momento de asignarlas a la salida. Para ello, llamamos a dos funciones que respectivamente nos devolverán el valor para la salida de audio izquierda y el valor para la salida de audio derecha, basándose en la posición de las notas que se están reproduciendo actualmente.\\ 
+
+%@startuml
+%
+%class Note << (S,#FF7700) Struct >>
+%{
+%  +float (*generateWave)(frequency, count)
+%  +Envelope envelope
+%  +float frequency
+%  +float volume
+%  +float position
+%  +float lifetime
+%  +float currentEnvelopeValue
+%  +float resultingSound
+%}
+%
+%class Envelope << (S,#FF7700) Struct >>
+%{
+%  +float attack
+%  +float decay
+%  +float sustain
+%  +float release
+%  +float peakAmplitude
+%  +float sustainAmplitude
+%  
+%}
+%
+%hide empty members
+%
+%@enduml
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm]{archivos/note}
+	\caption{Estructura de una nota y su envolvente}
+	\label{fig:note}
+\end{figure}
+
+Una vez que entendemos de forma simplificada como funciona nuestro sistema, llega el momento de definir qué es una nota y cómo se utiliza. Podemos ver su estructura en la figura [\ref{fig:note}].\\
+
+Una nota musical se define principalmente por los siguientes parámetros: su forma de onda, su frecuencia, su volumen y su envolvente. La forma de onda en nuestro caso es generada por una función delegada, que a partir de la frecuencia deseada y el número de muestra, genera el valor correspondiente. De este modo, podemos asignar distintas formas de onda a distintas notas con gran facilidad, simplemente cambiando la función delegada de la misma. La frecuencia se corresponde con la frecuencia de la onda y el volumen con la amplitud, valor que oscilará entre 0 y 1. Por último, ya solo queda definir la envolvente, lo cual es algo más complejo.\\
+
+La envolvente de una nota, o de un sonido en general, es algo así como "el ciclo de vida" de un sonido. Podemos ver la forma o estructura habitual de una envolvente en la figura [\ref{fig:ADSR}]. A este tipo de envolvente se la denomina comúnmente envolvente \emph{ADSR}, siendo estas siglas la denominación de las fases de la envolvente, en español, ataque, decaimiento, sostenimiento y relajación.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=10cm]{archivos/ADSR}
+	\caption{Envolvente de un sonido - Fuente: \href{https://en.wikipedia.org/wiki/Envelope_(music)\#/media/File:ADSR_parameter.svg}{Wikipedia}, por \href{https://commons.wikimedia.org/wiki/User:Abdull}{Abdull}}
+	\label{fig:ADSR}
+\end{figure}
+
+Vamos a clarificar qué es una envolvente con un ejemplo práctico: tocar una nota en un piano real. Cuando tocamos una nota en un piano, hay un momento en el que se pasa del silencio a emitir un sonido. Esta es la fase de ataque, que se produce en el instante en que el martillo golpea las cuerdas. Tras esto, la amplitud (volumen) de la nota decae levemente, siendo esta la fase de decaimiento, pero, si mantenemos la nota pulsada, sigue sonando a una amplitud inferior, siendo esta la fase de sostenimiento. Ya por último, una vez dejamos de presionar la tecla, o si pasa el tiempo suficiente, el sonido empieza a decaer hasta que se desvanece, entrando por tanto en la fase de relajación. Prácticamente todos los instrumentos tienen estas fases, en mayor o menor medida. La envolvente de un sonido, por tanto, define la evolución del volumen del sonido a lo largo del tiempo, y define de forma drástica la forma en la que suena un instrumento. Por ejemplo, si pulsamos una tecla en un piano lentamente no sonará igual que si la pulsamos de golpe, porque tendrá una fase de ataque distinta, siendo la segunda mucho más breve. Además de definir estas cuatro fases, definimos dos variables más, la amplitud máxima y la amplitud de sostenimiento. La primera define el volumen que la nota alcanza tras la fase de ataque. La segunda define el volumen de la nota una vez que este decae y se sostiene, en la fase de sostenimiento.\\
+
+Por tanto, pues, cada vez que actualicemos el valor de nuestra nota, también deberemos actualizar el valor de la envolvente en el ciclo de vida actual de la nota. Para ello, simplemente debemos crear una función que sea capaz de interpolar entre estos estados. Es decir, dado un tiempo de ataque, debe interpolar entre el reposo (0) y la amplitud máxima, una vez que se alcanza esta amplitud y acaba la fase de ataque, el volumen de la nota decae en la fase de decaimiento tanto tiempo como se especifique hasta estabilizarse en la amplitud de sostenimiento, que se mantendrá constante durante toda esta fase. Tras ello, entraremos en la última fase y en el final del ciclo de la vida de la nota, donde pasamos de la amplitud de sostenimiento al reposo de nuevo, el silencio. Es en este momento cuando termina el ciclo de vida de la nota.\\
+
+Por tanto, en la estructura de la nota, que podemos ver en la figura [\ref{fig:note}], las primeras cuatro variables contienen información constante sobre la nota que se está reproduciendo, mientras que las tres últimas contienen estado: el tiempo de vida de la nota (cuando el tiempo de vida de la nota es igual a la duración de la envolvente, se considera que la nota ha terminado y por tanto se elimina de nuestro vector de notas), el valor de la envolvente para el tiempo de vida actual, que dependerá de la fase de la envolvente en que nos encontremos y modificará el volumen de la nota y el sonido resultante, que se corresponde con el valor de retorno del método delegado que la nota contiene.\\
+
+La única variable de la que aún no hemos hablado es en realidad una bastante interesante, la variable \emph{position}. El valor de esta variable oscila entre 0 y 1, 0 representando el canal izquierdo y e1 1 representando el canal derecho. El valor por defecto de esta variable es \(0.5\), que se corresponde al centro, o en otras palabras, nuestra nota sonando con la misma intensidad por el altavoz izquierdo y el derecho. Si asignamos a esta variable el valor 0, el sonido de nuestra nota se reproducirá solo por el canal izquierdo pero no por el derecho, y lo mismo se aplica a la inversa si aplicamos un valor de 1. Cualquier valor intermedio emitirá sonidos por ambos canales, tendiendo aquellos canales por debajo de \(0.5\) a la izquierda y aquellos por encima de \(0.5\) a la derecha.\\
+
+Ahora que ya hemos explicado cómo funcionan las notas en nuestro sistema, podemos ver por fin el código para actualizarlas y reproducirlas por el canal izquierdo o derecho, como hacemos en el código [\ref{cod:audioCallback}].\\
+
+\begin{lstlisting}[style=C-color, caption={Actualización y obtención del valor de las notas},label=cod:updateNotes, escapechar=|]
+void Imp_Audio::UpdateNotes(long int currentCount)
+{
+    for (auto &note : notes)
+    {
+        note.resultingSound = note.generateWave(note.frequency, currentCount) * note.currentEnvelopeValue * note.volume;
+    }
+}
+
+float Imp_Audio::GetLeftValue()
+{
+    float sum = 0.f;
+
+    for (auto &note : notes)
+    {
+        float leftAmplitude = 1.f;
+        if (note.position > 0.5f)
+        {
+            leftAmplitude -= (note.position - 0.5f) * 2.f;
+        }
+
+        sum += note.resultingSound * leftAmplitude;
+    }
+
+    return sum;
+}
+\end{lstlisting}
+
+En el código [\ref{cod:updateNotes}] se aporta el método para actualizar notas y el método para obtener el valor de muestra para el canal izquierdo. Se omite el del canal derecho ya que es prácticamente equivalente en funcionalidad al del izquierdo.\\
+
+Para actualizar el valor de una nota, lo que hacemos es multiplicar el resultado que nos devuelve nuestro método delegado (en función de la frecuencia y el tiempo actual) por el valor actual de la envolvente de la nota y el volumen general de la nota. Las envolventes no se actualizan en este bucle, si no que son actualizadas en la función \emph{Update} de la propia clase, en lugar de actualizarse dentro de la función delegada que es gestionada por PortAudio. Esta decisión se ha tomado de modo que sea más fácil gestionar la actualización de la envolvente, que depende directamente del tiempo, por lo que es más fácil de actualizar con un intervalo de tiempo (\emph{deltaTime}) que no con un número de muestra (\emph{currentCount}) y también para aliviar la cantidad de cálculos, pues en lugar de tener que actualizar la envolvente por muestra (44100 veces por segundo) la actualizamos por fotograma (unas 60 veces por segundo). Esta decisión tiene sus ventajas e inconvenientes, pues por un lado implica no tener que estar constantemente actualizando la envolvente pero por otro, también facilita que se puedan producir pequeños cortes o cambios bruscos en la intensidad del sonido. En general, y bajo opinión personal, pienso que actualizando la envolvente una vez por fotograma el resultado es suficientemente satisfactorio, pero si se quisiera actualizar por muestra, sería tan sencillo como invocar a la función de actualizar envolvente en el bucle del código [\ref{cod:audioCallback}], pasándole por valor \(1 \div 44100\), es decir, la cantidad de tiempo que transcurre de una muestra hasta la siguiente.\\
+
+A continuación, la función \emph{GetLeftValue} calcula el valor para el canal izquierdo por nota y lo suma. Si el valor de la variable \emph{position} de la nota se halla entre 0 y \(0.5\), entonces el factor  de amplitud en el canal izquierdo para esa nota será de 1, pero el factor para esa nota en el canal derecho será menor que 1. Del mismo modo, si la posición de la nota es superior a \(0.5\), entonces el factor de amplitud en el canal izquierdo será menor, o en otras palabras, la nota sonará con menor intensidad por el canal izquierdo. Por tanto, situada en el centro (\(0.5\)), una nota sonará con su amplitud natural tanto por el canal izquierdo como por el derecho, mientras que si no se sitúa en el centro, su amplitud será menor en un canal o en otro. Una versión refinada de esta implementación sería una el que que el módulo del sonido total de la nota siempre fuera 1, por lo que en el centro, el factor para el canal izquierdo y derecho sería \(\sqrt{\frac{1}{1 + 1}} = \sqrt{\frac{1}{2}} \approx 0.707\). No obstante, para evitar complejidad añadida y una mayor carga computacional, se ha optado por la solución que se muestra en código, más sencilla y con un resultado práctico similar.\\
+
+Como podemos ver en la función \emph{GetLeftValue} en el código [\ref{cod:updateNotes}], el valor de cada nota se suma acumulativamente y se devuelve como el valor total para el canal. Recordemos que este valor se corresponde al de la amplitud general de la salida de sonido para el canal, por lo que debe estar comprendido entre -1 y 1. De lo contrario, si sobrepasamos este límite, se producirán artefactos de sonido extraños y desagrables, que en el peor de los casos podrían llegar incluso a dañar nuestros altavoces (aunque en nuestro caso no corremos ese riesgo, dado que PortAudio se encargará de filtrar todos aquellos valores que se salgan de rango). No obstante, queda en manos de quien añada sonidos asegurarse de que la suma de los sonidos no sobrepase el umbral máximo. Por ejemplo, si hacemos sonar dos instrumentos a la vez, deberíamos hacer que cada uno sonase a la mitad de su amplitud, de modo que sumados, como máximo, sumasen la amplitud máxima. De este modo, dejamos al usuario la decisión de la masterización del sonido, que si bien implica una responsabilidad (de lo contrario se producirán artefactos de sonido desagradables) también otorga una mayor flexibilidad.\\
+
+Así pues, recapitulando, hemos creado un sistema que nos permite gestionar y reproducir notas de sonido complejas, con una envolvente asociada y en estéreo. No obstante, y antes de continuar a la siguiente sección, aun nos queda algo fundamental por definir, ¡una forma de generar ondas de sonido!\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=10cm]{archivos/waves}
+	\caption{Distintas formas de onda - Fuente: \href{https://upload.wikimedia.org/wikipedia/commons/6/6f/Waveforms.png}{Wikipedia}, por \href{https://commons.wikimedia.org/wiki/User:Omegatron}{Omegatron}}
+	\label{fig:waves}
+\end{figure}
+
+hablar de las distintas formas de onda y brevemente cómo las he creado, hablar de los ruidos y los filtros pasa alta y pasa baja
 
 \section{Crear la demo}
 
+hablar de la implementación de las demos con poco código, pues el código ya ha sido aportado, centrarse en cómo se ha unido y las ideas que han surgido, además de cosas especiales que ha habido que añadir
+
 \section{Crear la música}
 
+hablar de los instrumentos que he creado y cómo, hablar de LFO y poco más
+
 \section{Resultado}
+
+si es necesario, mostrar fotos de distintos momentos de la demo

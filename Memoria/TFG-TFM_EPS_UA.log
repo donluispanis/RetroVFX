@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  1 JUN 2019 17:51
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  2 JUN 2019 00:06
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2829,7 +2829,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--51
 
 ] [16]
 Overfull \hbox (1.09497pt too wide) detected at line 96
- []\TU/lmss/bx/n/10.95 101
+ []\TU/lmss/bx/n/10.95 111
  []
 
 )
@@ -2854,14 +2854,11 @@ Overfull \hbox (1.09497pt too wide) detected at line 96
 
 
 ]
-(TFG-TFM_EPS_UA.lol)
+(TFG-TFM_EPS_UA.lol [23])
 \tf@lol=\write11
 \openout11 = `TFG-TFM_EPS_UA.lol'.
 
- [23] [24
-
-
-] (capitulos/Introduccion.tex
+ [24] (capitulos/Introduccion.tex
 chapter 1.
 
 Underfull \hbox (badness 10000) in paragraph at lines 10--11
@@ -2894,6 +2891,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 20--21
  []
 
 [1
+
+
 
 
 ]
@@ -4434,68 +4433,167 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--36
 
  []
 
+File: archivos/soundWave.png Graphic file (type bmp)
+<archivos/soundWave.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--38
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--40
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
 
  []
 
 [100]
-
-LaTeX Warning: Reference `cod:initialisePortAudio' on page 101 undefined on inp
-ut line 47.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 47--48
+Underfull \hbox (badness 10000) in paragraph at lines 46--47
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 49--50
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
 
  []
 
 
-LaTeX Warning: Reference `cod:initialisePortAudio' on page 101 undefined on inp
-ut line 51.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--52
+Underfull \hbox (badness 10000) in paragraph at lines 50--51
 
  []
 
 
-Underfull \vbox (badness 7722) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
 
- [101]
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
+ []
+
+[101]
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+Underfull \hbox (badness 10000) in paragraph at lines 62--63
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 57--58
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
 
  []
 
 [102]
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
+Underfull \hbox (badness 10000) in paragraph at lines 66--67
 
  []
 
 
-LaTeX Warning: Reference `cod:audioCallback' on page 103 undefined on input lin
-e 84.
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
 
-) (capitulos/conclusiones.tex [103] [104
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
+
+ []
+
+[103]
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
+
+ []
+
+[104]
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
+
+ []
+
+File: archivos/note.eps Graphic file (type eps)
+<archivos/note.eps>
+
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 145--146
+
+ []
+
+File: archivos/ADSR.png Graphic file (type bmp)
+<archivos/ADSR.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--155
+
+ []
+
+[105]
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
+
+ []
+
+[106]
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 194--195
+
+ []
+
+
+Underfull \vbox (badness 3735) has occurred while \output is active []
+
+ [107]
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 200--201
+
+ []
+
+[108]
+File: archivos/waves.png Graphic file (type bmp)
+<archivos/waves.png>
+) (capitulos/conclusiones.tex [109] [110
 
 
 ]
@@ -4525,7 +4623,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
 
-[105]
+[111]
 Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
@@ -4551,7 +4649,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[106]
+[112]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 146.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 146.
  (TFG-TFM_EPS_UA.aux)
@@ -4561,19 +4659,16 @@ Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 65362 strings out of 427748
- 1462082 string characters out of 3147201
- 2160195 words of memory out of 3000000
- 68229 multiletter control sequences out of 15000+200000
+ 65402 strings out of 427748
+ 1462750 string characters out of 3147201
+ 2161993 words of memory out of 3000000
+ 68266 multiletter control sequences out of 15000+200000
  550493 words of font info for 132 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2024s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (130 pages).
+Output written on TFG-TFM_EPS_UA.pdf (136 pages).
