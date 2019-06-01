@@ -7,7 +7,7 @@ TARGET := Demo
 BIN_PATH := bin/
 OBJ_PATH := obj/
 
-CXXFLAGS += -std=c++14 -static -static-libgcc
+CXXFLAGS += -std=c++14
 
 # general compiler settings (might need to be set when compiling the lib, too)
 ifndef NDEBUG
@@ -217,7 +217,7 @@ make_src:
 ################################################################################
 # Windows 
 ################################################################################
-all_windows: LDFLAGS += -L./lib/win -lopengl32 -DGLEW_STATIC -lglew32s -lm -lmingw32 -lglfw3 -lportaudio
+all_windows: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lglfw3 -lportaudio
 
 all_windows:
 	@printf "$(GREEN)Compiling done!\n"
