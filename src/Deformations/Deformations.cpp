@@ -23,6 +23,8 @@ bool Deformations::Init()
         return false;
     }
 
+    offsetX = texWidth;
+    offsetY = texHeight;
 
     return true;
 }

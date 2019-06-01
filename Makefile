@@ -7,7 +7,7 @@ TARGET := Demo
 BIN_PATH := bin/
 OBJ_PATH := obj/
 
-CXXFLAGS += -std=c++14
+CXXFLAGS += -std=c++14 -static-libgcc -static-libstdc++
 
 # general compiler settings (might need to be set when compiling the lib, too)
 ifndef NDEBUG

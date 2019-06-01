@@ -61,7 +61,7 @@ void Imp_Ending::InitTurbulencePath()
 void Imp_Ending::CloseEnding()
 {
     delete[] tunnelColourMap;
-    delete[] turbulencePath;
+    delete turbulencePath;
 }
 
 void Imp_Ending::UpdateEnding(float deltaTime, float accumulatedTime, float startTime, bool &tunnelBeat)

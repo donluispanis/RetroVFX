@@ -8,7 +8,7 @@ bool BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
     unsigned char *imageBinary = nullptr;
     unsigned int imageSize;
 
-    if(FileLoader::OpenBinaryFile(path, imageBinary, imageSize))
+    if(!FileLoader::OpenBinaryFile(path, imageBinary, imageSize))
     {
         return false;
     }
