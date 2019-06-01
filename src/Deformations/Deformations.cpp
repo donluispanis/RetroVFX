@@ -18,10 +18,11 @@ bool Deformations::Init()
     RegisterModifiers();
     RegisterInput();
 
-    BMP::OpenRGBImage("assets/img/lena.bmp", texture, texWidth, texHeight);
+    if(!BMP::TryOpenImageInDifferentLocations("assets/img/lena.bmp", texture, texWidth, texHeight))
+    {
+        return false;
+    }
 
-    offsetX = texWidth;
-    offsetY = texHeight;
 
     return true;
 }

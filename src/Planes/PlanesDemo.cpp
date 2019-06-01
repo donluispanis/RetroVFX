@@ -5,6 +5,7 @@
 #include "../Utils/Fast.h"
 #include "../ClassicDemoTemplate/WindowManager/IWindowManager.h"
 #include <cmath>
+#include <string>
 
 bool PlanesDemo::Init()
 {
@@ -15,7 +16,11 @@ bool PlanesDemo::Init()
     height = windowManager->GetHeight();
     texture = nullptr;
 
-    BMP::OpenRGBImage("assets/img/groundsoil.bmp", texture, texWidth, texHeight);
+    if(!BMP::TryOpenImageInDifferentLocations("assets/img/groundsoil.bmp", texture, texWidth, texHeight))
+    {
+        return false;
+    }
+
     texSize = texHeight * texWidth;
 
     cameraAngle = 0.f;

@@ -1,9 +1,14 @@
 #include "FileLoader.h"
 #include <fstream>
 
-void FileLoader::OpenBinaryFile(const char *path, unsigned char *&output, unsigned int &size)
+bool FileLoader::OpenBinaryFile(const char *path, unsigned char *&output, unsigned int &size)
 {
     std::ifstream input(path, std::ios::binary);
+    
+    if(input.fail())
+    {
+        return false;
+    }
 
     input.seekg(0, input.end); //Point to the end of the file to be able to measure the size
     int fileSize = input.tellg();
@@ -14,6 +19,8 @@ void FileLoader::OpenBinaryFile(const char *path, unsigned char *&output, unsign
 
     output = (unsigned char *)buffer;
     size = fileSize;
+
+    return true;
 }
 
 void FileLoader::CloseBinaryFile(unsigned char *output)

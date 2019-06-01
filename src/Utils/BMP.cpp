@@ -1,13 +1,17 @@
 #include "BMP.h"
 #include "Pixel.h"
 #include "FileLoader.h"
+#include <string>
 
-void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
+bool BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
 {
     unsigned char *imageBinary = nullptr;
     unsigned int imageSize;
 
-    FileLoader::OpenBinaryFile(path, imageBinary, imageSize);
+    if(FileLoader::OpenBinaryFile(path, imageBinary, imageSize))
+    {
+        return false;
+    }
 
     width = CharToInt(imageBinary + 18);  //Offset where width info is in BMP format
     height = CharToInt(imageBinary + 22); //Offset where height info is in BMP format
@@ -26,11 +30,42 @@ void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
     }
 
     FileLoader::CloseBinaryFile(imageBinary);
+
+    return true;
 }
 
 void BMP::CloseRGBImage(Pixel *image)
 {
     delete[] image;
+}
+
+bool BMP::TryOpenImageInDifferentLocations(const char* path, Pixel *&image, int &width, int &height)
+{
+    bool couldOpenImage = false;
+    std::string sPath(path);
+
+    couldOpenImage = BMP::OpenRGBImage(sPath.c_str(), image, width, height);
+
+    if(!couldOpenImage)
+    {
+        std::string aux = "../" + sPath;
+        couldOpenImage = BMP::OpenRGBImage(aux.c_str(), image, width, height);
+    }
+    if(!couldOpenImage)
+    {
+        std::string aux = "../../" + sPath;
+        couldOpenImage = BMP::OpenRGBImage(aux.c_str(), image, width, height);
+    }
+    if(!couldOpenImage)
+    {
+        std::string aux = "../../../" + sPath;
+        couldOpenImage = BMP::OpenRGBImage(aux.c_str(), image, width, height);
+    }
+    if(!couldOpenImage)
+    {
+        return false;
+    }
+    return true;
 }
 
 int BMP::CharToInt(unsigned char *p)

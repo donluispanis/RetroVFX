@@ -21,7 +21,7 @@ class RotoZoom : public ClassicDemoTemplate
     void InitTurbulencePaths();
     void UpdatePath(float deltaTime);
     void DrawPixel(int x, int y, int offsetX, int offsetY, int angle, float scale);
-
+    
     Pixel *pixels;
     int width, height;
     IWindowManager *windowManager;

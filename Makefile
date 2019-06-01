@@ -228,7 +228,7 @@ all_windows:
 ################################################################################
 # Linux
 ################################################################################
-all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -lportaudio -Wl,-rpath=./lib/linux
+all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -lportaudio -Wl,-rpath=./lib/linux;
 
 all_linux:
 	@printf "$(GREEN)Compiling done!\n"

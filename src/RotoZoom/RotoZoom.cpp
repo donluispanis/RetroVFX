@@ -16,7 +16,10 @@ bool RotoZoom::Init()
     InitMath();
     InitTurbulencePaths();
 
-    BMP::OpenRGBImage("assets/img/lena.bmp", texture, texWidth, texHeight);
+    if(!BMP::TryOpenImageInDifferentLocations("assets/img/lena.bmp", texture, texWidth, texHeight))
+    {
+        return false;
+    }
 
     return true;
 }
