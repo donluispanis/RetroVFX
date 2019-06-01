@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  18 MAY 2019 17:13
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  1 JUN 2019 09:56
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -2827,15 +2827,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--51
 ]) (TFG-TFM_EPS_UA.toc [15
 
 
-] [16])
+] [16]
+Overfull \hbox (1.09497pt too wide) detected at line 95
+ []\TU/lmss/bx/n/10.95 101
+ []
+
+)
 \tf@toc=\write8
 \openout8 = `TFG-TFM_EPS_UA.toc'.
 
  [17] [18
 
 
-]
-(TFG-TFM_EPS_UA.lof [19])
+] (TFG-TFM_EPS_UA.lof [19])
 \tf@lof=\write9
 \openout9 = `TFG-TFM_EPS_UA.lof'.
 
@@ -2922,7 +2926,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
  []
 
-) (capitulos/marcoteorico.tex [2]
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--37
+
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+
+ []
+
+) (capitulos/marcoteorico.tex [3] [4
+
+
+]
 chapter 2.
 
 Underfull \hbox (badness 10000) in paragraph at lines 14--15
@@ -2939,10 +2961,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
  []
 
-[3
-
-
-]
+[5]
 Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
@@ -2962,7 +2981,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 41--42
 
  []
 
-[4]
+[6]
 Underfull \hbox (badness 10000) in paragraph at lines 47--48
 
  []
@@ -2982,7 +3001,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--54
 
  []
 
-[5] [6]
+[7] [8]
 File: archivos/Assembly2004.jpg Graphic file (type bmp)
 <archivos/Assembly2004.jpg>
 
@@ -2999,7 +3018,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 102--103
 
  []
 
-[7]
+[9]
 File: archivos/fr-041-debris.png Graphic file (type bmp)
 <archivos/fr-041-debris.png>
 
@@ -3012,7 +3031,7 @@ File: archivos/kkrieger.png Graphic file (type bmp)
 
 Underfull \vbox (badness 3000) has occurred while \output is active []
 
- [8]
+ [10]
 File: archivos/fr-063-magellan.png Graphic file (type bmp)
 <archivos/fr-063-magellan.png>
 
@@ -3025,7 +3044,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 136--137
 
  []
 
-[9]
+[11]
 File: archivos/second-reality.png Graphic file (type bmp)
 <archivos/second-reality.png>
 
@@ -3048,7 +3067,7 @@ File: archivos/vip2.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10]
+[12]
 File: archivos/equinox1.png Graphic file (type bmp)
 <archivos/equinox1.png>
 File: archivos/equinox2.png Graphic file (type bmp)
@@ -3063,7 +3082,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 188--189
 
  []
 
-[11]
+[13]
 File: archivos/fairlight.png Graphic file (type bmp)
 <archivos/fairlight.png>
 
@@ -3091,7 +3110,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
-[12]
+[14]
 Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
@@ -3101,8 +3120,8 @@ File: archivos/batmanforever.png Graphic file (type bmp)
 
 Underfull \vbox (badness 2057) has occurred while \output is active []
 
- [13]
-[14] [15]
+ [15]
+[16] [17]
 File: archivos/heavenseven.png Graphic file (type bmp)
 <archivos/heavenseven.png>
 File: archivos/stateoftheart.png Graphic file (type bmp)
@@ -3111,7 +3130,7 @@ File: archivos/stateoftheart.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[16] [17]
+[18] [19]
 File: archivos/fire_inconexia.png Graphic file (type bmp)
 <archivos/fire_inconexia.png>
 File: archivos/plasma.png Graphic file (type bmp)
@@ -3125,17 +3144,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 327--328
 
  []
 
-[18]) (capitulos/objetivos.tex [19] [20
+[20]) (capitulos/objetivos.tex [21] [22
 
 
 ]
 chapter 3.
-) (capitulos/metodologia.tex [21] [22
+) (capitulos/metodologia.tex [23] [24
 
 
 ]
 chapter 4.
-[23]
+[25]
 Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
@@ -3165,7 +3184,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 38--39
 
  []
 
-[24]) (capitulos/tests.tex [25] [26
+[26]) (capitulos/tests.tex [27] [28
 
 
 ]
@@ -3180,7 +3199,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
-[27]
+[29]
 ("C:\Users\Luis\AppData\Local\Programs\MiKTeX 2.9\tex/latex/listings\lstlang1.s
 ty"
 File: lstlang1.sty 2019/02/27 1.8b listings language file
@@ -3191,7 +3210,7 @@ File: lstmisc.sty 2019/02/27 1.8b (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 34.
- [28]
+ [30]
 Underfull \hbox (badness 10000) in paragraph at lines 116--117
 
  []
@@ -3201,7 +3220,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 118--119
 
  []
 
-[29]
+[31]
 Underfull \hbox (badness 10000) in paragraph at lines 142--143
 
  []
@@ -3232,12 +3251,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 197--198
 
  []
 
-[30]
+[32]
 Underfull \hbox (badness 10000) in paragraph at lines 214--215
 
  []
 
-[31]
+[33]
 Underfull \hbox (badness 10000) in paragraph at lines 233--234
 
  []
@@ -3250,7 +3269,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[32] [33]
+[34] [35]
 Underfull \hbox (badness 10000) in paragraph at lines 282--283
 
  []
@@ -3258,7 +3277,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 282--283
 
 Underfull \vbox (badness 2644) has occurred while \output is active []
 
- [34]
+ [36]
 Underfull \hbox (badness 10000) in paragraph at lines 284--285
 
  []
@@ -3283,7 +3302,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 292--293
 
  []
 
-[35]
+[37]
 Underfull \hbox (badness 10000) in paragraph at lines 307--308
 
  []
@@ -3293,7 +3312,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 318--319
 
  []
 
-) (capitulos/motor.tex [36]
+) (capitulos/motor.tex [38]
 chapter 6.
 
 Underfull \hbox (badness 10000) in paragraph at lines 10--11
@@ -3315,10 +3334,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
-[37
+[39
 
 
-] [38]
+] [40]
 File: archivos/classicdemotemplateuml.eps Graphic file (type eps)
 <archivos/classicdemotemplateuml.eps>
 
@@ -3331,7 +3350,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 106--107
 
  []
 
-[39]
+[41]
 Underfull \hbox (badness 10000) in paragraph at lines 108--109
 
  []
@@ -3366,7 +3385,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 120--121
 
  []
 
-[40]
+[42]
 Underfull \hbox (badness 10000) in paragraph at lines 126--127
 
  []
@@ -3401,7 +3420,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 162--163
 
  []
 
-[41]
+[43]
 Underfull \hbox (badness 10000) in paragraph at lines 164--165
 
  []
@@ -3421,7 +3440,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 170--171
 
  []
 
-[42]
+[44]
 Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
  []
@@ -3446,7 +3465,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
-[43]
+[45]
 Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
@@ -3473,7 +3492,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 225--226
 
  []
 
-[44]
+[46]
 Underfull \hbox (badness 10000) in paragraph at lines 227--228
 
  []
@@ -3488,7 +3507,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 233--234
 
  []
 
-[45]
+[47]
 Underfull \hbox (badness 10000) in paragraph at lines 255--256
 
  []
@@ -3508,7 +3527,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 287--288
 
  []
 
-[46]
+[48]
 Underfull \hbox (badness 10000) in paragraph at lines 310--311
 
  []
@@ -3523,7 +3542,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 314--315
 
  []
 
-[47]
+[49]
 Underfull \hbox (badness 10000) in paragraph at lines 337--338
 
  []
@@ -3546,11 +3565,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 357--358
 
 Underfull \vbox (badness 2158) has occurred while \output is active []
 
- [48]
+ [50]
 File: archivos/bresenham.png Graphic file (type bmp)
 <archivos/bresenham.png>
 
-[49]
+[51]
 Underfull \hbox (badness 10000) in paragraph at lines 420--421
 
  []
@@ -3560,7 +3579,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 422--423
 
  []
 
-) (capitulos/demos.tex [50]
+) (capitulos/demos.tex [52]
 chapter 7.
 
 Underfull \hbox (badness 10000) in paragraph at lines 7--8
@@ -3592,7 +3611,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
 
-[51
+[53
 
 
 ]
@@ -3605,7 +3624,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 60--61
 
  []
 
-[52]
+[54]
 File: archivos/colourGradient.png Graphic file (type bmp)
 <archivos/colourGradient.png>
 
@@ -3633,7 +3652,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 95--96
 
  []
 
-[53]
+[55]
 Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
@@ -3655,7 +3674,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
 File: archivos/fire_simple.png Graphic file (type bmp)
 <archivos/fire_simple.png>
-[54] [55]
+[56] [57]
 File: archivos/fire_final.png Graphic file (type bmp)
 <archivos/fire_final.png>
 File: archivos/fire_final1.png Graphic file (type bmp)
@@ -3672,7 +3691,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 193--194
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [56]
+ [58]
 Underfull \hbox (badness 10000) in paragraph at lines 195--196
 
  []
@@ -3701,7 +3720,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 219--220
 
  []
 
-[57]
+[59]
 Underfull \hbox (badness 10000) in paragraph at lines 225--226
 
  []
@@ -3731,7 +3750,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 262--263
 
  []
 
-[58]
+[60]
 Underfull \hbox (badness 10000) in paragraph at lines 264--265
 
  []
@@ -3751,7 +3770,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 286--287
 
  []
 
-[59]
+[61]
 Underfull \hbox (badness 10000) in paragraph at lines 288--289
 
  []
@@ -3761,7 +3780,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 304--305
 
  []
 
-[60]
+[62]
 Underfull \hbox (badness 10000) in paragraph at lines 324--325
 
  []
@@ -3806,7 +3825,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 345--346
 
  []
 
-[61]
+[63]
 Underfull \hbox (badness 10000) in paragraph at lines 347--348
 
  []
@@ -3836,12 +3855,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 367--368
 
  []
 
-[62]
+[64]
 Underfull \hbox (badness 10000) in paragraph at lines 387--388
 
  []
 
-[63]
+[65]
 Underfull \hbox (badness 10000) in paragraph at lines 411--412
 
  []
@@ -3854,11 +3873,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 413--414
 
 Underfull \vbox (badness 2932) has occurred while \output is active []
 
- [64]
+ [66]
 File: archivos/tunnelwithturbulence.png Graphic file (type bmp)
 <archivos/tunnelwithturbulence.png>
 
-[65] [66] [67]
+[67] [68] [69]
 Underfull \hbox (badness 10000) in paragraph at lines 499--500
 
  []
@@ -3883,7 +3902,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 518--519
 
  []
 
-[68]
+[70]
 File: archivos/second-reality-rotozoom.png Graphic file (type bmp)
 <archivos/second-reality-rotozoom.png>
 
@@ -3891,7 +3910,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 529--530
 
  []
 
-[69]
+[71]
 File: archivos/transform.png Graphic file (type bmp)
 <archivos/transform.png>
 
@@ -3909,7 +3928,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 550--551
 
  []
 
-[70]
+[72]
 File: archivos/bmpuml.eps Graphic file (type eps)
 <archivos/bmpuml.eps>
 
@@ -3922,7 +3941,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 593--594
 
  []
 
-[71]
+[73]
 Underfull \hbox (badness 10000) in paragraph at lines 625--626
 
  []
@@ -3945,7 +3964,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 650--651
 
 Underfull \vbox (badness 1028) has occurred while \output is active []
 
- [72]
+ [74]
 Underfull \hbox (badness 10000) in paragraph at lines 652--653
 
  []
@@ -3965,7 +3984,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 672--673
 
  []
 
-[73]
+[75]
 Underfull \hbox (badness 10000) in paragraph at lines 674--675
 
  []
@@ -4004,7 +4023,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 703--704
 
  []
 
-[74]
+[76]
 Underfull \hbox (badness 10000) in paragraph at lines 705--706
 
  []
@@ -4026,7 +4045,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 721--722
 
  []
 
-[75]
+[77]
 Underfull \hbox (badness 10000) in paragraph at lines 749--750
 
  []
@@ -4036,7 +4055,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 763--764
 
  []
 
-[76]
+[78]
 Underfull \hbox (badness 10000) in paragraph at lines 787--788
 
  []
@@ -4101,8 +4120,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 843--844
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [77]
-[78]
+ [79]
+[80]
 Underfull \hbox (badness 10000) in paragraph at lines 845--846
 
  []
@@ -4122,7 +4141,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 855--856
 
  []
 
-[79]
+[81]
 Underfull \hbox (badness 10000) in paragraph at lines 866--867
 
  []
@@ -4145,7 +4164,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 903--904
 
  []
 
-[80]
+[82]
 Underfull \hbox (badness 10000) in paragraph at lines 905--906
 
  []
@@ -4176,7 +4195,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 938--939
 
  []
 
-[81]
+[83]
 Underfull \hbox (badness 10000) in paragraph at lines 940--941
 
  []
@@ -4196,7 +4215,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 955--956
 
 Underfull \vbox (badness 2538) has occurred while \output is active []
 
- [82]
+ [84]
 Underfull \hbox (badness 10000) in paragraph at lines 957--958
 
  []
@@ -4213,7 +4232,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 968--969
 
  []
 
-[83]
+[85]
 Underfull \hbox (badness 10000) in paragraph at lines 970--971
 
  []
@@ -4233,7 +4252,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1004--1005
 
  []
 
-[84]
+[86]
 File: archivos/planes1.png Graphic file (type bmp)
 <archivos/planes1.png>
 
@@ -4246,7 +4265,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1015--1016
 
  []
 
-[85]
+[87]
 File: archivos/planes2.png Graphic file (type bmp)
 <archivos/planes2.png>
 
@@ -4264,7 +4283,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1030--1031
 
  []
 
-[86]
+[88]
 File: archivos/planes3.png Graphic file (type bmp)
 <archivos/planes3.png>
 
@@ -4275,7 +4294,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1061--1062
 
 Underfull \vbox (badness 2735) has occurred while \output is active []
 
- [87]
+ [89]
 Underfull \hbox (badness 10000) in paragraph at lines 1063--1064
 
  []
@@ -4285,7 +4304,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1065--1066
 
  []
 
-[88] [89]
+[90] [91]
 Underfull \hbox (badness 10000) in paragraph at lines 1083--1084
 
  []
@@ -4302,7 +4321,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1094--1095
 
  []
 
-[90]
+[92]
 File: archivos/pointandobject.eps Graphic file (type eps)
 <archivos/pointandobject.eps>
 
@@ -4323,7 +4342,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1121--1122
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [91]
+ [93]
 Underfull \hbox (badness 10000) in paragraph at lines 1123--1124
 
  []
@@ -4341,7 +4360,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1162--1163
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [92]
+ [94]
 Underfull \hbox (badness 10000) in paragraph at lines 1191--1192
 
  []
@@ -4351,7 +4370,7 @@ File: archivos/flatcube.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[93] [94]
+[95] [96]
 File: archivos/cube.png Graphic file (type bmp)
 <archivos/cube.png>
 File: archivos/pyramid.png Graphic file (type bmp)
@@ -4360,12 +4379,12 @@ File: archivos/star.png Graphic file (type bmp)
 <archivos/star.png>
 File: archivos/geometry.png Graphic file (type bmp)
 <archivos/geometry.png>
-) (capitulos/demofinal.tex [95] [96
+) (capitulos/demofinal.tex [97] [98
 
 
 ]
 chapter 8.
-) (capitulos/conclusiones.tex [97] [98
+) (capitulos/conclusiones.tex [99] [100
 
 
 ]
@@ -4395,7 +4414,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
 
-[99]
+[101]
 Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
@@ -4421,7 +4440,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[100]
+[102]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 146.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 146.
  (TFG-TFM_EPS_UA.aux)
@@ -4429,18 +4448,14 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 146.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 146.
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  65310 strings out of 427748
  1461179 string characters out of 3147201
- 2161191 words of memory out of 3000000
+ 2160195 words of memory out of 3000000
  68177 multiletter control sequences out of 15000+200000
  550493 words of font info for 132 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2024s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on TFG-TFM_EPS_UA.pdf (124 pages).
+Output written on TFG-TFM_EPS_UA.pdf (126 pages).
