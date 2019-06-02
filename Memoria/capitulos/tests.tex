@@ -113,7 +113,7 @@ El test de ejemplo mostrado en el código [\ref{cod:example}] es bastante trivia
 
 \section{Resultados}
 
-El resultado de cada test que se muestra a continuación ha sido hallado a partir de la media de 5 ejecuciones individuales de cada conjunto de tests para cada plataforma. A su vez, cada conjunto se tests ha sido ejecutado internamente un total de 100 veces, como podemos ver en [\ref{cod:executetest}], habiéndose hallado la media de tiempo de estas ejecuciones.\\
+El resultado de cada test que se muestra a continuación ha sido hallado a partir de la media de 5 ejecuciones individuales de cada conjunto de tests para cada plataforma. A su vez, cada conjunto de tests ha sido ejecutado internamente un total de 100 veces, como podemos ver en [\ref{cod:executetest}], habiéndose hallado la media de tiempo de estas ejecuciones.\\
 
 Los resultados que se muestran en la columna izquierda vienen dados en segundos, siendo el tiempo de ejecución medio del test. Los resultados que se muestran a la derecha son el resultado ponderado con respecto a un resultado base (por ejemplo, cúantas veces es más costosa una división que una suma).\\
 
@@ -139,7 +139,7 @@ Los tests han sido ejecutados bajo el siguiente hardware:
 	\item RAM: \textbf{16 GB DDR4-2133}
 \end{itemize}
 
-Cada operación matemática que muestra a continuación se ha realizado dentro de un bucle que se ejecuta 10000000 millones de veces, por lo que el resultado que vemos no se debe usar tanto de forma cuantitativa como para establece comparaciones o relaciones.\\
+Cada operación matemática que se muestra a continuación se ha realizado dentro de un bucle que se ejecuta 10000000 millones de veces, por lo que el resultado que vemos no se debe usar tanto de forma cuantitativa como para establece comparaciones o relaciones.\\
 
 En la tabla [\ref{tab:int32}] se muestran los resultados de realizar operaciones matemáticas con números enteros de 32 bits. En la columna de resultados relativos, se compara el coste de las operaciones con respecto al coste de la suma de enteros de 32 bits.\\
 
@@ -159,7 +159,7 @@ En la tabla [\ref{tab:int32}] se muestran los resultados de realizar operaciones
 \label{tab:int32}
 \end{table}
 
-En la tabla [\ref{tab:int64}] se muestran los resultados de realizar operaciones matemáticas con números enteros de 64 bits. En la columna de resultados relativos, se compara el coste de las operaciones con respecto al coste de la suma de enteros de 32 bits.\\
+En la tabla [\ref{tab:int64}] se muestran los resultados de realizar operaciones matemáticas con números enteros de 64 bits. En la columna de resultados relativos, se compara el coste de las operaciones respecto al coste de la suma de enteros de 32 bits.\\
 
 \begin{table}[h]
 \centering
@@ -177,7 +177,7 @@ En la tabla [\ref{tab:int64}] se muestran los resultados de realizar operaciones
 \label{tab:int64}
 \end{table}
 
-En la tabla [\ref{tab:float32}] se muestran los resultados de realizar operaciones matemáticas con números en coma flotante de 32 bits. En la columna de resultados relativos, se compara el coste de las operaciones con respecto al coste de la suma de enteros de 32 bits.\\
+En la tabla [\ref{tab:float32}] se muestran los resultados de realizar operaciones matemáticas con números en coma flotante de 32 bits. En la columna de resultados relativos, se compara el coste de las operaciones respecto al coste de la suma de enteros de 32 bits.\\
 
 \begin{table}[h]
 \centering
@@ -194,7 +194,7 @@ En la tabla [\ref{tab:float32}] se muestran los resultados de realizar operacion
 \label{tab:float32}
 \end{table}
 
-En la tabla [\ref{tab:float64}] se muestran los resultados de realizar operaciones matemáticas con números en coma flotante de 64 bits. En la columna de resultados relativos, se compara el coste de las operaciones con respecto al coste de la suma de enteros de 32 bits.\\
+En la tabla [\ref{tab:float64}] se muestran los resultados de realizar operaciones matemáticas con números en coma flotante de 64 bits. En la columna de resultados relativos, se compara el coste de las operaciones respecto al coste de la suma de enteros de 32 bits.\\
 
 \begin{table}[h]
 \centering
@@ -211,7 +211,7 @@ En la tabla [\ref{tab:float64}] se muestran los resultados de realizar operacion
 \label{tab:float64}
 \end{table}
 
-En la tabla [\ref{tab:functions}] se muestran los resultados de llamar a una función vacía, una función de generación de números aleatorios, una función de coseno, una función de arco coseno, una función de raíz cuadrada y una función de raíz cúbica. En la columna de resultados relativos, se compara el coste de las funciones con respecto al coste de la suma de enteros de 32 bits.\\
+En la tabla [\ref{tab:functions}] se muestran los resultados de llamar a una función vacía, una función de generación de números aleatorios, una función de coseno, una función de arco coseno, una función de raíz cuadrada y una función de raíz cúbica. En la columna de resultados relativos, se compara el coste de las funciones respecto al coste de la suma de enteros de 32 bits.\\
 
 \begin{table}[h]
 \centering
@@ -274,7 +274,7 @@ A partir de los resultados obtenidos, se pueden extraer las siguientes conclusio
 	\item \textbf{Las operaciones en coma flotante tienen un coste pequeño}: un mito muy extendido es que las operaciones en coma flotante son muy costosas. Como podemos ver en las tablas [\ref{tab:float32}] y [\ref{tab:float64}], este no tiene por qué ser el caso, ya que todas las operaciones en coma flotante para sistemas de 64 bits resultan entre un 20\% y 40\% más rápidas que la suma de dos enteros. Este no es un mito sin fundamento, no obstante, ya que si observamos el coste de estas operaciones para sistemas de 32 bits, es muy distinto. Por tanto, nuevamente, la respuesta está condicionada por los detalles de implementación y el set de instrucciones utilizado. Si nuestra máquina no es capaz de ejecutar instrucciones SIMD, entonces es probable que las operaciones en coma flotante tengan un coste elevado.
 	\item \textbf{Toda llamada a una función matemática tiene un coste elevado}: nuevamente, el coste de ejecución depende de muchas variables, principalmente de los detalles de implementación, pero como podemos ver en la tabla [\ref{tab:functions}], mientras que el coste de llamar a una función vacía es equiparable al coste de realizar una suma, algunas funciones pueden llegar a tener un coste más de 50 veces superior. Esto es un claro indicador para nuestro sistema de que realizar operaciones matemáticas complejas tiene un alto coste, y por tanto, hay también espacio para optimización, sustituyendo las funciones matemáticas dadas por otras propias, sacrificando así precisión por velocidad.
 	\item \textbf{La memoria debe ser accedida de la forma más lineal posible}: acceder a memoria no es gratis. Cuando la CPU accede a memoria, carga en una caché una porción de memoria, de forma que pueda acceder a la misma de forma rápida y (casi) directa. Cuando solicitamos un recurso de memoria a la CPU, si accedemos de forma lineal, iremos accediendo continuamente a la caché de la CPU, y será en el momento en el que hayamos recorrido toda la caché cuando se producirá un fallo de caché y entonces la CPU solicitará una nueva porción de memoria, que guardará en su caché. Cuando se produce un fallo de caché, la CPU tiene que cargar nuevos datos en la caché antes de poder acceder a ellos, y este proceso lleva tiempo. Si accedemos a la memoria de forma lineal, minimizamos los fallos de caché, pues sólo se producirá uno cuando hayamos operado sobre toda la memoria que hay en caché. Sin embargo, si accedemos a memoria de forma totalmente aleatoria o inconexa, se producirá un fallo de caché por acceso a memoria, lo que ocasionará tener que cargar cada vez un bloque de memoria completo para realizar una operación únicamente sobre unos pocos bytes de la caché. Tener en cuenta por tanto, que el acceso sea lo más lineal posible, es muy importante, como podemos ver en la tabla [\ref{tab:alignment}], donde podemos ver como los accesos a memoria saltando de 100 en 100 elementos son un 150\% más lentos que accediendo a esos mismos elementos de forma lineal.
-	\item \textbf{El uso de punteros no es gratuito, la indirección tiene coste}: en la tabla [\ref{tab:alignment}] podemos ver, de forma bastante consistente en apariencia, como el acceso indirecto a memoria es un 30\% más lento. En otras palabras, el uso de variables mediante punteros es un 30\% más lento que el uso de variables mediante valor. Esto tiene sentido, pues al acceder mediante un puntero se ejecuta una instrucción extra, una dereferencia. En otras palabras, mientras que para acceder a una variable de forma normal tan sólo tenemos que obtener el valor que se encuentra en la dirección de memoria de la variable, para acceder a una valor a través de un puntero debemos acceder a una variable que contiene el valor de la dirección de memoria a la que debemos acceder para obtener el valor que queremos. Es por tanto una doble referencia, por tanto una instrucción extra y por tanto, un coste añadido.
+	\item \textbf{El uso de punteros no es gratuito, la indirección tiene coste}: en la tabla [\ref{tab:alignment}] podemos ver, de forma bastante consistente en apariencia, como el acceso indirecto a memoria es un 30\% más lento. En otras palabras, el uso de variables mediante punteros es un 30\% más lento que el uso de variables mediante valor. Esto tiene sentido, pues al acceder mediante un puntero se ejecuta una instrucción extra, una dereferencia. En otras palabras, mientras que para acceder a una variable de forma normal tan sólo tenemos que obtener el valor que se encuentra en la dirección de memoria de la variable, para acceder a un valor a través de un puntero debemos acceder a una variable que contiene el valor de la dirección de memoria a la que debemos acceder para obtener el valor que queremos. Es por tanto una doble referencia, por tanto una instrucción extra y por tanto, un coste añadido.
 \end{itemize}
 
 \section{Conclusiones}
@@ -312,7 +312,7 @@ En absoluto. Pero hace los resultados subjetivos. En otras palabras, los resulta
 	\item \textbf{Distintos compiladores}: ejecutar un mismo set de tests en distintos compiladores y bajo distintas opciones de optimización (en modo depuración, sin optimizaciones y con un nivel de optimización, como mínimo).
 	\item \textbf{Distintos sistemas operativos}: ejecutar un mismo set de tests bajo los principales sistemas operativos y en diversas versiones o distribuciones de los mismos.
 	\item \textbf{Distintas arquitecturas}: ejecutar los tests bajo distintas arquitecturas de procesador (x86, x64). Actualmente los tests se han compilado para dos arquitecturas distintas en Windows, pero ejecutado bajo la misma.
-	\item \textbf{Usar parámetros de medición cuantificables, independientes del sistema operativo}: el tiempo de ejecución, como ya hemos visto, depende en gran medida del sistema operativo y de su sistema de tareas, basarse en otras medidas cuantificables y que sean independientes del sistema, como por ejemplo cantidad de instrucciones, pueden ayudar a obtener resultados más fácilmente cuantificables o extrapolables.
+	\item \textbf{Usar parámetros de medición cuantificables, independientes del sistema operativo}: el tiempo de ejecución, como ya hemos visto, depende en gran medida del sistema operativo y de su sistema de tareas. Basarse en otras medidas cuantificables y que sean independientes del sistema, como por ejemplo cantidad de instrucciones, pueden ayudar a obtener resultados más fácilmente cuantificables o extrapolables.
 \end{itemize} 
 
 Con todo lo dicho, llevar a cabo todas estas mediciones en si mismas puede conformar un estudio completo, ya no hablemos de la complejidad de crear un sistema capaz de llevar a cabo todas estas mediciones.\\
