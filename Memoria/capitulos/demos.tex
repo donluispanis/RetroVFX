@@ -327,7 +327,7 @@ Lo primero que hacemos es recorrer todos los círculos que conforman el túnel y
 
 Tras haber borrado la pantalla, llamamos a la función [\ref{cod:populatecirclequeue}], que puede añadir o eliminar círculos del túnel si se cumplen las condiciones necesarias.\\
 
-A continuación, actualizamos (línea [\ref{line:updatecircle}]) y redibujamos todos los círculos en pantalla. Actualmente, la actualización de un píxel es un proceso muy sencillo que consiste simplemente en ir aumentando el radio de cada círculo a lo largo del tiempo, en función de su radio anterior y una velocidad ajustable por el usuario (\lstinline{c.radius += c.radius * deltaTime * radiusVelocity;}).\{\\
+A continuación, actualizamos (línea [\ref{line:updatecircle}]) y redibujamos todos los círculos en pantalla. Actualmente, la actualización de un píxel es un proceso muy sencillo que consiste simplemente en ir aumentando el radio de cada círculo a lo largo del tiempo, en función de su radio anterior y una velocidad ajustable por el usuario (\lstinline{c.radius += c.radius * deltaTime * radiusVelocity;}).\\
 
 El resultado de todo lo aplicado hasta ahora se puede ver en la figura [\ref{fig:basicdottunnel}].\\
 
@@ -450,7 +450,7 @@ Una vez tenemos nuestro efecto de túnel acabado, llega el momento de iterar sob
 	
 	De este modo, tan solo tenemos que multiplicar el valor de la opacidad por el color del círculo para conseguir nuestros fundidos de entrada y de salida, suavizando así la creación y eliminación de los círculos.
 	
-	\item \textbf{Rotación}: actualmente todos los círculos tienen la misma fase inicial (0), de modo que están alineados. Modificando la fase inicial para que se incremente en función del valor del tiempo de vida del círculo, en la función \lstinline{UpdateCircle()}\{, conseguimos que los círculos dejen de estar alineados y tengan una rotación propia, lo que da un cierto efecto de succión o de torbellino al túnel, lo que favorece el resultado visual.
+	\item \textbf{Rotación}: actualmente todos los círculos tienen la misma fase inicial (0), de modo que están alineados. Modificando la fase inicial para que se incremente en función del valor del tiempo de vida del círculo, en la función \lstinline{UpdateCircle()}, conseguimos que los círculos dejen de estar alineados y tengan una rotación propia, lo que da un cierto efecto de succión o de torbellino al túnel, lo que favorece el resultado visual.
 	
 	\item \textbf{Control por parte del usuario}: podemos hacer que el túnel sea modificable por el usuario haciendo simplemente que varias variables que ya tenemos se vean alteradas por determinadas entradas de teclado, por ejemplo:
 	
@@ -588,9 +588,9 @@ Estas son las consideraciones que tendremos en cuenta para nuestra carga de imá
 	\label{fig:bmpuml}
 \end{figure}
 
-Como podemos ver en la figura [\ref{fig:bmpuml}], nos ayudaremos de una clase a la que hemos llamado \emph{FileLoader} a la que simplemente pasaremos una cadena de texto con la ubicación de la imagen que queremos abrir y nos devolverá una copia del fichero (como una cadena de bytes \lstinline{unsigned char *}\{) y el tamaño en bytes del mismo. Para realizar estas operaciones, nos ayudamos de la librería \emph{fstream} de la \emph{standard library}.\\
+Como podemos ver en la figura [\ref{fig:bmpuml}], nos ayudaremos de una clase a la que hemos llamado \emph{FileLoader} a la que simplemente pasaremos una cadena de texto con la ubicación de la imagen que queremos abrir y nos devolverá una copia del fichero (como una cadena de bytes \lstinline{unsigned char *}) y el tamaño en bytes del mismo. Para realizar estas operaciones, nos ayudamos de la librería \emph{fstream} de la \emph{standard library}.\\
 
-Nuestra clase principal, \emph{BMP} [\ref{fig:bmpuml}], convertirá la cadena de bytes (\lstinline{unsigned char *}\{) que recibe del \emph{FileLoader} en una cadena de píxeles (\lstinline{Pixel *}\{) usable por nuestras demos.\\
+Nuestra clase principal, \emph{BMP} [\ref{fig:bmpuml}], convertirá la cadena de bytes (\lstinline{unsigned char *}) que recibe del \emph{FileLoader} en una cadena de píxeles (\lstinline{Pixel *}) usable por nuestras demos.\\
 
 \begin{lstlisting}[style=C-color, caption={Código para cargar una imagen BMP en nuestro sistema}, label=cod:openrgbimage, escapechar=|]
 void BMP::OpenRGBImage(const char *path, Pixel *&image, int &width, int &height)
@@ -788,7 +788,7 @@ Como podemos ver, ahora usamos tablas precalculadas desde el principio, pues ya 
 
 Como podemos ver en el código [\ref{cod:xmodifiers}], tenemos un último método al que hemos llamado \emph{FlagModifier}. Esta función ha sido nombrada por el resultado visual que produce, en lugar de haberse elegido su nombre por el tipo de onda que es. Usamos como modificador una onda transversal con una amplitud grande y una longitud de onda también grande (\emph{k} se omite, por lo que \(k = 1\), lo que implica que \(\lambda = 2 \pi\)). Esto produce, al aplicarse sobre la imagen, un efecto similar a una bandera ondeando, de ahí el nombre.\\
 
-Una vez hemos definido nuestras funciones de deformación para \emph{x} e \emph{y}, y habiendo ajustado sus valores, podemos combinarlas y usarlas libremente para crear distintos efectos visuales. Para ello, definimos un vector de pares de modificadores (\lstinline{std::vector<std::pair<delegate, delegate>>}\{. Aunque esta expresión parece algo compleja, en realidad su uso es muy sencillo: al tener un vector de pares de modificadores, podemos añadir fácilmente pares de modificadores y alternarlos. De este modo, podemos aplicar modificadores para \emph{x} e \emph{y} y cambiarlos con facilidad en tiempo de ejecución, aplicando simplemente el siguiente par en el vector.\\
+Una vez hemos definido nuestras funciones de deformación para \emph{x} e \emph{y}, y habiendo ajustado sus valores, podemos combinarlas y usarlas libremente para crear distintos efectos visuales. Para ello, definimos un vector de pares de modificadores (\lstinline{std::vector<std::pair<delegate, delegate>>}. Aunque esta expresión parece algo compleja, en realidad su uso es muy sencillo: al tener un vector de pares de modificadores, podemos añadir fácilmente pares de modificadores y alternarlos. De este modo, podemos aplicar modificadores para \emph{x} e \emph{y} y cambiarlos con facilidad en tiempo de ejecución, aplicando simplemente el siguiente par en el vector.\\
 
 \subsection{Resultado}
 
@@ -1029,7 +1029,7 @@ Tras el escalado, rotamos nuestra textura en función de un ángulo que se corre
 
 Con esto, obtenemos una escena que produce la sensación de planos infinitos y por la que nos podemos mover como si se tratase de un videojuego en primera persona (pues podemos modificar la rotación, escala y traslación, que en nuestra escena es el equivalente a mover la cámara).\\
 
-Podemos ver además que para esta demo hemos creado una estructura a la que hemos denomidado \lstinline{Pixel2D}\{. Esta es una estructura sencilla que simplemente nos permite almacenar dos coordenadas en coma flotante con precisión simple (\emph{x} e \emph{y}) y nos da facilidades para operar con las mismas (suma y resta de puntos, multiplicación por un escalar...).
+Podemos ver además que para esta demo hemos creado una estructura a la que hemos denomidado \lstinline{Pixel2D}. Esta es una estructura sencilla que simplemente nos permite almacenar dos coordenadas en coma flotante con precisión simple (\emph{x} e \emph{y}) y nos da facilidades para operar con las mismas (suma y resta de puntos, multiplicación por un escalar...).
 
 \subsection{Refinamiento}
 

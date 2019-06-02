@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  2 JUN 2019 18:21
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.6960 64-bit) (preloaded format=xelatex 2019.3.4)  2 JUN 2019 22:01
 entering extended mode
 **./TFG-TFM_EPS_UA.tex
 (TFG-TFM_EPS_UA.tex
@@ -3464,12 +3464,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
-[45]
+
 Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
 
-
+[45]
 Underfull \hbox (badness 10000) in paragraph at lines 188--189
 
  []
@@ -3491,7 +3491,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 225--226
 
  []
 
-[46]
+
+Underfull \vbox (badness 3219) has occurred while \output is active []
+
+ [46]
 Underfull \hbox (badness 10000) in paragraph at lines 227--228
 
  []
@@ -5002,9 +5005,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 588--589
  []
 
 
-LaTeX Warning: Reference `heaven' on page 126 undefined on input line 590.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 590--591
 
  []
@@ -5146,16 +5146,12 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 146.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 146.
 Package rerunfilecheck Info: File `TFG-TFM_EPS_UA.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 65606 strings out of 427748
- 1466415 string characters out of 3147201
- 2209919 words of memory out of 3000000
- 68454 multiletter control sequences out of 15000+200000
+ 65605 strings out of 427748
+ 1466407 string characters out of 3147201
+ 2209861 words of memory out of 3000000
+ 68453 multiletter control sequences out of 15000+200000
  550493 words of font info for 132 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  80i,21n,136p,9192b,2028s stack positions out of 5000i,500n,10000p,200000b,50000s
