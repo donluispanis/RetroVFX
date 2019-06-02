@@ -509,7 +509,7 @@ El efecto además usa tablas precalculadas para evitar tener que realizar costos
 	\label{fig:finaltunnel}
 \end{figure}
 
-\section{RotoZoom}
+\section{RotoZoom} \label{sec:rotozoom}
 
 \subsection{Investigación inicial}
 
@@ -694,7 +694,7 @@ De este modo, las transformaciones que aplicamos sobre nuestros píxeles tendrá
 	\caption{RotoZoom en distintos estados}
 \end{figure}
 
-\section{Deformaciones de imagen}
+\section{Deformaciones de imagen} \label{sec:deformaciones}
 
 \subsection{Investigación inicial}
 
@@ -704,7 +704,7 @@ Sólo implementar todas las diferentes propuestas y efectos de deformaciones de 
 
 Es por ello que para las deformaciones de imagen, nos centraremos en las deformaciones de onda, pues muchos de los efectos que podemos encontrar en demos parten de estas mismas bases matemáticas.\\
 
-\subsection{Planteamiento formal} \label{sec:deformaciones}
+\subsection{Planteamiento formal}
 
 En la figura [\ref{fig:wavefunction}] podemos ver la ecuación de la onda, donde \(A\) es la amplitud de la onda, lo que en nuestro efecto se traducirá en la altura máxima y mínima de nuestra onda, en píxeles. \(f\) se corresponde con la frecuencia de la onda (cuántas veces por segundo se completa un ciclo de onda), \(\lambda\) es la longitud de onda (distancia entre dos crestas consecutivas de la onda), \(t\) es el tiempo transcurrido y \(\phi\) es la fase inicial (o desplazamiento inicial con respecto al origen).\\
 
@@ -836,7 +836,7 @@ Podemos apreciar los resultados de aplicar y combinar las distintas deformacione
 	\label{fig:alldeformations}
 \end{figure}
 
-\section{Plasma}
+\section{Plasma} \label{sec:plasma}
 
 \subsection{Investigación inicial}
 
@@ -931,7 +931,7 @@ Ahora tan sólo nos queda añadir la capacidad de cambiar de degradado de color,
 	\end{subfigure}
 \end{figure}
 
-\section{Planos infinitos}
+\section{Planos infinitos} \label{sec:planes}
 
 \subsection{Investigación inicial}
 
@@ -1053,8 +1053,7 @@ pixels[(j - textureDesplacement + nh) * width + (i + nw)] = colour;
 	\label{fig:planes3}
 \end{figure}
 
-\section{Geometría}
-
+\section{Geometría} \label{sec:geometry}
 
 \subsection{Investigación inicial}
 

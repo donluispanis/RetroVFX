@@ -339,6 +339,217 @@ Como podemos ver, el sonido que generamos es la combinación de una onda de dien
 
 Usamos esta función delegada en combinación con una envolvente con un ataque lento para generar un sonido de intensidad creciente mientras que el texto aumenta de tamaño en pantalla. El sonido se estabiliza y desvanece conforme el texto desaparece.\\
 
-Con esto, ya tenemos una introducción digna para nuestra demo, tanto a nivel visual como sonoro.\\
+Con esto, ya tenemos una introducción digna para nuestra demo, tanto a nivel visual como sonoro. Llega el momento de seguir, y entrar ya en el cuerpo de la demo. La forma de proceder me pareció clara, ya que en el proceso de creación de la intro, una idea arraigó fuertemente en mi cabeza.\\
+
+Hemos estado hablando y tratando recientemente con ondas, especialmente a nivel sonoro, aunque también las hemos usado para generar efectos de deformación de imagen [\ref{sec:deformaciones}]. Además, hemos explicado la importancia de la generación de ruido, y cómo se puede usar un ruido filtrado, con un filtro de pasa baja, para generar sonido ambiente, como por ejemplo el del agua. Y es esto lo que me parece especialmente interesante, el agua en movimiento forma ondas, y a su vez, produce ondas sonoras. Usando el efecto de geometría [\ref{sec:geometry}], parecía bastante factible la posibilidad de generar una malla de puntos interconectados y actualizarla periódicamente de modo que ondulase. Con un par de retoques extra y efectos de sonido, se podría obtener un resultado de lo más satisfactorio.\\
+
+Para ello, lo primero que tenemos que hacer es, como ya hemos comentado, crear un objeto 3D [\ref{fig:pointandobject}] que contenga una malla de puntos. Esto es, generar un rejilla de puntos, con dos simples bucles encadenados, e interconectar los puntos entre ellos. Para generar índices, lo que hacemos es unir cada punto con el punto a su derecha y el punto bajo él, como podemos ver en la figura [\ref{fig:grid}]. De este modo, creamos una malla de puntos de forma sencilla.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=6cm]{archivos/grid}
+	\caption{Generación de una malla de vértices}
+	\label{fig:grid}
+\end{figure}
+
+Una vez tenemos nuestra malla de puntos creada y la posicionamos en escena, llega el momento de animarla, de modo que tenga un movimiento ondulatorio. Para ello, implementamos el código que podemos ver en [\ref{cod:applyWaveTransformation}].\\
+
+\begin{lstlisting}[style=C-color, caption={Aplicación de una deformación de onda a nuestra malla de puntos},label=cod:applyWaveTransformation, escapechar=|]
+void Imp_Geometry::ApplyWaveTransformation(Object3D &object, float amplitude, float wavelength)
+{
+    grid.colours.clear();
+    for (float j = 0; j < vertexPerDepth; j++)
+    {
+    
+        float wave = sin((j + phase) / wavelength);
+    
+        for (float i = 0; i < vertexPerWidth; i++)
+        {
+            grid.points[j * vertexPerWidth + i].Y += amplitude * wave;
+            
+            grid.colours.push_back((Pixel(0, 0, 125) + Pixel(255, 255, 125) * (1 - (wave + 1) * 0.5f))); |\label{line:colouring}|
+        }
+    }
+}
+\end{lstlisting}
+
+Como vemos, todo lo que hacemos es modificar la altura de cada vértice en función de una onda sinusoidal que depende de la posición en la que nos encontramos y la fase, que se incrementa en función del tiempo. Además, también cambiamos el valor del color de cada vértice en función de la onda. Esto es algo que no podíamos hacer previamente, pues en la demo de geometría [\ref{sec:geometry}], definíamos un solo color para todo el objeto. Ahora, nuestro objeto tiene la posibilidad de tener un color por vértice, y añadimos en la función del motor gráfico para dibujar un línea la posibilidad de definir un color inicial y un color final. Si proveemos esta información, entonces la función hace una simple interpolación lineal en la que el color de la línea cambia con su avance.\\
+
+Por tanto, en la línea [\ref{line:colouring}], lo que hacemos es definir un color base de valor (0, 0, 125), que se corresponde con azul oscuro y sumarle un valor (255, 255, 255) que se corresponde con blanco, de modo que cuando la onda se encuentre en su amplitud mínima (-1), el vértice se dibuje de color azul y cuando la onda se encuentre en su amplitud máxima (+1) el vértice se dibuje de color blanco.\\
+
+Esta nueva posibilidad de coloración refuerza la sensación de estar observando un "mar digital". Podemos ver el resultado en la figura [\ref{fig:digitalsea}]. Como observamos, los vértices situados en la "cresta de la ola" son de color blanco, mientras que los situados en su parte más baja, son de color azul oscuro. El color se interpola a lo largo de las líneas y la malla se muestra completamente ondulada.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{archivos/digitalsea}
+	\caption{La malla de vértices ondulada y coloreada}
+	\label{fig:digitalsea}
+\end{figure}
+
+Ahora, llega el momento de añadir un sonido que recuerde al mar. Esto lo hacemos con el código [\ref{cod:seawavesound}]. Realmente, todo lo que estamos haciendo aquí es devolver un ruido filtrado en pasa baja cuya amplitud o volumen es modulada por la frecuencia que pasamos a la función delegada. De este modo, si definimos una frecuencia de 0.5, por ejemplo, entonces se escuchará como una ola "aparece y desaparece" cada 2 segundos. Todo lo que queda hacer es que el sonido se genere de la forma más coordinada posible con respecto al movimiento de las olas para conseguir un resultado de lo más completo.\\
+
+\begin{lstlisting}[style=C-color, caption={Generación de un sonido de olas},label=cod:seawavesound, escapechar=|]
+float Sounds::CreateSeaWavesSound(float frequency, long int currentCount)
+{
+    return GetLowPassNoiseValue(0.1f) *
+               GetSineWaveValue(frequency, currentCount) * 0.9 +
+           GetLowPassNoiseValue(0.1f) * 0.1;
+}
+\end{lstlisting}
+
+Una vez llegados a este punto, no obstante, tenía claro que aún no había llegado el momento de abandonar la geometría. Es una lástima, teniendo un efecto tan potente, no explotarlo un poco más. La primera idea que visualicé fue el mar digital que había creado descomponiéndose en cubos individuales. No obstante, si bien esta idea me fascinaba, también planteaba muchos inconvenientes, dada la complejidad que suponía convertir un solo objeto 3D en múltiples instancias separadas pero interconectadas y con su propio ciclo de vida y animación. Parecía una idea excesivamente ambiciosa y arriesgada, y teniendo en cuenta la posibilidad de que el resultado final acabase distando de aquel que tenía en mente, decidí optar por otras opciones.\\
+
+La siguiente idea que se me ocurrió me fascinó del mismo modo que la anterior, y sin embargo, tras reflexionar sobre la misma, parecía bastante más factible: hacer que nuestro mar de puntos se transformase en una esfera perfecta.\\
+
+Una de las formas en las que podemos generar una esfera en el espacio 3D es mediante el uso de \emph{anillos}. Esto consiste, básicamente, en generar una esfera a partir de circunferencias. En la imagen [\ref{fig:sphere}] podemos ver un ejemplo de una esfera formada por anillos interconectados.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/sphere}
+	\caption{Esfera formada por anillos}
+	\label{fig:sphere}
+\end{figure}
+
+Tras un tiempo de desarrollo, conseguí establecer una conexión entre los puntos de la malla que habíamos generado y los puntos que forman una esfera. Podemos ver el resultado visual en la figura [\ref{fig:planeToSphere}]. Como podemos observar en la malla de este ejemplo, tenemos 7 grupos de color. Cada uno de estos grupos se correspondería con un anillo de la esfera. De este modo, los 4 vértices centrales, de color rojo, se corresponderían con el punto inferior de la esfera y los cuatro vértices de los extremos, en color naranja, convergerían en el punto superior de la esfera. Todos los vértices intermedios convergerían en distintos anillos, correspondiéndose, en el ejemplo, el color magenta con el anillo central de la esfera. Los colores azul claro y azul oscuro se corresponderían con el anillo inmediatamente superior e inferior al anillo central y sí sucesivamente.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/planeToSphere}
+	\caption{Relación entre una malla de puntos y una esfera}
+	\label{fig:planeToSphere}
+\end{figure}
+
+A continuación se adjunta el código que realiza esta asociación entre puntos de la malla y puntos de la esfera [\ref{cod:planeToSphere}]. Es bastante denso y requiere de una explicación detallada, teniendo en mente y como referencia las figuras [\ref{fig:sphere}] y [\ref{fig:planeToSphere}].\\
+
+\begin{lstlisting}[style=C-color, caption={Método que establece una relación entre los vértices de un plano y una esfera},label=cod:planeToSphere, escapechar=[]
+Point3D Imp_Geometry::GetPointInSphereFromPlane(const int posX, const int posY, const int gridSize, const float radius)
+{
+    const int halfGrid = gridSize / 2;
+
+    const int firstQuarterPosX = (posX < gridSize / 2) ? posX : gridSize - posX - 1; [\label{line:quarterX}[
+    const int firstQuarterPosY = (posY < gridSize / 2) ? posY : gridSize - posY - 1; [\label{line:quarterY}[
+
+    const int ring = gridSize - 1 - firstQuarterPosX - firstQuarterPosY; //The numbers of rings goes from 1 to gridSize - 1 [\label{line:ring}[
+    const float radiusSign = (ring < halfGrid) ? -1.f : 1.f;
+
+    //top && bottom
+    if (ring == 1 || ring == gridSize - 1)
+    {
+        return Point3D(0.f, radius * radiusSign, 0.f);
+    }
+    //middle ones
+    else [\label{line:middlerings}[
+    {
+        const int positiveRing = (ring < halfGrid) ? ring : gridSize - ring;
+        const float perRingHeight = radius / float(halfGrid - 1);[\label{line:perRingHeight}[
+        float height = perRingHeight * (halfGrid - positiveRing) * radiusSign; [\label{line:height}[
+
+        const float sine = height / radius;
+        const float circleRadius = radius * sqrt(1 - sine * sine); //circleRadius = radius * cos()
+
+        const float quarterCircle = Fast::PI / 2.f;
+
+        float quadrant = CalculateQuadrant(posX, posY, halfGrid); [\label{line:quadrant}[
+
+        const int positiveFirstQuarterPosX = (ring <= halfGrid) ? firstQuarterPosX - (halfGrid - ring) : firstQuarterPosX;
+        const float angle = ((positiveFirstQuarterPosX + 1) / float(positiveRing)) * quarterCircle + quadrant;
+
+        Point3D p = Point3D(circleRadius * cos(angle), height, circleRadius * sin(angle));
+        return p;
+    }
+}
+\end{lstlisting}
+
+Empezamos estableciendo la siguiente relación: la cantidad de anillos de una esfera generada a partir de una malla es igual a la cantidad de vértices que forman la malla en una sola línea menos uno. En otras palabras, si tenemos una malla de 8x8, como la de la figura [\ref{fig:planeToSphere}], entonces la esfera resultante tendrá 7 anillos, dos de los cuales se corresponderán con el punto superiro e inferior de la esfera.\\
+
+Además, para facilitar los cálculos, trasladamos cualquier punto de la malla al primer cuadrante de la misma, como vemos en las líneas [\ref{line:quarterX}] y [\ref{line:quarterY}]. De este modo, de cara a los cálculos, empezando en cero, los puntos (1, 6), (6, 6) y (6, 1) se asociarán al punto (1, 1) del primer cuadrante en la malla [\ref{fig:planeToSphere}]. De este modo, podemos tratar todos los puntos como si estuvieran en el mismo cuadrante, simplificando así nuestra tarea.\\
+
+Una vez calculado esto, hallamos el número de anillo en el que nos hallamos, valor que va de 1 a el tamaño de una línea de la malla menos 1, en nuestro ejemplo, de 1 a 7. Podemos ver este cálculo en la línea [\ref{line:ring}]. Como podemos ver, el anillo en que nos encontramos en la esfera se corresponde con el número de anillos menos la posición \emph{x} e \emph{y} que ocupamos en la malla (una vez trasladados al primer cuadrante). De este modo, ponemos de ejemplo el punto (7,6) que se corresponde con el punto (0,1) del primer cuadrante. Por tanto, hacemos el cálculo (\(anillos - 0 - 1\)) y obtenemos que nos hallamos en el anillo 6. Siendo el color rojo el primer anillo y el color naranja el último (7), vemos que efectivamente el color amarillo se corresponde con el anillo 6.\\
+
+Una vez sabemos en qué anillo se encuentra nuestro punto, calculamos también su signo. Esto es, cualquier anillo por encima del anillo central tendrá un signo positivo y cualquier anillo por debajo, un signo negativo. Hacemos esto porque para formar nuestra esfera, la situamos en el origen de coordenadas, por lo que sabemos que el anillo central se situará en el plano \emph{y = 0}, y cualquier anillo que no sea el central tendrá una altura positiva o negativa, por lo que necesitaremos hallar su signo.\\
+
+Con esto hecho, comprobamos si nuestro punto se encuentra en el primer o último anillo y de ser así, lo situamos en el origen y especificamos su altura, que será el radio positivo o negativo de la esfera, dependiendo del anillo.\\
+
+Si nuestro anillo a calcular es uno de los centrales, el cáculo se vuelve, sin embargo, algo más complejo, como podemos ver a partir de la línea [\ref{line:middlerings}]. Empezamos por calcular el valor absoluto del anillo en el que nos encontramos. De este modo, el anillo 2 y 6 son equivalentes, y el 3 y el 5 también, ya que realmente se trata del mismo anillo pero con alturas opuestas. Además, calculamos la altura a la que se situará nuestro anillo en la esfera. Para ello, empezamos por calcular la distancia que hay entre dos anillos, como vemos en la línea [\ref{line:perRingHeight}], que se corresponde con el radio divido por la mitad del tamaño de la malla menos uno. De este modo, si tenemos una esfera con 8 vértices por línea y radio 90, la mitad de su tamaño menos 1 será 3 y por tanto el tamaño de cada incremento será de 30 unidades. Como vemos, esto concuerda con nuestro modelo, pues en nuestra esfera de siete anillos, con el anillo central situado en el origen, tenemos tres anillos por encima y tres anillos por debajo del central. Si vamos en incrementos de 30 en 30 unidades, entonces nuestro anillo superior e inferior se corresponderán con el radio definido, como debería ser.\\
+
+A continuación, pasamos a calcular la altura a la que se encuentra nuestro anillo, como vemos en [\ref{line:height}]. Esta altura se corresponde con el valor positivo del anillo en el que nos encontramos restado a la mitad del anillo por el incremento por anillo por el signo. De este modo, si tenemos un punto que pertenece al anillo 6, este se corresponderá con el anillo 2. El anillo central en este ejemplo es el 4º, por lo que, \(4 - 2 = 2\), el signo será positivo, pues el anillo 6 se encuentra en la parte positiva de la esfera y el incremento será 30, por lo que el anillo 6 se situará a una altura de \(2 * 30 = 60\).\\
+
+Una vez sabemos la altura a la que se sitúa nuestro anillo, llega el momento de emplear un poco de trigonometría para hallar el radio del anillo a la altura calculada. Usaremos como referencia la figura [\ref{fig:sphereTrigo}].\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/sphereTrigo}
+	\caption{Hallar \emph{r} a partir de \emph{R} y \emph{h}}
+	\label{fig:sphereTrigo}
+\end{figure}
+
+Conocemos el valor del cateto que se corresponde con la altura \emph{h}, a la que se sitúa nuestro anillo, y la hipotenusa que se corresponde con el radio \emph{R} de nuestra esfera, y debemos hallar el radio \emph{r} de nuestro anillo. Para ello, calculamos \(\frac{R}{h}\) para hallar el valor del seno del cateto opuesto. Sin embargo, para poder calcular \emph{r} necesitamos el valor del coseno. Por suerte, hay una fórmula matemática que nos resuelve este problema, pues el valor del coseno de un ángulo es equivalente a la raíz cuadrada de 1 menos el valor cuadrado del seno del ángulo, es decir \(\cos(\alpha) = \sqrt{1 - \sin(\alpha)^2}\). De este modo, hemos hallado el valor del coseno entre \emph{r} y \emph{R}, por lo que basta con multiplicar \emph{R} por el valor obtenido para hallar el radio \emph{r} de nuestro anillo.\\
+
+Tras ello, en la línea [\ref{line:quadrant}], invocamos una función que nos devuelve, dependiendo del cuadrante en el que nos situemos, un ángulo distinto. Así pues, el primer cuadrante empezará en 0, el segundo en \(\frac{\pi}{2}\), el tercero en \(\pi\) y el cuarto en \(\frac{3\pi}{2}\). Así, una vez teniendo este ángulo como base, calculamos la posición en el anillo en que se encuentra nuestro punto, que se corresponderá a la posición relativa del punto en el anillo para el primer cuadrante más el valor del ángulo para el cuadrante en el que nos encontramos. Para hallar la posición relativa de nuestro punto en la circunferencia, lo que hacemos es tomar el valor de la \emph{x} en el primer cuadrante. Si nos fijamos, el primer anillo de la circunferencia tendrá 1 vértice por cuadrante, el segundo, 2, el tercero, 3 y así sucesivamente. Así pues, sabiendo el anillo en el que nos encontramos y el desplazamiento en \emph{x}, podemos hallar el ángulo que corresponde al punto. Por ejemplo, un punto situado en (1, 1) está en el 5 anillo, que se corresponde con el tercero. Por tanto, sabemos que el punto (1, 1) tendrá tres vértices en el primer cuadrante. Como estamos en el vértice 1, empezando por 0, de los tres vértices que tiene el tercer anillo por cuadrante, estamos pues a \(\frac{2}{3}\) de progreso en el cuadrante, por lo que multiplicamos este valor por el valor de un cuadrante (\(\frac{\pi}{2}\)) y le sumamos el desplazamiento calculado en función del cuadrante en que nos hallamos para saber con qué ángulo de la circunferencia se corresponde nuestro vértice.\\
+
+Tras todo este largo proceso, calculamos y almacenamos el valor del punto y creamos una función que nos permita interpolar entra la posición de los puntos en el plano y la posición de los vértices equivalentes en la esfera. En la imagen [\ref{fig:finalSphere}] podemos ver el resultado final. El resultado que se incluye en la demo es un poco distinto al que se muestra en esta figura, ya que se ha iterado y refinado para darle un toque más interesante.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{archivos/finalSphere}
+	\caption{Esfera a partir del plano}
+	\label{fig:finalSphere}
+\end{figure}
+
+Tras ello, pasamos a jugar un poco con el resultado obtenido, refinándolo, animando el tamaño y fase de la esfera y añadiendo música que suene acorde. Llegamos incluso a dejar de dibujar la esfera línea a línea para dibujarla como un mar de puntos, lo cual genera un efecto visualmente atractivo.\\
+
+Una vez tenemos esto hecho, podemos decir que hemos dedicado suficiente tiempo al efecto de geometría, y llega el momento de pasar a implementar otros efectos. En cuestión, de los efectos que nos quedan por implementar, hay varios que son similares entre ellos, pues todo lo que hacen es operar sobre una textura. Estos son el efecto de plasma [\ref{sec:plasma}], el efecto de RotoZoom [\ref{sec:rotozoom}] y el efecto de deformaciones [\ref{sec:deformaciones}]. ¿Y si los combinamos todos en uno? Podríamos crear una textura de plasma animada a la que aplicamos una deformación y rotamos y escalamos al estilo del más clásico RotoZoom.\\
+
+Aplicar este efecto es muy sencillo, y sin embargo, el resultado visual es de lo más satisfactorio. Empezamos por escribir en una textura la frase "\emph{did you ask for plasma?}", en español, "¿has pedido plasma?". Dibujamos esta textura inicialmente en blanco, sobre fondo negro, y la hacemos aparecer con un \emph{zoom in} consistente en un escalado básico.\\
+
+A continuación, pintamos nuestro plasma sobre la textura, pero de forma selectiva: coloreamos con el valor correspondiente sólo aquellos píxeles que son blancos, de forma que el texto se colorea con el efecto de plasma pero el fondo sigue siendo negro.\\
+
+Una vez hecho esto, aplicamos el efecto de deformación de bandera que ya vimos en el apartado de deformaciones [\ref{sec:deformaciones}], de modo que nuestro texto empieza a ondear. A nivel personal, el resultado me parece de lo más satisfactorio, ya que ver el plasma animado, de naturaleza ya por sí ondulante sobre un texto animado ondulado produce un efecto visual de lo más atractivo. Para acabar de coronar esta transformación, aplicamos el efecto de RotoZoom, de modo que toda la escena que hemos construido, con el plasma animado sobre el texto ondulado, culmina con su desaparición rotando cada vez más rápido y haciéndose cada vez más pequeño, hasta que se produce un fundido de salida a blanco.\\ 
+
+Podemos ver distintas capturas de lo descrito en la figura [\ref{fig:finalPlasma}]. No obstante, si nos damos cuenta, se aplica una gran cantidad de operaciones por píxel en esta parte de la demo. Si bien es cierto que manejamos un resolución HD (1280x720), aun así tantas transformaciones pueden resultar excesivas, y afectar de forma considerable a la tasa de fotogramas de la demo. Es por ello que, nuevamente, tenemos que tomar una decisión crítica: sacrificar resolución por rendimiento. No vamos a bajar de calidad HD, sin embargo, es sólo que la textura que vamos a usar y sobre la que aplicaremos todos los cáculos y transformaciones tendrán una resolución menor, concretamente, de la mitad de la altura y anchura de la pantalla, quedándonos en \(640 \times 360 = 230400\) píxeles, cuatro veces menos que la cantidad que manejamos en pantalla. De este modo, iteraremos sobre una textura relativamente pequeña que a continuación escalaremos a la resolución de nuestra demo y que a su vez el sistema escalará a la resolución de la pantalla.\\
+
+Esta vez, sin embargo, la pérdida de resolución resulta mucho más notoria. Por suerte, no obstante, debido a que esta parte de la demo es especialmente dinámica, la bajada en resolución resulta menos aparente, con lo cual conseguimos mantener una tasa de fotogramas adecuada sin impactar excesivamente el resultado de nuestra demo.\\
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/plasma5}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/plasma6}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/plasma7}
+	\end{subfigure}
+	\caption{Distintas capturas del efecto de plasma + deformaciones + RotoZoom}
+	\label{fig:finalPlasma}
+\end{figure}
+
+A lo largo de la parte final del efecto de geometría y durante la primera parte del efecto de plasma, utilizamos varios sonidos que no hemos visto hasta ahora. Se trata del sonido de láser y de los sonidos de percusión.\\
+
+\begin{lstlisting}[style=C-color, caption={Otros sonidos empleados en la demo},label=cod:moresound, escapechar=[]
+float Sounds::CreateLaserSound(float frequency, long int currentCount)
+{
+    return (GetSawtoothWaveValue(frequency, currentCount) * 0.5f +
+            GetSawtoothWaveValue(frequency, currentCount) * 0.5f * GetHighPassNoiseValue(0.05)) *
+               0.5 +
+           GetHighPassNoiseValue(0.05) * 0.5;
+}
+
+
+Envelope laserEnv = {0.0f, 0.f, 0.0f, 0.2f, 1.f, 1.0f};
+
+Envelope drumEnv = {0.f, 0.f, 0.f, 0.1f, 1.f, 1.f};
+Envelope snareEnv = {0.f, 0.f, 0.f, 0.3f, 0.5f, 0.5f};
+\end{lstlisting}
+
+Como podemos ver en el código [\ref{cod:moresound}], añadimos un nuevo sonido al que hemos bautizado como sonido de láser. Es un efecto muy sencillo en el que generamos el sonido a partir de una onda de diente de sierra más una segunda onda modulada en función de un filtro pasa alta. Esto crea un efecto de distorsión en el sonido, que sumado al sonido metálico de la onda de diente de sierra, resulta en una sensación con un cierto aire de película de ciencia ficción. Envolvemos este sonido en una envolvente muy breve que entra en fase de relajación desde el inicio.\\
+
+Para los instrumentos percutivos, todo lo que hacemos es aplicar una envolvente distinta a un ruido blanco. Siendo la primera envolvente similar a la de un tambor (\emph{drumEnv}), y siendo la segunda, con un mayor tiempo de relajación y un volumen de base menor, más similar al ruido de una caja (\emph{snareEnv}).\\
+
+El sonido que suena, sin embargo, mientras que nuestra textura de plasma empieza a rotar y disminuir en tamaño hasta hacerse irreconocible es bastante más interesante. Quería generar una sensación de sonido que resultase agobiante y causase la ilusión de un sonido constantemente ascendente. Para ello, 
 
 \section{Conclusiones}
