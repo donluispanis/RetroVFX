@@ -22,8 +22,6 @@ bool FinalDemo::Init()
     ending.InitEnding(width, height, this, cosineTable, sineTable);
     audio.InitAudio(START_FIRE, START_GEOMETRY, START_PLASMA, START_PLANES, START_ENDING);
 
-    ClearScreen(Pixel(255));
-
     accumulatedTime = 0;
 
     return true;
