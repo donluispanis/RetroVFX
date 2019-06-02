@@ -45,11 +45,11 @@ private:
     const float DURATION_ENDING = 40.0f;
     const float DURATION_TOTAL = DURATION_FIRE + DURATION_GEOMETRY + DURATION_PLASMA + DURATION_PLANES + DURATION_ENDING;
 
-    const float START_FIRE = 0.f;
+    const float START_FIRE = 600.f;
     const float START_GEOMETRY = START_FIRE + DURATION_FIRE;
     const float START_PLASMA = START_GEOMETRY + DURATION_GEOMETRY;
     const float START_PLANES = START_PLASMA + DURATION_PLASMA;
-    const float START_ENDING = START_PLANES + DURATION_PLANES;
+    const float START_ENDING = 0;//START_PLANES + DURATION_PLANES;
 
     //Implementations
     Imp_Fire fire;

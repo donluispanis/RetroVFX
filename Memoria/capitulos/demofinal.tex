@@ -506,7 +506,7 @@ A continuación, pintamos nuestro plasma sobre la textura, pero de forma selecti
 
 Una vez hecho esto, aplicamos el efecto de deformación de bandera que ya vimos en el apartado de deformaciones [\ref{sec:deformaciones}], de modo que nuestro texto empieza a ondear. A nivel personal, el resultado me parece de lo más satisfactorio, ya que ver el plasma animado, de naturaleza ya por sí ondulante sobre un texto animado ondulado produce un efecto visual de lo más atractivo. Para acabar de coronar esta transformación, aplicamos el efecto de RotoZoom, de modo que toda la escena que hemos construido, con el plasma animado sobre el texto ondulado, culmina con su desaparición rotando cada vez más rápido y haciéndose cada vez más pequeño, hasta que se produce un fundido de salida a blanco.\\ 
 
-Podemos ver distintas capturas de lo descrito en la figura [\ref{fig:finalPlasma}]. No obstante, si nos damos cuenta, se aplica una gran cantidad de operaciones por píxel en esta parte de la demo. Si bien es cierto que manejamos un resolución HD (1280x720), aun así tantas transformaciones pueden resultar excesivas, y afectar de forma considerable a la tasa de fotogramas de la demo. Es por ello que, nuevamente, tenemos que tomar una decisión crítica: sacrificar resolución por rendimiento. No vamos a bajar de calidad HD, sin embargo, es sólo que la textura que vamos a usar y sobre la que aplicaremos todos los cáculos y transformaciones tendrán una resolución menor, concretamente, de la mitad de la altura y anchura de la pantalla, quedándonos en \(640 \times 360 = 230400\) píxeles, cuatro veces menos que la cantidad que manejamos en pantalla. De este modo, iteraremos sobre una textura relativamente pequeña que a continuación escalaremos a la resolución de nuestra demo y que a su vez el sistema escalará a la resolución de la pantalla.\\
+Podemos ver distintas capturas de lo descrito en la figura [\ref{fig:finalPlasma}]. No obstante, si nos damos cuenta, se aplica una gran cantidad de operaciones por píxel en esta parte de la demo. Si bien es cierto que manejamos una resolución HD (1280x720), aun así tantas transformaciones pueden resultar excesivas, y afectar de forma considerable a la tasa de fotogramas de la demo. Es por ello que, nuevamente, tenemos que tomar una decisión crítica: sacrificar resolución por rendimiento. No vamos a bajar de calidad HD, sin embargo, es sólo que la textura que vamos a usar y sobre la que aplicaremos todos los cáculos y transformaciones tendrá una resolución menor, concretamente, de la mitad de la altura y anchura de la pantalla, quedándonos en \(640 \times 360 = 230400\) píxeles, cuatro veces menos que la cantidad que manejamos en pantalla. De este modo, iteraremos sobre una textura relativamente pequeña que a continuación escalaremos a la resolución de nuestra demo y que a su vez el sistema escalará a la resolución de la pantalla.\\
 
 Esta vez, sin embargo, la pérdida de resolución resulta mucho más notoria. Por suerte, no obstante, debido a que esta parte de la demo es especialmente dinámica, la bajada en resolución resulta menos aparente, con lo cual conseguimos mantener una tasa de fotogramas adecuada sin impactar excesivamente el resultado de nuestra demo.\\
 
@@ -550,6 +550,120 @@ Como podemos ver en el código [\ref{cod:moresound}], añadimos un nuevo sonido 
 
 Para los instrumentos percutivos, todo lo que hacemos es aplicar una envolvente distinta a un ruido blanco. Siendo la primera envolvente similar a la de un tambor (\emph{drumEnv}), y siendo la segunda, con un mayor tiempo de relajación y un volumen de base menor, más similar al ruido de una caja (\emph{snareEnv}).\\
 
-El sonido que suena, sin embargo, mientras que nuestra textura de plasma empieza a rotar y disminuir en tamaño hasta hacerse irreconocible es bastante más interesante. Quería generar una sensación de sonido que resultase agobiante y causase la ilusión de un sonido constantemente ascendente. Para ello, 
+El sonido que suena, sin embargo, mientras que nuestra textura de plasma empieza a rotar y disminuir en tamaño hasta hacerse irreconocible es bastante más interesante. Quería generar una sensación de sonido que resultase agobiante y causase la ilusión de un sonido constantemente ascendente. Para ello, intenté generar la ilusión o escala de Shepard. Podemos ver la implementación en el código [\ref{cod:shepard}].
 
-\section{Conclusiones}
+\begin{lstlisting}[style=C-color, caption={Generación de la escala de Shepard},label=cod:shepard]
+const float mask[12] = {0.01f, 0.025f, 0.05f, 0.075f, 0.14f, 0.2f, 0.2f, 0.14f, 0.075f, 0.05f, 0.025f, 0.01f};
+
+static float baseFrequency = 261.63 * 0.125;
+const static float incrementer = 1.059463f;
+
+//Generate Sephard illusion of ascending sound
+notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 1, mask[1] * volume, 0.3f});
+notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 2, mask[3] * volume, 0.7f});
+notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 4, mask[5] * volume, 0.3f});
+notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 6, mask[7] * volume, 0.7f});
+notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 8, mask[9] * volume, 0.3f});
+notes.push_back({Sounds::GetSineWaveValue, laserEnv, baseFrequency * 10, mask[11] * volume, 0.7f});
+
+baseFrequency *= incrementer;
+if (baseFrequency >= 523.f)
+{
+	baseFrequency = 261.63f;
+}
+\end{lstlisting}
+
+La ilusión de Shepard es una ilusión auditiva que produce la sensación de ascenso infinito cuando en realidad reproducimos un sonido en bucle. Este efecto se consigue, dada una frecuencia, generando varios armónicos de la misma (6 en nuestro código) y aplicando un volumen distinto a cada uno (como vemos, el volumen de cada armónico queda determinado por un conjunto de valor constante que definimos). De este modo, cada vez que reproducimos una nueva nota, aumentamos su frecuencia en un semitono (\(2^{\frac{1}{12}} = 1.059463\)), hasta que llegamos a la octava (el doble de la frecuencia) y en ese momento volvemos a la frecuencia base.\\
+
+¿Por qué se produce esta sensación de circularidad, sin embargo? Es realmente difícil de explicar con palabras o imágenes, por lo que recomiendo el siguiente \emph{\textbf{\href{https://www.youtube.com/watch?v=ev9hrqkhWsM}{vídeo}}}. No obstante, trataré de explicarlo: esto se debe a que, como aplicamos una máscara que atenúa el volumen de los armónicos más graves y más agudos, aquellos que destacan son los armónicos centrales. A su vez, la frecuencia de estos armónicos aumenta por iteración. Como cada vez que completamos una octava, empezamos el bucle de nuevo, el sonido de la frecuencia fundamental, que inicialmente era 261.63, en la interación anterior a reiniciar el bucle tiene un valor de 493.89, de modo que cuando reiniciamos el bucle, el valor de la frecuencia fundamental vuelve a ser 261.63 pero el valor del siguiente armónico (\emph{baseFrequency * 2}) pasa a ser 523.26, siendo este el equivalente de aumentar 493.89 en un semitono. Por tanto, se produce una sensación de circularidad, ya que cuando se repite el bucle, el último valor de la iteración mantiene continuidad con respecto al primer valor de la próxima iteración del siguiente armónico. Además, el hecho de atenuar las frecuencias más bajas y altas contribuye aún más a reforzar esta sensación de continuidad y disimular la repetición del bucle (pues las frecuencias que rompen su continuidad al repetirse el bucle, que están a los extremos, suenan con mucha menor intensidad).\\
+
+Gracias a este efecto, logramos causar la sensación que buscábamos. Además, para reforzar esta misma impresión aun más, recortamos la distancia temporal que pasa entre una nota y la siguiente, de modo que los sonidos se reproducen cada vez más juntos, reforzando la sensación de agobio y crecimiento.\\
+
+Este sonido culmina con una fundido de salida al silencio que se coordina con el fundido de salida visual del efecto, quedando por unos instantes una pantalla vacía, en blanco, y sin sonido. Llega el momento de pasar al próximo efecto.\\
+
+En esta nueva escena pondremos en práctica el efecto de planos infinitos de un modo que no habíamos empleado hasta ahora. Generaremos una textura de gran tamaño sobre la que escribiremos mensajes de texto, e iremos recorriendo la escena como si la estuviésemos viendo en primera persona, de modo que dé tiempo a leer cada uno de los mensajes.\\
+
+En el mundo de la \emph{demoscene}, los mensajes de texto, retos o incluso mofas entre \emph{demosceners}, a veces ocultos y a veces en primer plano, son algo de lo más común a encontrar dentro de una demo. Es por tanto una oportunidad que no vamos a dejar pasar. Esto es lo que escribiremos en nuestra textura "\emph{A CPU is so slow... A CPU is not for graphics... Wait... Am I dreaming? Is this heaven? Can't be true...}", es español, "\emph{Una CPU es tan lenta... Una CPU no es para gráficos... Espera... ¿Estoy soñando? ¿Es esto el cielo? No puede ser cierto...}". Dejamos así nuestra pequeña reivindicación personal.\\
+
+Reforzamos este efecto reflejando la mitad inferior de la pantalla en la mitad superior, de modo que todo sea vea espejado, y añadimos una línea negra en el centro a modo de horizonte, tanto por cuestión estética como para facilitar la orientación en la escena.\\
+
+Una vez hecho esto, definimos un mapa de posiciones e interpolamos entre ellas, de modo que podamos recorrer de forma automática nuestra escena. El resultado se puede apreciar en la figura [\ref{heaven}].\\
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/planes4}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/planes5}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/planes6}
+	\end{subfigure}
+	\caption{Distintas capturas del efecto de planos infinitos}
+	\label{fig:heaven}
+\end{figure}
+
+Para reforzar la sensación etérea que causa este efecto, buscamos generar un sonido que suene etéreo. Para ello, buscamos sonidos y referencias que nos gusten y las analizamos, tanto desde el punto de vista del tipo de envolvente que tienen como analizamos también su espectro de frecuencias, para ver en cuántas frecuencias suenan y de qué forma lo hacen. El resultado tras el análisis es el siguiente código [\ref{cod:synth}].\\
+
+\begin{lstlisting}[style=C-color, caption={Generación de un sonido etéreo},label=cod:synth]
+float Sounds::CreateSynthSound(float frequency, long int currentCount)
+{
+    const float LFO = GetSineWaveValue(2, currentCount);
+    return GetTriangleWaveValue(frequency * 1.0, currentCount) * (0.45 + 0.1 * LFO) * 0.6 +
+           GetTriangleWaveValue(frequency * 1.3333, currentCount) * (0.45 + 0.1 * LFO) * 0.1 +
+           GetTriangleWaveValue(frequency * 1.6666, currentCount) * (0.45 + 0.1 * LFO) * 0.1 +
+           GetTriangleWaveValue(frequency * 2.0, currentCount) * (0.45 + 0.1 * LFO * 2.f) * 0.1 +
+           GetTriangleWaveValue(frequency * 2.6666, currentCount) * (0.45 + 0.1 * LFO * -1.f) * 0.1 +
+           GetTriangleWaveValue(frequency * 4.0, currentCount) * (0.45 + 0.1 * LFO) * 0.1 +
+           GetTriangleWaveValue(frequency * 5.3333, currentCount) * (0.45 + 0.1 * LFO * 2.f) * 0.1 +
+           GetTriangleWaveValue(frequency * 6.6666, currentCount) * (0.45 + 0.1 * LFO * -1.f) * 0.1;
+}
+
+Envelope synthEnv = {1.f, 1.f, 1.f, 2.f, 1.f, 0.7f};
+\end{lstlisting}
+
+Para que nuestro sonido suene etéreo, entre otras cosas necesitamos que tanto su fase de ataque como de relajación sean lentas, de modo que entre y se desvanezca de forma suave y poco agresiva. Del mismo modo, un sonido etéreo debe sonar armónico y organizado pero debe causar una cierta sensación de fragilidad o inestabilidad. Esta sensación la logramos con el uso de un oscilador en baja frecuencia (\emph{low frequency oscillator}, LFO\footnote{\url{https://en.wikipedia.org/wiki/Low-frequency_oscillation}}) que aplicamos de forma individual sobre el volumen de cada uno de los armónicos que conforman nuestra frecuencia, aplicando además distintos valores de intensidad. De este modo se produce una sensación de irregularidad o inestabilidad dentro de un sonido que suena de forma armónica, pero al mismo tiempo, titilante, logrando ese difícil equilibro entre armonía y fragilidad.\\
+
+Con esto hecho, pasamos a implementar la que será la última parte de nuestra demo, el túnel de puntos [\ref{sec:dottunnel}]. Tras una pequeña transición en la que rotamos la línea que pintábamos sobre el horizonte de modo que se sitúe en vertical, aplicando la misma transformación que ya hemos visto tantas veces [\ref{fig:transform}], pasamos a mostrar nuestro túnel de puntos.\\
+
+Para ello, empezamos con una transición inicial en la que vamos pintando la pantalla de negro desde el centro hacia ambos extremos de la misma. Al mismo tiempo, empezamos a dibujar el túnel, aunque sólo pintaremos aquellos puntos del mismo que se hallen dentro de la zona negra. Tras ello, nos limitamos a seguir actualizando nuestro túnel durante unos instantes, mientras incorporamos música muy sencilla a la escena. Simplemente reproducimos notas con el sonido del láser mientras que suenan instrumentos percutivos. Sincronizamos, no obstante, la percusión con el túnel, de modo que cada vez que suena un golpe, el túnel acelera brevemente.\\
+
+Tras ello, con un fundido de entrada pasamos a mostrar los créditos de la demo, dibujándolos encima del túnel. Para dar un pequeño efecto de dinamismo, no obstante, se modifica leyemente la posición del texto en función de la trayectoria del túnel, creando así la sensación de que el texto se mueve al compás que el túnel avanza. Podemos ver los efectos descritos anteriormente en la figura[\ref{fig:finaltunel}].\\
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/tunel1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/tunel2}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\includegraphics[width=4.5cm]{archivos/tunel3}
+	\end{subfigure}
+	\caption{Distintas capturas del efecto de túnel de puntos}
+	\label{fig:finaltunel}
+\end{figure}
+
+Ya por último, con un fundido a negro y un desvanecimiento progresivo de la música, la demo finaliza.
+
+\section{Conclusiones de la demo}
+
+Y hasta aquí llega el desarrollo de la demo final. Lo cierto es que ha sido un desarrollo de lo más interesante. Durante la realización de los efectos gráficos por separado no era consciente de hasta qué punto se podían estirar o combinar estos efectos para producir resultados que anteriormente hubieran parecido imposibles.\\
+
+Lo cierto es que con el set de técnicas aprendido, de pronto aparece una gran cantidad de posibilidades y una infinidad de combinaciones.\\
+
+Es así como esta demo supone la culminación de todo lo aprendido anteriormente, y si cada uno de los efectos gráficos estudiados era un pequeño ladrillo, ahora se nos abre la posibilidad de construir una gran estructura, donde la creatividad y el ingenio son primordiales, ya que las barreras de aquello que podemos lograr se encuentran más en los límites de nuestra imaginación que en los límites del ordenador.\\
+
+Esta demo está ejecutada únicamente en CPU, en un sólo hilo (aunque la librería de sonido genera un hilo separado para la reproducción de audio) y cuenta con una combinación de efectos gráficos en dos dimensiones y algunos que simulan la tridimensionalidad. Todo esto ejecutado en tiempo real.\\
+
+Además, en la demo hemos abierto la posibilidad de generar sonido, lo cual ha creado un inmenso campo de posibilidades que sin embargo ha habido que limitar para no salir del ámbito de este trabajo. Aun así, hemos conseguido generar una gran cantidad de sonidos en tiempo real, coordinados con la acción en pantalla y que intentan reforzar aquello que sucede en la misma. Además, la demo se reproduce en estéreo, y algunos sonidos tienen un posicionamiento definido, por lo que se recomienda escucharla con auriculares.\\
+
+Por tanto, esta demo representa no solo una aplicación de todo lo aprendido, si no también la apertura ante un amplio abanico de posibilidades, tanto desde el punto de visto técnico como creativo, y que me gustaría poder seguir ampliando y refinando a lo largo del tiempo, una vez finalizado este trabajo.\\
