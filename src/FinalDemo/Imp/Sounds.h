@@ -11,7 +11,7 @@ public:
     static float GetLowPassNoiseValue(float intensity);
     static float GetHighPassNoiseValue(float intensity);
 
-    static float CreateArmonicSound(float frequency, long int currentCount);
+    static float CreateRetroSound(float frequency, long int currentCount);
     static float CreateSeaWavesSound(float frequency, long int currentCount);
     static float CreateDrumSound(float frequency, long int currentCount);
     static float CreateSynthSound(float frequency, long int currentCount);

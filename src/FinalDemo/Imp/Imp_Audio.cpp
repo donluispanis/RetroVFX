@@ -484,7 +484,7 @@ void Imp_Audio::InitNotes()
     synthEnv = {1.f, 1.f, 1.f, 2.f, 1.f, 0.7f};
     laserEnv = {0.0f, 0.f, 0.0f, 0.2f, 1.f, 1.0f};
 
-    fireNote = {Sounds::CreateArmonicSound, fireEnv, 200.f, 0.6f * generalVolume};
+    fireNote = {Sounds::CreateRetroSound, fireEnv, 200.f, 0.6f * generalVolume};
     seaNote = {Sounds::CreateSeaWavesSound, seaEnv, 0.07f, 0.6f * generalVolume};
     drumNote = {Sounds::CreateDrumSound, drumEnv, 0.f, 0.6f * generalVolume};
     snareNote = {Sounds::CreateDrumSound, snareEnv, 0.f, 0.6f * generalVolume};

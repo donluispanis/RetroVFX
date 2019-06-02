@@ -58,6 +58,7 @@ float Sounds::GetSineWaveValue(float frequency, long int currentCount)
     }
 
     float percentage = currentCount % steps / float(steps);
+    
     return sin(2 * Fast::PI * percentage);
 }
 
@@ -88,7 +89,7 @@ float Sounds::GetHighPassNoiseValue(float intensity)
     return newValueY;
 }
 
-float Sounds::CreateArmonicSound(float frequency, long int currentCount)
+float Sounds::CreateRetroSound(float frequency, long int currentCount)
 {
     return GetSawtoothWaveValue(frequency * 0.5f, currentCount) * 0.4f +
            GetSquaredWaveValue(frequency, currentCount) * 0.4 +

@@ -206,16 +206,139 @@ Así pues, recapitulando, hemos creado un sistema que nos permite gestionar y re
 	\label{fig:waves}
 \end{figure}
 
-hablar de las distintas formas de onda y brevemente cómo las he creado, hablar de los ruidos y los filtros pasa alta y pasa baja
+Históricamente, encontramos cuatro tipos distintos de ondas generadas por ordenador, que podemos ver en la figura [\ref{fig:waves}]. La onda cuadrada y la de diente de sierra son ondas que suenan muy robóticas o metálicas, por tanto muy lejanas al sonido natural. Sin embargo, son muy fáciles de calcular, ya que tienen un muy bajo coste computacional, por lo que los primeros ordenadores y videoconsolas que podían generar sonido, tenían capacidad para generar sólo este tipo de ondas. Al fin y al cabo, para generar un sonido se requiere una gran cantidad de muestras por segundo, por lo que en un ordenador de poca potencia, el cálculo para hallar el valor de una muestra debe ser lo más rápido posible, o de lo contrario, ralentizará la ejecución del programa. Es por ello, por tanto, que se generaban ondas cuadradas (que oscilan entre dos únicos valores, \emph{+amplitud} y \emph{-amplitud}) y las ondas de diente de sierra, cuyo valor de la amplitud se incrementa a lo largo de la longitud de la onda para decaer a 0 al final de cada iteración.\\
+
+Las ondas triangulares son ondas que, siendo mucho más sencillas de calcular que una onda sinusoidal, resultan mucho más orgánicas que las dos anteriores, pues consiste en una interpolación continua entre la amplitud máxima y la máxima negativa. Tiene una carga de cómputo algo más elevada que la de las ondas cuadrada y de diente de sierra pero, sin embargo, ofrece un resultado sonoro bastante más orgánico a un coste relativamente bajo.\\
+
+Por último tenemos las ondas sinusoidales. En la naturaleza, o en el mundo real, el sonido se propaga de manera natural con esta forma de onda. Sin embargo, como bien sabemos, el cálculo del seno es una operación matemática para nada trivial, por lo que este tipo de onda tardaría un tiempo en llegar a los ordenadores. Siempre se podría usar tablas precalculadas en lugar de la operación matemática, pero recordemos que el uso de tablas precalculadas también introduce un cierto factor de complejidad y un error añadido, por su limitación en precisión. Nuevamente, la elección de un técnica u otra depende de la consideración personal.\\
+
+\begin{lstlisting}[style=C-color, caption={Cálculo de una onda sinusoidal con una frecuencia determinada},label=cod:sineWave, escapechar=|]
+float Sounds::GetSineWaveValue(float frequency, long int currentCount)
+{
+    int steps = SAMPLE_RATE / frequency;
+
+    float percentage = currentCount % steps / float(steps);
+
+    return sin(2 * Fast::PI * percentage);
+}
+\end{lstlisting}
+
+En el código [\ref{cod:sineWave}] vemos la implementación de la función para generar ondas sinusoidales. Como podemos ver, cumple la signatura del método delegado de una nota [\ref{fig:note}], de modo que podemos hacer fácilmente que una nota reproduzca sonido con forma de onda sinusoidal.\\
+
+El sonido que generamos depende de la frecuencia, por lo que lo primero que hacemos es calcular, para la frecuencia dada, la cantidad de muestras necesarias para generar un único ciclo o iteración de la onda. Este valor se corresponde con la frecuencia de muestreo dividida por la frecuencia deseada. Por ejemplo, si tenemos una frecuencia de muestreo de 2000 muestras por segundo y queremos emitir un sonido a 200 Hercios, por tanto, 200 oscilaciones por segundo, entonces se deberá producir una oscilación a cada \(\frac{2000}{200} = 10\) muestras.\\
+
+Una vez hemos hallado la cantidad de muestras por oscilación, hallamos el punto o porcentaje en el que nos encontramos dentro de la oscilación. Para hacer esto, hallamos el módulo del número de muestra actual en función de la cantidad de muestras por oscilación y lo dividimos por la cantidad de muestras por oscilación. Por ejemplo, si estamos en la muestra 25 y tenemos 10 muestras por oscilación, entonces hallamos el módulo \(25\mod 10 = 5\) y lo dividimos entre la cantidad de muestras por oscilación \(\frac{5}{10} = 0.5\), hallando que nos encontramos a la mitad de la oscilación.\\
+
+Una oscilación completa equivale a una circunferencia completa, es decir, \(2\pi\), por lo que sabiendo el punto de la oscilación en que nos encontramos, sólo tenemos que multiplicar por \(2\pi\) y calcular el seno del valor obtenido para hallar la amplitud de nuestra onda a una frecuencia determinada en un instante de tiempo dado.\\
+
+Podríamos pensar que ya hemos acabado con la generación de sonido, pero aún nos queda ser capaces de generar un sonido fundamental, ¡el ruido!\\
+
+El ruido en esencia es la aleatoriedad, la desorganización, el caos. Un ruido normalmente tiene valores de amplitud para una gran cantidad de frecuencias en el espectro. Todo aquel sonido que no es armónico (no se repite periódicamente) puede ser potencialmente considerado un ruido.\\
+
+Nos podemos preguntar para qué es necesaria la generación de ruido. La respuesta es que es fundamental. La mayoría de instrumentos de percusión, por ejemplo, no son más que generadores de distintos tipos de ruido. El sonido de un tambor, por ejemplo, no es más que un ruido con una envolvente, de modo que tiene un ataque y decaimiento muy breve y, dependiendo del tambor, una relajación más o menos duradera. Adicionalmente, también podemos usar el ruido para generar sonidos de ambiente (agua, viento...) o para dar un toque más orgánico a un instrumento (ya que todos los instrumentos generan una pequeña cantidad de ruido. Por ejemplo, al tocar un piano, el martillo golpeando las cuerdas genera algo de ruido además de un sonido armónico, y si eliminamos este ruido de fondo del sonido del instrumento al generarlo por computador, el resultado se escuchará mucho más artificial).\\
+
+Generar un ruido blanco (aquel que tiene amplitud en todas las frecuencia del espectro\footnote{\url{https://es.wikipedia.org/wiki/Espectro_de_frecuencias}}), es extremandamente sencillo. Como ya hemos dicho, un ruido es aleatoriedad, por lo que para generar un ruido blanco, tan sólo necesitaremos generar un valor aleatorio comprendido entre -1 y 1 por muestra.\\
+
+Sin embargo, el ruido blanco, si bien sencillo de generar, no se encuentra presente en la naturaleza, y resulta por tanto un sonido poco orgánico, bastante artificial. Es un sonido, por ejemplo, como el que generaban los antiguos televisores cuando perdían la señal.\\
+
+En la naturaleza, el ruido suele tener mayor amplitud en las frecuencias más bajas del espectro y menor amplitud o nula en las frecuencias altas. Es por ello que necesitaremos generar un filtro de pasa baja\footnote{\url{https://en.wikipedia.org/wiki/Low-pass_filter}}. Un filtro de pasa baja nos permite filtrar las frecuencias altas, atenuándolas o eliminándolas, y dejando pasar solo las frecuencias bajas. De forma alternativa, generaremos también un filtro para ruido de pasa alta, que atenúa o elimina las frecuencias bajas. Si bien es posible que acabemos no haciendo uso de este filtro, es interesante disponer del mismo para, potencialmente, poder usarlo en algunos instrumentos.\\
+
+Sin entrar en excesivo detalle, haremos uso de la fórmula para generar estos filtros con retroalimentación, que podemos ver en la figura [\ref{fig:filtros}].\\
+
+\begin{figure}[h]
+	\begin{equation}
+		y[n] = \alpha x[n] + (1 - \alpha) y[n-1] 
+		\label{eq:lowpass}
+	\end{equation}
+	\begin{equation}
+		y[n] = \alpha y[n - 1] + \alpha (x[n] - x[n-1]) 
+		\label{eq:highpass}
+	\end{equation}
+	\caption{Filtros de pasa baja y de pasa alta}
+	\label{fig:filtros}
+\end{figure}
+
+El valor de la amplitud de un sonido al que se le aplica un filtro de pasa baja [\ref{eq:lowpass}], en un instante dado, equivale al valor de la muestra en ese instante multiplicado por un valor de intensidad definido por el usuario, sumado a la parte restante del valor de intensidad por la salida del filtro en el instante de tiempo anterior.\\
+
+Hallar el resultado de un sonido al que se le aplica un filtro de pasa alta [\ref{eq:highpass}] es ligeramente más complejo, consistiendo en multiplicar el valor de la intensidad por el resultado anterior del filtro sumado a la intensidad multiplicada por el valor del sonido en el instante actual menos el valor del sonido en el instante anterior.\\
+
+En el código [\ref{cod:lowhighpass}] podemos ver la implementación de estos filtros para la generación de ruido. El valor de la intensidad se refiere a la severidad con la que el filtro se aplica, y oscila entre 0 y 1, de modo que con un valor de 1 deja pasar todas las frecuencias y con un valor cercano a 0, deja pasar sólo las frecuencias más graves o más agudas (dependiendo del filtro).\\
+
+\begin{lstlisting}[style=C-color, caption={Aplicación de un filtro de pasa baja y uno de pasa alta a la generación de ruido},label=cod:lowhighpass, escapechar=|]
+float Sounds::GetLowPassNoiseValue(float intensity)
+{
+    static float oldValue = 0;
+    float newValue = intensity * GetNoiseValue() + (1 - intensity) * oldValue;
+    oldValue = newValue;
+    return newValue;
+}
+
+float Sounds::GetHighPassNoiseValue(float intensity)
+{
+    static float oldValueY = 0.f;
+    static float oldValueX = 0.f;
+    
+    float newValueX = GetNoiseValue();
+    float newValueY = intensity * oldValueY + intensity * (newValueX - oldValueX);
+
+    oldValueX = newValueX;
+    oldValueY = newValueY;
+
+    return newValueY;
+}
+\end{lstlisting}
+
+Ahora sí, ya disponemos de las herramientas y el marco de trabajo necesarios para poder generar prácticamente cualquier sonido en nuestra demo, de modo que podemos pasar a la creación de la misma.
 
 \section{Crear la demo}
 
-hablar de la implementación de las demos con poco código, pues el código ya ha sido aportado, centrarse en cómo se ha unido y las ideas que han surgido, además de cosas especiales que ha habido que añadir
+El proceso de creación de la demo, a decir verdad, es más un proceso de prueba y error que un proceso técnico. Al fin y al cabo, la parte técnica ya ha sido implementada en los efectos gráficos anteriores, por lo que ahora lo más relevante es probar y modificar valores para obtener los resultados que deseemos. Como ya se ha comentado anteriormente, buscamos un resultado lo más estético posible.\\
 
-\section{Crear la música}
+Desde un primer momento hubo una idea que me llamó mucho la atención. Dado que teníamos la capacidad de generar fuego y la capacidad de generar texto, parecía muy interesante tratar de implementar como inicio de la demo un texto de fuego. Tras iterar varias veces sobre la idea y algo de prueba y error, la mejor opción parecía la de crear un texto que apareciera con un \emph{zoom} de entrada y se situase en el centro, con el título de la demo, y prendido en fuego.\\
 
-hablar de los instrumentos que he creado y cómo, hablar de LFO y poco más
+Para ello, por tanto, era necesario tener un título. Este título debía ser capaz de expresar la esencia y contenido de la demo, y poner en valor sus puntos fuertes. ¿Cuál es el punto fuerte de la demo que quiero hacer? ¿Cuáles son sus limitaciones?\\
 
-\section{Resultado}
+Bajo mi punto de vista, su mayor ventaja e inconveniente es uno solo: está generada usando únicamente la CPU del ordenador, sin operaciones con gráficos aceleradas por \emph{hardware}, de modo que esto actúa como un limitante para la potencia o capacidad de la demo pero también como un punto fuerte y de interés, pues demuestra hasta qué punto puede ser potente una CPU en el manejo de operaciones gráficas. Es por ello que se optó por un nombre simpático y directo "CPU-T-U", que leído que inglés suena de forma similar a \emph{CPU to you}, o \emph{CPU para ti} en español. Además, decidí incluir como subtítulo el nombre del creador, pero siguiendo la moda tan común en el mundo de la \emph{demoscene} de usar apodos en lugar de nombres reales, utilicé el apodo que uso en redes sociales, \emph{donluispanis}.\\
 
-si es necesario, mostrar fotos de distintos momentos de la demo
+La implementación fue bastante sencilla, recordemos que para el efecto de fuego [\ref{sec:fire}], lo que hacíamos era convolucionar una matriz a lo largo de una matriz de valores, de forma que se podría un efecto de disipación que, al relacionarlo con un degradado de color, se asemejaba al fuego. Todo lo que necesitamos hacer ahora es, en nuestra matriz de valores, en lugar de asignar unos pocos valores aleatorios en la parte inferior de la misma, asignar valores de modo que formen letras, y a continuación, convolucionar la tabla para que parezca que las letras están en llamas.\\
+
+Como ya habíamos implementado en nuestro motor gráfico una función para dibujar texto en pantalla, todo lo que necesitábamos hacer era copiar esta funcionalidad y modificarla ligeramente para permitir dibujar texto, en lugar de en una cadena de píxeles que se corresponden a la pantalla, en una cadena de números enteros que se corresponden a una textura. Una vez tenemos esto, tan sólo tenemos que usar el algoritmo para generar el efecto de fuego, que ya vimos en [\ref{cod:finalFire}], modificando levemente valores hasta que el resultado obtenido sea de nuestro agradado.\\
+
+Llegados a este punto, obtenemos el resultado que podemos ver en la figura [\ref{fig:intro}].\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{archivos/intro}
+	\caption{Inicio de la demo}
+	\label{fig:intro}
+\end{figure}
+
+No obstante, y aunque estamos tan sólo al inicio, ya nos encontramos con las primeras limitaciones. Queremos que nuestra demo se reproduzca a pantalla completa, no obstante, si usamos la resolución nativa de una pantalla común, en \emph{Full HD}, nos vemos con que tenemos que iterar a través de nada más y nada menos que \(1920 \times 1080 = 2073600\) píxeles por fotograma. Si a esto añadimos que tenemos que mantener también una matriz de valores del mismo tamaño, vemos que de pronto la cantidad de cálculos a realizar por fotograma parece excesiva y muy difícil de mantener con una tasa de refresco aceptable.\\
+
+Es por ello que llega el momento de tomar una primera y dolorosa decisión: aunque reproduzcamos en pantalla completa, nuestra demo tendrá una resolución fija en HD, significando esto que tan sólo tendremos que manipular \(1280 \times 720 = 921600\) píxeles por fotograma. En la práctica, este cambio de resolución no es demasiado evidente, ya que delegamos en el sistema el reescalado de nuestra imagen en HD a la resolución nativa de la pantalla. De este modo, obtenemos un gran mejora de rendimiento (reducimos a más de la mitad la cantidad de cálculos necesarios por fotograma) al precio de perder resolución.\\
+
+Este es un sacrificio necesario, pues si ya calcular el efecto de fuego resulta costoso, cuando intentemos generar efectos más complejos, nos resultará imposible de no reducir la cantidad píxeles sobre la que iteramos.\\
+
+Además, para el efecto de fuego, hay una optimización más que podemos incluir. Si nos fijamos en la imagen [\ref{fig:intro}], hay mucho espacio vacío en la misma. Por tanto, si en lugar de iterar sobre toda la imagen, sobre todos los píxeles, iteremos sólo sobre el rectángulo que ocupa el título y el rectángulo que ocupa el subtítulo, nos ahorraremos tener que iterar sobre todos aquellos píxeles de espacio "vacío" que sabemos que siempre estarán en negro, reduciendo así aún más la cantidad de píxeles sobre la que operamos y aliviando la carga de cómputo.\\
+
+Una vez hecho esto, y creados nuestro fundido de entrada (el texto se hace cada vez más grande hasta ocupar el centro de la pantalla) y nuestro fundido de salida (un simple fundido a negro, consistente únicamente en multiplicar la intensidad del píxel por un valor de opacidad decreciente), tan sólo nos queda añadir música para la introducción.\\
+
+La introducción tiene un potente aire \emph{retro}, con el texto \emph{pixelado} y un efecto de fuego con una gama de color limitada (definimos un degradado de color de 256 valores). Por tanto, parece adecuado crear un sonido que siga la misma línea de estilo. Para ello, creamos la función delegada que podemos ver en el código [\ref{cod:retroSound}].\\
+
+\begin{lstlisting}[style=C-color, caption={Generación de un sonido retro},label=cod:retroSound, escapechar=|]
+float Sounds::CreateRetroSound(float frequency, long int currentCount)
+{
+    return GetSawtoothWaveValue(frequency * 0.5f, currentCount) * 0.4f +
+           GetSquaredWaveValue(frequency, currentCount) * 0.4 +
+           GetSquaredWaveValue(frequency * 2.f, currentCount) * 0.15 +
+           GetNoiseValue() * 0.05;
+}
+\end{lstlisting}
+
+Como podemos ver, el sonido que generamos es la combinación de una onda de diente de sierra como base sumada a dos ondas cuadradas, la segunda con el doble de amplitud que la primera, y añadiendo un pequeño ruido de fondo. La suma total de las ondas será siempre un valor comprendido entre -1 y 1. Nos aseguramos de esto multiplicando cada onda por un factor distinto, siendo la suma de todos estos factores 1. Al usar únicamente ondas de diente de sierra y cuadradas, que eran las únicas que los primeros ordenadores con sonido podían generar, obtenemos una sensación de sonido muy \emph{retro}.\\
+
+Usamos esta función delegada en combinación con una envolvente con un ataque lento para generar un sonido de intensidad creciente mientras que el texto aumenta de tamaño en pantalla. El sonido se estabiliza y desvanece conforme el texto desaparece.\\
+
+Con esto, ya tenemos una introducción digna para nuestra demo, tanto a nivel visual como sonoro.\\
+
+\section{Conclusiones}
