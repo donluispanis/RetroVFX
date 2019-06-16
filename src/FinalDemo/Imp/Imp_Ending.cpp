@@ -80,6 +80,7 @@ void Imp_Ending::UpdateEnding(float deltaTime, float accumulatedTime, float star
         }
         else
         {
+            engine->ClearScreen(Pixel(0));
             UpdateTunnel(deltaTime, tunnelBeat);
         }
     }
@@ -184,8 +185,8 @@ void Imp_Ending::FadeOut(float deltaTime)
 
 void Imp_Ending::AddCircle()
 {
-    circles.push_front(Circle{defaultCircle.x + int(tunnelCenter.X - initialTunnelCenter.X),
-                              defaultCircle.y + int(tunnelCenter.Y - initialTunnelCenter.Y),
+    circles.push_front(Circle{defaultCircle.x + tunnelCenter.X - initialTunnelCenter.X,
+                              defaultCircle.y + tunnelCenter.Y - initialTunnelCenter.Y,
                               defaultCircle.radius,
                               defaultCircle.rotation,
                               tunnelColourMap[tunnelCurrentColour % tunnelColourMapSize]});
@@ -209,12 +210,12 @@ void Imp_Ending::UpdateCircleQueue(float deltaTime)
 
 void Imp_Ending::PopulateCircleQueue()
 {
-    if (circles.front().radius > defaultCircle.radius + (defaultCircle.radius * circlesGapDistance) / circleCount)
+    if (circles.front().radius > defaultCircle.radius * 1.1f)
     {
         tunnelCurrentColour++;
         AddCircle();
     }
-    if (circles.back().radius > maxCircleRadius)
+    while (circles.back().radius > maxCircleRadius)
     {
         circles.pop_back();
     }

@@ -3,6 +3,15 @@
 #include "GLFWWindowManager.h"
 #include "../RenderManager/OpenGLRenderManager.h"
 #include "../../Utils/Clock.h"
+#include <iostream>
+
+void OutputErrorCode(bool error, const char* errorText)
+{
+    if(error == 0)
+    {
+        std::cout << "GLFW error: " << errorText << std::endl;
+    }
+}
 
 GLFWWindowManager::GLFWWindowManager()
 {
@@ -51,7 +60,7 @@ void GLFWWindowManager::CreateWindow(const char *name, const int width, const in
 
 void GLFWWindowManager::InitGLFW()
 {
-    glfwInit();
+    OutputErrorCode(glfwInit(), "could not init GLFW");
 }
 
 void GLFWWindowManager::SetOpenGLVersion()
@@ -68,6 +77,8 @@ void GLFWWindowManager::CreateForcedFullscreenWindow(const int width, const int 
     const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     window = glfwCreateWindow(mode->width, mode->height, name, glfwGetPrimaryMonitor(), NULL);
 
+    OutputErrorCode(window, "could not open window");
+
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
 
@@ -78,6 +89,8 @@ void GLFWWindowManager::CreateFullscreenWindow()
     height = mode->height;
     window = glfwCreateWindow(width, height, name, glfwGetPrimaryMonitor(), NULL);
 
+    OutputErrorCode(window, "could not open window");
+
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
 
@@ -86,6 +99,8 @@ void GLFWWindowManager::CreateRegularWindow(const int width, const int height)
     this->width = width;
     this->height = height;
     window = glfwCreateWindow(width, height, name, NULL, NULL);
+
+    OutputErrorCode(window, "could not open window");
 }
 
 void GLFWWindowManager::AddGLFWOptions()

@@ -2,8 +2,17 @@
 #include "Sounds.h"
 #include "../../Utils/Fast.h"
 #include <cmath>
+#include <iostream>
 
 std::vector<Imp_Audio::Note> Imp_Audio::notes;
+
+void OutputErrorCode(PaError errorCode)
+{
+    if (errorCode != paNoError)
+    {
+        std::cout << "PortAudio error: " << Pa_GetErrorText(errorCode) << std::endl;
+    }
+}
 
 void Imp_Audio::InitAudio(int startFire, int startGeometry, int startPlasma, int startPlanes, int startEnding)
 {
@@ -13,18 +22,18 @@ void Imp_Audio::InitAudio(int startFire, int startGeometry, int startPlasma, int
     START_PLANES = startPlanes;
     START_ENDING = startEnding;
 
-    Pa_Initialize();
-    Pa_OpenDefaultStream(&stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, AudioCallback, 0);
-    Pa_StartStream(stream);
+    OutputErrorCode(Pa_Initialize());
+    OutputErrorCode(Pa_OpenDefaultStream(&stream, INPUT_CHANNELS, OUTPUT_CHANNELS, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, AudioCallback, 0));
+    OutputErrorCode(Pa_StartStream(stream));
 
     InitNotes();
 }
 
 void Imp_Audio::CloseAudio()
 {
-    Pa_StopStream(stream);
-    Pa_CloseStream(stream);
-    Pa_Terminate();
+    OutputErrorCode(Pa_StopStream(stream));
+    OutputErrorCode(Pa_CloseStream(stream));
+    OutputErrorCode(Pa_Terminate());
 }
 
 void Imp_Audio::UpdateSound(float deltaTime, float accumulatedTime, bool tunnelBeat)
