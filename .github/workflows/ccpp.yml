@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  linux_build:
+  Linux Build:
 
     runs-on: ubuntu-latest
 
@@ -23,3 +23,12 @@ jobs:
       run: ./build_all_linux.sh
     - name: Build Release
       run: ./build_all_linux_release.sh
+  
+  Windows Build:
+    
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - uses: eine/setup-msys2@v0
+      - run: msys2do ./build_all.sh
