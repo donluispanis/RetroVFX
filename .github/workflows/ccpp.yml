@@ -32,8 +32,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: eine/setup-msys2@v0
       - name: Installing
-        run: msys2do pacman --noconfirm -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain \
-                    git subversion mercurial \
-                    mingw-w64-i686-cmake mingw-w64-x86_64-cmake
+        run: msys2do pacman --noconfirm -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
       - name: See
         run: msys2do ./build_all.sh
