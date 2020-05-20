@@ -82,33 +82,33 @@ Simple effect that involves real time scaling and rotations. A mapping is perfor
 ### Deformations
 
 <figure>
-  <img src="assets/img/deformation1.png" width=500px alt="No deformations">
   <figcaption>No deformations</figcaption>
+  <img src="assets/img/deformation1.png" width=500px alt="No deformations">
 </figure>
 
 <figure>
-  <img src="assets/img/deformation2.png" width=500px alt="Transversal wave on x">
   <figcaption>Transversal wave on x</figcaption>
+  <img src="assets/img/deformation2.png" width=500px alt="Transversal wave on x">
 </figure>
 
 <figure>
-  <img src="assets/img/deformation3.png" width=500px alt="Longitudinal wave on x">
   <figcaption>Longitudinal wave on x</figcaption>
+  <img src="assets/img/deformation3.png" width=500px alt="Longitudinal wave on x">
 </figure>
 
 <figure>
-  <img src="assets/img/deformation4.png" width=500px alt="Diamond (transversal on x and y)">
   <figcaption>Diamond (transversal on x and y)</figcaption>
+  <img src="assets/img/deformation4.png" width=500px alt="Diamond (transversal on x and y)">
 </figure>
 
 <figure>
-  <img src="assets/img/deformation5.png" width=500px alt="Mosaic (longitudinal on x and y)">
   <figcaption>Mosaic (longitudinal on x and y)</figcaption>
+  <img src="assets/img/deformation5.png" width=500px alt="Mosaic (longitudinal on x and y)">
 </figure>
 
 <figure>
-  <img src="assets/img/deformation6.png" width=500px alt="Flag (x depends on y)">
   <figcaption>Flag (x depends on y)</figcaption>
+  <img src="assets/img/deformation6.png" width=500px alt="Flag (x depends on y)">
 </figure>
 
 ### Plasma
@@ -133,7 +133,7 @@ Geometry effect creating by simply projecting 3D points, with a fixed camera. Tr
 
 Compilation of all the previous effects and some new techniques, implementing real time generated sound (using different types and combinations of waves (square, triangle, sawtooth and sine)).
 
-A video of it can be found here.
+A video of it can be found [here](https://youtu.be/wt8GP5n3uNc).
 
 
 <img src="assets/img/intro.png" width=500px alt="Intro">
