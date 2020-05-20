@@ -13,7 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: openrndr/setup-opengl@v1
+    - name: update
+      run: sudo apt-get update
+    - name: install opengl
+      run: sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
     - name: build_debug
       run: ./build_all_linux.sh
     - name: build_release
