@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Linux Debug
 
 on:
   push:
@@ -7,7 +7,8 @@ on:
     branches: [ master ]
 
 jobs:
-  Linux_Build:
+  
+  Linux_Debug_Build:
 
     runs-on: ubuntu-latest
 
@@ -21,17 +22,3 @@ jobs:
       run: sudo apt-get install libjack0
     - name: Build Debug
       run: ./build_all_linux.sh
-    - name: Build Release
-      run: ./build_all_linux_release.sh
-  
-  Windows_Build:
-    
-    runs-on: windows-latest
-    
-    steps:
-      - uses: actions/checkout@v2
-      - uses: eine/setup-msys2@v0
-      - name: Installing
-        run: msys2do pacman --noconfirm -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
-      - name: See
-        run: msys2do ./build_all.sh
