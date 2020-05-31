@@ -78,8 +78,6 @@ void GLFWWindowManager::CreateForcedFullscreenWindow(const int width, const int 
     window = glfwCreateWindow(mode->width, mode->height, name, glfwGetPrimaryMonitor(), NULL);
 
     OutputErrorCode(window, "could not open window");
-
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
 
 void GLFWWindowManager::CreateFullscreenWindow()
@@ -90,8 +88,6 @@ void GLFWWindowManager::CreateFullscreenWindow()
     window = glfwCreateWindow(width, height, name, glfwGetPrimaryMonitor(), NULL);
 
     OutputErrorCode(window, "could not open window");
-
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
 
 void GLFWWindowManager::CreateRegularWindow(const int width, const int height)
