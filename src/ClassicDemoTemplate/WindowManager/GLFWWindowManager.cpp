@@ -107,7 +107,6 @@ void GLFWWindowManager::AddGLFWOptions()
 {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(0);
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 }
 
 void GLFWWindowManager::UpdateWindow()
