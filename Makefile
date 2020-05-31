@@ -35,11 +35,11 @@ fire_lin: create_dir make_src make_fire compile_fire_lin
 make_fire: 
 	@$(MAKE) --no-print-directory -s -C src/Fire
 
-compile_fire: TARGET := Fire
+compile_fire: TARGET := Fire.html
 
 compile_fire: all_windows
 
-compile_fire_lin: TARGET := Fire
+compile_fire_lin: TARGET := Fire.html
 
 compile_fire_lin: all_linux
 
@@ -228,12 +228,12 @@ all_windows:
 ################################################################################
 # Linux
 ################################################################################
-all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -lportaudio -Wl,-rpath=./lib/linux;
+all_linux: LDFLAGS += -s USE_GLFW=3;
 
 all_linux:
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
-	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET)
+	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
 	@printf "$(GREEN)Linking done!\n$(WHITE)"
 
 clean:
