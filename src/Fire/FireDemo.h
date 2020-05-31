@@ -5,7 +5,7 @@
 #include "../Utils/ColourStamp.h"
 
 struct Pixel;
-struct IWindowManager;
+class IWindowManager;
 
 class FireDemo : public ClassicDemoTemplate
 {

@@ -4,7 +4,7 @@
 #include "KeyState.h"
 #include <map>
 
-class GLFWwindow;
+struct GLFWwindow;
 class Clock;
 class IRenderManager;
 struct Pixel;

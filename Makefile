@@ -233,7 +233,7 @@ all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -lportaudio -Wl,-rpath=./
 all_linux:
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
-	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET)
 	@printf "$(GREEN)Linking done!\n$(WHITE)"
 
 clean:
