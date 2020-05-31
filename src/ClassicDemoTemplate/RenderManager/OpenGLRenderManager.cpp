@@ -1,5 +1,6 @@
-#include <GL/glew.h>
-#include <GL/gl.h>
+#define GLFW_INCLUDE_ES3
+#include <GLES3/gl3.h>
+#include <GLFW/glfw3.h>
 #include "OpenGLRenderManager.h"
 #include "OpenGLValues.h"
 #include "../../Utils/Pixel.h"
@@ -21,8 +22,6 @@ void OpenGLRenderManager::DisposeRender()
 
 void OpenGLRenderManager::InitGlew()
 {
-    glewExperimental = GL_TRUE;
-    glewInit();
 }
 
 void OpenGLRenderManager::InitOpenGL()
@@ -68,7 +67,6 @@ void OpenGLRenderManager::CreateOpenGLProgram()
     programID = glCreateProgram();
     glAttachShader(programID, vertexShader);
     glAttachShader(programID, fragmentShader);
-    glBindFragDataLocation(programID, 0, "outColor");
     glLinkProgram(programID);
     glUseProgram(programID);
 

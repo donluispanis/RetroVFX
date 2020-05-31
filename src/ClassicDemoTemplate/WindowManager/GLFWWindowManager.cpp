@@ -1,5 +1,7 @@
 #include <string>
+#define GLFW_INCLUDE_ES3
 #include <GLFW/glfw3.h>
+#include <GLES3/gl3.h>
 #include "GLFWWindowManager.h"
 #include "../RenderManager/OpenGLRenderManager.h"
 #include "../../Utils/Clock.h"
