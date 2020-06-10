@@ -3,11 +3,11 @@ FROM donluispanis/ubuntu
 COPY . /usr/src/linux_build
 WORKDIR /usr/src/linux_build
 
-RUN make fire_lin DONT_USE_LINUX_PRECOMPILED_BINARIES=""
-RUN make dottunnel_lin DONT_USE_LINUX_PRECOMPILED_BINARIES=""
-RUN make rotozoom_lin DONT_USE_LINUX_PRECOMPILED_BINARIES=""
-RUN make deformations_lin DONT_USE_LINUX_PRECOMPILED_BINARIES=""
-RUN make plasma_lin DONT_USE_LINUX_PRECOMPILED_BINARIES=""
-RUN make planes_lin DONT_USE_LINUX_PRECOMPILED_BINARIES=""
-RUN make geometry_lin DONT_USE_LINUX_PRECOMPILED_BINARIES=""
-RUN make finaldemo_lin DONT_USE_LINUX_PRECOMPILED_BINARIES=""
+RUN make fire_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make dottunnel_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make rotozoom_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make deformations_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make plasma_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make planes_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make geometry_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make finaldemo_lin USE_LINUX_PRECOMPILED_BINARIES=false
