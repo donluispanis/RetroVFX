@@ -224,17 +224,18 @@ all_windows:
 # Linux
 ################################################################################
 
+# if the above line is not defined, the build process will look for the GLFW3 and portaudio libraries provided by RetroVFX
+all_linux:
+ifndef DONT_USE_LINUX_PRECOMPILED_BINARIES
+else
+LDFLAGS += -L./lib/linux -Wl,-rpath=./lib/linux;
+endif
+
 all_linux: 
 ifdef WASM
 LDFLAGS +=  -s USE_GLFW=3
 else
 LDFLAGS +=  -lGL -lGLEW -lglfw -lportaudio 
-endif
-
-# if the above line is not defined, the build process will look for the GLFW3 and portaudio libraries provided by RetroVFX
-ifndef DONT_USE_LINUX_PRECOMPILED_BINARIES
-else
-LDFLAGS += -L./lib/linux -Wl,-rpath=./lib/linux;
 endif
 
 all_linux:
