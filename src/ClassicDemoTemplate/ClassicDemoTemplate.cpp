@@ -5,7 +5,6 @@
 #include "../Utils/Pixel.h"
 #include "../Utils/Fast.h"
 #include <string>
-#include <emscripten/emscripten.h>
 
 ClassicDemoTemplate::ClassicDemoTemplate()
 {
@@ -41,7 +40,7 @@ bool ClassicDemoTemplate::Close()
     return Destroy();
 }
 
-void ClassicDemoTemplate::main_loop()
+void ClassicDemoTemplate::Run()
 {
     double dt = windowManager->GetDeltaTime();
     windowManager->UpdateWindow();
@@ -52,16 +51,6 @@ void ClassicDemoTemplate::main_loop()
     }
 
     windowManager->DrawToScreen();
-}
-
-void Render(void* arg)
-{
-    static_cast<ClassicDemoTemplate*>(arg)->main_loop();
-}
-
-void ClassicDemoTemplate::Run()
-{
-    emscripten_set_main_loop_arg(&Render, this, 0, 0);
 }
 
 void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour)

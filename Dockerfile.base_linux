@@ -1,0 +1,6 @@
+FROM gcc
+
+RUN apt-get update
+RUN apt-get -y install libglu1-mesa-dev freeglut3-dev mesa-common-dev libglew-dev libjack0
+RUN apt-get -y install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+RUN apt-get -y install libglfw3 libglfw3-dev

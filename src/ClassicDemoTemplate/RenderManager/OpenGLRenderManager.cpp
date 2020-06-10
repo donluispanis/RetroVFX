@@ -1,6 +1,5 @@
-#define GLFW_INCLUDE_ES3
-#include <GLES3/gl3.h>
-#include <GLFW/glfw3.h>
+#include <GL/glew.h>
+#include <GL/gl.h>
 #include "OpenGLRenderManager.h"
 #include "OpenGLValues.h"
 #include "../../Utils/Pixel.h"

@@ -1,15 +1,10 @@
-
-
-# Name of the executable created (.exe will be added automatically if necessary)
-TARGET := Demo
-
 # Path for the executable
 BIN_PATH := bin/
 OBJ_PATH := obj/
 
 CXXFLAGS += -std=c++14 -static-libgcc -static-libstdc++
 
-# general compiler settings (might need to be set when compiling the lib, too)
+# General compiler settings
 ifndef NDEBUG
 CXXFLAGS += -g -Wall
 else
@@ -35,11 +30,11 @@ fire_lin: create_dir make_src make_fire compile_fire_lin
 make_fire: 
 	@$(MAKE) --no-print-directory -s -C src/Fire
 
-compile_fire: TARGET := Fire.html
+compile_fire: TARGET := Fire
 
 compile_fire: all_windows
 
-compile_fire_lin: TARGET := Fire.html
+compile_fire_lin: TARGET := Fire
 
 compile_fire_lin: all_linux
 
@@ -228,7 +223,19 @@ all_windows:
 ################################################################################
 # Linux
 ################################################################################
-all_linux: LDFLAGS += -s USE_GLFW=3;
+
+all_linux: 
+ifdef WASM
+LDFLAGS +=  -s USE_GLFW=3
+else
+LDFLAGS +=  -lGL -lGLEW -lglfw -lportaudio 
+endif
+
+# if the above line is not defined, the build process will look for the GLFW3 and portaudio libraries provided by RetroVFX
+ifndef DONT_USE_LINUX_PRECOMPILED_BINARIES
+else
+LDFLAGS += -L./lib/linux -Wl,-rpath=./lib/linux;
+endif
 
 all_linux:
 	@printf "$(GREEN)Compiling done!\n"
