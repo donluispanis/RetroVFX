@@ -27,6 +27,8 @@ fire: create_dir make_src make_fire compile_fire
 
 fire_lin: create_dir make_src make_fire compile_fire_lin
 
+fire_wasm: create_dir make_src make_fire compile_fire_wasm
+
 make_fire: 
 	@$(MAKE) --no-print-directory -s -C src/Fire
 
@@ -37,6 +39,10 @@ compile_fire: all_windows
 compile_fire_lin: TARGET := Fire
 
 compile_fire_lin: all_linux
+
+compile_fire_wasm: TARGET := Fire.html
+
+compile_fire_wasm: all_wasm
 
 ################################################################################
 # DOT TUNNEL
@@ -224,13 +230,11 @@ all_windows:
 # Linux
 ################################################################################
 
-# if the above line is not defined, the build process will look for the GLFW3 and portaudio libraries provided by RetroVFX
-ifdef WASM
-all_linux: LDFLAGS +=  -s USE_GLFW=3
-else ifdef DONT_USE_LINUX_PRECOMPILED_BINARIES
-all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -lportaudio -Wl,-rpath=./lib/linux
-else
+# if the variable below is not defined, the build process will look for the GLFW3 and portaudio libraries provided by RetroVFX
+ifndef DONT_USE_LINUX_PRECOMPILED_BINARIES
 all_linux: LDFLAGS +=  -lGL -lGLEW -lglfw -lportaudio 
+else
+all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -lportaudio -Wl,-rpath=./lib/linux
 endif
 
 all_linux:
@@ -238,6 +242,22 @@ all_linux:
 	@printf "$(YELLOW)Linking...\n"
 	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
 	@printf "$(GREEN)Linking done!\n$(WHITE)"
+
+################################################################################
+# Web Assembly
+################################################################################
+
+all_wasm: LDFLAGS += -s USE_GLFW=3
+
+all_wasm:
+	@printf "$(GREEN)Compiling done!\n"
+	@printf "$(YELLOW)Linking...\n"
+	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@printf "$(GREEN)Linking done!\n$(WHITE)"
+
+################################################################################
+# Cleaning up
+################################################################################
 
 clean:
 	@rm -r -f $(BIN_PATH)$(OBJ_PATH)
