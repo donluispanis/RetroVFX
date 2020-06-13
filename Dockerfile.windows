@@ -1,0 +1,20 @@
+FROM dockcross/windows-x64
+
+COPY . /usr/src/windows_build
+WORKDIR /usr/src/windows_build
+
+RUN make fire
+RUN make clean_main
+RUN make dottunnel
+RUN make clean_main
+RUN make rotozoom
+RUN make clean_main
+RUN make deformations
+RUN make clean_main
+RUN make plasma
+RUN make clean_main
+RUN make planes
+RUN make clean_main
+RUN make geometry
+RUN make clean_main
+RUN make finaldemo

@@ -1,15 +1,10 @@
-
-
-# Name of the executable created (.exe will be added automatically if necessary)
-TARGET := Demo
-
 # Path for the executable
 BIN_PATH := bin/
 OBJ_PATH := obj/
 
 CXXFLAGS += -std=c++14 -static-libgcc -static-libstdc++
 
-# general compiler settings (might need to be set when compiling the lib, too)
+# General compiler settings
 ifndef NDEBUG
 CXXFLAGS += -g -Wall
 else
@@ -32,16 +27,22 @@ fire: create_dir make_src make_fire compile_fire
 
 fire_lin: create_dir make_src make_fire compile_fire_lin
 
+fire_wasm: create_dir make_src make_fire compile_fire_wasm
+
 make_fire: 
 	@$(MAKE) --no-print-directory -s -C src/Fire
 
-compile_fire: TARGET := Fire
+compile_fire: TARGET := Fire.exe
 
 compile_fire: all_windows
 
 compile_fire_lin: TARGET := Fire
 
 compile_fire_lin: all_linux
+
+compile_fire_wasm: TARGET := Fire.html
+
+compile_fire_wasm: all_wasm
 
 ################################################################################
 # DOT TUNNEL
@@ -53,7 +54,7 @@ dottunnel_lin: create_dir make_src make_dottunnel compile_dottunnel_lin
 make_dottunnel: 
 	@$(MAKE) --no-print-directory -s -C src/DotTunnel
 
-compile_dottunnel: TARGET := DotTunnel
+compile_dottunnel: TARGET := DotTunnel.exe
 
 compile_dottunnel: all_windows
 
@@ -71,7 +72,7 @@ rotozoom_lin: create_dir make_src make_rotozoom compile_rotozoom_lin
 make_rotozoom: 
 	@$(MAKE) --no-print-directory -s -C src/RotoZoom
 
-compile_rotozoom: TARGET := RotoZoom
+compile_rotozoom: TARGET := RotoZoom.exe
 
 compile_rotozoom: all_windows
 
@@ -89,7 +90,7 @@ deformations_lin: create_dir make_src make_deformations compile_deformations_lin
 make_deformations: 
 	@$(MAKE) --no-print-directory -s -C src/Deformations
 
-compile_deformations: TARGET := Deformations
+compile_deformations: TARGET := Deformations.exe
 
 compile_deformations: all_windows
 
@@ -107,7 +108,7 @@ plasma_lin: create_dir make_src make_plasma compile_plasma_lin
 make_plasma: 
 	@$(MAKE) --no-print-directory -s -C src/Plasma
 
-compile_plasma: TARGET := Plasma
+compile_plasma: TARGET := Plasma.exe
 
 compile_plasma: all_windows
 
@@ -125,7 +126,7 @@ planes_lin: create_dir make_src make_planes compile_planes_lin
 make_planes: 
 	@$(MAKE) --no-print-directory -s -C src/Planes
 
-compile_planes: TARGET := Planes
+compile_planes: TARGET := Planes.exe
 
 compile_planes: all_windows
 
@@ -143,7 +144,7 @@ geometry_lin: create_dir make_src make_geometry compile_geometry_lin
 make_geometry: 
 	@$(MAKE) --no-print-directory -s -C src/Geometry
 
-compile_geometry: TARGET := Geometry
+compile_geometry: TARGET := Geometry.exe
 
 compile_geometry: all_windows
 
@@ -162,7 +163,7 @@ make_finaldemo:
 	@$(MAKE) --no-print-directory -s -C src/FinalDemo
 	@$(MAKE) --no-print-directory -s -C src/FinalDemo/Imp
 
-compile_finaldemo: TARGET := FinalDemo
+compile_finaldemo: TARGET := FinalDemo.exe
 
 compile_finaldemo: all_windows
 
@@ -228,13 +229,35 @@ all_windows:
 ################################################################################
 # Linux
 ################################################################################
-all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -lportaudio -Wl,-rpath=./lib/linux;
+
+# if the variable below is not defined, the build process will look for the GLFW3 and portaudio libraries provided by RetroVFX
+ifeq ($(USE_LINUX_PRECOMPILED_BINARIES), false)
+all_linux: LDFLAGS +=  -lGL -lGLEW -lglfw -lportaudio 
+else
+all_linux: LDFLAGS += -L./lib/linux -lGL -lGLEW -lglfw -lportaudio -Wl,-rpath=./lib/linux
+endif
 
 all_linux:
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
 	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
 	@printf "$(GREEN)Linking done!\n$(WHITE)"
+
+################################################################################
+# Web Assembly
+################################################################################
+
+all_wasm: LDFLAGS += -s USE_GLFW=3
+
+all_wasm:
+	@printf "$(GREEN)Compiling done!\n"
+	@printf "$(YELLOW)Linking...\n"
+	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@printf "$(GREEN)Linking done!\n$(WHITE)"
+
+################################################################################
+# Cleaning up
+################################################################################
 
 clean:
 	@rm -r -f $(BIN_PATH)$(OBJ_PATH)

@@ -1,0 +1,8 @@
+FROM trzeci/emscripten
+
+COPY . /usr/src/Fire
+WORKDIR /usr/src/Fire
+
+RUN emmake make fire_wasm
+
+LABEL Name=fire Version=0.0.1

@@ -13,6 +13,7 @@ class ClassicDemoTemplate
     bool Construct(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen = false);
     void Run();
     bool Close();
+    void main_loop();
 
     IWindowManager *GetWindowManager() { return windowManager; }
     void RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour);

@@ -12,25 +12,23 @@ Pixel::Pixel(unsigned char r, unsigned char g, unsigned char b)
 
 Pixel Pixel::operator+(const Pixel &p) const noexcept
 {
-    return std::move(
-        Pixel(
+    return Pixel(
             (p.R + this->R > 255) ? 255 : p.R + this->R,
             (p.G + this->G > 255) ? 255 : p.G + this->G,
-            (p.B + this->B > 255) ? 255 : p.B + this->B));
+            (p.B + this->B > 255) ? 255 : p.B + this->B);
 }
 
 Pixel Pixel::operator-(const Pixel &p) const noexcept
 {
-    return std::move(
-        Pixel(
+    return Pixel(
             (p.R - this->R < 0) ? 0 : p.R + this->R,
             (p.G - this->G < 0) ? 0 : p.G + this->G,
-            (p.B - this->B < 0) ? 0 : p.B + this->B));
+            (p.B - this->B < 0) ? 0 : p.B + this->B);
 }
 
 Pixel Pixel::operator*(const float f) const noexcept
 {
-    return std::move(Pixel(this->R * f, this->G * f, this->B * f));
+    return Pixel(this->R * f, this->G * f, this->B * f);
 }
 
 bool Pixel::operator==(const Pixel &p) const noexcept

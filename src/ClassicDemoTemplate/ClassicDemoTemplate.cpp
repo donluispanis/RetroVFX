@@ -208,9 +208,9 @@ Pixel ClassicDemoTemplate::GetInterpolatedColour(int p1, int p2, int pAux, const
 {
     float path = Fast::Abs(float(p2 - pAux) / float(p2 - p1));
 
-    return std::move(Pixel(colour1.R * path + colour2.R * (1 - path),
-                           colour1.G * path + colour2.G * (1 - path),
-                           colour1.B * path + colour2.B * (1 - path)));
+    return Pixel(colour1.R * path + colour2.R * (1 - path),
+                 colour1.G * path + colour2.G * (1 - path),
+                 colour1.B * path + colour2.B * (1 - path));
 }
 
 void ClassicDemoTemplate::ClearScreen(const Pixel &colour)

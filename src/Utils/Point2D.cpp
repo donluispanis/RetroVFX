@@ -14,18 +14,16 @@ Point2D::Point2D(float x, float y)
 
 Point2D Point2D::operator+(const Point2D &p)
 {
-    return std::move(
-        Point2D(
+    return Point2D(
             this->X + p.X,
-            this->Y + p.Y));
+            this->Y + p.Y);
 }
 
 Point2D Point2D::operator-(const Point2D &p)
 {
-    return std::move(
-        Point2D(
+    return Point2D(
             this->X - p.X,
-            this->Y - p.Y));
+            this->Y - p.Y);
 }
 
 void Point2D::operator+=(const Point2D &p) noexcept

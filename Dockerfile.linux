@@ -1,0 +1,20 @@
+FROM donluispanis/ubuntu
+
+COPY . /usr/src/linux_build
+WORKDIR /usr/src/linux_build
+
+RUN make fire_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make clean_main
+RUN make dottunnel_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make clean_main
+RUN make rotozoom_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make clean_main
+RUN make deformations_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make clean_main
+RUN make plasma_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make clean_main
+RUN make planes_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make clean_main
+RUN make geometry_lin USE_LINUX_PRECOMPILED_BINARIES=false
+RUN make clean_main
+RUN make finaldemo_lin USE_LINUX_PRECOMPILED_BINARIES=false
