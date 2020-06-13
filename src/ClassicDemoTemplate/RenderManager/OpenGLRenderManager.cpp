@@ -21,6 +21,8 @@ void OpenGLRenderManager::DisposeRender()
 
 void OpenGLRenderManager::InitGlew()
 {
+    glewExperimental = GL_TRUE;
+    glewInit();
 }
 
 void OpenGLRenderManager::InitOpenGL()
@@ -66,6 +68,7 @@ void OpenGLRenderManager::CreateOpenGLProgram()
     programID = glCreateProgram();
     glAttachShader(programID, vertexShader);
     glAttachShader(programID, fragmentShader);
+    glBindFragDataLocation(programID, 0, "outColor");
     glLinkProgram(programID);
     glUseProgram(programID);
 

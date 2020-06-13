@@ -42,15 +42,18 @@ bool ClassicDemoTemplate::Close()
 
 void ClassicDemoTemplate::Run()
 {
-    double dt = windowManager->GetDeltaTime();
-    windowManager->UpdateWindow();
-
-    if (!Update(dt))
+    while (windowManager->IsWindowOpen())
     {
-        return;
-    }
+        double dt = windowManager->GetDeltaTime();
+        windowManager->UpdateWindow();
 
-    windowManager->DrawToScreen();
+        if (!Update(dt))
+        {
+            return;
+        }
+
+        windowManager->DrawToScreen();
+    }
 }
 
 void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour)

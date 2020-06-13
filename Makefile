@@ -32,7 +32,7 @@ fire_wasm: create_dir make_src make_fire compile_fire_wasm
 make_fire: 
 	@$(MAKE) --no-print-directory -s -C src/Fire
 
-compile_fire: TARGET := Fire
+compile_fire: TARGET := Fire.exe
 
 compile_fire: all_windows
 
@@ -54,7 +54,7 @@ dottunnel_lin: create_dir make_src make_dottunnel compile_dottunnel_lin
 make_dottunnel: 
 	@$(MAKE) --no-print-directory -s -C src/DotTunnel
 
-compile_dottunnel: TARGET := DotTunnel
+compile_dottunnel: TARGET := DotTunnel.exe
 
 compile_dottunnel: all_windows
 
@@ -72,7 +72,7 @@ rotozoom_lin: create_dir make_src make_rotozoom compile_rotozoom_lin
 make_rotozoom: 
 	@$(MAKE) --no-print-directory -s -C src/RotoZoom
 
-compile_rotozoom: TARGET := RotoZoom
+compile_rotozoom: TARGET := RotoZoom.exe
 
 compile_rotozoom: all_windows
 
@@ -90,7 +90,7 @@ deformations_lin: create_dir make_src make_deformations compile_deformations_lin
 make_deformations: 
 	@$(MAKE) --no-print-directory -s -C src/Deformations
 
-compile_deformations: TARGET := Deformations
+compile_deformations: TARGET := Deformations.exe
 
 compile_deformations: all_windows
 
@@ -108,7 +108,7 @@ plasma_lin: create_dir make_src make_plasma compile_plasma_lin
 make_plasma: 
 	@$(MAKE) --no-print-directory -s -C src/Plasma
 
-compile_plasma: TARGET := Plasma
+compile_plasma: TARGET := Plasma.exe
 
 compile_plasma: all_windows
 
@@ -126,7 +126,7 @@ planes_lin: create_dir make_src make_planes compile_planes_lin
 make_planes: 
 	@$(MAKE) --no-print-directory -s -C src/Planes
 
-compile_planes: TARGET := Planes
+compile_planes: TARGET := Planes.exe
 
 compile_planes: all_windows
 
@@ -144,7 +144,7 @@ geometry_lin: create_dir make_src make_geometry compile_geometry_lin
 make_geometry: 
 	@$(MAKE) --no-print-directory -s -C src/Geometry
 
-compile_geometry: TARGET := Geometry
+compile_geometry: TARGET := Geometry.exe
 
 compile_geometry: all_windows
 
@@ -163,7 +163,7 @@ make_finaldemo:
 	@$(MAKE) --no-print-directory -s -C src/FinalDemo
 	@$(MAKE) --no-print-directory -s -C src/FinalDemo/Imp
 
-compile_finaldemo: TARGET := FinalDemo
+compile_finaldemo: TARGET := FinalDemo.exe
 
 compile_finaldemo: all_windows
 
