@@ -15,7 +15,6 @@ void main_loop()
 
 int main()
 {
-
     if (!plasmaDemo.Construct("Plasma", 640, 360, false))
         return -1;
 

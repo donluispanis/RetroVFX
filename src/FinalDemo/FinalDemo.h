@@ -7,7 +7,10 @@
 #include "Imp/Imp_Plasma.h"
 #include "Imp/Imp_Planes.h"
 #include "Imp/Imp_Ending.h"
-#include "Imp/Imp_Audio.h"
+
+#ifndef __EMSCRIPTEN__
+    #include "Imp/Imp_Audio.h"
+#endif
 
 struct Pixel;
 struct IWindowManager;
@@ -57,5 +60,8 @@ private:
     Imp_Plasma plasma;
     Imp_Planes planes;
     Imp_Ending ending;
+
+#ifndef __EMSCRIPTEN__
     Imp_Audio audio;
+#endif
 };

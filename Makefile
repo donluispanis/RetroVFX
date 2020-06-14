@@ -51,6 +51,8 @@ dottunnel: create_dir make_src make_dottunnel compile_dottunnel
 
 dottunnel_lin: create_dir make_src make_dottunnel compile_dottunnel_lin
 
+dottunnel_wasm: create_dir make_src make_dottunnel compile_dottunnel_wasm
+
 make_dottunnel: 
 	@$(MAKE) --no-print-directory -s -C src/DotTunnel
 
@@ -62,12 +64,18 @@ compile_dottunnel_lin: TARGET := DotTunnel
 
 compile_dottunnel_lin: all_linux
 
+compile_dottunnel_wasm: TARGET := DotTunnel.html
+
+compile_dottunnel_wasm: all_wasm
+
 ################################################################################
 # ROTOZOOM
 ################################################################################
 rotozoom: create_dir make_src make_rotozoom compile_rotozoom
 
 rotozoom_lin: create_dir make_src make_rotozoom compile_rotozoom_lin
+
+rotozoom_wasm: create_dir make_src make_rotozoom compile_rotozoom_wasm
 
 make_rotozoom: 
 	@$(MAKE) --no-print-directory -s -C src/RotoZoom
@@ -80,12 +88,19 @@ compile_rotozoom_lin: TARGET := RotoZoom
 
 compile_rotozoom_lin: all_linux
 
+compile_rotozoom_wasm: TARGET := RotoZoom.html
+
+compile_rotozoom_wasm: all_wasm
+
+
 ################################################################################
 # DEFORMATIONS
 ################################################################################
 deformations: create_dir make_src make_deformations compile_deformations
 
 deformations_lin: create_dir make_src make_deformations compile_deformations_lin
+
+deformations_wasm: create_dir make_src make_deformations compile_deformations_wasm
 
 make_deformations: 
 	@$(MAKE) --no-print-directory -s -C src/Deformations
@@ -97,6 +112,10 @@ compile_deformations: all_windows
 compile_deformations_lin: TARGET := Deformations
 
 compile_deformations_lin: all_linux
+
+compile_deformations_wasm: TARGET := Deformations.html
+
+compile_deformations_wasm: all_wasm
 
 ################################################################################
 # PLASMA
@@ -129,6 +148,8 @@ planes: create_dir make_src make_planes compile_planes
 
 planes_lin: create_dir make_src make_planes compile_planes_lin
 
+planes_wasm: create_dir make_src make_planes compile_planes_wasm
+
 make_planes: 
 	@$(MAKE) --no-print-directory -s -C src/Planes
 
@@ -140,12 +161,18 @@ compile_planes_lin: TARGET := Planes
 
 compile_planes_lin: all_linux
 
+compile_planes_wasm: TARGET := Planes.html
+
+compile_planes_wasm: all_wasm
+
 ################################################################################
 # GEOMETRY
 ################################################################################
 geometry: create_dir make_src make_geometry compile_geometry
 
 geometry_lin: create_dir make_src make_geometry compile_geometry_lin
+
+geometry_wasm: create_dir make_src make_geometry compile_geometry_wasm
 
 make_geometry: 
 	@$(MAKE) --no-print-directory -s -C src/Geometry
@@ -158,12 +185,18 @@ compile_geometry_lin: TARGET := Geometry
 
 compile_geometry_lin: all_linux
 
+compile_geometry_wasm: TARGET := Geometry.html
+
+compile_geometry_wasm: all_wasm
+
 ################################################################################
 # FINAL DEMO
 ################################################################################
 finaldemo: create_dir make_src make_finaldemo compile_finaldemo
 
 finaldemo_lin: create_dir make_src make_finaldemo compile_finaldemo_lin
+
+finaldemo_wasm: create_dir make_src make_finaldemo compile_finaldemo_wasm
 
 make_finaldemo: 
 	@$(MAKE) --no-print-directory -s -C src/FinalDemo
@@ -176,6 +209,10 @@ compile_finaldemo: all_windows
 compile_finaldemo_lin: TARGET := FinalDemo
 
 compile_finaldemo_lin: all_linux
+
+compile_finaldemo_wasm: TARGET := FinalDemo.html
+
+compile_finaldemo_wasm: all_wasm
 
 ################################################################################
 # PERFORMANCE TESTS

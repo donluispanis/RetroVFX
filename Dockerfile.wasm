@@ -1,10 +1,22 @@
 FROM trzeci/emscripten
 
-COPY . /usr/src/Fire
-WORKDIR /usr/src/Fire
+COPY . /usr/src/wasm
+WORKDIR /usr/src/wasm
 
 RUN emmake make fire_wasm NDEBUG=true
 RUN emmake make clean_main
+RUN emmake make dottunnel_wasm NDEBUG=true
+RUN emmake make clean_main
+RUN emmake make rotozoom_wasm NDEBUG=true
+RUN emmake make clean_main
+RUN emmake make deformations_wasm NDEBUG=true
+RUN emmake make clean_main
 RUN emmake make plasma_wasm NDEBUG=true
+RUN emmake make clean_main
+RUN emmake make planes_wasm NDEBUG=true
+RUN emmake make clean_main
+RUN emmake make geometry_wasm NDEBUG=true
+RUN emmake make clean_main
+RUN emmake make finaldemo_wasm NDEBUG=true
 
-LABEL Name=fire Version=0.0.1
+LABEL Name=wasm Version=0.0.1

@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef __EMSCRIPTEN__
+
 #include <portaudio/portaudio.h>
 #include <vector>
 #include <deque>
@@ -86,3 +88,5 @@ private:
     Envelope fireEnv, seaEnv, drumEnv, snareEnv, synthEnv, laserEnv;
     Note fireNote, seaNote, drumNote, snareNote, synthNote, laserNote;
 };
+
+#endif
