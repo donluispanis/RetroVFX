@@ -1,3 +1,8 @@
+#ifdef __EMSCRIPTEN__
+    #include <emscripten/emscripten.h>
+    #define GLFW_INCLUDE_ES3
+#endif
+
 #include <string>
 #include <GLFW/glfw3.h>
 #include "GLFWWindowManager.h"

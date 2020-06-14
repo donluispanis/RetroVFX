@@ -44,16 +44,21 @@ void ClassicDemoTemplate::Run()
 {
     while (windowManager->IsWindowOpen())
     {
-        double dt = windowManager->GetDeltaTime();
-        windowManager->UpdateWindow();
-
-        if (!Update(dt))
-        {
-            return;
-        }
-
-        windowManager->DrawToScreen();
+        this->RenderFrame();
     }
+}
+
+void ClassicDemoTemplate::RenderFrame()
+{
+    double dt = windowManager->GetDeltaTime();
+    windowManager->UpdateWindow();
+
+    if (!Update(dt))
+    {
+        return;
+    }
+
+    windowManager->DrawToScreen();
 }
 
 void ClassicDemoTemplate::RenderText(const char *text, int posX, int posY, int scale, const Pixel &colour)

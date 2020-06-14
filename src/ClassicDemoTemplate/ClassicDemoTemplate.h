@@ -12,6 +12,7 @@ class ClassicDemoTemplate
 
     bool Construct(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen = false);
     void Run();
+    void RenderFrame();
     bool Close();
     void main_loop();
 

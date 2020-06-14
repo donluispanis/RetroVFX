@@ -1,5 +1,12 @@
-#include <GL/glew.h>
-#include <GL/gl.h>
+#ifdef __EMSCRIPTEN__
+    #include <emscripten/emscripten.h>
+    #define GLFW_INCLUDE_ES3
+    #include <GLFW/glfw3.h>
+#else
+    #include <GL/glew.h>
+    #include <GL/gl.h>
+#endif
+
 #include "OpenGLRenderManager.h"
 #include "OpenGLValues.h"
 #include "../../Utils/Pixel.h"
@@ -21,8 +28,10 @@ void OpenGLRenderManager::DisposeRender()
 
 void OpenGLRenderManager::InitGlew()
 {
+#ifndef __EMSCRIPTEN__
     glewExperimental = GL_TRUE;
     glewInit();
+#endif
 }
 
 void OpenGLRenderManager::InitOpenGL()
@@ -68,7 +77,9 @@ void OpenGLRenderManager::CreateOpenGLProgram()
     programID = glCreateProgram();
     glAttachShader(programID, vertexShader);
     glAttachShader(programID, fragmentShader);
+#ifndef __EMSCRIPTEN__
     glBindFragDataLocation(programID, 0, "outColor");
+#endif
     glLinkProgram(programID);
     glUseProgram(programID);
 

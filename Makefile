@@ -105,6 +105,8 @@ plasma: create_dir make_src make_plasma compile_plasma
 
 plasma_lin: create_dir make_src make_plasma compile_plasma_lin
 
+plasma_wasm: create_dir make_src make_plasma compile_plasma_wasm
+
 make_plasma: 
 	@$(MAKE) --no-print-directory -s -C src/Plasma
 
@@ -115,6 +117,10 @@ compile_plasma: all_windows
 compile_plasma_lin: TARGET := Plasma
 
 compile_plasma_lin: all_linux
+
+compile_plasma_wasm: TARGET := Plasma.html
+
+compile_plasma_wasm: all_wasm
 
 ################################################################################
 # PLANES
@@ -209,6 +215,11 @@ make_obj_dir:
 
 make_src:
 	@$(MAKE) --no-print-directory -s -C src
+	@$(MAKE) --no-print-directory -s -C src/Utils
+	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate
+	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate/Characters
+	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate/RenderManager
+	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate/WindowManager
 
 ################################################################################
 # Windows 
