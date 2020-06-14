@@ -3,6 +3,6 @@ FROM trzeci/emscripten
 COPY . /usr/src/Fire
 WORKDIR /usr/src/Fire
 
-RUN emmake make fire_wasm
+RUN emmake make fire_wasm NDEBUG=true
 
 LABEL Name=fire Version=0.0.1

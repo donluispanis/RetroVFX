@@ -209,15 +209,11 @@ make_obj_dir:
 
 make_src:
 	@$(MAKE) --no-print-directory -s -C src
-	@$(MAKE) --no-print-directory -s -C src/Utils
-	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate
-	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate/Characters
-	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate/RenderManager
-	@$(MAKE) --no-print-directory -s -C src/ClassicDemoTemplate/WindowManager
 
 ################################################################################
 # Windows 
 ################################################################################
+
 all_windows: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lglfw3 -lportaudio
 
 all_windows:
@@ -247,7 +243,7 @@ all_linux:
 # Web Assembly
 ################################################################################
 
-all_wasm: LDFLAGS += -s USE_GLFW=3
+all_wasm: LDFLAGS += -s USE_GLFW=3 -s FULL_ES3=1
 
 all_wasm:
 	@printf "$(GREEN)Compiling done!\n"
