@@ -6,6 +6,7 @@
 ![Windows Release Build State](https://github.com/donluispanis/RetroVFX/workflows/Windows%20Release/badge.svg) 
 ![Linux Debug Build State](https://github.com/donluispanis/RetroVFX/workflows/Linux%20Debug/badge.svg) 
 ![Linux Release Build State](https://github.com/donluispanis/RetroVFX/workflows/Linux%20Release/badge.svg)
+![Web Assembly Release Build State](https://github.com/donluispanis/RetroVFX/workflows/Web%20Assembly%20Release/badge.svg)
 
 ## Executing
 
