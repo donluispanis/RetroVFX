@@ -13,12 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Update Packages
-      run: sudo apt-get update
-    - name: Install OpenGL
-      run: sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
-    - name: Install Libjack
-      run: sudo apt-get install libjack0
-    - name: Build Debug
-      run: ./build_all_linux.sh
+      - uses: actions/checkout@v2
+      - name: Build Dockerfile
+        run: docker build . --file Dockerfile.linux
