@@ -14,6 +14,8 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - name: Build Dockerfile
-        run: docker build . --file Dockerfile.windows
-        env: NDEBUG=true
+      - uses: eine/setup-msys2@v0
+      - name: Installing Dev Tools
+        run: msys2do pacman --noconfirm -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
+      - name: Build Release
+        run: msys2do ./build_all_release.sh
