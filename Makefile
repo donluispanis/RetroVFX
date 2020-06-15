@@ -291,7 +291,11 @@ all_linux:
 # Web Assembly
 ################################################################################
 
-all_wasm: LDFLAGS += -s USE_GLFW=3 -s FULL_ES3=1
+all_wasm: LDFLAGS += --shell-file assets/base_html.html -s USE_GLFW=3 -s FULL_ES3=1 -s WASM=1
+
+ifdef EMBED_RESOURCES
+all_wasm: LDFLAGS += --embed-file $(EMBED_RESOURCES)
+endif
 
 all_wasm:
 	@printf "$(GREEN)Compiling done!\n"

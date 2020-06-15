@@ -16,7 +16,7 @@ bool PlanesDemo::Init()
     height = windowManager->GetHeight();
     texture = nullptr;
 
-    if(!BMP::TryOpenImageInDifferentLocations("assets/img/groundsoil.bmp", texture, texWidth, texHeight))
+    if(!BMP::TryOpenImageInDifferentLocations("assets/img/demos/groundsoil.bmp", texture, texWidth, texHeight))
     {
         return false;
     }

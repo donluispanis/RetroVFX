@@ -7,13 +7,13 @@ RUN emmake make fire_wasm NDEBUG=true
 RUN emmake make clean_main
 RUN emmake make dottunnel_wasm NDEBUG=true
 RUN emmake make clean_main
-RUN emmake make rotozoom_wasm NDEBUG=true
+RUN emmake make rotozoom_wasm NDEBUG=true EMBED_RESOURCES=assets/img/demos/lena.bmp
 RUN emmake make clean_main
-RUN emmake make deformations_wasm NDEBUG=true
+RUN emmake make deformations_wasm NDEBUG=true EMBED_RESOURCES=assets/img/demos/lena.bmp
 RUN emmake make clean_main
 RUN emmake make plasma_wasm NDEBUG=true
 RUN emmake make clean_main
-RUN emmake make planes_wasm NDEBUG=true
+RUN emmake make planes_wasm NDEBUG=true EMBED_RESOURCES=assets/img/demos/groundsoil.bmp
 RUN emmake make clean_main
 RUN emmake make geometry_wasm NDEBUG=true
 RUN emmake make clean_main
