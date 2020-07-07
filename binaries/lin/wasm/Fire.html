@@ -128,11 +128,11 @@
               button.style.height = (button.offsetWidth * 0.35) + "px";
             }
           }
-        }, 50);
+        }, 100);
       }
 
       window.onload = recalculateMargins;
-      window.onorientationchange = recalculateMargins;
+      window.addEventListener("orientationchange", recalculateMargins);
 
     </script>
     <script type='text/javascript'>
