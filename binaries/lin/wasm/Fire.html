@@ -98,11 +98,15 @@
         if(isFullscreen)
         {
           isFullscreen = false;
+          canvas.style.maxHeight = "360px";
+          canvas.style.maxWidth = "640px";
           document.exitFullscreen();
           return;
         }
 
         isFullscreen = true;
+        canvas.style.maxHeight = "initial";
+        canvas.style.maxWidth = "initial";
         Module.requestFullscreen(true, false);
       }
 
@@ -124,7 +128,7 @@
               button.style.height = (button.offsetWidth * 0.35) + "px";
             }
           }
-        }, 0);
+        }, 50);
       }
 
       window.onload = recalculateMargins;
