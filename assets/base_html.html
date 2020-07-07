@@ -3,29 +3,65 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width" />
     <title>RetroVFX</title>
     <style>
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
       canvas.emscripten { border: 0px none; background-color: black; border-radius: 10px; }
       body { margin:0; }
+
       .center { padding-left: 0; padding-right: 0; margin-left: auto; margin-right: auto; display: block;}
       .centerButtons { display: flex; justify-content: center; align-items: center; }
       .white { background-color: #FFF; }
       .light { background-color: #DDD; }
-      .button { height: 70px; margin: 13px; font-weight: 700;
-                border-radius: 10px; border-bottom: #AAA solid 12px; border-right: #888 solid 8px; border-top: #888 solid 4px; border-left: #888 solid 4px; }
+
+      .button 
+      { 
+        border-radius: 10px;
+        max-height: 70px; 
+        font-weight: 700;
+        border-bottom: #AAA solid 8px; 
+        border-right: #888 solid 6px; 
+        border-top: #888 solid 3px; 
+        border-left: #888 solid 3px; 
+      }
+
       .button:focus { outline: none; }
       .button:active { background-color: #BBB; }
-      .small { width: 70px; }
-      .big { width: 200px; }
-      .buttons { border-radius: 10px; border: black solid 5px; width: 630px; margin-top: 10px; }
+      .small 
+      { 
+        width: 10%;
+        max-width: 70px; 
+      }
+      .big 
+      { 
+        width: 30%;
+        max-width: 200px; 
+      }
+      .buttons 
+      { 
+        border-radius: 10px; 
+        border: black solid 5px; 
+        max-width: 630px;
+        width: calc(90% - 10px); 
+        margin-top: 10px; 
+      }
+
+      #canvas
+      {
+        max-width: 640px;
+        max-height: 360px;
+        width: 90%;
+      }
     </style>
   </head>
   <body>
 
     <div class="main">
 
-      <canvas class="emscripten center" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+      <span class="wrapper" onclick="toggleFullscren()">
+        <canvas class="emscripten center" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+      </span>
       
       <div class="buttons center">
         <div class="centerButtons">
@@ -33,7 +69,7 @@
           <input type="button" value="W" id="W" class="light button small">
           <input type="button" value="E" id="E" class="white button small">
           <input type="button" value="R" id="R" class="white button small">
-          <input type="button" value="Fullscreen" class="white button big" onclick="Module.requestFullscreen(true,false)">
+          <input type="button" value="Fullscreen" class="white button big" onclick="toggleFullscren()">
         </div>
         
         <div class="centerButtons">
@@ -52,7 +88,49 @@
       
       
     </div>
+    <script type='text/javascript'>
+      var isFullscreen = false;
 
+      function toggleFullscren()
+      {
+        var canvasElement = document.getElementById("canvas");
+
+        if(isFullscreen)
+        {
+          isFullscreen = false;
+          document.exitFullscreen();
+          return;
+        }
+
+        isFullscreen = true;
+        Module.requestFullscreen(true, false);
+      }
+
+      function recalculateMargins()
+      {
+        setTimeout(() =>
+        {
+          var buttons = document.getElementsByClassName("button");
+
+          for(let button of buttons)
+          {
+            button.style.margin = (window.innerWidth > 500) 
+              ? "13px"
+              : "5px";;
+            button.style.height = button.offsetWidth + "px";
+
+            if(button.classList.contains("big"))
+            {
+              button.style.height = (button.offsetWidth * 0.35) + "px";
+            }
+          }
+        }, 0);
+      }
+
+      window.onload = recalculateMargins;
+      window.onorientationchange = recalculateMargins;
+
+    </script>
     <script type='text/javascript'>
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
