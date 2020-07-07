@@ -6,18 +6,51 @@
     <title>RetroVFX</title>
     <style>
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-      canvas.emscripten { border: 0px none; background-color: black; }
+      canvas.emscripten { border: 0px none; background-color: black; border-radius: 10px; }
       body { margin:0; }
       .center { padding-left: 0; padding-right: 0; margin-left: auto; margin-right: auto; display: block;}
-      .centerButtons { display: flex; justify-content: center; align-items: center; margin-top: 10px; }
+      .centerButtons { display: flex; justify-content: center; align-items: center; }
+      .white { background-color: #FFF; }
+      .light { background-color: #DDD; }
+      .button { height: 70px; margin: 13px; font-weight: 700;
+                border-radius: 10px; border-bottom: #AAA solid 12px; border-right: #888 solid 8px; border-top: #888 solid 4px; border-left: #888 solid 4px; }
+      .button:focus { outline: none; }
+      .button:active { background-color: #BBB; }
+      .small { width: 70px; }
+      .big { width: 200px; }
+      .buttons { border-radius: 10px; border: black solid 5px; width: 630px; margin-top: 10px; }
     </style>
   </head>
   <body>
 
-    <canvas class="emscripten center" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    <div class="main">
 
-    <div class="emscripten centerButtons">
-      <input type="button" value="Fullscreen" onclick="Module.requestFullscreen()">
+      <canvas class="emscripten center" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+      
+      <div class="buttons center">
+        <div class="centerButtons">
+          <input type="button" value="Q" id="Q" class="white button small">
+          <input type="button" value="W" id="W" class="light button small">
+          <input type="button" value="E" id="E" class="white button small">
+          <input type="button" value="R" id="R" class="white button small">
+          <input type="button" value="Fullscreen" class="white button big" onclick="Module.requestFullscreen(true,false)">
+        </div>
+        
+        <div class="centerButtons">
+          <input type="button" value="A" id="A" class="light button small">
+          <input type="button" value="S" id="S" class="light button small">
+          <input type="button" value="D" id="D" class="light button small">
+          <input type="button" value="F" id="F" class="white button small">
+          <input type="button" value="Space" class="white button big">
+        </div>
+      </div>
+      
+    </div>
+      
+      
+    </div>
+      
+      
     </div>
 
     <script type='text/javascript'>

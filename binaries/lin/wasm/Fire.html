@@ -1,1 +1,80 @@
-<!doctypehtml><html lang=en-us><head><meta charset=utf-8><meta content="text/html; charset=utf-8"http-equiv=Content-Type><title>RetroVFX</title><style>canvas.emscripten{border:0 none;background-color:#000}body{margin:0}.center{padding-left:0;padding-right:0;margin-left:auto;margin-right:auto;display:block}.centerButtons{display:flex;justify-content:center;align-items:center;margin-top:10px}</style></head><body><canvas class="emscripten center"id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas><div class="emscripten centerButtons"><input onclick=Module.requestFullscreen() type=button value=Fullscreen></div><script>var statusElement=document.getElementById("status"),progressElement=document.getElementById("progress"),spinnerElement=document.getElementById("spinner"),Module={preRun:[],postRun:[],canvas:function(){var e=document.getElementById("canvas");return e.addEventListener("webglcontextlost",(function(e){alert("WebGL context lost. You will need to reload the page."),e.preventDefault()}),!1),e}()}</script><script async src=Fire.js></script></body></html>
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>RetroVFX</title>
+    <style>
+      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      canvas.emscripten { border: 0px none; background-color: black; border-radius: 10px; }
+      body { margin:0; }
+      .center { padding-left: 0; padding-right: 0; margin-left: auto; margin-right: auto; display: block;}
+      .centerButtons { display: flex; justify-content: center; align-items: center; }
+      .white { background-color: #FFF; }
+      .light { background-color: #DDD; }
+      .button { height: 70px; margin: 13px; font-weight: 700;
+                border-radius: 10px; border-bottom: #AAA solid 12px; border-right: #888 solid 8px; border-top: #888 solid 4px; border-left: #888 solid 4px; }
+      .button:focus { outline: none; }
+      .button:active { background-color: #BBB; }
+      .small { width: 70px; }
+      .big { width: 200px; }
+      .buttons { border-radius: 10px; border: black solid 5px; width: 630px; margin-top: 10px; }
+    </style>
+  </head>
+  <body>
+
+    <div class="main">
+
+      <canvas class="emscripten center" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+      
+      <div class="buttons center">
+        <div class="centerButtons">
+          <input type="button" value="Q" id="Q" class="white button small">
+          <input type="button" value="W" id="W" class="light button small">
+          <input type="button" value="E" id="E" class="white button small">
+          <input type="button" value="R" id="R" class="white button small">
+          <input type="button" value="Fullscreen" class="white button big" onclick="Module.requestFullscreen(true,false)">
+        </div>
+        
+        <div class="centerButtons">
+          <input type="button" value="A" id="A" class="light button small">
+          <input type="button" value="S" id="S" class="light button small">
+          <input type="button" value="D" id="D" class="light button small">
+          <input type="button" value="F" id="F" class="white button small">
+          <input type="button" value="Space" class="white button big">
+        </div>
+      </div>
+      
+    </div>
+      
+      
+    </div>
+      
+      
+    </div>
+
+    <script type='text/javascript'>
+      var statusElement = document.getElementById('status');
+      var progressElement = document.getElementById('progress');
+      var spinnerElement = document.getElementById('spinner');
+
+      var Module = {
+        preRun: [],
+        postRun: [],
+        canvas: (function() {
+          var canvas = document.getElementById('canvas');
+
+          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+          // application robust, you may want to override this behavior before shipping!
+          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+          canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+          return canvas;
+        })()
+      };
+    </script>
+    <script async type="text/javascript" src="Fire.js"></script>
+  </body>
+</html>
+
+
