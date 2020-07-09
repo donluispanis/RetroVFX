@@ -4,6 +4,7 @@
 #include "Characters/Characters.h"
 #include "../Utils/Pixel.h"
 #include "../Utils/Fast.h"
+#include "../Utils/InputValues.h"
 #include <string>
 
 ClassicDemoTemplate::ClassicDemoTemplate()
@@ -270,3 +271,43 @@ bool ClassicDemoTemplate::IsPixelOutOfBounds(int x, int y)
     }
     return false;
 }
+
+#ifdef __EMSCRIPTEN__
+void ClassicDemoTemplate::ForceKeyUpdate(int key, bool isPressed)
+{
+    int glfwKey;
+
+    switch(key)
+    {
+        case 0:
+            glfwKey = (int)Key::Q;
+            break;
+        case 1:
+            glfwKey = (int)Key::W;
+            break;
+        case 2:
+            glfwKey = (int)Key::E;
+            break;
+        case 3:
+            glfwKey = (int)Key::R;
+            break;
+        case 4:
+            glfwKey = (int)Key::A;
+            break;
+        case 5:
+            glfwKey = (int)Key::S;
+            break;
+        case 6:
+            glfwKey = (int)Key::D;
+            break;
+        case 7:
+            glfwKey = (int)Key::F;
+            break;
+        case 8:
+            glfwKey = (int)Key::SPACE;
+            break;
+    }
+
+    windowManager->ForceKeyUpdate(glfwKey, isPressed);
+}
+#endif

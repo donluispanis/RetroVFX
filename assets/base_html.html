@@ -59,25 +59,25 @@
 
     <div class="main">
 
-      <span class="wrapper" onclick="toggleFullscren()">
+      <span class="wrapper" onclick="tryExitFullscreen()">
         <canvas class="emscripten center" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
       </span>
       
       <div class="buttons center">
         <div class="centerButtons">
-          <input type="button" value="Q" id="Q" class="white button small">
-          <input type="button" value="W" id="W" class="light button small">
-          <input type="button" value="E" id="E" class="white button small">
-          <input type="button" value="R" id="R" class="white button small">
-          <input type="button" value="Fullscreen" class="white button big" onclick="toggleFullscren()">
+          <input type="submit" value="Q" id="Q" class="light button small">
+          <input type="submit" value="W" id="W" class="white button small">
+          <input type="submit" value="E" id="E" class="light button small">
+          <input type="submit" value="R" id="R" class="light button small">
+          <input type="submit" value="Fullscreen" class="white button big" onclick="toggleFullscren()">
         </div>
         
         <div class="centerButtons">
-          <input type="button" value="A" id="A" class="light button small">
-          <input type="button" value="S" id="S" class="light button small">
-          <input type="button" value="D" id="D" class="light button small">
-          <input type="button" value="F" id="F" class="white button small">
-          <input type="button" value="Space" class="white button big">
+          <input type="submit" value="A" id="A" class="white button small">
+          <input type="submit" value="S" id="S" class="white button small">
+          <input type="submit" value="D" id="D" class="white button small">
+          <input type="submit" value="F" id="F" class="light button small">
+          <input type="submit" value="Space" id="Space" class="white button big">
         </div>
       </div>
       
@@ -91,16 +91,26 @@
     <script type='text/javascript'>
       var isFullscreen = false;
 
+      function tryExitFullscreen()
+      {
+        if(!isFullscreen)
+        {
+          return;
+        }
+
+        isFullscreen = false;
+        canvas.style.maxHeight = "360px";
+        canvas.style.maxWidth = "640px";
+        document.exitFullscreen();
+      }
+
       function toggleFullscren()
       {
         var canvasElement = document.getElementById("canvas");
 
         if(isFullscreen)
         {
-          isFullscreen = false;
-          canvas.style.maxHeight = "360px";
-          canvas.style.maxWidth = "640px";
-          document.exitFullscreen();
+          tryExitFullscreen();
           return;
         }
 
@@ -136,10 +146,6 @@
 
     </script>
     <script type='text/javascript'>
-      var statusElement = document.getElementById('status');
-      var progressElement = document.getElementById('progress');
-      var spinnerElement = document.getElementById('spinner');
-
       var Module = {
         preRun: [],
         postRun: [],
@@ -154,6 +160,49 @@
           return canvas;
         })()
       };
+      Module.onRuntimeInitialized = () =>
+      {
+        var states = { "Q" : false, "W" : false, "E" : false, "R" : false, "A" : false, "S" : false, "D" : false, "F" : false, "Space" : false };
+        var keys = { "Q" : 0, "W" : 1, "E" : 2, "R" : 3, "A" : 4, "S" : 5, "D" : 6, "F" : 7, "Space" : 8 };
+
+        var onPressed = (ev) =>
+        {
+          let id = ev.target.id;
+
+          if(states[id] == undefined)
+          {
+            return;
+          }
+
+          states[id] = true;
+        }
+
+        var onReleased = (ev) =>
+        {
+          let id = ev.target.id;
+
+          if(states[id] == undefined)
+          {
+            return;
+          }
+
+          states[id] = false;
+        }
+
+        document.addEventListener("mousedown", onPressed);
+        document.addEventListener("touchstart", onPressed);
+
+        document.addEventListener("mouseup", onReleased);
+        document.addEventListener("touchend", onReleased);
+
+        setInterval(() => 
+        {
+          for(let i in states)
+          {
+            Module.forceInputUpdate(keys[i], states[i]);
+          }
+        }, 25);
+      }
     </script>
     {{{ SCRIPT }}}
   </body>

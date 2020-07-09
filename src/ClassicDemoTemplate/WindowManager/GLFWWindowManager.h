@@ -33,6 +33,7 @@ class GLFWWindowManager : public IWindowManager
     virtual bool IsKeyHeld(int key) override;
     virtual bool IsKeyReleased(int key) override;
     virtual bool IsKeyUp(int key) override;
+    virtual void ForceKeyUpdate(int key, bool isPressed) override;
 
   private:
     void CreateForcedFullscreenWindow(const int width, const int height);
@@ -51,6 +52,7 @@ class GLFWWindowManager : public IWindowManager
     IRenderManager *renderManager;
 
     std::map<int, KeyState> registeredKeyInput;
+    std::map<int, KeyState> registeredForcedKeyInput;
 
     const char *name;
     int height;

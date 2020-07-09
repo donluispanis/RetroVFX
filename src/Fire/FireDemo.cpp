@@ -26,8 +26,8 @@ bool FireDemo::Init()
 
 void FireDemo::InitInput()
 {
-    windowManager->RegisterKeyInput((int)Key::UP);
-    windowManager->RegisterKeyInput((int)Key::DOWN);
+    windowManager->RegisterKeyInput((int)Key::W);
+    windowManager->RegisterKeyInput((int)Key::S);
     windowManager->RegisterKeyInput((int)Key::SPACE);
 }
 
@@ -59,7 +59,7 @@ bool FireDemo::Update(float deltaTime)
 {
     UpdateFireScreen();
     RenderText("Press space to change the colour of the fire.", 5, 5, 2, Pixel{255, 255, 255});
-    RenderText("Press up/down to change the intensity of the fire.", 5, 20, 2, Pixel{255, 255, 255});
+    RenderText("Press W / S to change the intensity of the fire.", 5, 20, 2, Pixel{255, 255, 255});
     return true;
 }
 
@@ -74,12 +74,12 @@ void FireDemo::UpdateFireScreen()
         pixels[i] = colourMap[sum];
     }
 }
-
+#include <iostream>
 void FireDemo::UpdateInput()
 {
     bool isSpacePressed = windowManager->IsKeyPressed((int)Key::SPACE);
-    bool isIntensityIncreasing = windowManager->IsKeyHeld((int)Key::UP);
-    bool isIntensityDecreasing = windowManager->IsKeyHeld((int)Key::DOWN);
+    bool isIntensityIncreasing = windowManager->IsKeyHeld((int)Key::W);
+    bool isIntensityDecreasing = windowManager->IsKeyHeld((int)Key::S);
 
     if (isSpacePressed)
     {

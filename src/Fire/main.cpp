@@ -1,5 +1,6 @@
 #ifdef __EMSCRIPTEN__
     #include <emscripten/emscripten.h>
+    #include <emscripten/bind.h>
 #endif
 
 #include "FireDemo.h"
@@ -7,10 +8,21 @@
 FireDemo fireDemo;
 
 #ifdef __EMSCRIPTEN__
+void forceInputUpdate(int key, bool isPressed)
+{
+    fireDemo.ForceKeyUpdate(key, isPressed);
+}
+
 void main_loop()
 {
     fireDemo.RenderFrame();
 }
+
+EMSCRIPTEN_BINDINGS(input) 
+{
+    emscripten::function("forceInputUpdate", &forceInputUpdate);
+}
+
 #endif
 
 int main()

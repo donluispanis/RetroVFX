@@ -163,6 +163,18 @@ void GLFWWindowManager::UpdateKeyState(int state, KeyState &key)
     }
 }
 
+void GLFWWindowManager::ForceKeyUpdate(int key, bool isPressed)
+{
+    if(registeredForcedKeyInput.find(key) == registeredForcedKeyInput.end())
+    {
+        return;
+    }
+
+    UpdateKeyState(
+        isPressed ? GLFW_PRESS : GLFW_RELEASE,
+        registeredForcedKeyInput[key]);
+}
+
 void GLFWWindowManager::UpdateTime()
 {
     deltaTime = clock->GetElapsedTime();
@@ -217,15 +229,18 @@ bool GLFWWindowManager::IsWindowOpen()
 void GLFWWindowManager::RegisterKeyInput(int key)
 {
     registeredKeyInput[key] = KeyState();
+    registeredForcedKeyInput[key] = KeyState();
 }
 
 bool GLFWWindowManager::IsKeyPressed(int key)
 {
     const auto &keyState = registeredKeyInput.find(key);
+    const auto &forcedKeyState = registeredForcedKeyInput.find(key);
 
     if (keyState != registeredKeyInput.cend())
     {
-        return keyState->second.isPressed;
+        return keyState->second.isPressed
+            || forcedKeyState->second.isPressed;
     }
 
     return false;
@@ -234,10 +249,12 @@ bool GLFWWindowManager::IsKeyPressed(int key)
 bool GLFWWindowManager::IsKeyHeld(int key)
 {
     const auto &keyState = registeredKeyInput.find(key);
+    const auto &forcedKeyState = registeredForcedKeyInput.find(key);
 
     if (keyState != registeredKeyInput.cend())
     {
-        return keyState->second.isHeld;
+        return keyState->second.isHeld
+            || forcedKeyState->second.isHeld;
     }
 
     return false;
@@ -246,10 +263,12 @@ bool GLFWWindowManager::IsKeyHeld(int key)
 bool GLFWWindowManager::IsKeyReleased(int key)
 {
     const auto &keyState = registeredKeyInput.find(key);
+    const auto &forcedKeyState = registeredForcedKeyInput.find(key);
 
     if (keyState != registeredKeyInput.cend())
     {
-        return keyState->second.isReleased;
+        return keyState->second.isReleased
+            || forcedKeyState->second.isReleased;
     }
 
     return false;
@@ -258,10 +277,12 @@ bool GLFWWindowManager::IsKeyReleased(int key)
 bool GLFWWindowManager::IsKeyUp(int key)
 {
     const auto &keyState = registeredKeyInput.find(key);
+    const auto &forcedKeyState = registeredForcedKeyInput.find(key);
 
     if (keyState != registeredKeyInput.cend())
     {
-        return keyState->second.isUp;
+        return keyState->second.isUp
+            && forcedKeyState->second.isUp;
     }
 
     return false;

@@ -300,7 +300,7 @@ endif
 all_wasm:
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
-	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@$(CXX) $(CXXFLAGS) --bind $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
 	@printf "$(GREEN)Linking done!\n$(WHITE)"
 
 ################################################################################

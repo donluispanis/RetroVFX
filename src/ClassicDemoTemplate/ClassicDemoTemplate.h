@@ -25,6 +25,10 @@ class ClassicDemoTemplate
     void ClearScreen(int x1, int y1, int x2, int y2, const Pixel &colour);
     bool IsPixelOutOfBounds(int x, int y);
 
+#ifdef __EMSCRIPTEN__
+    void ForceKeyUpdate(int key, bool isPressed);
+#endif
+
   private:
     //Functions that have to be overwritten by the implementation
     virtual bool Init() = 0;                  //Init demo specific related variables
