@@ -18,7 +18,7 @@ bool Deformations::Init()
     RegisterModifiers();
     RegisterInput();
 
-    if(!BMP::TryOpenImageInDifferentLocations("assets/img/lena.bmp", texture, texWidth, texHeight))
+    if(!BMP::TryOpenImageInDifferentLocations("assets/img/demos/lena.bmp", texture, texWidth, texHeight))
     {
         return false;
     }

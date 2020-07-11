@@ -20,7 +20,9 @@ bool FinalDemo::Init()
     plasma.InitPlasma(width, height, pixels, this, cosineTable, sineTable);
     planes.InitPlanes(width, height, pixels, this);
     ending.InitEnding(width, height, this, cosineTable, sineTable);
+#ifndef __EMSCRIPTEN__
     audio.InitAudio(START_FIRE, START_GEOMETRY, START_PLASMA, START_PLANES, START_ENDING);
+#endif
 
     accumulatedTime = 0;
 
@@ -34,7 +36,9 @@ bool FinalDemo::Destroy()
     plasma.ClosePlasma();
     planes.ClosePlanes();
     ending.CloseEnding();
+#ifndef __EMSCRIPTEN__
     audio.CloseAudio();
+#endif
 
     Fast::DeleteMathTable(cosineTable);
     Fast::DeleteMathTable(sineTable);
@@ -71,7 +75,10 @@ bool FinalDemo::Update(float deltaTime)
         return false;
     }
 
+#ifndef __EMSCRIPTEN__
     audio.UpdateSound(deltaTime, accumulatedTime, tunnelBeat);
+#endif
+
 
     return true;
 }
@@ -104,9 +111,9 @@ void FinalDemo::DrawCharacterOnMap(Pixel *map, int width, const Pixel &colour, i
     {
         for (int j = y; j < y + 5 * scale; j++)
         {
-            if(scale <= 0.f)
+            if(scale <= 0)
             {
-                scale = 0.001f;
+                scale = 1;
             }
 
             int offsetX = (i - x) / scale;

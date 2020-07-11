@@ -25,4 +25,5 @@ class IWindowManager
     virtual bool IsKeyHeld(int key) = 0;
     virtual bool IsKeyReleased(int key) = 0;
     virtual bool IsKeyUp(int key) = 0;
+    virtual void ForceKeyUpdate(int key, bool isPressed) = 0;
 };

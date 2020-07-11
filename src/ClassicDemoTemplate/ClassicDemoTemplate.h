@@ -12,6 +12,7 @@ class ClassicDemoTemplate
 
     bool Construct(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen = false);
     void Run();
+    void RenderFrame();
     bool Close();
     void main_loop();
 
@@ -23,6 +24,10 @@ class ClassicDemoTemplate
     void ClearScreen(const Pixel &colour);
     void ClearScreen(int x1, int y1, int x2, int y2, const Pixel &colour);
     bool IsPixelOutOfBounds(int x, int y);
+
+#ifdef __EMSCRIPTEN__
+    void ForceKeyUpdate(int key, bool isPressed);
+#endif
 
   private:
     //Functions that have to be overwritten by the implementation

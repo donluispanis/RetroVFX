@@ -84,10 +84,10 @@ void DotTunnelDemo::InitInput()
     windowManager->RegisterKeyInput((int)Key::W);
     windowManager->RegisterKeyInput((int)Key::S);
     windowManager->RegisterKeyInput((int)Key::D);
-    windowManager->RegisterKeyInput((int)Key::UP);
-    windowManager->RegisterKeyInput((int)Key::DOWN);
-    windowManager->RegisterKeyInput((int)Key::LEFT);
-    windowManager->RegisterKeyInput((int)Key::RIGHT);
+    windowManager->RegisterKeyInput((int)Key::Q);
+    windowManager->RegisterKeyInput((int)Key::E);
+    windowManager->RegisterKeyInput((int)Key::R);
+    windowManager->RegisterKeyInput((int)Key::F);
 }
 
 void DotTunnelDemo::AddCircle()
@@ -105,9 +105,9 @@ bool DotTunnelDemo::Update(float deltaTime)
     turbulencePath->UpdateTurbulencePath(deltaTime, pathX, pathY);
     UpdateInput(deltaTime);
 
-    RenderText("Keep pressed the arrow keys to control the tunnel", 5, 5, 2, Pixel(255));
-    RenderText("Keep pressed W/S to increase/decrease velocity", 5, 20, 2, Pixel(255));
-    RenderText("Tap A/D to increase/decrease dot size", 5, 35, 2, Pixel(255));
+    RenderText("Press W A S D to control the tunnel direction", 5, 5, 2, Pixel(255));
+    RenderText("Keep pressed Q/E to increase/decrease velocity", 5, 20, 2, Pixel(255));
+    RenderText("Tap R/F to increase/decrease dot size", 5, 35, 2, Pixel(255));
 
     return true;
 }
@@ -150,10 +150,10 @@ void DotTunnelDemo::UpdateInput(float deltaTime)
 
 void DotTunnelDemo::UpdatePositionFromInput(float deltaTime)
 {
-    bool isGoingUp = windowManager->IsKeyHeld((int)Key::UP);
-    bool isGoingDown = windowManager->IsKeyHeld((int)Key::DOWN);
-    bool isGoingLeft = windowManager->IsKeyHeld((int)Key::LEFT);
-    bool isGoingRight = windowManager->IsKeyHeld((int)Key::RIGHT);
+    bool isGoingUp = windowManager->IsKeyHeld((int)Key::W);
+    bool isGoingDown = windowManager->IsKeyHeld((int)Key::S);
+    bool isGoingLeft = windowManager->IsKeyHeld((int)Key::A);
+    bool isGoingRight = windowManager->IsKeyHeld((int)Key::D);
 
     if (isGoingUp)
     {
@@ -175,8 +175,8 @@ void DotTunnelDemo::UpdatePositionFromInput(float deltaTime)
 
 void DotTunnelDemo::UpdateVelocityFromInput(float deltaTime)
 {
-    bool isIncreasingSpeed = windowManager->IsKeyHeld((int)Key::W);
-    bool isDecreasingSpeed = windowManager->IsKeyHeld((int)Key::S);
+    bool isIncreasingSpeed = windowManager->IsKeyHeld((int)Key::Q);
+    bool isDecreasingSpeed = windowManager->IsKeyHeld((int)Key::E);
 
     if (isIncreasingSpeed)
     {
@@ -196,8 +196,8 @@ void DotTunnelDemo::UpdateVelocityFromInput(float deltaTime)
 
 void DotTunnelDemo::UpdateDotSizeFromInput(float deltaTime)
 {
-    bool isDotSizeIncreasing = windowManager->IsKeyPressed((int)Key::D);
-    bool isDotSizeDecreasing = windowManager->IsKeyPressed((int)Key::A);
+    bool isDotSizeIncreasing = windowManager->IsKeyPressed((int)Key::R);
+    bool isDotSizeDecreasing = windowManager->IsKeyPressed((int)Key::F);
 
     if (isDotSizeIncreasing && dotSize < 15)
     {

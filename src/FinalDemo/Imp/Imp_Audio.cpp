@@ -1,3 +1,5 @@
+#ifndef __EMSCRIPTEN__
+
 #include "Imp_Audio.h"
 #include "Sounds.h"
 #include "../../Utils/Fast.h"
@@ -581,3 +583,5 @@ void Imp_Audio::RemoveDeadNotes()
         }
     }
 }
+
+#endif

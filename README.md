@@ -64,71 +64,71 @@ Before implementing all this code, some basic tests were run in order to underst
 
 A really simple animated fire. Achieved by the convolution of two matrixes, getting a dissipation effect.
 
-<img src="assets/img/fire_final.png" width=500px alt="Fire">
+<img src="assets/img/readme/fire_final.png" width=500px alt="Fire">
 
 
 ### Dot Tunnel
 
 Dotted tunnel effect achieved by using growing dotted circles with a given lifetime. The trajectory is randomly defined by a turbulence path, result of the addition of different waves.
 
-<img src="assets/img/finaltunnel.png" width=500px alt="Dot Tunnel">
+<img src="assets/img/readme/finaltunnel.png" width=500px alt="Dot Tunnel">
 
 ### RotoZoom
 
 Simple effect that involves real time scaling and rotations. A mapping is performed from texture coordinates to screen coordinates.
 
-<img src="assets/img/rotozoom1.png" width=500px alt="Dot Tunnel">
-<img src="assets/img/rotozoom2.png" width=500px alt="Dot Tunnel">
+<img src="assets/img/readme/rotozoom1.png" width=500px alt="Dot Tunnel">
+<img src="assets/img/readme/rotozoom2.png" width=500px alt="Dot Tunnel">
 
 ### Deformations
 
 <figure>
   <figcaption>No deformations</figcaption>
-  <img src="assets/img/deformation1.png" width=500px alt="No deformations">
+  <img src="assets/img/readme/deformation1.png" width=500px alt="No deformations">
 </figure>
 
 <figure>
   <figcaption>Transversal wave on x</figcaption>
-  <img src="assets/img/deformation2.png" width=500px alt="Transversal wave on x">
+  <img src="assets/img/readme/deformation2.png" width=500px alt="Transversal wave on x">
 </figure>
 
 <figure>
   <figcaption>Longitudinal wave on x</figcaption>
-  <img src="assets/img/deformation3.png" width=500px alt="Longitudinal wave on x">
+  <img src="assets/img/readme/deformation3.png" width=500px alt="Longitudinal wave on x">
 </figure>
 
 <figure>
   <figcaption>Diamond (transversal on x and y)</figcaption>
-  <img src="assets/img/deformation4.png" width=500px alt="Diamond (transversal on x and y)">
+  <img src="assets/img/readme/deformation4.png" width=500px alt="Diamond (transversal on x and y)">
 </figure>
 
 <figure>
   <figcaption>Mosaic (longitudinal on x and y)</figcaption>
-  <img src="assets/img/deformation5.png" width=500px alt="Mosaic (longitudinal on x and y)">
+  <img src="assets/img/readme/deformation5.png" width=500px alt="Mosaic (longitudinal on x and y)">
 </figure>
 
 <figure>
   <figcaption>Flag (x depends on y)</figcaption>
-  <img src="assets/img/deformation6.png" width=500px alt="Flag (x depends on y)">
+  <img src="assets/img/readme/deformation6.png" width=500px alt="Flag (x depends on y)">
 </figure>
 
 ### Plasma
 
 A simple plasma effect. Achieved by the addition of sine waves with different frequencies and phases whose value depends on the `x` and `y` coordinates of the pixel.
 
-<img src="assets/img/redplasma.png" width=500px alt="Plasma">
+<img src="assets/img/readme/redplasma.png" width=500px alt="Plasma">
 
 ### Infinite Planes
 
 Infinite planes illusion created by rotating and twisting a texture.
 
-<img src="assets/img/planes3.png" width=500px alt="Infinite planes">
+<img src="assets/img/readme/planes3.png" width=500px alt="Infinite planes">
 
 ### Geometry
 
 Geometry effect creating by simply projecting 3D points, with a fixed camera. Translation, scale and rotation operations can be applied over the models, which are just performed under the hood with simple math operations (faster than using matrixes for such a simple use case)
 
-<img src="assets/img/geometry.png" width=500px alt="Geometry">
+<img src="assets/img/readme/geometry.png" width=500px alt="Geometry">
 
 ### Final Demo
 
@@ -137,6 +137,6 @@ Compilation of all the previous effects and some new techniques, implementing re
 A video of it can be found [here](https://youtu.be/wt8GP5n3uNc).
 
 
-<img src="assets/img/intro.png" width=500px alt="Intro">
-<img src="assets/img/sea.png" width=500px alt="Geometric sea">
-<img src="assets/img/plasma6.png" width=500px alt="Plasma">
+<img src="assets/img/readme/intro.png" width=500px alt="Intro">
+<img src="assets/img/readme/sea.png" width=500px alt="Geometric sea">
+<img src="assets/img/readme/plasma6.png" width=500px alt="Plasma">

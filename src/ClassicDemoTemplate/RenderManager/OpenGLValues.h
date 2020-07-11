@@ -11,8 +11,8 @@ const int VertexOrdering[] = {
     2, 3, 0};
 
 const char *VertexShader =
-    R"glsl(
-    #version 150 core
+    R"glsl(#version 300 es
+    precision highp float;
     in vec2 position;
     in vec2 texcoord;
     out vec2 Texcoord;
@@ -24,8 +24,8 @@ const char *VertexShader =
     )glsl";
 
 const char *FragmentShader =
-    R"glsl(
-    #version 150 core
+    R"glsl(#version 300 es
+    precision highp float;
     in vec2 Texcoord;
     out vec4 outColor;
     uniform sampler2D screenData;

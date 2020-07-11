@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>RetroVFX</title>
+    <style>
+      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      canvas.emscripten { border: 0px none; background-color: black; border-radius: 10px; }
+      body { margin:0; }
+
+      .main { font-family: sans-serif; font-size: 16px; }
+
+      .center { padding-left: 0; padding-right: 0; margin-left: auto; margin-right: auto; display: block;}
+      .centerButtons { display: flex; justify-content: center; align-items: center; }
+      .white { background-color: #FFF; }
+      .light { background-color: #DDD; }
+
+      .button 
+      { 
+        border-radius: 10px;
+        max-height: 70px; 
+        font-weight: 700;
+        border-bottom: #AAA solid 8px; 
+        border-right: #888 solid 6px; 
+        border-top: #888 solid 3px; 
+        border-left: #888 solid 3px; 
+      }
+
+      .button:focus { outline: none; }
+      .button:active { background-color: #BBB; }
+      .small 
+      { 
+        width: 10%;
+        max-width: 70px; 
+      }
+      .big 
+      { 
+        width: 30%;
+        max-width: 200px; 
+      }
+
+      .border 
+      { 
+        border-radius: 10px; 
+        border: black solid 5px; 
+        max-width: 630px;
+        width: calc(90% - 10px); 
+        margin-top: 10px; 
+      }
+
+      #canvas
+      {
+        max-width: 640px;
+        max-height: 360px;
+        width: 90%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="main">
+
+      <span class="wrapper" onclick="tryExitFullscreen()">
+        <canvas class="emscripten center" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+      </span>
+      
+      <div class="border center">
+        <div class="centerButtons">
+          <input type="submit" value="Q" id="Q" class="light button small">
+          <input type="submit" value="W" id="W" class="white button small">
+          <input type="submit" value="E" id="E" class="light button small">
+          <input type="submit" value="R" id="R" class="light button small">
+          <input type="submit" value="Fullscreen" class="white button big" onclick="toggleFullscren()">
+        </div>
+        
+        <div class="centerButtons">
+          <input type="submit" value="A" id="A" class="white button small">
+          <input type="submit" value="S" id="S" class="white button small">
+          <input type="submit" value="D" id="D" class="white button small">
+          <input type="submit" value="F" id="F" class="light button small">
+          <input type="submit" value="Space" id="Space" class="white button big">
+        </div>
+      </div>
+
+      <div class="border center">
+        <ul>
+          <li>Desktop:
+            <ul>
+              <li>Use the keyboard or click on the provided keyboard to control the demo</li>
+            </ul>
+          </li>
+          <li>Touch devices:
+            <ul>
+              <li>Tap on the provided keyboard to control the demo</li>
+            </ul>
+          </li>
+          <li>Fullscreen:
+            <ul>
+              <li>When on fullscreen, tap/click the screen or press ESC to exit fullscreen</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <script type='text/javascript'>
+      var isFullscreen = false;
+
+      function tryExitFullscreen()
+      {
+        if(!isFullscreen)
+        {
+          return;
+        }
+
+        isFullscreen = false;
+        canvas.style.maxHeight = "360px";
+        canvas.style.maxWidth = "640px";
+        document.exitFullscreen();
+      }
+
+      function toggleFullscren()
+      {
+        var canvasElement = document.getElementById("canvas");
+
+        if(isFullscreen)
+        {
+          tryExitFullscreen();
+          return;
+        }
+
+        isFullscreen = true;
+        canvas.style.maxHeight = "initial";
+        canvas.style.maxWidth = "initial";
+        Module.requestFullscreen(true, false);
+      }
+
+      function recalculateMargins()
+      {
+        setTimeout(() =>
+        {
+          var buttons = document.getElementsByClassName("button");
+
+          for(let button of buttons)
+          {
+            button.style.margin = (window.innerWidth > 500) 
+              ? "13px"
+              : "5px";;
+            button.style.height = button.offsetWidth + "px";
+
+            if(button.classList.contains("big"))
+            {
+              button.style.height = (button.offsetWidth * 0.35) + "px";
+            }
+          }
+        }, 100);
+      }
+
+      window.onload = recalculateMargins;
+      window.addEventListener("orientationchange", recalculateMargins);
+
+      // This variables are internally used by the GLFWWindowManager when compiling to WASM
+      var states = { "Q" : false, "W" : false, "E" : false, "R" : false, "A" : false, "S" : false, "D" : false, "F" : false, "Space" : false };
+      var keys = { "Q" : 0, "W" : 1, "E" : 2, "R" : 3, "A" : 4, "S" : 5, "D" : 6, "F" : 7, "Space" : 8 };
+
+    </script>
+    <script type='text/javascript'>
+      var Module = {
+        preRun: [],
+        postRun: [],
+        canvas: (function() {
+          var canvas = document.getElementById('canvas');
+
+          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+          // application robust, you may want to override this behavior before shipping!
+          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+          canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+          return canvas;
+        })()
+      };
+    </script>
+    {{{ SCRIPT }}}
+  </body>
+</html>

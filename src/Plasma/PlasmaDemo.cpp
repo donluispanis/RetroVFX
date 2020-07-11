@@ -93,7 +93,7 @@ bool PlasmaDemo::Update(float deltaTime)
         }
     }
 
-    RenderText("Tab space to change colour", 5, 5, 4, Pixel(0));
+    RenderText("Tap space to change colour", 5, 5, 4, Pixel(0));
 
     return true;
 }

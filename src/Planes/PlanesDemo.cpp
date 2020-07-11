@@ -16,7 +16,7 @@ bool PlanesDemo::Init()
     height = windowManager->GetHeight();
     texture = nullptr;
 
-    if(!BMP::TryOpenImageInDifferentLocations("assets/img/groundsoil.bmp", texture, texWidth, texHeight))
+    if(!BMP::TryOpenImageInDifferentLocations("assets/img/demos/groundsoil.bmp", texture, texWidth, texHeight))
     {
         return false;
     }
@@ -29,7 +29,7 @@ bool PlanesDemo::Init()
 
     RenderText("Use W, A, S, D to move around", 5, 5, 2, Pixel(255));
     RenderText("Use Q / E to go up / down", 5, 20, 2, Pixel(255));
-    RenderText("Use Z / X to create relief on the terrain", 5, 35, 2, Pixel(255));
+    RenderText("Use R / F to create relief on the terrain", 5, 35, 2, Pixel(255));
 
     return true;
 }
@@ -42,8 +42,8 @@ void PlanesDemo::RegisterInput()
     windowManager->RegisterKeyInput((int)Key::A);
     windowManager->RegisterKeyInput((int)Key::S);
     windowManager->RegisterKeyInput((int)Key::D);
-    windowManager->RegisterKeyInput((int)Key::Z);
-    windowManager->RegisterKeyInput((int)Key::X);
+    windowManager->RegisterKeyInput((int)Key::R);
+    windowManager->RegisterKeyInput((int)Key::F);
 }
 
 bool PlanesDemo::Destroy()
@@ -92,8 +92,8 @@ void PlanesDemo::UpdateInput(float deltaTime)
     bool turnRight = windowManager->IsKeyHeld((int)Key::D);
     bool goForth = windowManager->IsKeyHeld((int)Key::W);
     bool goBack = windowManager->IsKeyHeld((int)Key::S);
-    bool bumpUp = windowManager->IsKeyHeld((int)Key::Z);
-    bool bumpDown = windowManager->IsKeyHeld((int)Key::X);
+    bool bumpUp = windowManager->IsKeyHeld((int)Key::R);
+    bool bumpDown = windowManager->IsKeyHeld((int)Key::F);
     bool increaseTextureSize = windowManager->IsKeyHeld((int)Key::Q);
     bool decreaseTextureSize = windowManager->IsKeyHeld((int)Key::E);
 

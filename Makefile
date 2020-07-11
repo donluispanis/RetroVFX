@@ -51,6 +51,8 @@ dottunnel: create_dir make_src make_dottunnel compile_dottunnel
 
 dottunnel_lin: create_dir make_src make_dottunnel compile_dottunnel_lin
 
+dottunnel_wasm: create_dir make_src make_dottunnel compile_dottunnel_wasm
+
 make_dottunnel: 
 	@$(MAKE) --no-print-directory -s -C src/DotTunnel
 
@@ -62,12 +64,18 @@ compile_dottunnel_lin: TARGET := DotTunnel
 
 compile_dottunnel_lin: all_linux
 
+compile_dottunnel_wasm: TARGET := DotTunnel.html
+
+compile_dottunnel_wasm: all_wasm
+
 ################################################################################
 # ROTOZOOM
 ################################################################################
 rotozoom: create_dir make_src make_rotozoom compile_rotozoom
 
 rotozoom_lin: create_dir make_src make_rotozoom compile_rotozoom_lin
+
+rotozoom_wasm: create_dir make_src make_rotozoom compile_rotozoom_wasm
 
 make_rotozoom: 
 	@$(MAKE) --no-print-directory -s -C src/RotoZoom
@@ -80,12 +88,19 @@ compile_rotozoom_lin: TARGET := RotoZoom
 
 compile_rotozoom_lin: all_linux
 
+compile_rotozoom_wasm: TARGET := RotoZoom.html
+
+compile_rotozoom_wasm: all_wasm
+
+
 ################################################################################
 # DEFORMATIONS
 ################################################################################
 deformations: create_dir make_src make_deformations compile_deformations
 
 deformations_lin: create_dir make_src make_deformations compile_deformations_lin
+
+deformations_wasm: create_dir make_src make_deformations compile_deformations_wasm
 
 make_deformations: 
 	@$(MAKE) --no-print-directory -s -C src/Deformations
@@ -98,12 +113,18 @@ compile_deformations_lin: TARGET := Deformations
 
 compile_deformations_lin: all_linux
 
+compile_deformations_wasm: TARGET := Deformations.html
+
+compile_deformations_wasm: all_wasm
+
 ################################################################################
 # PLASMA
 ################################################################################
 plasma: create_dir make_src make_plasma compile_plasma
 
 plasma_lin: create_dir make_src make_plasma compile_plasma_lin
+
+plasma_wasm: create_dir make_src make_plasma compile_plasma_wasm
 
 make_plasma: 
 	@$(MAKE) --no-print-directory -s -C src/Plasma
@@ -116,12 +137,18 @@ compile_plasma_lin: TARGET := Plasma
 
 compile_plasma_lin: all_linux
 
+compile_plasma_wasm: TARGET := Plasma.html
+
+compile_plasma_wasm: all_wasm
+
 ################################################################################
 # PLANES
 ################################################################################
 planes: create_dir make_src make_planes compile_planes
 
 planes_lin: create_dir make_src make_planes compile_planes_lin
+
+planes_wasm: create_dir make_src make_planes compile_planes_wasm
 
 make_planes: 
 	@$(MAKE) --no-print-directory -s -C src/Planes
@@ -134,12 +161,18 @@ compile_planes_lin: TARGET := Planes
 
 compile_planes_lin: all_linux
 
+compile_planes_wasm: TARGET := Planes.html
+
+compile_planes_wasm: all_wasm
+
 ################################################################################
 # GEOMETRY
 ################################################################################
 geometry: create_dir make_src make_geometry compile_geometry
 
 geometry_lin: create_dir make_src make_geometry compile_geometry_lin
+
+geometry_wasm: create_dir make_src make_geometry compile_geometry_wasm
 
 make_geometry: 
 	@$(MAKE) --no-print-directory -s -C src/Geometry
@@ -152,12 +185,18 @@ compile_geometry_lin: TARGET := Geometry
 
 compile_geometry_lin: all_linux
 
+compile_geometry_wasm: TARGET := Geometry.html
+
+compile_geometry_wasm: all_wasm
+
 ################################################################################
 # FINAL DEMO
 ################################################################################
 finaldemo: create_dir make_src make_finaldemo compile_finaldemo
 
 finaldemo_lin: create_dir make_src make_finaldemo compile_finaldemo_lin
+
+finaldemo_wasm: create_dir make_src make_finaldemo compile_finaldemo_wasm
 
 make_finaldemo: 
 	@$(MAKE) --no-print-directory -s -C src/FinalDemo
@@ -170,6 +209,10 @@ compile_finaldemo: all_windows
 compile_finaldemo_lin: TARGET := FinalDemo
 
 compile_finaldemo_lin: all_linux
+
+compile_finaldemo_wasm: TARGET := FinalDemo.html
+
+compile_finaldemo_wasm: all_wasm
 
 ################################################################################
 # PERFORMANCE TESTS
@@ -218,6 +261,7 @@ make_src:
 ################################################################################
 # Windows 
 ################################################################################
+
 all_windows: LDFLAGS += -L./lib/win -lopengl32 -lglew32 -lglfw3 -lportaudio
 
 all_windows:
@@ -247,12 +291,16 @@ all_linux:
 # Web Assembly
 ################################################################################
 
-all_wasm: LDFLAGS += -s USE_GLFW=3
+all_wasm: LDFLAGS += --shell-file assets/base_html.html -s USE_GLFW=3 -s FULL_ES3=1 -s WASM=1
+
+ifdef EMBED_RESOURCES
+all_wasm: LDFLAGS += --embed-file $(EMBED_RESOURCES)
+endif
 
 all_wasm:
 	@printf "$(GREEN)Compiling done!\n"
 	@printf "$(YELLOW)Linking...\n"
-	@$(CXX) $(CXXFLAGS) $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
+	@$(CXX) $(CXXFLAGS) --bind $(addprefix $(BIN_PATH)$(OBJ_PATH),$(shell ls $(BIN_PATH)$(OBJ_PATH))) -o $(BIN_PATH)$(TARGET) $(LDFLAGS)
 	@printf "$(GREEN)Linking done!\n$(WHITE)"
 
 ################################################################################
