@@ -1,5 +1,6 @@
 #ifdef __EMSCRIPTEN__
     #include <emscripten/emscripten.h>
+    #include <emscripten/bind.h>
 #endif
 
 #include "PlanesDemo.h"
@@ -10,6 +11,16 @@ PlanesDemo p;
 void main_loop()
 {
     p.RenderFrame();
+}
+
+void forceInputUpdate(int key, bool isPressed)
+{
+    p.ForceKeyUpdate(key, isPressed);
+}
+
+EMSCRIPTEN_BINDINGS(input) 
+{
+    emscripten::function("forceInputUpdate", &forceInputUpdate);
 }
 #endif
 

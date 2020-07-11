@@ -10,6 +10,8 @@
       canvas.emscripten { border: 0px none; background-color: black; border-radius: 10px; }
       body { margin:0; }
 
+      .main { font-family: sans-serif; font-size: 16px; }
+
       .center { padding-left: 0; padding-right: 0; margin-left: auto; margin-right: auto; display: block;}
       .centerButtons { display: flex; justify-content: center; align-items: center; }
       .white { background-color: #FFF; }
@@ -38,7 +40,8 @@
         width: 30%;
         max-width: 200px; 
       }
-      .buttons 
+
+      .border 
       { 
         border-radius: 10px; 
         border: black solid 5px; 
@@ -63,7 +66,7 @@
         <canvas class="emscripten center" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
       </span>
       
-      <div class="buttons center">
+      <div class="border center">
         <div class="centerButtons">
           <input type="submit" value="Q" id="Q" class="light button small">
           <input type="submit" value="W" id="W" class="white button small">
@@ -80,14 +83,29 @@
           <input type="submit" value="Space" id="Space" class="white button big">
         </div>
       </div>
-      
+
+      <div class="border center">
+        <ul>
+          <li>Desktop:
+            <ul>
+              <li>Use the keyboard or click on the provided keyboard to control the demo</li>
+            </ul>
+          </li>
+          <li>Touch devices:
+            <ul>
+              <li>Tap on the provided keyboard to control the demo</li>
+            </ul>
+          </li>
+          <li>Fullscreen:
+            <ul>
+              <li>When on fullscreen, tap/click the screen or press ESC to exit fullscreen</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
     </div>
-      
-      
-    </div>
-      
-      
-    </div>
+
     <script type='text/javascript'>
       var isFullscreen = false;
 
@@ -144,6 +162,10 @@
       window.onload = recalculateMargins;
       window.addEventListener("orientationchange", recalculateMargins);
 
+      // This variables are internally used by the GLFWWindowManager when compiling to WASM
+      var states = { "Q" : false, "W" : false, "E" : false, "R" : false, "A" : false, "S" : false, "D" : false, "F" : false, "Space" : false };
+      var keys = { "Q" : 0, "W" : 1, "E" : 2, "R" : 3, "A" : 4, "S" : 5, "D" : 6, "F" : 7, "Space" : 8 };
+
     </script>
     <script type='text/javascript'>
       var Module = {
@@ -160,49 +182,6 @@
           return canvas;
         })()
       };
-      Module.onRuntimeInitialized = () =>
-      {
-        var states = { "Q" : false, "W" : false, "E" : false, "R" : false, "A" : false, "S" : false, "D" : false, "F" : false, "Space" : false };
-        var keys = { "Q" : 0, "W" : 1, "E" : 2, "R" : 3, "A" : 4, "S" : 5, "D" : 6, "F" : 7, "Space" : 8 };
-
-        var onPressed = (ev) =>
-        {
-          let id = ev.target.id;
-
-          if(states[id] == undefined)
-          {
-            return;
-          }
-
-          states[id] = true;
-        }
-
-        var onReleased = (ev) =>
-        {
-          let id = ev.target.id;
-
-          if(states[id] == undefined)
-          {
-            return;
-          }
-
-          states[id] = false;
-        }
-
-        document.addEventListener("mousedown", onPressed);
-        document.addEventListener("touchstart", onPressed);
-
-        document.addEventListener("mouseup", onReleased);
-        document.addEventListener("touchend", onReleased);
-
-        setInterval(() => 
-        {
-          for(let i in states)
-          {
-            Module.forceInputUpdate(keys[i], states[i]);
-          }
-        }, 25);
-      }
     </script>
     {{{ SCRIPT }}}
   </body>

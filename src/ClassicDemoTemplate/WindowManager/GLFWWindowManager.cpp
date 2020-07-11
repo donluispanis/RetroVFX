@@ -35,6 +35,42 @@ GLFWWindowManager::~GLFWWindowManager()
     delete clock;
 }
 
+#ifdef __EMSCRIPTEN__
+// This method updates the states variable, that holds the state for all the keys in the virtual keyboard
+// and which is defined in the base_html.html
+EM_JS(void, InitWASMInput, (), {
+    var onPressed = (ev) =>
+    {
+      let id = ev.target.id;
+
+      if(states[id] == undefined)
+      {
+        return;
+      }
+
+      states[id] = true;
+    };
+
+    var onReleased = (ev) =>
+    {
+      let id = ev.target.id;
+
+      if(states[id] == undefined)
+      {
+        return;
+      }
+
+      states[id] = false;
+    };
+
+    document.addEventListener("mousedown", onPressed);
+    document.addEventListener("touchstart", onPressed);
+
+    document.addEventListener("mouseup", onReleased);
+    document.addEventListener("touchend", onReleased);
+});
+#endif
+
 void GLFWWindowManager::CreateWindow(const char *name, const int width, const int height, const bool fullscreen, const bool forceFullscreen)
 {
     InitGLFW();
@@ -61,6 +97,10 @@ void GLFWWindowManager::CreateWindow(const char *name, const int width, const in
     renderManager->InitialiseRender(this->width, this->height);
 
     clock->Reset();
+
+#ifdef __EMSCRIPTEN__
+    InitWASMInput();
+#endif
 }
 
 void GLFWWindowManager::InitGLFW()
@@ -136,6 +176,19 @@ void GLFWWindowManager::UpdateInput()
         int state = glfwGetKey(window, key.first);
         UpdateKeyState(state, key.second);
     }
+
+#ifdef __EMSCRIPTEN__
+    EM_ASM(
+        for(let i in states)
+        {
+            // This javascript piece will then call C++ code, forcing an input update synchonized with the framerate
+            // This method needs to be bound in the main, and will call the ClassicDemoTemplate::ForceKeyUpdate
+            // method which will subsequently call GLFWWindowManager::ForceKeyUpdate
+            // The keys and states variables are declared in base_html.html
+            Module.forceInputUpdate(keys[i], states[i]);
+        }
+    );
+#endif
 }
 
 void GLFWWindowManager::UpdateKeyState(int state, KeyState &key)

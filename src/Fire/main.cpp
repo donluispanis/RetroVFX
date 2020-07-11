@@ -8,21 +8,20 @@
 FireDemo fireDemo;
 
 #ifdef __EMSCRIPTEN__
-void forceInputUpdate(int key, bool isPressed)
-{
-    fireDemo.ForceKeyUpdate(key, isPressed);
-}
-
 void main_loop()
 {
     fireDemo.RenderFrame();
+}
+
+void forceInputUpdate(int key, bool isPressed)
+{
+    fireDemo.ForceKeyUpdate(key, isPressed);
 }
 
 EMSCRIPTEN_BINDINGS(input) 
 {
     emscripten::function("forceInputUpdate", &forceInputUpdate);
 }
-
 #endif
 
 int main()

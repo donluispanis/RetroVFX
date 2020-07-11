@@ -1,5 +1,6 @@
 #ifdef __EMSCRIPTEN__
     #include <emscripten/emscripten.h>
+    #include <emscripten/bind.h>
 #endif
 
 #include "Deformations.h"
@@ -10,6 +11,16 @@ Deformations d;
 void main_loop()
 {
     d.RenderFrame();
+}
+
+void forceInputUpdate(int key, bool isPressed)
+{
+    d.ForceKeyUpdate(key, isPressed);
+}
+
+EMSCRIPTEN_BINDINGS(input) 
+{
+    emscripten::function("forceInputUpdate", &forceInputUpdate);
 }
 #endif
 

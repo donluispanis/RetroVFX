@@ -4,7 +4,7 @@
 #include "../Utils/Pixel.h"
 #include "../Utils/Object3D.h"
 
-struct IWindowManager;
+class IWindowManager;
 
 class GeometryDemo : public ClassicDemoTemplate
 {

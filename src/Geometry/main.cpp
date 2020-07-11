@@ -1,5 +1,6 @@
 #ifdef __EMSCRIPTEN__
     #include <emscripten/emscripten.h>
+    #include <emscripten/bind.h>
 #endif
 
 #include "Geometry.h"
@@ -10,6 +11,16 @@ GeometryDemo g;
 void main_loop()
 {
     g.RenderFrame();
+}
+
+void forceInputUpdate(int key, bool isPressed)
+{
+    g.ForceKeyUpdate(key, isPressed);
+}
+
+EMSCRIPTEN_BINDINGS(input) 
+{
+    emscripten::function("forceInputUpdate", &forceInputUpdate);
 }
 #endif
 

@@ -13,7 +13,7 @@ bool GeometryDemo::Init()
     height = windowManager->GetHeight();
 
     perspective = true;
-    objectsIndex = 0;
+    objectsIndex = 1;
     transformationsIndex = 0;
 
     CreateCube();
@@ -66,7 +66,7 @@ void GeometryDemo::CreateCube()
          {5, 7}},
         {}});
 
-    TranslateObject(objects[0], Point3D{-150, -150, -150});
+    TranslateObject(objects[0], Point3D{-50, -50, -50});
     Rotate3DObjectAroundZAxis(objects[0], Fast::PI / 4.f);
     Rotate3DObjectAroundXAxis(objects[0], Fast::PI / 4.f);
     GeneratePerspectiveProjection(objects[0]);
@@ -87,6 +87,7 @@ void GeometryDemo::CreatePyramid()
          {3, 4}},
         {}});
 
+    TranslateObject(objects[1], Point3D{0, 0, 200});
     GeneratePerspectiveProjection(objects[1]);
 }
 
@@ -121,6 +122,7 @@ void GeometryDemo::CreateStar()
          {0, 12}},
         {}});
 
+    TranslateObject(objects[2], Point3D{-125, 0, 300});
     Rotate3DObjectAroundYAxis(objects[2], Fast::PI / 8.f);
     GeneratePerspectiveProjection(objects[2]);
 }
@@ -134,8 +136,8 @@ void GeometryDemo::RegisterInput()
     windowManager->RegisterKeyInput((int)Key::A);
     windowManager->RegisterKeyInput((int)Key::S);
     windowManager->RegisterKeyInput((int)Key::D);
-    windowManager->RegisterKeyInput((int)Key::Z);
-    windowManager->RegisterKeyInput((int)Key::X);
+    windowManager->RegisterKeyInput((int)Key::R);
+    windowManager->RegisterKeyInput((int)Key::F);
 }
 
 bool GeometryDemo::Update(float deltaTime)
@@ -175,8 +177,8 @@ void GeometryDemo::ApplyPerspective()
 
 void GeometryDemo::RenderInstructions()
 {
-    RenderText("Tap z to change transformation (translation, rotation, scaling)", 5, 5, 2, Pixel{255, 255, 255});
-    RenderText("Tap x to deactivate/active perspective", 5, 20, 2, Pixel{255, 255, 255});
+    RenderText("Tap R to change transformation mode", 5, 5, 2, Pixel{255, 255, 255});
+    RenderText("Tap F to deactivate/active perspective", 5, 20, 2, Pixel{255, 255, 255});
     RenderText("Tap space to change the model", 5, 35, 2, Pixel{255, 255, 255});
     RenderText("Use q, w, e, a, s, d to move in 3d space", 5, 50, 2, Pixel{255, 255, 255});
     RenderText(transformText[transformationsIndex], 5, 75, 2, Pixel{255, 255, 255});
@@ -286,9 +288,9 @@ void GeometryDemo::EraseObject(Object3D object)
 
 void GeometryDemo::UpdateInput(float deltaTime)
 {
-    bool changeMode = windowManager->IsKeyPressed((int)Key::Z);
+    bool changeMode = windowManager->IsKeyPressed((int)Key::R);
     bool changeModel = windowManager->IsKeyPressed((int)Key::SPACE);
-    bool changePerspective = windowManager->IsKeyPressed((int)Key::X);
+    bool changePerspective = windowManager->IsKeyPressed((int)Key::F);
     bool goLeft = windowManager->IsKeyHeld((int)Key::A);
     bool goRight = windowManager->IsKeyHeld((int)Key::D);
     bool goForward = windowManager->IsKeyHeld((int)Key::W);

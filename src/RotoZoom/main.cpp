@@ -1,5 +1,6 @@
 #ifdef __EMSCRIPTEN__
     #include <emscripten/emscripten.h>
+    #include <emscripten/bind.h>
 #endif
 
 #include "RotoZoom.h"
@@ -10,6 +11,16 @@ RotoZoom r;
 void main_loop()
 {
     r.RenderFrame();
+}
+
+void forceInputUpdate(int key, bool isPressed)
+{
+    r.ForceKeyUpdate(key, isPressed);
+}
+
+EMSCRIPTEN_BINDINGS(input) 
+{
+    emscripten::function("forceInputUpdate", &forceInputUpdate);
 }
 #endif
 
