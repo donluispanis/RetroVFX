@@ -22,4 +22,4 @@ jobs:
       - name: Build Debug
         shell: msys2 {0}
         run: |
-          msys2 ./build_all.sh
+          ./build_all.sh
