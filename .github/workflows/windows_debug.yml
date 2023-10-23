@@ -16,6 +16,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: eine/setup-msys2@v2
       - name: Installing Dev Tools
-        run: msys2 pacman --noconfirm -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
+      - shell: msys2 {0}
+        run: | 
+          pacman --noconfirm -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
       - name: Build Debug
-        run: msys2 ./build_all.sh
+      - shell: msys2 {0}
+        run: |
+          msys2 ./build_all.sh
