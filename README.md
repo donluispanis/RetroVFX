@@ -8,6 +8,9 @@
 ![Linux Release Build State](https://github.com/donluispanis/RetroVFX/workflows/Linux%20Release/badge.svg)
 ![Web Assembly Release Build State](https://github.com/donluispanis/RetroVFX/workflows/Web%20Assembly%20Release/badge.svg)
 
+## Interactive WebAssembly demo
+An interactive web version of this project can be found [here](https://donluispanis.com/retrovfx/).
+
 ## Executing
 
 All the compiled binaries, both in release and debug can be found under the binaries folder. They are ready to execute and no further installation should be needed, however, note that:
