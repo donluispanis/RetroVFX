@@ -59,7 +59,7 @@ A really light weight graphic engine was created from scratch for:
 
 As well as a really small math library for optimizing some computationally expensive operations (randomness and pre-calculated sine and cosine tables).
 
-Before implementing all this code, some basic tests were run in order to understand which computational operations were more costly. Results and conclusions can be found [here](https://docs.google.com/spreadsheets/d/1wXpJJcMRNXa72UibdfpyQjdukwU2EzPT7qyCYGM_JLI/edit#gid=1074191207).
+Before implementing all this code, some basic tests were run in order to understand which computational operations were more costly. Results and conclusions can be found [here](https://docs.google.com/spreadsheets/d/1FeKjxDbxThWfEIYcBBN1pJ3LrwP20zzo-YrB28JwArY).
 
 ## The effects
 
